@@ -32,27 +32,33 @@ class FakeSession:
     Records each call in ``.calls`` for assertions.
     """
 
-    def __init__(self, pages=None, *, response=None, status_code=200):
+    def __init__(self, pages=None, *, response=None, status_code=200, text="", raises=None):
         self.pages = pages or {}
         self.response = response
         self.status_code = status_code
+        self.text = text
+        self.raises = raises  # an exception instance to raise from .get() (transport error)
         self.calls = []
 
     def get(self, url, params=None, headers=None, timeout=None):
         params = dict(params or {})
         self.calls.append({"url": url, "params": params, "headers": dict(headers or {})})
+        if self.raises is not None:
+            raise self.raises
         payload = self.response if self.response is not None else self.pages.get(
             params.get("page", 1), {"results": [], "photos": []}
         )
-        return FakeResponse(payload, status_code=self.status_code)
+        return FakeResponse(payload, status_code=self.status_code, text=self.text)
 
 
 @pytest.fixture
 def make_session():
     """Factory: ``make_session({1: payload})`` or ``make_session(response=...)``."""
 
-    def _make(pages=None, *, response=None, status_code=200):
-        return FakeSession(pages, response=response, status_code=status_code)
+    def _make(pages=None, *, response=None, status_code=200, text="", raises=None):
+        return FakeSession(
+            pages, response=response, status_code=status_code, text=text, raises=raises
+        )
 
     return _make
 

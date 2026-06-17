@@ -71,18 +71,26 @@ def to_search_hit(result: "ImageResult"):
 
     The bridge into the ``ir`` retrieval substrate so the agentic layer can
     ``ir.fuse_hits`` across providers. ``ir`` is imported here, not at module
-    top, to keep the base façade dependency-light. The full normalized result
-    (including ``url``) rides along in ``metadata``; ``source`` carries the
-    provider so cross-provider identity and RRF fan-in work.
+    top, to keep the base façade dependency-light. Identity follows ir's
+    ``(source, artifact_id)`` keying: ``source`` is the provider and
+    ``artifact_id`` is the provider-native id. The image URL is placed under the
+    ``path`` metadata key so ``SearchHit.pointer`` (which scans
+    ``ir.base.POINTER_KEYS``) resolves to it; the full normalized result rides
+    along in ``metadata`` too.
+
+    ``score`` is ``0.0`` for any hit not yet reranked (Layer 1 leaves
+    ``ImageResult.score`` as ``None``) — rely on *rank*, not magnitude, until a
+    Layer-2 reranker populates it; ``ir.fuse_hits`` (RRF) is rank-based, so this
+    is correct for fusion.
     """
     from ir import SearchHit  # lazy: Layer-2 dependency only
 
     return SearchHit(
-        artifact_id=f"{result.provider}:{result.id}",
+        artifact_id=result.id,
         surface_kind="image",
         score=result.score if result.score is not None else 0.0,
         text=result.description or result.title or "",
-        metadata=result.model_dump(),
+        metadata={**result.model_dump(), "path": result.url},
         source=result.provider,
     )
 

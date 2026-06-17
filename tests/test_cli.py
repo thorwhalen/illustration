@@ -56,3 +56,35 @@ def test_cli_search_json(monkeypatch, tmp_path):
         unregister_source("clisrc")
     data = json.loads(out)
     assert data[0]["provider"] == "clisrc"
+
+
+class _EmptyCliSource(RetrievalSource):
+    name = "emptyclisrc"
+
+    def _items(self, response):  # pragma: no cover
+        return []
+
+    def _normalize(self, item, *, query):  # pragma: no cover
+        ...
+
+    def search(self, query, *, n=10, api_key=None, native_params=None, **canonical):
+        return []
+
+
+def test_cli_search_no_results(monkeypatch, tmp_path):
+    monkeypatch.setenv("ILLUSTRATION_CACHE_DIR", str(tmp_path))
+    register_source(_EmptyCliSource())
+    try:
+        out = cli.search("nothing", source="emptyclisrc")
+    finally:
+        unregister_source("emptyclisrc")
+    assert out == "(no results)"
+
+
+def test_main_dispatch_sources(capsys):
+    """Smoke-test the argh dispatcher end-to-end (python -m illustration sources)."""
+    from illustration.__main__ import main
+
+    main(["sources"])
+    out = capsys.readouterr().out
+    assert "openverse" in out

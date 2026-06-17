@@ -4,6 +4,7 @@ import pytest
 
 from illustration.credentials import (
     check_requirements,
+    requires_credentials,
     resolve_api_key,
     using_credentials,
 )
@@ -55,3 +56,17 @@ def test_missing_key_raises_informative(monkeypatch):
     assert "PEXELS_API_KEY" in msg  # names the key
     assert "pexels.com/api" in msg  # tells where to get one
     assert "secret" not in msg.lower()  # never leaks a value
+
+
+def test_requires_credentials_decorator(monkeypatch):
+    monkeypatch.delenv("PEXELS_API_KEY", raising=False)
+    monkeypatch.setattr("illustration.credentials._config_store_get", lambda key: None)
+
+    @requires_credentials("pexels")
+    def fetch():
+        return "ok"
+
+    with pytest.raises(MissingCredentialError):
+        fetch()
+    with using_credentials(pexels="k"):
+        assert fetch() == "ok"

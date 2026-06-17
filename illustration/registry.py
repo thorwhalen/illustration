@@ -74,7 +74,13 @@ def default_sources() -> list[str]:
 
 
 class SourcesView(Mapping):
-    """A live ``Mapping`` over the registry with dict- *and* attribute-access."""
+    """A live ``Mapping`` over the registry with dict- *and* attribute-access.
+
+    Attribute access (``sources.openverse``) is a convenience; dict access
+    (``sources["openverse"]``) is the canonical form and the only one that works
+    for a source whose name collides with a ``Mapping`` method (``get``,
+    ``keys``, ``values``, …).
+    """
 
     def __getitem__(self, name: str) -> RetrievalSource:
         return get_source(name)

@@ -115,3 +115,56 @@ def test_invalid_args():
         facade.search("", source="srcA")
     with pytest.raises(ValueError):
         facade.search("q", n=0, source="srcA")
+
+
+def test_empty_source_list_rejected():
+    with pytest.raises(ValueError):
+        facade.search("q", source=[])
+
+
+def test_multi_source_flat_kwargs_rejected(counter_sources):
+    with pytest.raises(ValueError, match="single-source"):
+        facade.search("q", source=["srcA", "srcB"], cache=False, color="blue")
+
+
+def test_multi_source_api_key_rejected(counter_sources):
+    with pytest.raises(ValueError, match="single-source"):
+        facade.search("q", source=["srcA", "srcB"], cache=False, api_key="k")
+
+
+def test_empty_results_not_cached(counter_sources):
+    """A zero-hit response must not be negatively cached."""
+    class _Empty(RetrievalSource):
+        name = "emptysrc"
+
+        def _items(self, response):  # pragma: no cover
+            return []
+
+        def _normalize(self, item, *, query):  # pragma: no cover
+            ...
+
+        def search(self, query, *, n=10, api_key=None, native_params=None, **canonical):
+            self.calls = getattr(self, "calls", 0) + 1
+            return []
+
+    src = _Empty()
+    register_source(src)
+    cache = SearchCache({})
+    try:
+        facade.search("q", source="emptysrc", cache=cache)
+        facade.search("q", source="emptysrc", cache=cache)
+    finally:
+        unregister_source("emptysrc")
+    assert src.calls == 2  # not served from cache (empties aren't pinned)
+
+
+def test_multi_source_namespaced_native_caches(counter_sources):
+    a, _ = counter_sources
+    cache = SearchCache({})
+    pp = {"srcA": {"color": "blue"}}
+    facade.search("q", n=1, source=["srcA"], cache=cache, provider_params=pp)
+    facade.search("q", n=1, source=["srcA"], cache=cache, provider_params=pp)
+    assert len(a.calls) == 1  # the native-param cache key round-trips
+    # a different native param is a different key (cache miss)
+    facade.search("q", n=1, source=["srcA"], cache=cache, provider_params={"srcA": {"color": "red"}})
+    assert len(a.calls) == 2

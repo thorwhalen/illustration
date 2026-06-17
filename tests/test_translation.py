@@ -65,3 +65,34 @@ def test_on_unsupported_warn():
 def test_invalid_on_unsupported():
     with pytest.raises(ValueError):
         make_param_translator({}, on_unsupported="explode")
+
+
+def test_callable_spec():
+    t = make_param_translator({"orientation": str.upper})
+    native, dropped = t({"orientation": "landscape"})
+    assert native == {"orientation": "LANDSCAPE"} and dropped == []
+
+
+def test_choices_raise_policy():
+    t = make_param_translator(
+        {"size": {"name": "size", "choices": {"large"}}}, on_unsupported="raise"
+    )
+    with pytest.raises(ValueError):
+        t({"size": "gigantic"})
+
+
+def test_choices_warn_policy():
+    t = make_param_translator(
+        {"size": {"name": "size", "choices": {"large"}}}, on_unsupported="warn"
+    )
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        native, dropped = t({"size": "gigantic"})
+    assert native == {} and dropped == ["size"]
+    assert any("gigantic" in str(w.message) for w in caught)
+
+
+def test_invalid_spec_type_raises():
+    t = make_param_translator({"size": 123})  # not str/dict/callable/None
+    with pytest.raises(TypeError):
+        t({"size": "large"})

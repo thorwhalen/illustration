@@ -40,6 +40,8 @@ def test_to_search_hit_bridges_to_ir():
     hit = r.to_search_hit()
     assert isinstance(hit, ir.SearchHit)
     assert hit.source == "openverse"
-    assert hit.artifact_id == "openverse:abc"
+    assert hit.artifact_id == "abc"  # provider-native id; source carries provenance
     assert hit.score == 0.5
     assert hit.metadata["url"] == "https://x/i.jpg"  # full result rides in metadata
+    # the disclosure pointer must resolve to the image URL (ir scans POINTER_KEYS)
+    assert hit.pointer == "https://x/i.jpg"

@@ -50,3 +50,11 @@ def test_key_via_using_credentials(make_session, pexels_payload):
         results = src.search("x", n=1)
     assert results[0].provider == "pexels"
     assert sess.calls[0]["headers"]["Authorization"] == "CTXKEY"
+
+
+def test_raw_search_also_requires_key(make_session, pexels_payload, monkeypatch):
+    monkeypatch.delenv("PEXELS_API_KEY", raising=False)
+    monkeypatch.setattr("illustration.credentials._config_store_get", lambda key: None)
+    src = PexelsSource(session=make_session({1: pexels_payload}))
+    with pytest.raises(MissingCredentialError):
+        src.raw_search(query="x")

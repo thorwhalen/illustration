@@ -15,21 +15,27 @@ The escape hatch is the four-rung ladder from the design doc:
    pass native params straight through;
 4. ``illustration.sources["pexels"]`` / ``ImageResult.raw`` reach the raw layer.
 
->>> # offline doctest with a stub source (no network)
+>>> # offline doctest: a stub source implementing the real hooks (no network)
 >>> from illustration.base import RetrievalSource
 >>> from illustration.schema import ImageResult
 >>> from illustration import registry
+>>> class _Resp:
+...     status_code = 200
+...     def __init__(self, payload): self._payload = payload
+...     def json(self): return self._payload
+>>> class _Sess:  # a minimal stand-in for requests.Session
+...     def get(self, url, params=None, headers=None, timeout=None):
+...         return _Resp({"items": [{"id": i} for i in range(params["pp"])]})
 >>> class _Stub(RetrievalSource):
 ...     name = "stub"
-...     def _items(self, response): return []
-...     def _normalize(self, item, *, query): ...  # unused
-...     def search(self, query, *, n=10, **kw):
-...         return [ImageResult(provider="stub", id=str(i), url=f"u{i}", query=query)
-...                 for i in range(n)]
->>> registry.register_source(_Stub())                       # doctest: +ELLIPSIS
-<...._Stub object at ...>
->>> hits = search("a stormy harbour at dusk", n=3, source="stub", cache=False)
->>> [h.id for h in hits]
+...     per_page_param = "pp"
+...     max_per_page = 10
+...     def _items(self, response): return response["items"]
+...     def _normalize(self, item, *, query):
+...         return ImageResult(provider="stub", id=str(item["id"]),
+...                            url=f"u{item['id']}", query=query)
+>>> _ = registry.register_source(_Stub(session=_Sess()))
+>>> [h.id for h in search("a stormy harbour at dusk", n=3, source="stub", cache=False)]
 ['0', '1', '2']
 >>> registry.unregister_source("stub")
 """
@@ -78,17 +84,20 @@ def search(
         provider_params: Per-source native params, e.g.
             ``{"pexels": {"color": "blue"}}`` — used when fanning out to multiple
             sources so each gets the right native overrides.
-        api_key: An explicit API key (single-source convenience; usually prefer
-            env vars or :func:`~illustration.credentials.using_credentials`).
+        api_key: An explicit API key. **Single-source only** — raises if combined
+            with multiple sources; use
+            :func:`~illustration.credentials.using_credentials` for keyed fan-out.
         cache: ``True`` to use the default cache, ``False`` to bypass, or a
             :class:`~illustration.caching.SearchCache` instance to inject one.
         refresh: If True, ignore any cached entry and re-fetch (then re-store).
-        **provider_kwargs: Flat native params for the single-source case
-            (escape-hatch rung 3a), merged into the native call.
+        **provider_kwargs: Flat native params (escape-hatch rung 3a). **Single-
+            source only** — raises if combined with multiple sources; use
+            ``provider_params={source: {...}}`` for fan-out.
 
     Returns:
-        A list of :class:`ImageResult`. For multiple sources, the per-source
-        result lists are concatenated (Layer-2 adds rank fusion via ``ir``).
+        A list of :class:`ImageResult`. ``n`` is *per source*: for multiple
+        sources the per-source lists are concatenated (up to ``n × len(sources)``)
+        and Layer-2 adds rank fusion via ``ir``.
 
     >>> isinstance(search.__doc__, str)
     True
@@ -102,12 +111,23 @@ def search(
     cache_obj = _resolve_cache(cache)
     provider_params = dict(provider_params or {})
 
-    canonical = {
-        "orientation": orientation,
-        "size": size,
-        "safe": safe,
-        "license_type": license_type,
-    }
+    # Single-source-only conveniences must not silently mis-apply on fan-out:
+    # flat **provider_kwargs and a flat api_key can't be disambiguated across
+    # providers (use namespaced provider_params / using_credentials instead).
+    if len(names) > 1:
+        if provider_kwargs:
+            raise ValueError(
+                "flat native params (**provider_kwargs) are single-source only; "
+                "for multiple sources pass provider_params={source: {...}}."
+            )
+        if api_key is not None:
+            raise ValueError(
+                "api_key= is single-source only; for multiple keyed sources use "
+                "illustration.using_credentials(provider='...')."
+            )
+
+    _values = {"orientation": orientation, "size": size, "safe": safe, "license_type": license_type}
+    canonical = {name: _values[name] for name in _CANONICAL_PARAMS}
 
     all_results: list[ImageResult] = []
     for name in names:
@@ -129,7 +149,9 @@ def search(
             results = src.search(
                 query, n=n, api_key=api_key, native_params=native, **canonical
             )
-            if cache_obj is not None:
+            # Don't negatively-cache an empty result set: a transient zero-hit
+            # response shouldn't pin "no results" until the schema token changes.
+            if cache_obj is not None and results:
                 cache_obj.put(name, query, key_params, results)
         all_results.extend(results)
     return all_results

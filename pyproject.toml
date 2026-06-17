@@ -92,8 +92,10 @@ convention = "google"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
+addopts = "--doctest-modules"
 testpaths = [
     "tests",
+    "illustration",
 ]
 doctest_optionflags = [
     "NORMALIZE_WHITESPACE",

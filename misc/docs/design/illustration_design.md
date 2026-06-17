@@ -108,14 +108,14 @@ escape hatch (§4). Two deliberate exceptions are promoted regardless of provide
 count because R2/R3 make them first-class concerns: **`safe`** (safety) and
 **`license_type`** (licensing/commercial-use). Each source declares a
 `param_map` (à la `denote`) translating canonical → native, with
-`on_unsupported='ignore'` so an unsupported param degrades gracefully (and is
-recorded in the result's `degraded` notes, never silently dropped at debug
-level).
+`on_unsupported='ignore'` so an unsupported param degrades gracefully; the
+translator returns the set of dropped params for any caller that wants to
+inspect or escalate (`on_unsupported='warn'|'raise'`).
 
 | Canonical | Type / values | → Openverse | → Pexels | Notes |
 |---|---|---|---|---|
 | *(positional)* `query` | `str` | `q` | `query` | required |
-| `n` | `int` (default 10) | `page_size` (+ paginate) | `per_page` (+ paginate) | total wanted; façade paginates internally past per-page caps |
+| `n` | `int` (default 10) | `page_size` (+ paginate) | `per_page` (+ paginate) | wanted **per source**; façade paginates internally past per-page caps. Multi-source returns up to `n × len(sources)` (Layer-2 fuses) |
 | `orientation` | `landscape\|portrait\|square` | `aspect_ratio` (`landscape→wide`, `portrait→tall`, `square`) | `orientation` (direct) | vocab differs → `coerce` in `param_map` |
 | `size` | `large\|medium\|small` | `size` (direct) | `size` (direct) | identical vocab |
 | `safe` | `bool` (default `True`) | `mature = not safe` | — (ignored; safe) | **first-class exception** |
@@ -149,7 +149,7 @@ class ImageResult(BaseModel):
     title: str | None        # short title
     description: str | None  # alt text / longer description
     tags: list[str]          # normalized to [] when absent
-    license: str             # license code or name (e.g. "by-sa", "Pexels License")
+    license: str | None      # license code or name (e.g. "by-sa"); None = unknown (excluded by the allowlist gate)
     license_url: str | None
     attribution: str | None  # ready-to-render attribution sentence
     source_page_url: str | None
@@ -166,9 +166,13 @@ class ImageResult(BaseModel):
 `license`, `attribution`, `source_page_url`, `author`, and `cacheable` are
 populated **from day one** (DoD + R3's "licensing is first-class"). `raw`
 preserves every provider field so nothing is lost (escape-hatch rung 4). A
-thin `to_search_hit()` adapter maps `ImageResult → ir.SearchHit` (with
-`.source = provider`, `.pointer = url`) so Layer 2 can `ir.fuse_hits` across
-providers.
+thin `to_search_hit()` adapter maps `ImageResult → ir.SearchHit` so Layer 2 can
+`ir.fuse_hits` across providers: `source = provider`, `artifact_id =` the
+provider-native id (ir keys identity on `(source, artifact_id)`),
+`surface_kind = "image"`, and the image URL placed under the `metadata["path"]`
+key so `SearchHit.pointer` (which scans `ir.base.POINTER_KEYS`) resolves to it.
+`score` is `0.0` until a Layer-2 reranker populates it (rely on rank, not
+magnitude — `fuse_hits` is RRF).
 
 A `license_allowlist(results, allow={...})` helper implements R3's mandatory
 license-verification gate (default allow = CC0, PD, CC-BY, CC-BY-SA flagged;
@@ -243,8 +247,10 @@ key = hashlib.sha256(
 ```
 
 - **Normalization** is `sort_keys=True` + `default=str` (dict-order invariant,
-  per falaw's tested invariant) over the **canonical** params *after* translation
-  defaults are applied, so logically identical queries collapse to one key.
+  per falaw's tested invariant) over the **canonical request params** (`n` + the
+  canonical filters that were set + any native passthrough), *before* per-source
+  translation — translation is source-specific and deterministic, so keying on
+  the canonical inputs is cleaner and still collapses logically identical queries.
 - The **store is an injectable `MutableMapping`** (`dol`), defaulting to
   `JsonFiles` under the cache dir (`ILLUSTRATION_CACHE_DIR` →
   `XDG_CACHE_HOME/illustration` → `~/.cache/illustration/search`). Swap to S3 /
@@ -304,10 +310,11 @@ illustration/
   config.py        # XDG dirs + DFLT_* constants (DFLT_N, DFLT_SOURCES, allowlist)
   facade.py        # search(query, *, n, source, orientation, size, safe, license_type,
                    #   provider_params, cache, refresh, **provider_kwargs)
-  sources/
-    __init__.py
+  errors.py        # IllustrationError hierarchy (Missing/Unknown/Provider/RateLimit)
+  providers/       # named `providers` so it doesn't shadow the `sources` view
+    __init__.py    #   registers the built-ins on import
     openverse.py   # OpenverseSource — no key
-    pexels.py      # PexelsSource — needs key (@requires_credentials)
+    pexels.py      # PexelsSource — needs key
   cli.py           # thin argh wrappers (ir idiom)
   __main__.py      # argh dispatch; [project.scripts] illustration = …
 ```

@@ -19,6 +19,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+from types import MappingProxyType
 from typing import Any, Iterable, Mapping
 
 from illustration.config import HTTP_TIMEOUT, MAX_PAGES, user_agent
@@ -53,8 +54,12 @@ class RetrievalSource(ABC):
     """Abstract base for a pure image-search provider.
 
     Subclasses set the class attributes below and implement :meth:`_items` and
-    :meth:`_normalize`. The default :meth:`search` handles translation,
-    pagination, HTTP, and credential checks.
+    :meth:`_normalize` (and :meth:`_auth_headers` if the provider needs a key).
+    :meth:`search` and :meth:`raw_search` are **template methods — do not
+    override them**: they enforce credential checks, canonical→native
+    translation, pagination (capped by ``MAX_PAGES``), and per-item normalization
+    that skips rather than fails on a malformed item. Override a hook, not the
+    template, so a provider can never silently lose those guarantees.
     """
 
     #: Registry key, e.g. ``"openverse"``. Required.
@@ -70,13 +75,16 @@ class RetrievalSource(ABC):
     #: Hard cap on results per page this provider allows.
     max_per_page: int = 20
     #: Canonical→native parameter spec (see :mod:`illustration.translation`).
-    param_map: Mapping[str, Any] = {}
-    #: Static metadata.
+    #: Immutable empty default so subclasses never share one mutable dict.
+    param_map: Mapping[str, Any] = MappingProxyType({})
+    #: Static metadata (a per-instance one is synthesized in __init__ if unset).
     info: SourceInfo = SourceInfo(name="")
 
     def __init__(self, *, session: Any = None):
         # `session` lets callers/tests inject a requests.Session (or a stub).
         self._session = session
+        if not self.info.name:  # never leave a nameless shared SourceInfo sentinel
+            self.info = SourceInfo(name=self.name)
         self._translate = make_param_translator(
             self.param_map, on_unsupported="ignore", source_name=self.name
         )
@@ -186,9 +194,18 @@ class RetrievalSource(ABC):
         if status is not None and status >= 400:
             raise ProviderError(self.name, _short_body(resp), status=status)
         try:
-            return resp.json()
+            decoded = resp.json()
         except Exception as e:
             raise ProviderError(self.name, f"response was not valid JSON: {e}") from e
+        if not isinstance(decoded, dict):
+            # a valid-JSON-but-non-object body (array / null / scalar) would crash
+            # _items downstream with a bare AttributeError; surface it informatively
+            raise ProviderError(
+                self.name,
+                f"unexpected response type {type(decoded).__name__} (expected a JSON object)",
+                status=status,
+            )
+        return decoded
 
 
 def _short_body(resp: Any, limit: int = 200) -> str:

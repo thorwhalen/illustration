@@ -92,3 +92,45 @@ def test_raw_search_passthrough(make_session):
     raw = src.raw_search(q="anything", custom_native="x")
     assert raw["items"][0]["id"] == 9
     assert sess.calls[0]["params"] == {"q": "anything", "custom_native": "x"}
+
+
+def test_non_object_json_response_raises_provider_error(make_session):
+    # a valid-JSON-but-non-object body (array) must surface as ProviderError,
+    # not a bare AttributeError from _items
+    sess = make_session(response=["not", "a", "dict"])
+    with pytest.raises(ProviderError) as exc:
+        _FakeSource(session=sess).search("q", n=1)
+    assert "expected a JSON object" in str(exc.value)
+
+
+def test_network_failure_raises_provider_error(make_session):
+    sess = make_session(raises=ConnectionError("boom"))
+    with pytest.raises(ProviderError) as exc:
+        _FakeSource(session=sess).search("q", n=1)
+    assert "request failed" in str(exc.value)
+
+
+def test_generic_http_error_surfaces_body(make_session):
+    sess = make_session(response={"items": []}, status_code=500, text="server exploded")
+    with pytest.raises(ProviderError) as exc:
+        _FakeSource(session=sess).search("q", n=1)
+    assert exc.value.status == 500
+    assert "server exploded" in str(exc.value)
+
+
+def test_non_json_response_raises_provider_error(make_session):
+    sess = make_session(response=ValueError("bad json"))  # FakeResponse.json() raises
+    with pytest.raises(ProviderError) as exc:
+        _FakeSource(session=sess).search("q", n=1)
+    assert "not valid JSON" in str(exc.value)
+
+
+def test_max_pages_cap(make_session):
+    from illustration.config import MAX_PAGES
+
+    # every page is FULL (== max_per_page=2), so the short-page stop never fires;
+    # the loop must be bounded by MAX_PAGES, not by the (huge) n
+    sess = make_session(response={"items": [{"id": 1, "u": "u1"}, {"id": 2, "u": "u2"}]})
+    results = _FakeSource(session=sess).search("q", n=10_000)
+    assert len(sess.calls) == MAX_PAGES
+    assert len(results) == MAX_PAGES * 2

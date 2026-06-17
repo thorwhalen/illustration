@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json as _json
 
-from illustration import facade, registry
+import illustration
 
 __all__ = ["search", "sources", "info", "COMMANDS"]
 
@@ -30,7 +30,7 @@ def search(
     json: bool = False,
 ):
     """Search for images and print the results (one per line, or ``--json``)."""
-    results = facade.search(
+    results = illustration.search(
         query,
         n=n,
         source=source,
@@ -53,12 +53,12 @@ def search(
 
 def sources():
     """List the registered image sources."""
-    return "\n".join(registry.list_sources())
+    return "\n".join(illustration.list_sources())
 
 
 def info(name: str):
     """Show metadata for one source."""
-    src = registry.get_source(name)
+    src = illustration.get_source(name)
     return _json.dumps(src.info.to_dict(), indent=2, default=str)
 
 
