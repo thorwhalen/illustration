@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.providers.pexels &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.providers.pexels</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.providers.pexels</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Pexels source — high-quality stock photos, **API key required**.</span>
+
+<span class="sd">Pexels (``https://api.pexels.com/v1/search``) is the package&#39;s reference *keyed*</span>
+<span class="sd">provider: it proves the registry is a true drop-in and exercises the credentials</span>
+<span class="sd">/ ``check_requirements`` path. The key is sent as the **raw** value of the</span>
+<span class="sd">``Authorization`` header (no ``Bearer`` prefix — a prefix yields 401).</span>
+
+<span class="sd">Quirks handled here (from the live-API survey): ``photos[].url`` is the Pexels</span>
+<span class="sd">web *page*, not the image (the image is under ``photos[].src.*``); there are no</span>
+<span class="sd">tags and no per-result license (all content is the single Pexels License).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetrievalSource</span><span class="p">,</span> <span class="n">SourceInfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PexelsSource&quot;</span><span class="p">]</span>
+
+<span class="n">_PEXELS_LICENSE</span> <span class="o">=</span> <span class="s2">&quot;Pexels License&quot;</span>
+<span class="n">_PEXELS_LICENSE_URL</span> <span class="o">=</span> <span class="s2">&quot;https://www.pexels.com/license/&quot;</span>
+
+
+<div class="viewcode-block" id="PexelsSource">
+<a class="viewcode-back" href="../../../module_docs/illustration/providers/pexels.html#illustration.providers.PexelsSource">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PexelsSource</span><span class="p">(</span><span class="n">RetrievalSource</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pure-search adapter for the Pexels photo API.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pexels&quot;</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://api.pexels.com/v1/search&quot;</span>
+    <span class="n">query_param</span> <span class="o">=</span> <span class="s2">&quot;query&quot;</span>
+    <span class="n">page_param</span> <span class="o">=</span> <span class="s2">&quot;page&quot;</span>
+    <span class="n">per_page_param</span> <span class="o">=</span> <span class="s2">&quot;per_page&quot;</span>
+    <span class="n">max_per_page</span> <span class="o">=</span> <span class="mi">80</span>
+    <span class="n">param_map</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;orientation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;landscape&quot;</span><span class="p">,</span> <span class="s2">&quot;portrait&quot;</span><span class="p">,</span> <span class="s2">&quot;square&quot;</span><span class="p">},</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;large&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="s2">&quot;small&quot;</span><span class="p">}},</span>
+        <span class="c1"># `safe` is a no-op (the Pexels corpus is curated); `license_type` has no</span>
+        <span class="c1"># equivalent (single license). Both are explicitly unsupported -&gt; degrade.</span>
+        <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pexels&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Curated high-quality stock photos under the Pexels License.&quot;</span><span class="p">,</span>
+        <span class="n">requires_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">homepage</span><span class="o">=</span><span class="s2">&quot;https://www.pexels.com&quot;</span><span class="p">,</span>
+        <span class="n">default_cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">license_note</span><span class="o">=</span><span class="s2">&quot;Single Pexels License (commercial OK); credit photographer + backlink.&quot;</span><span class="p">,</span>
+        <span class="n">rate_limit</span><span class="o">=</span><span class="s2">&quot;200/hour, 20,000/month&quot;</span><span class="p">,</span>
+        <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;stock&quot;</span><span class="p">,</span> <span class="s2">&quot;photos&quot;</span><span class="p">,</span> <span class="s2">&quot;keyed&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="c1"># Raw key, no &quot;Bearer &quot; prefix. check_requirements has already ensured</span>
+        <span class="c1"># a key is present before we get here.</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">}</span> <span class="k">if</span> <span class="n">api_key</span> <span class="k">else</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;photos&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">photographer</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;photographer&quot;</span><span class="p">)</span>
+        <span class="n">attribution</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Photo by </span><span class="si">{</span><span class="n">photographer</span><span class="si">}</span><span class="s2"> on Pexels&quot;</span> <span class="k">if</span> <span class="n">photographer</span> <span class="k">else</span> <span class="s2">&quot;Photo from Pexels&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;original&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;large2x&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;large&quot;</span><span class="p">),</span>
+            <span class="n">thumbnail_url</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tiny&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">),</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;alt&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">tags</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># Pexels returns no tags</span>
+            <span class="n">license</span><span class="o">=</span><span class="n">_PEXELS_LICENSE</span><span class="p">,</span>
+            <span class="n">license_url</span><span class="o">=</span><span class="n">_PEXELS_LICENSE_URL</span><span class="p">,</span>
+            <span class="n">attribution</span><span class="o">=</span><span class="n">attribution</span><span class="p">,</span>
+            <span class="n">source_page_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">),</span>  <span class="c1"># the Pexels web page</span>
+            <span class="n">author</span><span class="o">=</span><span class="n">photographer</span><span class="p">,</span>
+            <span class="n">author_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;photographer_url&quot;</span><span class="p">),</span>
+            <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Pexels License permits caching for display</span>
+            <span class="n">avg_color</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;avg_color&quot;</span><span class="p">),</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+            <span class="n">raw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.providers &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.providers.openverse" href="providers/openverse.html" />
+    <link rel="prev" title="illustration.facade" href="facade.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.providers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.providers.OpenverseSource"><code class="docutils literal notranslate"><span class="pre">OpenverseSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.endpoint"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.info"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.max_per_page"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.max_per_page</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.name"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.page_param"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.page_param</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.param_map"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.param_map</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.per_page_param"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.per_page_param</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.OpenverseSource.query_param"><code class="docutils literal notranslate"><span class="pre">OpenverseSource.query_param</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.providers.PexelsSource"><code class="docutils literal notranslate"><span class="pre">PexelsSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.endpoint"><code class="docutils literal notranslate"><span class="pre">PexelsSource.endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.info"><code class="docutils literal notranslate"><span class="pre">PexelsSource.info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.max_per_page"><code class="docutils literal notranslate"><span class="pre">PexelsSource.max_per_page</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.name"><code class="docutils literal notranslate"><span class="pre">PexelsSource.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.page_param"><code class="docutils literal notranslate"><span class="pre">PexelsSource.page_param</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.param_map"><code class="docutils literal notranslate"><span class="pre">PexelsSource.param_map</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.per_page_param"><code class="docutils literal notranslate"><span class="pre">PexelsSource.per_page_param</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.query_param"><code class="docutils literal notranslate"><span class="pre">PexelsSource.query_param</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.providers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/providers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.providers">
+<span id="illustration-providers"></span><h1>illustration.providers<a class="headerlink" href="#module-illustration.providers" title="Link to this heading"></a></h1>
+<p>Built-in provider sources, registered on import.</p>
+<p>Importing <a class="reference internal" href="../illustration.html#module-illustration" title="illustration"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration</span></code></a> imports this package, which instantiates and
+registers each built-in <a class="reference internal" href="base.html#illustration.base.RetrievalSource" title="illustration.base.RetrievalSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a>. A
+third-party provider registers itself the same way:
+<code class="docutils literal notranslate"><span class="pre">illustration.register_source(MySource())</span></code>.</p>
+<p>(This subpackage is named <code class="docutils literal notranslate"><span class="pre">providers</span></code> rather than <code class="docutils literal notranslate"><span class="pre">sources</span></code> so it does not
+shadow the public <code class="xref py py-data docutils literal notranslate"><span class="pre">illustration.sources</span></code> registry view.)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.providers.</span></span><span class="sig-name descname"><span class="pre">OpenverseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/providers/openverse.html#OpenverseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.providers.OpenverseSource" title="Link to this definition"></a></dt>
+<dd><p>Pure-search adapter for the Openverse image API (anonymous tier).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.endpoint">
+<span class="sig-name descname"><span class="pre">endpoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://api.openverse.org/v1/images/'</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.endpoint" title="Link to this definition"></a></dt>
+<dd><p>Search endpoint URL. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="base.html#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><span class="pre">SourceInfo</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SourceInfo(name='openverse',</span> <span class="pre">description='800M+</span> <span class="pre">CC</span> <span class="pre">/</span> <span class="pre">public-domain</span> <span class="pre">images</span> <span class="pre">aggregated</span> <span class="pre">from</span> <span class="pre">50+</span> <span class="pre">sources.',</span> <span class="pre">requires_key=False,</span> <span class="pre">homepage='https://openverse.org',</span> <span class="pre">default_cacheable=True,</span> <span class="pre">license_note='Per-result</span> <span class="pre">CC/PD</span> <span class="pre">license;</span> <span class="pre">preserve</span> <span class="pre">attribution</span> <span class="pre">for</span> <span class="pre">BY-family.',</span> <span class="pre">rate_limit='anonymous:</span> <span class="pre">20/min,</span> <span class="pre">200/day',</span> <span class="pre">tags=('open',</span> <span class="pre">'cc',</span> <span class="pre">'public-domain',</span> <span class="pre">'breadth'))</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.info" title="Link to this definition"></a></dt>
+<dd><p>Static metadata (a per-instance one is synthesized in __init__ if unset).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.max_per_page">
+<span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.max_per_page" title="Link to this definition"></a></dt>
+<dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'openverse'</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.name" title="Link to this definition"></a></dt>
+<dd><p>Registry key, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;openverse&quot;</span></code>. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.page_param">
+<span class="sig-name descname"><span class="pre">page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.page_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the page-number parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.param_map">
+<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'license_type':</span> <span class="pre">'license_type',</span> <span class="pre">'orientation':</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">OpenverseSource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'aspect_ratio'},</span> <span class="pre">'safe':</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">OpenverseSource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'mature'},</span> <span class="pre">'size':</span> <span class="pre">{'choices':</span> <span class="pre">{'large',</span> <span class="pre">'medium',</span> <span class="pre">'small'},</span> <span class="pre">'name':</span> <span class="pre">'size'}}</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.param_map" title="Link to this definition"></a></dt>
+<dd><p>Canonical→native parameter spec (see <a class="reference internal" href="translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.translation</span></code></a>).
+Immutable empty default so subclasses never share one mutable dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.per_page_param">
+<span class="sig-name descname"><span class="pre">per_page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page_size'</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.per_page_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the results-per-page parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.OpenverseSource.query_param">
+<span class="sig-name descname"><span class="pre">query_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'q'</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.query_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the free-text query parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.providers.</span></span><span class="sig-name descname"><span class="pre">PexelsSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/providers/pexels.html#PexelsSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.providers.PexelsSource" title="Link to this definition"></a></dt>
+<dd><p>Pure-search adapter for the Pexels photo API.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.endpoint">
+<span class="sig-name descname"><span class="pre">endpoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://api.pexels.com/v1/search'</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.endpoint" title="Link to this definition"></a></dt>
+<dd><p>Search endpoint URL. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="base.html#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><span class="pre">SourceInfo</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SourceInfo(name='pexels',</span> <span class="pre">description='Curated</span> <span class="pre">high-quality</span> <span class="pre">stock</span> <span class="pre">photos</span> <span class="pre">under</span> <span class="pre">the</span> <span class="pre">Pexels</span> <span class="pre">License.',</span> <span class="pre">requires_key=True,</span> <span class="pre">homepage='https://www.pexels.com',</span> <span class="pre">default_cacheable=True,</span> <span class="pre">license_note='Single</span> <span class="pre">Pexels</span> <span class="pre">License</span> <span class="pre">(commercial</span> <span class="pre">OK);</span> <span class="pre">credit</span> <span class="pre">photographer</span> <span class="pre">+</span> <span class="pre">backlink.',</span> <span class="pre">rate_limit='200/hour,</span> <span class="pre">20,000/month',</span> <span class="pre">tags=('stock',</span> <span class="pre">'photos',</span> <span class="pre">'keyed'))</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.info" title="Link to this definition"></a></dt>
+<dd><p>Static metadata (a per-instance one is synthesized in __init__ if unset).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.max_per_page">
+<span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.max_per_page" title="Link to this definition"></a></dt>
+<dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pexels'</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.name" title="Link to this definition"></a></dt>
+<dd><p>Registry key, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;openverse&quot;</span></code>. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.page_param">
+<span class="sig-name descname"><span class="pre">page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.page_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the page-number parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.param_map">
+<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'license_type':</span> <span class="pre">None,</span> <span class="pre">'orientation':</span> <span class="pre">{'choices':</span> <span class="pre">{'landscape',</span> <span class="pre">'portrait',</span> <span class="pre">'square'},</span> <span class="pre">'name':</span> <span class="pre">'orientation'},</span> <span class="pre">'safe':</span> <span class="pre">None,</span> <span class="pre">'size':</span> <span class="pre">{'choices':</span> <span class="pre">{'large',</span> <span class="pre">'medium',</span> <span class="pre">'small'},</span> <span class="pre">'name':</span> <span class="pre">'size'}}</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.param_map" title="Link to this definition"></a></dt>
+<dd><p>Canonical→native parameter spec (see <a class="reference internal" href="translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.translation</span></code></a>).
+Immutable empty default so subclasses never share one mutable dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.per_page_param">
+<span class="sig-name descname"><span class="pre">per_page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'per_page'</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.per_page_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the results-per-page parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PexelsSource.query_param">
+<span class="sig-name descname"><span class="pre">query_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'query'</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.query_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the free-text query parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="facade.html" class="btn btn-neutral float-left" title="illustration.facade" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="providers/openverse.html" class="btn btn-neutral float-right" title="illustration.providers.openverse" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

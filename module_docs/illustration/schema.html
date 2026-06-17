@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.schema &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.translation" href="translation.html" />
+    <link rel="prev" title="illustration.registry" href="registry.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.schema</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.schema.ImageResult"><code class="docutils literal notranslate"><span class="pre">ImageResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.schema.ImageResult.model_config"><code class="docutils literal notranslate"><span class="pre">ImageResult.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.schema.ImageResult.to_search_hit"><code class="docutils literal notranslate"><span class="pre">ImageResult.to_search_hit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.schema.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.schema.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.schema</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/schema.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.schema">
+<span id="illustration-schema"></span><h1>illustration.schema<a class="headerlink" href="#module-illustration.schema" title="Link to this heading"></a></h1>
+<p>The normalized result schema — the single source of truth (Pydantic v2).</p>
+<p><a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> is the stable contract that every provider normalizes into
+and that the (future) agentic curation layer consumes. License, attribution,
+<code class="docutils literal notranslate"><span class="pre">source_page_url</span></code> and <code class="docutils literal notranslate"><span class="pre">cacheable</span></code> are first-class and populated from day one,
+because licensing/cacheability is a primary concern for commercial-adjacent
+video (see <code class="docutils literal notranslate"><span class="pre">misc/docs/design/illustration_design.md</span></code> §3).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;abc&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://x/img.jpg&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="n">license</span><span class="o">=</span><span class="s2">&quot;by-sa&quot;</span><span class="p">,</span> <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">cacheable</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">tags</span>
+<span class="go">(&#39;openverse&#39;, True, [])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()[</span><span class="s2">&quot;license&quot;</span><span class="p">]</span>
+<span class="go">&#39;by-sa&#39;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">raw</span></code> field carries the untranslated provider payload (the escape-hatch
+“nothing is lost” convention), so a downstream consumer can always reach a
+provider-specific field the normalized schema doesn’t name.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.schema.ImageResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.schema.</span></span><span class="sig-name descname"><span class="pre">ImageResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_page_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cacheable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/schema.html#ImageResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.schema.ImageResult" title="Link to this definition"></a></dt>
+<dd><p>One normalized image hit from any provider.</p>
+<p>The first eight fields plus <code class="docutils literal notranslate"><span class="pre">cacheable</span></code> are the cross-provider minimum the
+design guarantees; the rest are populated when a provider supplies them.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.schema.ImageResult.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.schema.ImageResult.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="illustration.schema.ImageResult.to_search_hit">
+<span class="sig-name descname"><span class="pre">to_search_hit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/schema.html#ImageResult.to_search_hit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.schema.ImageResult.to_search_hit" title="Link to this definition"></a></dt>
+<dd><p>Adapt to an <code class="docutils literal notranslate"><span class="pre">ir.SearchHit</span></code> for Layer-2 cross-provider fusion.</p>
+<p>Imported lazily so <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">illustration</span></code> never requires <code class="docutils literal notranslate"><span class="pre">ir</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.schema.license_allowlist">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema.</span></span><span class="sig-name descname"><span class="pre">license_allowlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/schema.html#license_allowlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.schema.license_allowlist" title="Link to this definition"></a></dt>
+<dd><p>Keep only results whose license is on the allowlist (R3’s license gate).</p>
+<p>The mandatory per-file license-verification gate for commercial-adjacent
+use: aggregators disclaim license accuracy, so callers should gate on a
+known-good set. Matching is case-insensitive on the license code/name.
+Results with no <code class="docutils literal notranslate"><span class="pre">license</span></code> are dropped (unknown == not allowed).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">&quot;cc0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">&quot;by-nc&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])]</span>
+<span class="go">[&#39;1&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">allow</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;by-nc&quot;</span><span class="p">})]</span>
+<span class="go">[&#39;2&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.schema.to_search_hit">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema.</span></span><span class="sig-name descname"><span class="pre">to_search_hit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/schema.html#to_search_hit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.schema.to_search_hit" title="Link to this definition"></a></dt>
+<dd><p>Map an <a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> to an <code class="docutils literal notranslate"><span class="pre">ir.SearchHit</span></code> for Layer-2 fusion.</p>
+<p>The bridge into the <code class="docutils literal notranslate"><span class="pre">ir</span></code> retrieval substrate so the agentic layer can
+<code class="docutils literal notranslate"><span class="pre">ir.fuse_hits</span></code> across providers. <code class="docutils literal notranslate"><span class="pre">ir</span></code> is imported here, not at module
+top, to keep the base façade dependency-light. Identity follows ir’s
+<code class="docutils literal notranslate"><span class="pre">(source,</span> <span class="pre">artifact_id)</span></code> keying: <code class="docutils literal notranslate"><span class="pre">source</span></code> is the provider and
+<code class="docutils literal notranslate"><span class="pre">artifact_id</span></code> is the provider-native id. The image URL is placed under the
+<code class="docutils literal notranslate"><span class="pre">path</span></code> metadata key so <code class="docutils literal notranslate"><span class="pre">SearchHit.pointer</span></code> (which scans
+<code class="docutils literal notranslate"><span class="pre">ir.base.POINTER_KEYS</span></code>) resolves to it; the full normalized result rides
+along in <code class="docutils literal notranslate"><span class="pre">metadata</span></code> too.</p>
+<p><code class="docutils literal notranslate"><span class="pre">score</span></code> is <code class="docutils literal notranslate"><span class="pre">0.0</span></code> for any hit not yet reranked (Layer 1 leaves
+<code class="docutils literal notranslate"><span class="pre">ImageResult.score</span></code> as <code class="docutils literal notranslate"><span class="pre">None</span></code>) — rely on <em>rank</em>, not magnitude, until a
+Layer-2 reranker populates it; <code class="docutils literal notranslate"><span class="pre">ir.fuse_hits</span></code> (RRF) is rank-based, so this
+is correct for fusion.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="registry.html" class="btn btn-neutral float-left" title="illustration.registry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="translation.html" class="btn btn-neutral float-right" title="illustration.translation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

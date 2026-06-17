@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.config &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.credentials" href="credentials.html" />
+    <link rel="prev" title="illustration.cli" href="cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_LICENSE_ALLOWLIST"><code class="docutils literal notranslate"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_N"><code class="docutils literal notranslate"><span class="pre">DFLT_N</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_SOURCES"><code class="docutils literal notranslate"><span class="pre">DFLT_SOURCES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.HTTP_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">HTTP_TIMEOUT</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.MAX_PAGES"><code class="docutils literal notranslate"><span class="pre">MAX_PAGES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.SEARCH_CACHE_SCHEMA"><code class="docutils literal notranslate"><span class="pre">SEARCH_CACHE_SCHEMA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.cache_dir"><code class="docutils literal notranslate"><span class="pre">cache_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.config_dir"><code class="docutils literal notranslate"><span class="pre">config_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.data_dir"><code class="docutils literal notranslate"><span class="pre">data_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.package_version"><code class="docutils literal notranslate"><span class="pre">package_version()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.user_agent"><code class="docutils literal notranslate"><span class="pre">user_agent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.config</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/config.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.config">
+<span id="illustration-config"></span><h1>illustration.config<a class="headerlink" href="#module-illustration.config" title="Link to this heading"></a></h1>
+<p>Configuration: XDG directories and package-wide defaults (the SSOT).</p>
+<p>All tunable constants live here so the rest of the package never hardcodes a
+magic number. Directories follow the XDG base-directory convention with
+per-package environment overrides, mirroring the ecosystem’s <code class="docutils literal notranslate"><span class="pre">ir</span></code>/<code class="docutils literal notranslate"><span class="pre">aix</span></code>
+idiom:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Purpose</p></th>
+<th class="head"><p>Environment override</p></th>
+<th class="head"><p>Fallback</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>config</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ILLUSTRATION_CONFIG_DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code>/illustration</p></td>
+</tr>
+<tr class="row-odd"><td><p>data (durable)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ILLUSTRATION_DATA_DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$XDG_DATA_HOME</span></code>/illustration</p></td>
+</tr>
+<tr class="row-even"><td><p>cache (regen.)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ILLUSTRATION_CACHE_DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME</span></code>/illustration</p></td>
+</tr>
+</tbody>
+</table>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">cache_dir</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;illustration&#39;</span>
+</pre></div>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_LICENSE_ALLOWLIST">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'by',</span> <span class="pre">'by-sa',</span> <span class="pre">'cc0',</span> <span class="pre">'pdm',</span> <span class="pre">'pexels</span> <span class="pre">license'})</span></span><a class="headerlink" href="#illustration.config.DFLT_LICENSE_ALLOWLIST" title="Link to this definition"></a></dt>
+<dd><p>Conservative default license allowlist for the (opt-in) license gate.
+CC0 / public-domain / CC-BY / CC-BY-SA are commercial-safe (BY-SA imposes
+share-alike — flagged, not rejected). NC/ND and unknowns are excluded.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_N">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_N</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#illustration.config.DFLT_N" title="Link to this definition"></a></dt>
+<dd><p>Default number of results requested <em>per source</em>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_SOURCES">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_SOURCES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('openverse',)</span></span><a class="headerlink" href="#illustration.config.DFLT_SOURCES" title="Link to this definition"></a></dt>
+<dd><p>Default source set used when <code class="docutils literal notranslate"><span class="pre">search(...,</span> <span class="pre">source=None)</span></code>. Openverse first
+because it needs no API key (works out of the box).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.HTTP_TIMEOUT">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">HTTP_TIMEOUT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></span><a class="headerlink" href="#illustration.config.HTTP_TIMEOUT" title="Link to this definition"></a></dt>
+<dd><p>HTTP request timeout, seconds.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.MAX_PAGES">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">MAX_PAGES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">25</span></span><a class="headerlink" href="#illustration.config.MAX_PAGES" title="Link to this definition"></a></dt>
+<dd><p>Hard safety cap on how many pages a single <code class="docutils literal notranslate"><span class="pre">search</span></code> will fetch, so an
+unbounded <code class="docutils literal notranslate"><span class="pre">n</span></code> (or a misbehaving provider) can never loop forever.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.SEARCH_CACHE_SCHEMA">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">SEARCH_CACHE_SCHEMA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'illustration.search/v1'</span></span><a class="headerlink" href="#illustration.config.SEARCH_CACHE_SCHEMA" title="Link to this definition"></a></dt>
+<dd><p>Version token folded into every cache key, so a result-schema change
+invalidates the cache <em>structurally</em> (a new key) rather than by deletion.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.cache_dir">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">cache_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../_modules/illustration/config.html#cache_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.cache_dir" title="Link to this definition"></a></dt>
+<dd><p>Directory for regenerable caches (the default search-result store).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.config_dir">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">config_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../_modules/illustration/config.html#config_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.config_dir" title="Link to this definition"></a></dt>
+<dd><p>Directory for durable configuration (e.g. registered sources).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.data_dir">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../_modules/illustration/config.html#data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.data_dir" title="Link to this definition"></a></dt>
+<dd><p>Directory for durable data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.package_version">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">package_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/illustration/config.html#package_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.package_version" title="Link to this definition"></a></dt>
+<dd><p>The installed package version, or <code class="docutils literal notranslate"><span class="pre">'0+unknown'</span></code> if not installed.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">package_version</span><span class="p">(),</span> <span class="nb">str</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.user_agent">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">user_agent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/illustration/config.html#user_agent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.user_agent" title="Link to this definition"></a></dt>
+<dd><p>A descriptive User-Agent string (some providers throttle default UAs).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">user_agent</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;illustration/&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cli.html" class="btn btn-neutral float-left" title="illustration.cli" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="credentials.html" class="btn btn-neutral float-right" title="illustration.credentials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

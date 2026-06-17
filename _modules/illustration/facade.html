@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.facade &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.facade</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.facade</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The façade: :func:`search` — one call over any registered provider(s).</span>
+
+<span class="sd">``search`` is the package&#39;s front door. The first argument is the query string;</span>
+<span class="sd">everything else is keyword. It resolves which source(s) to query, translates the</span>
+<span class="sd">canonical filters to each provider&#39;s native params, consults the SHA-256 cache,</span>
+<span class="sd">fetches on a miss, normalizes, and returns :class:`~illustration.schema.ImageResult`</span>
+<span class="sd">objects.</span>
+
+<span class="sd">The escape hatch is the four-rung ladder from the design doc:</span>
+
+<span class="sd">1. ``source=`` selects the provider(s);</span>
+<span class="sd">2. canonical kwargs (``orientation``/``size``/``safe``/``license_type``) are</span>
+<span class="sd">   translated per-provider;</span>
+<span class="sd">3. ``provider_params={&quot;pexels&quot;: {...}}`` (namespaced) and flat ``**provider_kwargs``</span>
+<span class="sd">   pass native params straight through;</span>
+<span class="sd">4. ``illustration.sources[&quot;pexels&quot;]`` / ``ImageResult.raw`` reach the raw layer.</span>
+
+<span class="sd">&gt;&gt;&gt; # offline doctest: a stub source implementing the real hooks (no network)</span>
+<span class="sd">&gt;&gt;&gt; from illustration.base import RetrievalSource</span>
+<span class="sd">&gt;&gt;&gt; from illustration.schema import ImageResult</span>
+<span class="sd">&gt;&gt;&gt; from illustration import registry</span>
+<span class="sd">&gt;&gt;&gt; class _Resp:</span>
+<span class="sd">...     status_code = 200</span>
+<span class="sd">...     def __init__(self, payload): self._payload = payload</span>
+<span class="sd">...     def json(self): return self._payload</span>
+<span class="sd">&gt;&gt;&gt; class _Sess:  # a minimal stand-in for requests.Session</span>
+<span class="sd">...     def get(self, url, params=None, headers=None, timeout=None):</span>
+<span class="sd">...         return _Resp({&quot;items&quot;: [{&quot;id&quot;: i} for i in range(params[&quot;pp&quot;])]})</span>
+<span class="sd">&gt;&gt;&gt; class _Stub(RetrievalSource):</span>
+<span class="sd">...     name = &quot;stub&quot;</span>
+<span class="sd">...     per_page_param = &quot;pp&quot;</span>
+<span class="sd">...     max_per_page = 10</span>
+<span class="sd">...     def _items(self, response): return response[&quot;items&quot;]</span>
+<span class="sd">...     def _normalize(self, item, *, query):</span>
+<span class="sd">...         return ImageResult(provider=&quot;stub&quot;, id=str(item[&quot;id&quot;]),</span>
+<span class="sd">...                            url=f&quot;u{item[&#39;id&#39;]}&quot;, query=query)</span>
+<span class="sd">&gt;&gt;&gt; _ = registry.register_source(_Stub(session=_Sess()))</span>
+<span class="sd">&gt;&gt;&gt; [h.id for h in search(&quot;a stormy harbour at dusk&quot;, n=3, source=&quot;stub&quot;, cache=False)]</span>
+<span class="sd">[&#39;0&#39;, &#39;1&#39;, &#39;2&#39;]</span>
+<span class="sd">&gt;&gt;&gt; registry.unregister_source(&quot;stub&quot;)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.caching</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchCache</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_N</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_sources</span><span class="p">,</span> <span class="n">get_source</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">]</span>
+
+<span class="c1">#: The formal canonical filter parameters (everything else is escape-hatch).</span>
+<span class="n">_CANONICAL_PARAMS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;orientation&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="s2">&quot;license_type&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="search">
+<a class="viewcode-back" href="../../module_docs/illustration/facade.html#illustration.search">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DFLT_N</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="s2">&quot;str | list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">safe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">license_type</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">provider_params</span><span class="p">:</span> <span class="s2">&quot;Mapping[str, Mapping[str, Any]] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="s2">&quot;bool | SearchCache&quot;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">provider_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search for up to ``n`` images matching ``query`` from one or more sources.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        query: The free-text query (first positional; required).</span>
+<span class="sd">        n: Number of results wanted **per source** (default ``DFLT_N``).</span>
+<span class="sd">        source: A source name, list of names, or ``None`` for the default set.</span>
+<span class="sd">        orientation: ``landscape`` | ``portrait`` | ``square``.</span>
+<span class="sd">        size: ``large`` | ``medium`` | ``small`` (minimum-size filter).</span>
+<span class="sd">        safe: Exclude mature content where the provider supports it (default True).</span>
+<span class="sd">        license_type: ``commercial`` | ``all-cc`` | ``modification`` | ``all``</span>
+<span class="sd">            (honored by providers with license filtering, e.g. Openverse).</span>
+<span class="sd">        provider_params: Per-source native params, e.g.</span>
+<span class="sd">            ``{&quot;pexels&quot;: {&quot;color&quot;: &quot;blue&quot;}}`` — used when fanning out to multiple</span>
+<span class="sd">            sources so each gets the right native overrides.</span>
+<span class="sd">        api_key: An explicit API key. **Single-source only** — raises if combined</span>
+<span class="sd">            with multiple sources; use</span>
+<span class="sd">            :func:`~illustration.credentials.using_credentials` for keyed fan-out.</span>
+<span class="sd">        cache: ``True`` to use the default cache, ``False`` to bypass, or a</span>
+<span class="sd">            :class:`~illustration.caching.SearchCache` instance to inject one.</span>
+<span class="sd">        refresh: If True, ignore any cached entry and re-fetch (then re-store).</span>
+<span class="sd">        **provider_kwargs: Flat native params (escape-hatch rung 3a). **Single-</span>
+<span class="sd">            source only** — raises if combined with multiple sources; use</span>
+<span class="sd">            ``provider_params={source: {...}}`` for fan-out.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of :class:`ImageResult`. ``n`` is *per source*: for multiple</span>
+<span class="sd">        sources the per-source lists are concatenated (up to ``n × len(sources)``)</span>
+<span class="sd">        and Layer-2 adds rank fusion via ``ir``.</span>
+
+<span class="sd">    &gt;&gt;&gt; isinstance(search.__doc__, str)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;query must be a non-empty string&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n must be a positive integer, got </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">names</span> <span class="o">=</span> <span class="n">_resolve_source_names</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">cache_obj</span> <span class="o">=</span> <span class="n">_resolve_cache</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span>
+    <span class="n">provider_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">provider_params</span> <span class="ow">or</span> <span class="p">{})</span>
+
+    <span class="c1"># Single-source-only conveniences must not silently mis-apply on fan-out:</span>
+    <span class="c1"># flat **provider_kwargs and a flat api_key can&#39;t be disambiguated across</span>
+    <span class="c1"># providers (use namespaced provider_params / using_credentials instead).</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">provider_kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;flat native params (**provider_kwargs) are single-source only; &quot;</span>
+                <span class="s2">&quot;for multiple sources pass provider_params={source: {...}}.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">api_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;api_key= is single-source only; for multiple keyed sources use &quot;</span>
+                <span class="s2">&quot;illustration.using_credentials(provider=&#39;...&#39;).&quot;</span>
+            <span class="p">)</span>
+
+    <span class="n">_values</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="n">safe</span><span class="p">,</span> <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="n">license_type</span><span class="p">}</span>
+    <span class="n">canonical</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">_values</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_CANONICAL_PARAMS</span><span class="p">}</span>
+
+    <span class="n">all_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">get_source</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># rung 3: native passthrough — namespaced per-source + flat (single-source)</span>
+        <span class="n">native</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">provider_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">native</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">provider_kwargs</span><span class="p">)</span>
+
+        <span class="c1"># the params that define the cache identity for this source</span>
+        <span class="n">key_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">canonical</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}}</span>
+        <span class="k">if</span> <span class="n">native</span><span class="p">:</span>
+            <span class="n">key_params</span><span class="p">[</span><span class="s2">&quot;native&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">native</span><span class="p">)</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">cache_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">refresh</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">cache_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">key_params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+                <span class="n">query</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">native_params</span><span class="o">=</span><span class="n">native</span><span class="p">,</span> <span class="o">**</span><span class="n">canonical</span>
+            <span class="p">)</span>
+            <span class="c1"># Don&#39;t negatively-cache an empty result set: a transient zero-hit</span>
+            <span class="c1"># response shouldn&#39;t pin &quot;no results&quot; until the schema token changes.</span>
+            <span class="k">if</span> <span class="n">cache_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">results</span><span class="p">:</span>
+                <span class="n">cache_obj</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">key_params</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+        <span class="n">all_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">all_results</span></div>
+
+
+
+<span class="c1"># --- internals --------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_source_names</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="s2">&quot;str | list[str] | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">default_sources</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">source</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source list is empty; pass at least one source name&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">names</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_cache</span><span class="p">(</span><span class="n">cache</span><span class="p">:</span> <span class="s2">&quot;bool | SearchCache&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SearchCache | None&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">SearchCache</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cache</span>  <span class="c1"># an injected SearchCache</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

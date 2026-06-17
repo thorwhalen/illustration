@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.translation &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.translation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.translation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Canonical → native parameter translation (the ``denote`` ``param_map`` idiom).</span>
+
+<span class="sd">Each source declares a ``param_map`` mapping a *canonical* façade parameter name</span>
+<span class="sd">to how that source expresses it natively. :func:`make_param_translator` turns a</span>
+<span class="sd">``param_map`` into a callable that rewrites a dict of canonical kwargs into the</span>
+<span class="sd">provider&#39;s native kwargs, degrading gracefully on parameters the source does not</span>
+<span class="sd">support.</span>
+
+<span class="sd">A ``param_map`` value may be:</span>
+
+<span class="sd">- a ``str`` — straight rename to that native parameter name;</span>
+<span class="sd">- a ``dict`` — ``{&quot;name&quot;: &lt;native&gt;, &quot;coerce&quot;: &lt;fn&gt;, &quot;choices&quot;: &lt;set&gt;}`` where</span>
+<span class="sd">  ``coerce`` transforms the value (e.g. vocabulary mapping) and ``choices``</span>
+<span class="sd">  validates it;</span>
+<span class="sd">- ``None`` — the parameter is *explicitly unsupported* by this source (degrade);</span>
+<span class="sd">- *(a canonical key absent from the map is also treated as unsupported)*.</span>
+
+<span class="sd">&gt;&gt;&gt; pmap = {</span>
+<span class="sd">...     &quot;orientation&quot;: {&quot;name&quot;: &quot;aspect_ratio&quot;,</span>
+<span class="sd">...                     &quot;coerce&quot;: lambda o: {&quot;landscape&quot;: &quot;wide&quot;}.get(o, o)},</span>
+<span class="sd">...     &quot;size&quot;: &quot;size&quot;,</span>
+<span class="sd">...     &quot;license_type&quot;: None,</span>
+<span class="sd">... }</span>
+<span class="sd">&gt;&gt;&gt; translate = make_param_translator(pmap)</span>
+<span class="sd">&gt;&gt;&gt; native, dropped = translate({&quot;orientation&quot;: &quot;landscape&quot;, &quot;size&quot;: &quot;large&quot;,</span>
+<span class="sd">...                              &quot;license_type&quot;: &quot;commercial&quot;})</span>
+<span class="sd">&gt;&gt;&gt; native</span>
+<span class="sd">{&#39;aspect_ratio&#39;: &#39;wide&#39;, &#39;size&#39;: &#39;large&#39;}</span>
+<span class="sd">&gt;&gt;&gt; dropped</span>
+<span class="sd">[&#39;license_type&#39;]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;make_param_translator&quot;</span><span class="p">,</span> <span class="s2">&quot;ParamTranslator&quot;</span><span class="p">]</span>
+
+<span class="c1">#: A translator maps canonical kwargs -&gt; (native kwargs, dropped canonical names).</span>
+<span class="n">ParamTranslator</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">]]</span>
+
+<span class="n">_ON_UNSUPPORTED</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="s2">&quot;raise&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="make_param_translator">
+<a class="viewcode-back" href="../../module_docs/illustration/translation.html#illustration.make_param_translator">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_param_translator</span><span class="p">(</span>
+    <span class="n">param_map</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">on_unsupported</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ignore&quot;</span><span class="p">,</span>
+    <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParamTranslator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a translator from a ``param_map`` (see module docstring).</span>
+
+<span class="sd">    ``on_unsupported`` governs what happens when a canonical param has no native</span>
+<span class="sd">    equivalent: ``&#39;ignore&#39;`` (drop silently, the graceful default), ``&#39;warn&#39;``</span>
+<span class="sd">    (drop + :func:`warnings.warn`), or ``&#39;raise&#39;`` (raise ``ValueError``).</span>
+<span class="sd">    Parameters whose value is ``None`` are skipped entirely (an unset filter).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">on_unsupported</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_ON_UNSUPPORTED</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;on_unsupported must be one of </span><span class="si">{</span><span class="n">_ON_UNSUPPORTED</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="n">on_unsupported</span><span class="si">!r}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="n">canonical</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+        <span class="n">native</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">dropped</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">canonical</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># an unset filter is not a &quot;dropped&quot; param</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">param_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">_UNSUPPORTED</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">spec</span> <span class="ow">is</span> <span class="n">_UNSUPPORTED</span><span class="p">:</span>
+                <span class="n">_handle_unsupported</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="p">,</span> <span class="n">source_name</span><span class="p">,</span> <span class="n">dropped</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">native_name</span><span class="p">,</span> <span class="n">coerced</span> <span class="o">=</span> <span class="n">_apply_spec</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="p">,</span> <span class="n">source_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">native_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># choices validation failed under &#39;ignore&#39;/&#39;warn&#39;</span>
+                <span class="n">dropped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">native</span><span class="p">[</span><span class="n">native_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">coerced</span>
+        <span class="k">return</span> <span class="n">native</span><span class="p">,</span> <span class="n">dropped</span>
+
+    <span class="k">return</span> <span class="n">translate</span></div>
+
+
+
+<span class="c1"># --- internals --------------------------------------------------------------</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_Unsupported</span><span class="p">:</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover - debug aid</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;UNSUPPORTED&gt;&quot;</span>
+
+
+<span class="n">_UNSUPPORTED</span> <span class="o">=</span> <span class="n">_Unsupported</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_handle_unsupported</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dropped</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">dropped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+        <span class="n">where</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot; by source </span><span class="si">{</span><span class="n">source_name</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">source_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter </span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2"> is not supported</span><span class="si">{</span><span class="n">where</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
+        <span class="n">where</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot; by </span><span class="si">{</span><span class="n">source_name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">source_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dropping unsupported parameter </span><span class="si">{</span><span class="n">key</span><span class="si">!r}{</span><span class="n">where</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_apply_spec</span><span class="p">(</span>
+    <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return (native_name, coerced_value); native_name is None to signal drop.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">spec</span><span class="p">,</span> <span class="n">value</span>
+    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span><span class="p">,</span> <span class="n">spec</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="n">native_name</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;choices&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Parameter </span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2"> not in allowed choices </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Dropping </span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">: not in </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">4</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">coerce</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">native_name</span><span class="p">,</span> <span class="p">(</span><span class="n">coerce</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">coerce</span> <span class="k">else</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid param_map spec for </span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">spec</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.providers.openverse &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.providers.openverse</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.providers.openverse</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Openverse source — 800M+ openly-licensed / public-domain images, **no key**.</span>
+
+<span class="sd">Openverse (``https://api.openverse.org/v1/images/``) aggregates Creative-Commons</span>
+<span class="sd">and public-domain media from Flickr, Wikimedia, museums, and more. The anonymous</span>
+<span class="sd">tier needs no credentials, which makes it the package&#39;s out-of-the-box default</span>
+<span class="sd">(``illustration.search(&quot;...&quot;)`` works with zero setup). Every result carries a</span>
+<span class="sd">license code, a canonical license URL (except CC0/PDM, where it is ``None``), and</span>
+<span class="sd">a ready-to-render attribution sentence — so licensing is populated from day one.</span>
+
+<span class="sd">Quirks handled here (from the live-API survey): ``tags`` are *objects*</span>
+<span class="sd">(``{&quot;name&quot;: ...}``), ``url`` is the real image while ``thumbnail`` is an</span>
+<span class="sd">Openverse proxy, and the anonymous tier caps ``page_size`` at 20.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetrievalSource</span><span class="p">,</span> <span class="n">SourceInfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;OpenverseSource&quot;</span><span class="p">]</span>
+
+<span class="c1"># canonical aspect-ratio vocabulary -&gt; Openverse&#39;s aspect_ratio vocabulary</span>
+<span class="n">_ORIENTATION_TO_ASPECT</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;landscape&quot;</span><span class="p">:</span> <span class="s2">&quot;wide&quot;</span><span class="p">,</span> <span class="s2">&quot;portrait&quot;</span><span class="p">:</span> <span class="s2">&quot;tall&quot;</span><span class="p">,</span> <span class="s2">&quot;square&quot;</span><span class="p">:</span> <span class="s2">&quot;square&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="OpenverseSource">
+<a class="viewcode-back" href="../../../module_docs/illustration/providers/openverse.html#illustration.providers.OpenverseSource">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenverseSource</span><span class="p">(</span><span class="n">RetrievalSource</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pure-search adapter for the Openverse image API (anonymous tier).&quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;openverse&quot;</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://api.openverse.org/v1/images/&quot;</span>
+    <span class="n">query_param</span> <span class="o">=</span> <span class="s2">&quot;q&quot;</span>
+    <span class="n">page_param</span> <span class="o">=</span> <span class="s2">&quot;page&quot;</span>
+    <span class="n">per_page_param</span> <span class="o">=</span> <span class="s2">&quot;page_size&quot;</span>
+    <span class="n">max_per_page</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># anonymous-tier hard cap</span>
+    <span class="n">param_map</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;aspect_ratio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;coerce&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="n">_ORIENTATION_TO_ASPECT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">o</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;large&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="s2">&quot;small&quot;</span><span class="p">}},</span>
+        <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;mature&quot;</span><span class="p">,</span> <span class="s2">&quot;coerce&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">safe</span><span class="p">:</span> <span class="ow">not</span> <span class="n">safe</span><span class="p">},</span>
+        <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="s2">&quot;license_type&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;800M+ CC / public-domain images aggregated from 50+ sources.&quot;</span><span class="p">,</span>
+        <span class="n">requires_key</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">homepage</span><span class="o">=</span><span class="s2">&quot;https://openverse.org&quot;</span><span class="p">,</span>
+        <span class="n">default_cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">license_note</span><span class="o">=</span><span class="s2">&quot;Per-result CC/PD license; preserve attribution for BY-family.&quot;</span><span class="p">,</span>
+        <span class="n">rate_limit</span><span class="o">=</span><span class="s2">&quot;anonymous: 20/min, 200/day&quot;</span><span class="p">,</span>
+        <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;cc&quot;</span><span class="p">,</span> <span class="s2">&quot;public-domain&quot;</span><span class="p">,</span> <span class="s2">&quot;breadth&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;results&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">t</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">],</span>
+            <span class="n">thumbnail_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;thumbnail&quot;</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">),</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>  <span class="c1"># Openverse exposes no separate description</span>
+            <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span>
+            <span class="n">license</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;license&quot;</span><span class="p">),</span>
+            <span class="n">license_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;license_url&quot;</span><span class="p">),</span>
+            <span class="n">attribution</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attribution&quot;</span><span class="p">),</span>
+            <span class="n">source_page_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;foreign_landing_url&quot;</span><span class="p">),</span>
+            <span class="n">author</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;creator&quot;</span><span class="p">),</span>
+            <span class="n">author_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;creator_url&quot;</span><span class="p">),</span>
+            <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># CC / public-domain media is cacheable (preserve attribution)</span>
+            <span class="n">avg_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+            <span class="n">raw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

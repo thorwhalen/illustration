@@ -1,0 +1,4 @@
+illustration.__main__
+=====================
+.. automodule:: illustration.__main__
+   :members:

@@ -1,0 +1,4 @@
+illustration.base
+=================
+.. automodule:: illustration.base
+   :members:

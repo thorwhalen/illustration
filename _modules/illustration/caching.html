@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.caching &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.caching</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.caching</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;SHA-256 content-addressed caching of search results (the ``falaw`` recipe).</span>
+
+<span class="sd">The cache key is a SHA-256 over the canonicalized JSON of</span>
+<span class="sd">``(source, query, params, schema-version)``. Canonicalization</span>
+<span class="sd">(``sort_keys=True``, ``default=str``) makes the key invariant to dict order and</span>
+<span class="sd">value types, so logically identical queries collapse to one entry. The</span>
+<span class="sd">schema-version token (:data:`~illustration.config.SEARCH_CACHE_SCHEMA`) makes</span>
+<span class="sd">invalidation *structural* — bump it and every old key is simply never hit again.</span>
+
+<span class="sd">The store is an injectable ``MutableMapping`` (a ``dol`` store), defaulting to a</span>
+<span class="sd">``JsonFiles`` directory under the cache dir; swap it for S3/Redis/Mongo without</span>
+<span class="sd">touching call sites.</span>
+
+<span class="sd">&gt;&gt;&gt; store = {}                              # any MutableMapping works</span>
+<span class="sd">&gt;&gt;&gt; cache = SearchCache(store)</span>
+<span class="sd">&gt;&gt;&gt; k1 = search_cache_key(&quot;openverse&quot;, &quot;dusk harbour&quot;, {&quot;size&quot;: &quot;large&quot;, &quot;n&quot;: 10})</span>
+<span class="sd">&gt;&gt;&gt; k2 = search_cache_key(&quot;openverse&quot;, &quot;dusk harbour&quot;, {&quot;n&quot;: 10, &quot;size&quot;: &quot;large&quot;})</span>
+<span class="sd">&gt;&gt;&gt; k1 == k2                                # dict order does not matter</span>
+<span class="sd">True</span>
+<span class="sd">&gt;&gt;&gt; from illustration.schema import ImageResult</span>
+<span class="sd">&gt;&gt;&gt; _ = cache.put(&quot;openverse&quot;, &quot;dusk harbour&quot;, {&quot;n&quot;: 10},</span>
+<span class="sd">...               [ImageResult(provider=&quot;openverse&quot;, id=&quot;1&quot;, url=&quot;u&quot;)])</span>
+<span class="sd">&gt;&gt;&gt; [r.id for r in cache.get(&quot;openverse&quot;, &quot;dusk harbour&quot;, {&quot;n&quot;: 10})]</span>
+<span class="sd">[&#39;1&#39;]</span>
+<span class="sd">&gt;&gt;&gt; cache.get(&quot;openverse&quot;, &quot;other&quot;, {&quot;n&quot;: 10}) is None</span>
+<span class="sd">True</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">MutableMapping</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">SEARCH_CACHE_SCHEMA</span><span class="p">,</span> <span class="n">cache_dir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">_coerce_results</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search_cache_key&quot;</span><span class="p">,</span> <span class="s2">&quot;SearchCache&quot;</span><span class="p">,</span> <span class="s2">&quot;default_search_store&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="search_cache_key">
+<a class="viewcode-back" href="../../module_docs/illustration/caching.html#illustration.search_cache_key">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">search_cache_key</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Content-addressed SHA-256 key for ``(source, query, params)``.</span>
+
+<span class="sd">    ``params`` should be the *normalized* request parameters (the canonical args</span>
+<span class="sd">    actually sent, including ``n``), so two calls that differ only cosmetically</span>
+<span class="sd">    share a key.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">blob</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="n">SEARCH_CACHE_SCHEMA</span><span class="p">,</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span>
+            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="SearchCache">
+<a class="viewcode-back" href="../../module_docs/illustration/caching.html#illustration.SearchCache">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SearchCache</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A thin read/write facade over an injectable ``MutableMapping`` store.</span>
+
+<span class="sd">    Values are stored as a small JSON envelope</span>
+<span class="sd">    ``{schema, source, query, stored_at, results: [ImageResult.model_dump(), ...]}``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="s2">&quot;MutableMapping[str, Any] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">store</span> <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">default_search_store</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SearchCache.get">
+<a class="viewcode-back" href="../../module_docs/illustration/caching.html#illustration.SearchCache.get">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;list[ImageResult] | None&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return cached results for the key, or ``None`` on a miss.&quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">search_cache_key</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">envelope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_coerce_results</span><span class="p">(</span><span class="n">envelope</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># corrupt entry -&gt; treat as a miss</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="SearchCache.put">
+<a class="viewcode-back" href="../../module_docs/illustration/caching.html#illustration.SearchCache.put">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">results</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Store ``results`` under the key; return the key.&quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">search_cache_key</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="n">SEARCH_CACHE_SCHEMA</span><span class="p">,</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span>
+            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s2">&quot;stored_at&quot;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span>
+            <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">key</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="default_search_store">
+<a class="viewcode-back" href="../../module_docs/illustration/caching.html#illustration.default_search_store">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">default_search_store</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;MutableMapping[str, Any]&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A ``JsonFiles`` store under ``&lt;cache_dir&gt;/search`` (created on demand).&quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">dol</span><span class="w"> </span><span class="kn">import</span> <span class="n">JsonFiles</span>  <span class="c1"># local ecosystem package</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">cache_dir</span><span class="p">(</span><span class="n">ensure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;search&quot;</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">JsonFiles</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">))</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

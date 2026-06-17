@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.errors &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.errors</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.errors</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The package exception hierarchy.</span>
+
+<span class="sd">Errors are informative by design: a :class:`MissingCredentialError` names *which*</span>
+<span class="sd">key is missing, *how* to provide it, and *where* to obtain it — and never logs</span>
+<span class="sd">the key value itself.</span>
+
+<span class="sd">&gt;&gt;&gt; raise MissingCredentialError(&quot;pexels&quot;, env_var=&quot;PEXELS_API_KEY&quot;,</span>
+<span class="sd">...     console_url=&quot;https://www.pexels.com/api/new/&quot;)   # doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="sd">Traceback (most recent call last):</span>
+<span class="sd">illustration.errors.MissingCredentialError: ...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;IllustrationError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UnknownSourceError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MissingCredentialError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ProviderError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RateLimitError&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="IllustrationError">
+<a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.IllustrationError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IllustrationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for every error raised by :mod:`illustration`.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="UnknownSourceError">
+<a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.UnknownSourceError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnknownSourceError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A source name was requested that is not in the registry.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">known</span><span class="p">:</span> <span class="s2">&quot;list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">known</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">known</span> <span class="ow">or</span> <span class="p">[])</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unknown source </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">.&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">known</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; Registered sources: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">known</span><span class="p">))</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="MissingCredentialError">
+<a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.MissingCredentialError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MissingCredentialError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A source needs an API key that could not be resolved.</span>
+
+<span class="sd">    The message tells the user exactly what to do; key values are never logged.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">env_var</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">console_url</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">provider</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_var</span> <span class="o">=</span> <span class="n">env_var</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console_url</span> <span class="o">=</span> <span class="n">console_url</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;No API key found for source </span><span class="si">{</span><span class="n">provider</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">env_var</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Set it via the </span><span class="si">{</span><span class="n">env_var</span><span class="si">}</span><span class="s2"> environment variable, a config2py &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;config entry keyed </span><span class="si">{</span><span class="n">env_var</span><span class="si">!r}</span><span class="s2">, or pass api_key=... / &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;illustration.using_credentials(</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2">=&#39;...&#39;).&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">console_url</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get a key at: </span><span class="si">{</span><span class="n">console_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="ProviderError">
+<a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.ProviderError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProviderError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A provider&#39;s HTTP API returned an error or an unusable response.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="s2">&quot;int | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">provider</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; HTTP </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RateLimitError">
+<a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.RateLimitError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RateLimitError</span><span class="p">(</span><span class="n">ProviderError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A provider returned HTTP 429 (rate limit exceeded).&quot;&quot;&quot;</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.base &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.base</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The provider plugin contract: :class:`RetrievalSource`.</span>
+
+<span class="sd">Each image-search provider is a small subclass implementing a few hooks; the</span>
+<span class="sd">base class supplies the uniform behaviour (canonical→native translation,</span>
+<span class="sd">pagination to satisfy ``n``, HTTP with a descriptive User-Agent, credential</span>
+<span class="sd">checking, per-item normalization that never lets one bad item fail the search).</span>
+<span class="sd">Adding a provider touches only a new subclass + one registration — never the</span>
+<span class="sd">façade (open-closed).</span>
+
+<span class="sd">A subclass declares class attributes (``name``, ``endpoint``, ``query_param``,</span>
+<span class="sd">``page_param``, ``per_page_param``, ``max_per_page``, ``param_map``, ``info``)</span>
+<span class="sd">and implements three hooks: :meth:`_items`, :meth:`_normalize`, and</span>
+<span class="sd">(if the provider needs a key) :meth:`_auth_headers`.</span>
+
+<span class="sd">See ``illustration/sources/openverse.py`` for the canonical example.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">MappingProxyType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTP_TIMEOUT</span><span class="p">,</span> <span class="n">MAX_PAGES</span><span class="p">,</span> <span class="n">user_agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.credentials</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_requirements</span><span class="p">,</span> <span class="n">resolve_api_key</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProviderError</span><span class="p">,</span> <span class="n">RateLimitError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_param_translator</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RetrievalSource&quot;</span><span class="p">,</span> <span class="s2">&quot;SourceInfo&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="SourceInfo">
+<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.SourceInfo">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SourceInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Static, human-facing metadata about a source (for discovery + the gate).&quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">requires_key</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">homepage</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">default_cacheable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">license_note</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">rate_limit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">asdict</span>
+
+        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RetrievalSource">
+<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.RetrievalSource">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RetrievalSource</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base for a pure image-search provider.</span>
+
+<span class="sd">    Subclasses set the class attributes below and implement :meth:`_items` and</span>
+<span class="sd">    :meth:`_normalize` (and :meth:`_auth_headers` if the provider needs a key).</span>
+<span class="sd">    :meth:`search` and :meth:`raw_search` are **template methods — do not</span>
+<span class="sd">    override them**: they enforce credential checks, canonical→native</span>
+<span class="sd">    translation, pagination (capped by ``MAX_PAGES``), and per-item normalization</span>
+<span class="sd">    that skips rather than fails on a malformed item. Override a hook, not the</span>
+<span class="sd">    template, so a provider can never silently lose those guarantees.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: Registry key, e.g. ``&quot;openverse&quot;``. Required.</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1">#: Search endpoint URL. Required.</span>
+    <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1">#: Native name of the free-text query parameter.</span>
+    <span class="n">query_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;q&quot;</span>
+    <span class="c1">#: Native name of the page-number parameter.</span>
+    <span class="n">page_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;page&quot;</span>
+    <span class="c1">#: Native name of the results-per-page parameter.</span>
+    <span class="n">per_page_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;page_size&quot;</span>
+    <span class="c1">#: Hard cap on results per page this provider allows.</span>
+    <span class="n">max_per_page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="c1">#: Canonical→native parameter spec (see :mod:`illustration.translation`).</span>
+    <span class="c1">#: Immutable empty default so subclasses never share one mutable dict.</span>
+    <span class="n">param_map</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({})</span>
+    <span class="c1">#: Static metadata (a per-instance one is synthesized in __init__ if unset).</span>
+    <span class="n">info</span><span class="p">:</span> <span class="n">SourceInfo</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># `session` lets callers/tests inject a requests.Session (or a stub).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># never leave a nameless shared SourceInfo sentinel</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_translate</span> <span class="o">=</span> <span class="n">make_param_translator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param_map</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">source_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">)</span>
+
+    <span class="c1"># -- public API ----------------------------------------------------------</span>
+
+<div class="viewcode-block" id="RetrievalSource.search">
+<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.RetrievalSource.search">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">native_params</span><span class="p">:</span> <span class="s2">&quot;Mapping[str, Any] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">canonical</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Search ``query`` and return up to ``n`` normalized :class:`ImageResult`.</span>
+
+<span class="sd">        ``canonical`` are façade-canonical filters (``orientation``, ``size``,</span>
+<span class="sd">        ``safe``, ``license_type``); ``native_params`` are raw provider-native</span>
+<span class="sd">        params (the escape hatch) merged last, overriding translated ones.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;query must be a non-empty string&quot;</span><span class="p">)</span>
+        <span class="n">check_requirements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+
+        <span class="n">native</span><span class="p">,</span> <span class="n">_dropped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate</span><span class="p">(</span><span class="n">canonical</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">native_params</span><span class="p">:</span>
+            <span class="n">native</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">native_params</span><span class="p">)</span>
+
+        <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_per_page</span><span class="p">))</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">page</span> <span class="o">&lt;=</span> <span class="n">MAX_PAGES</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">native</span><span class="p">)</span>
+            <span class="n">params</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">query_param</span><span class="p">]</span> <span class="o">=</span> <span class="n">query</span>
+            <span class="n">params</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">page_param</span><span class="p">]</span> <span class="o">=</span> <span class="n">page</span>
+            <span class="n">params</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">per_page_param</span><span class="p">]</span> <span class="o">=</span> <span class="n">per_page</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="n">normalized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_safe_normalize</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">normalized</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+                        <span class="k">break</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">per_page</span><span class="p">:</span>
+                <span class="k">break</span>  <span class="c1"># last page</span>
+            <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">results</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="RetrievalSource.raw_search">
+<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.RetrievalSource.raw_search">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">raw_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">native_params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hit the endpoint with zero translation — the deepest escape hatch.</span>
+
+<span class="sd">        ``native_params`` are passed through verbatim as the provider&#39;s own</span>
+<span class="sd">        query parameters; the raw decoded JSON response is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">check_requirements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">native_params</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span></div>
+
+
+    <span class="c1"># -- hooks for subclasses ------------------------------------------------</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract the list of raw result items from a decoded response.&quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map one raw provider item to an :class:`ImageResult`.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;HTTP auth headers for this provider (default: none).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="c1"># -- internals -----------------------------------------------------------</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_safe_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ImageResult | None&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize one item, skipping (not failing) on a malformed item.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># one bad item must not sink the whole search</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform the HTTP GET and return decoded JSON, translating errors.&quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>  <span class="c1"># lazy: keep `import illustration` light</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="ow">or</span> <span class="n">requests</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">(),</span> <span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
+        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth_headers</span><span class="p">(</span><span class="n">api_key</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">HTTP_TIMEOUT</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># network/transport failure</span>
+            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;request failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">&quot;status_code&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RateLimitError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;rate limit exceeded&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">429</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">401</span><span class="p">,</span> <span class="mi">403</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;authentication failed (check API key)&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">status</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">_short_body</span><span class="p">(</span><span class="n">resp</span><span class="p">),</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">decoded</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;response was not valid JSON: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decoded</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># a valid-JSON-but-non-object body (array / null / scalar) would crash</span>
+            <span class="c1"># _items downstream with a bare AttributeError; surface it informatively</span>
+            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;unexpected response type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> (expected a JSON object)&quot;</span><span class="p">,</span>
+                <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">decoded</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_short_body</span><span class="p">(</span><span class="n">resp</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span><span class="p">[:</span><span class="n">limit</span><span class="p">]</span> <span class="k">if</span> <span class="n">text</span> <span class="k">else</span> <span class="s2">&quot;request failed&quot;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

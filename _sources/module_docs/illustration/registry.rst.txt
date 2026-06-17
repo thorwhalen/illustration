@@ -1,0 +1,4 @@
+illustration.registry
+=====================
+.. automodule:: illustration.registry
+   :members:

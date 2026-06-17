@@ -1,0 +1,19 @@
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   module_docs/illustration
+   module_docs/illustration/__main__
+   module_docs/illustration/base
+   module_docs/illustration/caching
+   module_docs/illustration/cli
+   module_docs/illustration/config
+   module_docs/illustration/credentials
+   module_docs/illustration/errors
+   module_docs/illustration/facade
+   module_docs/illustration/providers
+   module_docs/illustration/providers/openverse
+   module_docs/illustration/providers/pexels
+   module_docs/illustration/registry
+   module_docs/illustration/schema
+   module_docs/illustration/translation
