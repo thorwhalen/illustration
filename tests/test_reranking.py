@@ -126,6 +126,46 @@ def test_siglip_scorer_uses_embedding_cache():
     assert len(store) == 1
 
 
+def test_image_field_fallback_and_none():
+    np = pytest.importorskip("numpy")
+    seen = []
+
+    class _StubScorer(SiglipScorer):
+        def _embed_image_url(self, url, model, processor):
+            seen.append(url)
+            return np.array([1.0, 0.0], dtype="float32")
+
+    scorer = _StubScorer(model="m", cache={})
+    # thumbnail present -> thumbnail used
+    scorer._image_embedding(
+        ImageResult(provider="p", id="1", url="full1", thumbnail_url="thumb1"),
+        model=None, processor=None,
+    )
+    # thumbnail None -> falls back to .url
+    scorer._image_embedding(
+        ImageResult(provider="p", id="2", url="full2", thumbnail_url=None),
+        model=None, processor=None,
+    )
+    assert seen == ["thumb1", "full2"]
+    # neither url present -> None embedding (=> -1.0 score downstream), no fetch
+    none_url = ImageResult.model_construct(provider="p", id="3", url=None, thumbnail_url=None)
+    assert scorer._image_embedding(none_url, model=None, processor=None) is None
+
+
+def test_invalid_image_field_rejected_at_construction():
+    with pytest.raises(ValueError, match="image_field"):
+        SiglipScorer(model="m", cache={}, image_field="not_a_field")
+
+
+def test_l2_normalize_zero_and_unit():
+    np = pytest.importorskip("numpy")
+    from illustration.reranking import _l2_normalize
+
+    assert np.allclose(_l2_normalize(np.zeros(3)), np.zeros(3))  # zero-norm guard, no NaN
+    out = _l2_normalize(np.array([3.0, 4.0]))  # 3-4-5 triangle
+    assert np.allclose(out, [0.6, 0.8]) and abs(float(np.linalg.norm(out)) - 1.0) < 1e-6
+
+
 def test_fetch_image_happy_and_failure(monkeypatch):
     np = pytest.importorskip("numpy")  # noqa: F841
     Image = pytest.importorskip("PIL.Image")

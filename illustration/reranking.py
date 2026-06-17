@@ -60,7 +60,7 @@ DFLT_RERANK_MODEL = "google/siglip2-base-patch16-224"
 #: full image and sufficient for relevance scoring).
 DFLT_IMAGE_FIELD = "thumbnail_url"
 
-_RERANK_DEPS = ("torch", "transformers", "PIL")
+_RERANK_DEPS = ("torch", "transformers", "PIL", "numpy")
 
 
 def rerank(
@@ -132,6 +132,11 @@ class SiglipScorer:
         device: "str | None" = None,
         image_field: str = DFLT_IMAGE_FIELD,
     ):
+        if image_field not in ImageResult.model_fields:
+            raise ValueError(
+                f"image_field {image_field!r} is not a field of ImageResult "
+                f"(choose e.g. 'thumbnail_url' or 'url')"
+            )
         self.model_id = model
         self.device = device
         self.image_field = image_field
@@ -236,6 +241,8 @@ def default_embedding_store(model: str) -> "MutableMapping[str, Any]":
 
 
 def _embedding_key(model_id: str, url: str) -> str:
+    # model is part of the key (not only the per-model store dir) so a single
+    # store injected across multiple models still separates their embeddings.
     blob = f"{model_id}\x00{url}".encode("utf-8")
     return hashlib.sha256(blob).hexdigest()
 
