@@ -13,10 +13,14 @@ from __future__ import annotations
 
 from illustration.providers.openverse import OpenverseSource
 from illustration.providers.pexels import PexelsSource
+from illustration.providers.pixabay import PixabaySource
+from illustration.providers.wikimedia import WikimediaSource
 from illustration.registry import register_source
 
-__all__ = ["OpenverseSource", "PexelsSource"]
+__all__ = ["OpenverseSource", "PexelsSource", "PixabaySource", "WikimediaSource"]
 
 # Register the built-ins (idempotent: re-registering overwrites the same key).
 register_source(OpenverseSource())
 register_source(PexelsSource())
+register_source(PixabaySource())
+register_source(WikimediaSource())

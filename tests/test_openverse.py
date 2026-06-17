@@ -50,3 +50,14 @@ def test_no_api_key_header(make_session, openverse_payload):
     OpenverseSource(session=sess).search("x", n=1)
     assert "Authorization" not in sess.calls[0]["headers"]
     assert sess.calls[0]["headers"]["User-Agent"].startswith("illustration/")
+
+
+def test_content_type_translation(make_session, openverse_payload):
+    sess = make_session({1: openverse_payload})
+    src = OpenverseSource(session=sess)
+    # photo -> category=photograph
+    src.search("x", n=1, content_type="photo")
+    assert sess.calls[0]["params"]["category"] == "photograph"
+    # vector is unsupported by Openverse's category -> dropped (not sent)
+    src.search("x", n=1, content_type="vector")
+    assert "category" not in sess.calls[1]["params"]

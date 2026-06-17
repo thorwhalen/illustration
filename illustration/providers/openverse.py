@@ -42,6 +42,13 @@ class OpenverseSource(RetrievalSource):
         "size": {"name": "size", "choices": {"large", "medium", "small"}},
         "safe": {"name": "mature", "coerce": lambda safe: not safe},
         "license_type": "license_type",
+        # content_type: Openverse `category` has no 'vector' → only photo/illustration
+        "content_type": {
+            "name": "category",
+            "choices": {"photo", "illustration"},
+            "coerce": lambda ct: {"photo": "photograph", "illustration": "illustration"}[ct],
+        },
+        "color": None,  # Openverse has no color filter (explicitly unsupported)
     }
     info = SourceInfo(
         name="openverse",

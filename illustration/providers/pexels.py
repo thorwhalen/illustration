@@ -42,6 +42,8 @@ class PexelsSource(RetrievalSource):
         # equivalent (single license). Both are explicitly unsupported -> degrade.
         "safe": None,
         "license_type": None,
+        "color": "color",  # Pexels supports a named or #hex color
+        "content_type": None,  # Pexels is photos only
     }
     info = SourceInfo(
         name="pexels",

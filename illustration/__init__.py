@@ -63,8 +63,8 @@ from illustration.schema import ImageResult, license_allowlist, to_search_hit
 from illustration.translation import make_param_translator
 
 # Importing the providers subpackage registers the built-in sources as a side
-# effect (Openverse + Pexels). Named `providers` so it does not shadow the
-# public `sources` registry view imported above.
+# effect. Named `providers` so it does not shadow the public `sources` registry
+# view imported above.
 from illustration import providers as _builtin_providers  # noqa: F401,E402  (side-effect import)
 
 __all__ = [
