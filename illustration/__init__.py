@@ -47,9 +47,16 @@ from illustration.errors import (
     MissingCredentialError,
     ProviderError,
     RateLimitError,
+    RerankDependencyError,
     UnknownSourceError,
 )
 from illustration.facade import search
+from illustration.reranking import (
+    DFLT_RERANK_MODEL,
+    check_rerank_requirements,
+    make_siglip_scorer,
+    rerank,
+)
 from illustration.registry import (
     SourcesView,
     default_sources,
@@ -102,12 +109,18 @@ __all__ = [
     "DFLT_SOURCES",
     "DFLT_LICENSE_ALLOWLIST",
     "cache_dir",
+    # rerank (precision stage; default scorer needs the [rerank] extra)
+    "rerank",
+    "make_siglip_scorer",
+    "check_rerank_requirements",
+    "DFLT_RERANK_MODEL",
     # errors
     "IllustrationError",
     "UnknownSourceError",
     "MissingCredentialError",
     "ProviderError",
     "RateLimitError",
+    "RerankDependencyError",
 ]
 
 __version__ = "0.0.2"

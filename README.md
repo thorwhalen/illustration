@@ -118,6 +118,31 @@ illustration.search("harbour", refresh=True)   # force a re-fetch
 illustration.search("harbour", cache=my_store) # inject any MutableMapping
 ```
 
+## Rerank (precision)
+
+Provider tag/lexical search is a cheap, high-**recall** stage. For **precision**,
+rerank the candidates by true cross-modal (text↔image) similarity with a local
+SigLIP-2 model — the recall→rerank pattern:
+
+```python
+hits = illustration.search("a stormy harbour at dusk", n=50)   # recall
+top  = illustration.rerank("a stormy harbour at dusk", hits)[:10]  # precision
+# or the one-liner:
+top  = illustration.search("a stormy harbour at dusk", n=50, rerank=True)[:10]
+```
+
+`rerank` populates each result's `.score` and sorts by it. The default SigLIP-2
+encoder needs the optional extra (`pip install 'illustration[rerank]'`); a clear
+error tells you if it's missing. The scorer is injectable — pass any
+`(query, results) -> scores` callable to use a different model:
+
+```python
+illustration.rerank("harbour", hits, scorer=my_scorer)
+```
+
+Image embeddings are content-addressed and cached, so re-ranking overlapping
+candidates is cheap.
+
 ## The escape hatch
 
 A pure façade exposes only the common interface — but you can always reach a

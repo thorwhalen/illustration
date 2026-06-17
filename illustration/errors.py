@@ -18,6 +18,7 @@ __all__ = [
     "MissingCredentialError",
     "ProviderError",
     "RateLimitError",
+    "RerankDependencyError",
 ]
 
 
@@ -63,6 +64,21 @@ class MissingCredentialError(IllustrationError):
         if console_url:
             lines.append(f"Get a key at: {console_url}")
         super().__init__(" ".join(lines))
+
+
+class RerankDependencyError(IllustrationError, ImportError):
+    """The optional local-rerank dependencies are not installed.
+
+    The message names the missing packages and the extra that provides them.
+    """
+
+    def __init__(self, missing: "list[str] | None" = None):
+        self.missing = list(missing or [])
+        names = ", ".join(self.missing) if self.missing else "transformers, torch, pillow"
+        super().__init__(
+            f"Local rerank needs the optional dependencies ({names}). "
+            "Install them with: pip install 'illustration[rerank]'."
+        )
 
 
 class ProviderError(IllustrationError):
