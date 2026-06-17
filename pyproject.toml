@@ -10,11 +10,28 @@ version = "0.0.2"
 description = "agentic semantic image retrieval"
 readme = "README.md"
 requires-python = ">=3.10"
-keywords = []
+keywords = [
+    "image-retrieval",
+    "image-search",
+    "stock-images",
+    "cross-modal",
+    "semantic-search",
+    "openverse",
+    "pexels",
+]
 authors = [
     { name = "Thor Whalen" },
 ]
-dependencies = []
+dependencies = [
+    "pydantic>=2",
+    "requests",
+    "dol",
+    "config2py",
+    "argh",
+]
+
+[project.scripts]
+illustration = "illustration.__main__:main"
 
 [project.license]
 text = "mit"
@@ -75,8 +92,10 @@ convention = "google"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
+addopts = "--doctest-modules"
 testpaths = [
     "tests",
+    "illustration",
 ]
 doctest_optionflags = [
     "NORMALIZE_WHITESPACE",
