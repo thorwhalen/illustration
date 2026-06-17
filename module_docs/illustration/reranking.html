@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.reranking &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.schema" href="schema.html" />
+    <link rel="prev" title="illustration.registry" href="registry.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.reranking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.DFLT_RERANK_MODEL"><code class="docutils literal notranslate"><span class="pre">DFLT_RERANK_MODEL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.SiglipScorer"><code class="docutils literal notranslate"><span class="pre">SiglipScorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.default_scorer"><code class="docutils literal notranslate"><span class="pre">default_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.reranking</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/reranking.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.reranking">
+<span id="illustration-reranking"></span><h1>illustration.reranking<a class="headerlink" href="#module-illustration.reranking" title="Link to this heading"></a></h1>
+<p>Local cross-modal rerank — the precision stage (research report R1 §3).</p>
+<p>Provider lexical/tag search is a cheap, high-recall <em>recall</em> stage; this module
+is the expensive, high-precision <em>rerank</em> stage that re-scores the candidates by
+true cross-modal (text↔image) similarity using a local CLIP-family model. The
+default is <strong>SigLIP 2</strong> (Apache-2.0, commercially safe; R1’s recommended open
+encoder).</p>
+<p>The design is a clean seam: <a class="reference internal" href="#illustration.reranking.rerank" title="illustration.reranking.rerank"><code class="xref py py-func docutils literal notranslate"><span class="pre">rerank()</span></code></a> is a torch-free orchestrator over an
+injectable <a class="reference internal" href="#illustration.reranking.Scorer" title="illustration.reranking.Scorer"><code class="xref py py-data docutils literal notranslate"><span class="pre">Scorer</span></code></a> (<code class="docutils literal notranslate"><span class="pre">(query,</span> <span class="pre">results)</span> <span class="pre">-&gt;</span> <span class="pre">per-result</span> <span class="pre">scores</span></code>). The
+default scorer (<a class="reference internal" href="#illustration.reranking.make_siglip_scorer" title="illustration.reranking.make_siglip_scorer"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a>) loads SigLIP via <code class="docutils literal notranslate"><span class="pre">transformers</span></code> +
+<code class="docutils literal notranslate"><span class="pre">torch</span></code> + <code class="docutils literal notranslate"><span class="pre">pillow</span></code> — all behind the optional <code class="docutils literal notranslate"><span class="pre">illustration[rerank]</span></code> extra
+and imported lazily, so <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">illustration</span></code> (and this module) stay light and
+the scorer can later be swapped for an <code class="docutils literal notranslate"><span class="pre">ef</span></code>-hosted embedder with no call-site
+change.</p>
+<p>Typical recall→rerank→top-k use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;a stormy harbour at dusk&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>   <span class="c1"># recall</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">rerank</span><span class="p">(</span><span class="s2">&quot;a stormy harbour at dusk&quot;</span><span class="p">,</span> <span class="n">hits</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># precision</span>
+</pre></div>
+</div>
+<p>or the convenience <code class="docutils literal notranslate"><span class="pre">illustration.search(&quot;...&quot;,</span> <span class="pre">n=50,</span> <span class="pre">rerank=True)[:10]</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># orchestration is testable with a stub scorer (no model needed)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span> <span class="o">=</span> <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;u</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ranked</span> <span class="o">=</span> <span class="n">rerank</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">scorer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ranked</span><span class="p">],</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ranked</span><span class="p">]</span>
+<span class="go">([&#39;1&#39;, &#39;2&#39;, &#39;0&#39;], [0.9, 0.5, 0.1])</span>
+</pre></div>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.reranking.DFLT_RERANK_MODEL">
+<span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">DFLT_RERANK_MODEL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'google/siglip2-base-patch16-224'</span></span><a class="headerlink" href="#illustration.reranking.DFLT_RERANK_MODEL" title="Link to this definition"></a></dt>
+<dd><p>SigLIP 2 base (Apache-2.0). Smaller/faster than So400m; set a
+larger model (e.g. <code class="docutils literal notranslate"><span class="pre">google/siglip2-so400m-patch16-384</span></code>) for higher quality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Default encoder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.reranking.Scorer">
+<span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">Scorer</span></span><a class="headerlink" href="#illustration.reranking.Scorer" title="Link to this definition"></a></dt>
+<dd><p>A scorer maps (query, results) -&gt; one relevance score per result (parallel).</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>]], <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.reranking.SiglipScorer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">SiglipScorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'google/siglip2-base-patch16-224'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'thumbnail_url'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/reranking.html#SiglipScorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.SiglipScorer" title="Link to this definition"></a></dt>
+<dd><p>Scores (query, image) pairs by SigLIP cross-modal cosine similarity.</p>
+<p>The model is loaded lazily on first call; image embeddings are content-
+addressed (keyed by model + image URL) in an injectable <code class="docutils literal notranslate"><span class="pre">dol</span></code> store, so a
+re-rank of overlapping candidates is cheap. A candidate whose image can’t be
+fetched/embedded scores <code class="docutils literal notranslate"><span class="pre">-1.0</span></code> (sorted to the bottom) rather than failing.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.reranking.check_rerank_requirements">
+<span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">check_rerank_requirements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/illustration/reranking.html#check_rerank_requirements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.check_rerank_requirements" title="Link to this definition"></a></dt>
+<dd><p>Raise <code class="xref py py-class docutils literal notranslate"><span class="pre">RerankDependencyError</span></code> if the rerank extra isn’t installed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.reranking.default_scorer">
+<span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">default_scorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'google/siglip2-base-patch16-224'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/reranking.html#default_scorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.default_scorer" title="Link to this definition"></a></dt>
+<dd><p>The default (cached) SigLIP scorer for <code class="docutils literal notranslate"><span class="pre">model</span></code> — built once per model.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.reranking.make_siglip_scorer">
+<span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">make_siglip_scorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'google/siglip2-base-patch16-224'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'thumbnail_url'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.reranking.SiglipScorer" title="illustration.reranking.SiglipScorer"><span class="pre">SiglipScorer</span></a></span></span><a class="reference internal" href="../../_modules/illustration/reranking.html#make_siglip_scorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.make_siglip_scorer" title="Link to this definition"></a></dt>
+<dd><p>Build a SigLIP <a class="reference internal" href="#illustration.reranking.SiglipScorer" title="illustration.reranking.SiglipScorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SiglipScorer</span></code></a> (raises if the extra is missing).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.reranking.rerank">
+<span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">rerank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">scorer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/reranking.html#rerank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.rerank" title="Link to this definition"></a></dt>
+<dd><p>Re-score <code class="docutils literal notranslate"><span class="pre">results</span></code> against <code class="docutils literal notranslate"><span class="pre">query</span></code> and return them sorted by score.</p>
+<p>Each returned <code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code> is a copy with <code class="docutils literal notranslate"><span class="pre">.score</span></code> populated.
+<code class="docutils literal notranslate"><span class="pre">scorer</span></code> defaults to the SigLIP scorer (needs the <code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> extra);
+inject any <code class="docutils literal notranslate"><span class="pre">(query,</span> <span class="pre">results)</span> <span class="pre">-&gt;</span> <span class="pre">scores</span></code> callable to use a different model
+or a test double. An empty <code class="docutils literal notranslate"><span class="pre">results</span></code> returns <code class="docutils literal notranslate"><span class="pre">[]</span></code> without loading a model.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="registry.html" class="btn btn-neutral float-left" title="illustration.registry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="schema.html" class="btn btn-neutral float-right" title="illustration.schema" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

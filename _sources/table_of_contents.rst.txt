@@ -17,5 +17,6 @@
    module_docs/illustration/providers/pixabay
    module_docs/illustration/providers/wikimedia
    module_docs/illustration/registry
+   module_docs/illustration/reranking
    module_docs/illustration/schema
    module_docs/illustration/translation

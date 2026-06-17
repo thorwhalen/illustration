@@ -61,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#illustration.errors.MissingCredentialError"><code class="docutils literal notranslate"><span class="pre">MissingCredentialError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.errors.ProviderError"><code class="docutils literal notranslate"><span class="pre">ProviderError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.errors.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.errors.RerankDependencyError"><code class="docutils literal notranslate"><span class="pre">RerankDependencyError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.errors.UnknownSourceError"><code class="docutils literal notranslate"><span class="pre">UnknownSourceError</span></code></a></li>
 </ul>
 </li>
@@ -71,6 +72,7 @@
 <li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
 </ul>
@@ -134,6 +136,13 @@ the key value itself.</p>
 <dt class="sig sig-object py" id="illustration.errors.RateLimitError">
 <span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.errors.</span></span><span class="sig-name descname"><span class="pre">RateLimitError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/errors.html#RateLimitError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.errors.RateLimitError" title="Link to this definition"></a></dt>
 <dd><p>A provider returned HTTP 429 (rate limit exceeded).</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="illustration.errors.RerankDependencyError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.errors.</span></span><span class="sig-name descname"><span class="pre">RerankDependencyError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/errors.html#RerankDependencyError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.errors.RerankDependencyError" title="Link to this definition"></a></dt>
+<dd><p>The optional local-rerank dependencies are not installed.</p>
+<p>The message names the missing packages and the extra that provides them.</p>
 </dd></dl>
 
 <dl class="py exception">

@@ -61,6 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
 </ul>
@@ -110,6 +111,7 @@
     <span class="s2">&quot;MissingCredentialError&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ProviderError&quot;</span><span class="p">,</span>
     <span class="s2">&quot;RateLimitError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RerankDependencyError&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -163,6 +165,24 @@
         <span class="k">if</span> <span class="n">console_url</span><span class="p">:</span>
             <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get a key at: </span><span class="si">{</span><span class="n">console_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="RerankDependencyError">
+<a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.RerankDependencyError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RerankDependencyError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The optional local-rerank dependencies are not installed.</span>
+
+<span class="sd">    The message names the missing packages and the extra that provides them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">missing</span><span class="p">:</span> <span class="s2">&quot;list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">missing</span> <span class="ow">or</span> <span class="p">[])</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">missing</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="k">else</span> <span class="s2">&quot;transformers, torch, pillow&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Local rerank needs the optional dependencies (</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="s2">&quot;Install them with: pip install &#39;illustration[rerank]&#39;.&quot;</span>
+        <span class="p">)</span></div>
 
 
 

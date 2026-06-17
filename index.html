@@ -63,6 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/translation.html">illustration.translation</a></li>
 </ul>
@@ -102,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.MissingCredentialError"><code class="docutils literal notranslate"><span class="pre">MissingCredentialError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.ProviderError"><code class="docutils literal notranslate"><span class="pre">ProviderError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RerankDependencyError"><code class="docutils literal notranslate"><span class="pre">RerankDependencyError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RetrievalSource"><code class="docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SearchCache"><code class="docutils literal notranslate"><span class="pre">SearchCache</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SourceInfo"><code class="docutils literal notranslate"><span class="pre">SourceInfo</span></code></a></li>
@@ -109,14 +111,17 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.UnknownSourceError"><code class="docutils literal notranslate"><span class="pre">UnknownSourceError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.cache_dir"><code class="docutils literal notranslate"><span class="pre">cache_dir()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.check_requirements"><code class="docutils literal notranslate"><span class="pre">check_requirements()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_search_store"><code class="docutils literal notranslate"><span class="pre">default_search_store()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_sources"><code class="docutils literal notranslate"><span class="pre">default_sources()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.get_source"><code class="docutils literal notranslate"><span class="pre">get_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.list_sources"><code class="docutils literal notranslate"><span class="pre">list_sources()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.register_source"><code class="docutils literal notranslate"><span class="pre">register_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.requires_credentials"><code class="docutils literal notranslate"><span class="pre">requires_credentials()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.resolve_api_key"><code class="docutils literal notranslate"><span class="pre">resolve_api_key()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search_cache_key"><code class="docutils literal notranslate"><span class="pre">search_cache_key()</span></code></a></li>
@@ -176,6 +181,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.MissingCredentialError"><code class="docutils literal notranslate"><span class="pre">MissingCredentialError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.ProviderError"><code class="docutils literal notranslate"><span class="pre">ProviderError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.RerankDependencyError"><code class="docutils literal notranslate"><span class="pre">RerankDependencyError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.UnknownSourceError"><code class="docutils literal notranslate"><span class="pre">UnknownSourceError</span></code></a></li>
 </ul>
 </li>
@@ -214,6 +220,16 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.register_source"><code class="docutils literal notranslate"><span class="pre">register_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.sources"><code class="docutils literal notranslate"><span class="pre">sources</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.unregister_source"><code class="docutils literal notranslate"><span class="pre">unregister_source()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/reranking.html">illustration.reranking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.DFLT_RERANK_MODEL"><code class="docutils literal notranslate"><span class="pre">DFLT_RERANK_MODEL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.SiglipScorer"><code class="docutils literal notranslate"><span class="pre">SiglipScorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.default_scorer"><code class="docutils literal notranslate"><span class="pre">default_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a><ul>

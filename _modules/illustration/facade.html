@@ -61,6 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
 </ul>
@@ -134,7 +135,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.caching</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchCache</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_N</span>
@@ -163,6 +164,7 @@
     <span class="n">color</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">content_type</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">license_allow</span><span class="p">:</span> <span class="s2">&quot;bool | Iterable[str]&quot;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">rerank</span><span class="p">:</span> <span class="s2">&quot;bool | Callable&quot;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">provider_params</span><span class="p">:</span> <span class="s2">&quot;Mapping[str, Mapping[str, Any]] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cache</span><span class="p">:</span> <span class="s2">&quot;bool | SearchCache&quot;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -187,6 +189,12 @@
 <span class="sd">            = keep only commercial-safe licenses (CC0/PD/BY/BY-SA + Pexels);</span>
 <span class="sd">            an iterable of license codes = keep only those. Aggregators disclaim</span>
 <span class="sd">            license accuracy, so gate when commercial use matters.</span>
+<span class="sd">        rerank: Local cross-modal precision rerank (R1). ``False`` (default) =</span>
+<span class="sd">            off; ``True`` = SigLIP-2 (needs the ``illustration[rerank]`` extra);</span>
+<span class="sd">            a ``(query, results) -&gt; scores`` callable = a custom scorer. Applied</span>
+<span class="sd">            to the assembled results, which it re-scores (populating ``.score``)</span>
+<span class="sd">            and sorts. Use the recall→rerank pattern: ``search(q, n=50,</span>
+<span class="sd">            rerank=True)[:10]``.</span>
 <span class="sd">        provider_params: Per-source native params, e.g.</span>
 <span class="sd">            ``{&quot;pexels&quot;: {&quot;color&quot;: &quot;blue&quot;}}`` — used when fanning out to multiple</span>
 <span class="sd">            sources so each gets the right native overrides.</span>
@@ -269,6 +277,13 @@
     <span class="k">if</span> <span class="n">license_allow</span><span class="p">:</span>
         <span class="n">allow</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">license_allow</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">license_allow</span>
         <span class="n">all_results</span> <span class="o">=</span> <span class="n">license_allowlist</span><span class="p">(</span><span class="n">all_results</span><span class="p">,</span> <span class="n">allow</span><span class="o">=</span><span class="n">allow</span><span class="p">)</span>
+
+    <span class="c1"># precision rerank (R1) — re-score + sort the assembled (gated) candidates</span>
+    <span class="k">if</span> <span class="n">rerank</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.reranking</span><span class="w"> </span><span class="kn">import</span> <span class="n">rerank</span> <span class="k">as</span> <span class="n">_rerank</span>
+
+        <span class="n">scorer</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">rerank</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">rerank</span>
+        <span class="n">all_results</span> <span class="o">=</span> <span class="n">_rerank</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">all_results</span><span class="p">,</span> <span class="n">scorer</span><span class="o">=</span><span class="n">scorer</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">all_results</span></div>
 
 

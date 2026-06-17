@@ -61,6 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/translation.html">illustration.translation</a></li>
 </ul>
@@ -129,6 +130,12 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration.html#illustration.check_rerank_requirements">check_rerank_requirements() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/reranking.html#illustration.reranking.check_rerank_requirements">(in module illustration.reranking)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/cli.html#illustration.cli.COMMANDS">COMMANDS (in module illustration.cli)</a>
 </li>
       <li><a href="module_docs/illustration/config.html#illustration.config.config_dir">config_dir() (in module illustration.config)</a>
@@ -142,6 +149,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/config.html#illustration.config.data_dir">data_dir() (in module illustration.config)</a>
+</li>
+      <li><a href="module_docs/illustration/reranking.html#illustration.reranking.default_scorer">default_scorer() (in module illustration.reranking)</a>
 </li>
       <li><a href="module_docs/illustration.html#illustration.default_search_store">default_search_store() (in module illustration)</a>
 
@@ -160,6 +169,8 @@
       <li><a href="module_docs/illustration/config.html#illustration.config.DFLT_LICENSE_ALLOWLIST">DFLT_LICENSE_ALLOWLIST (in module illustration.config)</a>
 </li>
       <li><a href="module_docs/illustration/config.html#illustration.config.DFLT_N">DFLT_N (in module illustration.config)</a>
+</li>
+      <li><a href="module_docs/illustration/reranking.html#illustration.reranking.DFLT_RERANK_MODEL">DFLT_RERANK_MODEL (in module illustration.reranking)</a>
 </li>
       <li><a href="module_docs/illustration/config.html#illustration.config.DFLT_SOURCES">DFLT_SOURCES (in module illustration.config)</a>
 </li>
@@ -325,8 +336,6 @@
         <li><a href="module_docs/illustration/providers/pexels.html#module-illustration.providers.pexels">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     illustration.providers.pixabay
 
@@ -334,6 +343,8 @@
         <li><a href="module_docs/illustration/providers/pixabay.html#module-illustration.providers.pixabay">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     illustration.providers.wikimedia
 
@@ -346,6 +357,13 @@
 
       <ul>
         <li><a href="module_docs/illustration/registry.html#module-illustration.registry">module</a>
+</li>
+      </ul></li>
+      <li>
+    illustration.reranking
+
+      <ul>
+        <li><a href="module_docs/illustration/reranking.html#module-illustration.reranking">module</a>
 </li>
       </ul></li>
       <li>
@@ -428,6 +446,12 @@
         <li><a href="module_docs/illustration/translation.html#illustration.translation.make_param_translator">(in module illustration.translation)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.make_siglip_scorer">make_siglip_scorer() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/reranking.html#illustration.reranking.make_siglip_scorer">(in module illustration.reranking)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/config.html#illustration.config.MAX_PAGES">MAX_PAGES (in module illustration.config)</a>
 </li>
       <li><a href="module_docs/illustration/base.html#illustration.base.RetrievalSource.max_per_page">max_per_page (illustration.base.RetrievalSource attribute)</a>
@@ -495,6 +519,8 @@
         <li><a href="module_docs/illustration/providers/wikimedia.html#module-illustration.providers.wikimedia">illustration.providers.wikimedia</a>
 </li>
         <li><a href="module_docs/illustration/registry.html#module-illustration.registry">illustration.registry</a>
+</li>
+        <li><a href="module_docs/illustration/reranking.html#module-illustration.reranking">illustration.reranking</a>
 </li>
         <li><a href="module_docs/illustration/schema.html#module-illustration.schema">illustration.schema</a>
 </li>
@@ -679,14 +705,22 @@
         <li><a href="module_docs/illustration/registry.html#illustration.registry.register_source">(in module illustration.registry)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration.html#illustration.requires_credentials">requires_credentials() (in module illustration)</a>
 
       <ul>
         <li><a href="module_docs/illustration/credentials.html#illustration.credentials.requires_credentials">(in module illustration.credentials)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration.html#illustration.rerank">rerank() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/reranking.html#illustration.reranking.rerank">(in module illustration.reranking)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.RerankDependencyError">RerankDependencyError</a>, <a href="module_docs/illustration/errors.html#illustration.errors.RerankDependencyError">[1]</a>
+</li>
       <li><a href="module_docs/illustration.html#illustration.resolve_api_key">resolve_api_key() (in module illustration)</a>
 
       <ul>
@@ -705,6 +739,8 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration/reranking.html#illustration.reranking.Scorer">Scorer (in module illustration.reranking)</a>
+</li>
       <li><a href="module_docs/illustration/base.html#illustration.base.RetrievalSource.search">search() (illustration.base.RetrievalSource method)</a>
 
       <ul>
@@ -733,6 +769,8 @@
         <li><a href="module_docs/illustration/caching.html#illustration.caching.SearchCache">(class in illustration.caching)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration/reranking.html#illustration.reranking.SiglipScorer">SiglipScorer (class in illustration.reranking)</a>
+</li>
       <li><a href="module_docs/illustration.html#illustration.SourceInfo">SourceInfo (class in illustration)</a>
 
       <ul>
