@@ -58,6 +58,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
@@ -132,17 +134,19 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.caching</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchCache</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_N</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_sources</span><span class="p">,</span> <span class="n">get_source</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">license_allowlist</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">]</span>
 
 <span class="c1">#: The formal canonical filter parameters (everything else is escape-hatch).</span>
-<span class="n">_CANONICAL_PARAMS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;orientation&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="s2">&quot;license_type&quot;</span><span class="p">)</span>
+<span class="c1">#: A param joins this set once ≥2 providers support it (promotion rule);</span>
+<span class="c1">#: ``safe`` and ``license_type`` are first-class exceptions.</span>
+<span class="n">_CANONICAL_PARAMS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;orientation&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="s2">&quot;license_type&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;content_type&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="search">
@@ -156,6 +160,9 @@
     <span class="n">size</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">safe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">license_type</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">color</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">content_type</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">license_allow</span><span class="p">:</span> <span class="s2">&quot;bool | Iterable[str]&quot;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">provider_params</span><span class="p">:</span> <span class="s2">&quot;Mapping[str, Mapping[str, Any]] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cache</span><span class="p">:</span> <span class="s2">&quot;bool | SearchCache&quot;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -173,6 +180,13 @@
 <span class="sd">        safe: Exclude mature content where the provider supports it (default True).</span>
 <span class="sd">        license_type: ``commercial`` | ``all-cc`` | ``modification`` | ``all``</span>
 <span class="sd">            (honored by providers with license filtering, e.g. Openverse).</span>
+<span class="sd">        color: A named color or ``#hex`` (Pexels, Pixabay).</span>
+<span class="sd">        content_type: ``photo`` | ``illustration`` | ``vector`` (Openverse,</span>
+<span class="sd">            Pixabay; providers map/skip values they don&#39;t support).</span>
+<span class="sd">        license_allow: License gate (R3). ``False`` (default) = no gate; ``True``</span>
+<span class="sd">            = keep only commercial-safe licenses (CC0/PD/BY/BY-SA + Pexels);</span>
+<span class="sd">            an iterable of license codes = keep only those. Aggregators disclaim</span>
+<span class="sd">            license accuracy, so gate when commercial use matters.</span>
 <span class="sd">        provider_params: Per-source native params, e.g.</span>
 <span class="sd">            ``{&quot;pexels&quot;: {&quot;color&quot;: &quot;blue&quot;}}`` — used when fanning out to multiple</span>
 <span class="sd">            sources so each gets the right native overrides.</span>
@@ -218,7 +232,10 @@
                 <span class="s2">&quot;illustration.using_credentials(provider=&#39;...&#39;).&quot;</span>
             <span class="p">)</span>
 
-    <span class="n">_values</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="n">safe</span><span class="p">,</span> <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="n">license_type</span><span class="p">}</span>
+    <span class="n">_values</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="n">safe</span><span class="p">,</span>
+        <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="n">license_type</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;content_type&quot;</span><span class="p">:</span> <span class="n">content_type</span><span class="p">,</span>
+    <span class="p">}</span>
     <span class="n">canonical</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">_values</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_CANONICAL_PARAMS</span><span class="p">}</span>
 
     <span class="n">all_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -246,6 +263,12 @@
             <span class="k">if</span> <span class="n">cache_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">results</span><span class="p">:</span>
                 <span class="n">cache_obj</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">key_params</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
         <span class="n">all_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="c1"># license gate (R3) — applied as a view over assembled results, after caching</span>
+    <span class="c1"># (the cache stays provider-truth; the gate re-applies cheaply per call)</span>
+    <span class="k">if</span> <span class="n">license_allow</span><span class="p">:</span>
+        <span class="n">allow</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">license_allow</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">license_allow</span>
+        <span class="n">all_results</span> <span class="o">=</span> <span class="n">license_allowlist</span><span class="p">(</span><span class="n">all_results</span><span class="p">,</span> <span class="n">allow</span><span class="o">=</span><span class="n">allow</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">all_results</span></div>
 
 

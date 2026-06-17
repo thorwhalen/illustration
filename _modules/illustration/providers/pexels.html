@@ -58,6 +58,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/translation.html">illustration.translation</a></li>
@@ -134,6 +136,8 @@
         <span class="c1"># equivalent (single license). Both are explicitly unsupported -&gt; degrade.</span>
         <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span>  <span class="c1"># Pexels supports a named or #hex color</span>
+        <span class="s2">&quot;content_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Pexels is photos only</span>
     <span class="p">}</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pexels&quot;</span><span class="p">,</span>

@@ -1,0 +1,202 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.providers.wikimedia &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="illustration.registry" href="../registry.html" />
+    <link rel="prev" title="illustration.providers.pixabay" href="pixabay.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.providers.wikimedia</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.providers.wikimedia.WikimediaSource"><code class="docutils literal notranslate"><span class="pre">WikimediaSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.wikimedia.WikimediaSource.endpoint"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.wikimedia.WikimediaSource.fixed_params"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.fixed_params</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.wikimedia.WikimediaSource.info"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.wikimedia.WikimediaSource.max_per_page"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.max_per_page</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.wikimedia.WikimediaSource.name"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.wikimedia.WikimediaSource.query_param"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.query_param</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.providers.wikimedia</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/illustration/providers/wikimedia.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.providers.wikimedia">
+<span id="illustration-providers-wikimedia"></span><h1>illustration.providers.wikimedia<a class="headerlink" href="#module-illustration.providers.wikimedia" title="Link to this heading"></a></h1>
+<p>Wikimedia Commons source — 140M+ free media, <strong>no key</strong>, deep file metadata.</p>
+<p>Wikimedia Commons (the MediaWiki Action API at
+<code class="docutils literal notranslate"><span class="pre">https://commons.wikimedia.org/w/api.php</span></code>) adds breadth and historical /
+editorial / fine-art / scientific reference imagery to the no-key default set.
+It uses a <code class="docutils literal notranslate"><span class="pre">generator=search</span></code> query feeding <code class="docutils literal notranslate"><span class="pre">prop=imageinfo</span></code> so each hit
+carries the full image URL, a thumbnail, and <code class="docutils literal notranslate"><span class="pre">extmetadata</span></code> (license, license
+URL, artist, attribution).</p>
+<p>This adapter exercises the base’s general extension hooks (no per-provider hacks
+in the façade): <code class="xref py py-attr docutils literal notranslate"><span class="pre">fixed_params</span></code> (the constant <code class="docutils literal notranslate"><span class="pre">action=query</span></code> / <code class="docutils literal notranslate"><span class="pre">format</span></code>
+/ <code class="docutils literal notranslate"><span class="pre">generator</span></code> / <code class="docutils literal notranslate"><span class="pre">gsrnamespace</span></code> / <code class="docutils literal notranslate"><span class="pre">prop</span></code> / <code class="docutils literal notranslate"><span class="pre">iiprop</span></code> params) and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_page_params()</span></code> (Wikimedia paginates by <code class="docutils literal notranslate"><span class="pre">gsroffset</span></code>, not page number).</p>
+<p>Quirks handled here: the response’s <code class="docutils literal notranslate"><span class="pre">query.pages</span></code> is a <strong>dict keyed by
+pageid</strong> (sorted here by the search <code class="docutils literal notranslate"><span class="pre">index</span></code> to preserve relevance order);
+licenses <strong>vary per file</strong> (so pair with the <code class="docutils literal notranslate"><span class="pre">license_allow</span></code> gate for
+commercial use); the <code class="docutils literal notranslate"><span class="pre">Artist</span></code> field is <strong>HTML</strong> (stripped for <code class="docutils literal notranslate"><span class="pre">author</span></code>,
+with the first <code class="docutils literal notranslate"><span class="pre">href</span></code> lifted into <code class="docutils literal notranslate"><span class="pre">author_url</span></code>); the File namespace includes
+non-images (PDF/audio/video) which are dropped during normalization by MIME.</p>
+<p>It supports <strong>none</strong> of the canonical search-time filters (orientation/size/
+safe/license_type/color/content_type) — they degrade gracefully.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.providers.wikimedia.WikimediaSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.providers.wikimedia.</span></span><span class="sig-name descname"><span class="pre">WikimediaSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/illustration/providers/wikimedia.html#WikimediaSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.providers.wikimedia.WikimediaSource" title="Link to this definition"></a></dt>
+<dd><p>Pure-search adapter for Wikimedia Commons (MediaWiki Action API).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.wikimedia.WikimediaSource.endpoint">
+<span class="sig-name descname"><span class="pre">endpoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://commons.wikimedia.org/w/api.php'</span></span><a class="headerlink" href="#illustration.providers.wikimedia.WikimediaSource.endpoint" title="Link to this definition"></a></dt>
+<dd><p>Search endpoint URL. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.wikimedia.WikimediaSource.fixed_params">
+<span class="sig-name descname"><span class="pre">fixed_params</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'action':</span> <span class="pre">'query',</span> <span class="pre">'format':</span> <span class="pre">'json',</span> <span class="pre">'generator':</span> <span class="pre">'search',</span> <span class="pre">'gsrnamespace':</span> <span class="pre">'6',</span> <span class="pre">'iiprop':</span> <span class="pre">'url|extmetadata|size|mime|user',</span> <span class="pre">'iiurlwidth':</span> <span class="pre">'320',</span> <span class="pre">'prop':</span> <span class="pre">'imageinfo'}</span></span><a class="headerlink" href="#illustration.providers.wikimedia.WikimediaSource.fixed_params" title="Link to this definition"></a></dt>
+<dd><p>Constant native params sent on every request (e.g. an API mode/format).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.wikimedia.WikimediaSource.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../base.html#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><span class="pre">SourceInfo</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SourceInfo(name='wikimedia',</span> <span class="pre">description='140M+</span> <span class="pre">free</span> <span class="pre">media</span> <span class="pre">files</span> <span class="pre">with</span> <span class="pre">deep</span> <span class="pre">per-file</span> <span class="pre">metadata;</span> <span class="pre">no</span> <span class="pre">key.',</span> <span class="pre">requires_key=False,</span> <span class="pre">homepage='https://commons.wikimedia.org',</span> <span class="pre">default_cacheable=True,</span> <span class="pre">license_note='Per-file</span> <span class="pre">license</span> <span class="pre">varies</span> <span class="pre">(CC/PD;</span> <span class="pre">some</span> <span class="pre">share-alike)</span> <span class="pre">—</span> <span class="pre">gate</span> <span class="pre">for</span> <span class="pre">commercial</span> <span class="pre">use.',</span> <span class="pre">rate_limit='etiquette-bound</span> <span class="pre">(descriptive</span> <span class="pre">User-Agent</span> <span class="pre">required)',</span> <span class="pre">tags=('open',</span> <span class="pre">'historical',</span> <span class="pre">'editorial',</span> <span class="pre">'breadth',</span> <span class="pre">'no-key'))</span></span><a class="headerlink" href="#illustration.providers.wikimedia.WikimediaSource.info" title="Link to this definition"></a></dt>
+<dd><p>Static metadata (a per-instance one is synthesized in __init__ if unset).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.wikimedia.WikimediaSource.max_per_page">
+<span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></span><a class="headerlink" href="#illustration.providers.wikimedia.WikimediaSource.max_per_page" title="Link to this definition"></a></dt>
+<dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.wikimedia.WikimediaSource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'wikimedia'</span></span><a class="headerlink" href="#illustration.providers.wikimedia.WikimediaSource.name" title="Link to this definition"></a></dt>
+<dd><p>Registry key, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;openverse&quot;</span></code>. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.wikimedia.WikimediaSource.query_param">
+<span class="sig-name descname"><span class="pre">query_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gsrsearch'</span></span><a class="headerlink" href="#illustration.providers.wikimedia.WikimediaSource.query_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the free-text query parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pixabay.html" class="btn btn-neutral float-left" title="illustration.providers.pixabay" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../registry.html" class="btn btn-neutral float-right" title="illustration.registry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

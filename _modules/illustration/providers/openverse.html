@@ -58,6 +58,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/translation.html">illustration.translation</a></li>
@@ -134,6 +136,13 @@
         <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;large&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="s2">&quot;small&quot;</span><span class="p">}},</span>
         <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;mature&quot;</span><span class="p">,</span> <span class="s2">&quot;coerce&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">safe</span><span class="p">:</span> <span class="ow">not</span> <span class="n">safe</span><span class="p">},</span>
         <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="s2">&quot;license_type&quot;</span><span class="p">,</span>
+        <span class="c1"># content_type: Openverse `category` has no &#39;vector&#39; → only photo/illustration</span>
+        <span class="s2">&quot;content_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;photo&quot;</span><span class="p">,</span> <span class="s2">&quot;illustration&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;coerce&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">ct</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;photo&quot;</span><span class="p">:</span> <span class="s2">&quot;photograph&quot;</span><span class="p">,</span> <span class="s2">&quot;illustration&quot;</span><span class="p">:</span> <span class="s2">&quot;illustration&quot;</span><span class="p">}[</span><span class="n">ct</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Openverse has no color filter (explicitly unsupported)</span>
     <span class="p">}</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span>

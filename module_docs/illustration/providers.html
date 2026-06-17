@@ -81,10 +81,32 @@
 <li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PexelsSource.query_param"><code class="docutils literal notranslate"><span class="pre">PexelsSource.query_param</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.providers.PixabaySource"><code class="docutils literal notranslate"><span class="pre">PixabaySource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.endpoint"><code class="docutils literal notranslate"><span class="pre">PixabaySource.endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.info"><code class="docutils literal notranslate"><span class="pre">PixabaySource.info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.max_per_page"><code class="docutils literal notranslate"><span class="pre">PixabaySource.max_per_page</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.name"><code class="docutils literal notranslate"><span class="pre">PixabaySource.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.page_param"><code class="docutils literal notranslate"><span class="pre">PixabaySource.page_param</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.param_map"><code class="docutils literal notranslate"><span class="pre">PixabaySource.param_map</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.per_page_param"><code class="docutils literal notranslate"><span class="pre">PixabaySource.per_page_param</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.PixabaySource.query_param"><code class="docutils literal notranslate"><span class="pre">PixabaySource.query_param</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.providers.WikimediaSource"><code class="docutils literal notranslate"><span class="pre">WikimediaSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.WikimediaSource.endpoint"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.WikimediaSource.fixed_params"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.fixed_params</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.WikimediaSource.info"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.WikimediaSource.max_per_page"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.max_per_page</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.WikimediaSource.name"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.providers.WikimediaSource.query_param"><code class="docutils literal notranslate"><span class="pre">WikimediaSource.query_param</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
@@ -159,7 +181,7 @@ shadow the public <code class="xref py py-data docutils literal notranslate"><sp
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="illustration.providers.OpenverseSource.param_map">
-<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'license_type':</span> <span class="pre">'license_type',</span> <span class="pre">'orientation':</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">OpenverseSource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'aspect_ratio'},</span> <span class="pre">'safe':</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">OpenverseSource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'mature'},</span> <span class="pre">'size':</span> <span class="pre">{'choices':</span> <span class="pre">{'large',</span> <span class="pre">'medium',</span> <span class="pre">'small'},</span> <span class="pre">'name':</span> <span class="pre">'size'}}</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.param_map" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'color':</span> <span class="pre">None,</span> <span class="pre">'content_type':</span> <span class="pre">{'choices':</span> <span class="pre">{'illustration',</span> <span class="pre">'photo'},</span> <span class="pre">'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">OpenverseSource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'category'},</span> <span class="pre">'license_type':</span> <span class="pre">'license_type',</span> <span class="pre">'orientation':</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">OpenverseSource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'aspect_ratio'},</span> <span class="pre">'safe':</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">OpenverseSource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'mature'},</span> <span class="pre">'size':</span> <span class="pre">{'choices':</span> <span class="pre">{'large',</span> <span class="pre">'medium',</span> <span class="pre">'small'},</span> <span class="pre">'name':</span> <span class="pre">'size'}}</span></span><a class="headerlink" href="#illustration.providers.OpenverseSource.param_map" title="Link to this definition"></a></dt>
 <dd><p>Canonical→native parameter spec (see <a class="reference internal" href="translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.translation</span></code></a>).
 Immutable empty default so subclasses never share one mutable dict.</p>
 </dd></dl>
@@ -214,7 +236,7 @@ Immutable empty default so subclasses never share one mutable dict.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="illustration.providers.PexelsSource.param_map">
-<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'license_type':</span> <span class="pre">None,</span> <span class="pre">'orientation':</span> <span class="pre">{'choices':</span> <span class="pre">{'landscape',</span> <span class="pre">'portrait',</span> <span class="pre">'square'},</span> <span class="pre">'name':</span> <span class="pre">'orientation'},</span> <span class="pre">'safe':</span> <span class="pre">None,</span> <span class="pre">'size':</span> <span class="pre">{'choices':</span> <span class="pre">{'large',</span> <span class="pre">'medium',</span> <span class="pre">'small'},</span> <span class="pre">'name':</span> <span class="pre">'size'}}</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.param_map" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'color':</span> <span class="pre">'color',</span> <span class="pre">'content_type':</span> <span class="pre">None,</span> <span class="pre">'license_type':</span> <span class="pre">None,</span> <span class="pre">'orientation':</span> <span class="pre">{'choices':</span> <span class="pre">{'landscape',</span> <span class="pre">'portrait',</span> <span class="pre">'square'},</span> <span class="pre">'name':</span> <span class="pre">'orientation'},</span> <span class="pre">'safe':</span> <span class="pre">None,</span> <span class="pre">'size':</span> <span class="pre">{'choices':</span> <span class="pre">{'large',</span> <span class="pre">'medium',</span> <span class="pre">'small'},</span> <span class="pre">'name':</span> <span class="pre">'size'}}</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.param_map" title="Link to this definition"></a></dt>
 <dd><p>Canonical→native parameter spec (see <a class="reference internal" href="translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.translation</span></code></a>).
 Immutable empty default so subclasses never share one mutable dict.</p>
 </dd></dl>
@@ -228,6 +250,103 @@ Immutable empty default so subclasses never share one mutable dict.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="illustration.providers.PexelsSource.query_param">
 <span class="sig-name descname"><span class="pre">query_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'query'</span></span><a class="headerlink" href="#illustration.providers.PexelsSource.query_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the free-text query parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.providers.</span></span><span class="sig-name descname"><span class="pre">PixabaySource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/providers/pixabay.html#PixabaySource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.providers.PixabaySource" title="Link to this definition"></a></dt>
+<dd><p>Pure-search adapter for the Pixabay image API.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.endpoint">
+<span class="sig-name descname"><span class="pre">endpoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://pixabay.com/api/'</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.endpoint" title="Link to this definition"></a></dt>
+<dd><p>Search endpoint URL. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="base.html#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><span class="pre">SourceInfo</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SourceInfo(name='pixabay',</span> <span class="pre">description='Free</span> <span class="pre">commercial-use</span> <span class="pre">images;</span> <span class="pre">license</span> <span class="pre">permits</span> <span class="pre">caching</span> <span class="pre">+</span> <span class="pre">self-hosting.',</span> <span class="pre">requires_key=True,</span> <span class="pre">homepage='https://pixabay.com',</span> <span class="pre">default_cacheable=True,</span> <span class="pre">license_note='Single</span> <span class="pre">Pixabay</span> <span class="pre">Content</span> <span class="pre">License;</span> <span class="pre">download-to-own-server</span> <span class="pre">(no</span> <span class="pre">hotlink).',</span> <span class="pre">rate_limit='100/60s</span> <span class="pre">(raisable);</span> <span class="pre">responses</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">cached</span> <span class="pre">24h',</span> <span class="pre">tags=('stock',</span> <span class="pre">'free-commercial',</span> <span class="pre">'keyed',</span> <span class="pre">'cacheable'))</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.info" title="Link to this definition"></a></dt>
+<dd><p>Static metadata (a per-instance one is synthesized in __init__ if unset).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.max_per_page">
+<span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.max_per_page" title="Link to this definition"></a></dt>
+<dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pixabay'</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.name" title="Link to this definition"></a></dt>
+<dd><p>Registry key, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;openverse&quot;</span></code>. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.page_param">
+<span class="sig-name descname"><span class="pre">page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.page_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the page-number parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.param_map">
+<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'color':</span> <span class="pre">'colors',</span> <span class="pre">'content_type':</span> <span class="pre">{'choices':</span> <span class="pre">{'illustration',</span> <span class="pre">'photo',</span> <span class="pre">'vector'},</span> <span class="pre">'name':</span> <span class="pre">'image_type'},</span> <span class="pre">'license_type':</span> <span class="pre">None,</span> <span class="pre">'orientation':</span> <span class="pre">{'choices':</span> <span class="pre">{'landscape',</span> <span class="pre">'portrait',</span> <span class="pre">'square'},</span> <span class="pre">'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">PixabaySource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'orientation'},</span> <span class="pre">'safe':</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">PixabaySource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'safesearch'},</span> <span class="pre">'size':</span> <span class="pre">{'choices':</span> <span class="pre">{'large',</span> <span class="pre">'medium',</span> <span class="pre">'small'},</span> <span class="pre">'coerce':</span> <span class="pre">&lt;function</span> <span class="pre">PixabaySource.&lt;lambda&gt;&gt;,</span> <span class="pre">'name':</span> <span class="pre">'min_width'}}</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.param_map" title="Link to this definition"></a></dt>
+<dd><p>Canonical→native parameter spec (see <a class="reference internal" href="translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.translation</span></code></a>).
+Immutable empty default so subclasses never share one mutable dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.per_page_param">
+<span class="sig-name descname"><span class="pre">per_page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'per_page'</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.per_page_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the results-per-page parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.PixabaySource.query_param">
+<span class="sig-name descname"><span class="pre">query_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'q'</span></span><a class="headerlink" href="#illustration.providers.PixabaySource.query_param" title="Link to this definition"></a></dt>
+<dd><p>Native name of the free-text query parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.providers.WikimediaSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.providers.</span></span><span class="sig-name descname"><span class="pre">WikimediaSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/providers/wikimedia.html#WikimediaSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.providers.WikimediaSource" title="Link to this definition"></a></dt>
+<dd><p>Pure-search adapter for Wikimedia Commons (MediaWiki Action API).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.WikimediaSource.endpoint">
+<span class="sig-name descname"><span class="pre">endpoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://commons.wikimedia.org/w/api.php'</span></span><a class="headerlink" href="#illustration.providers.WikimediaSource.endpoint" title="Link to this definition"></a></dt>
+<dd><p>Search endpoint URL. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.WikimediaSource.fixed_params">
+<span class="sig-name descname"><span class="pre">fixed_params</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'action':</span> <span class="pre">'query',</span> <span class="pre">'format':</span> <span class="pre">'json',</span> <span class="pre">'generator':</span> <span class="pre">'search',</span> <span class="pre">'gsrnamespace':</span> <span class="pre">'6',</span> <span class="pre">'iiprop':</span> <span class="pre">'url|extmetadata|size|mime|user',</span> <span class="pre">'iiurlwidth':</span> <span class="pre">'320',</span> <span class="pre">'prop':</span> <span class="pre">'imageinfo'}</span></span><a class="headerlink" href="#illustration.providers.WikimediaSource.fixed_params" title="Link to this definition"></a></dt>
+<dd><p>Constant native params sent on every request (e.g. an API mode/format).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.WikimediaSource.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="base.html#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><span class="pre">SourceInfo</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SourceInfo(name='wikimedia',</span> <span class="pre">description='140M+</span> <span class="pre">free</span> <span class="pre">media</span> <span class="pre">files</span> <span class="pre">with</span> <span class="pre">deep</span> <span class="pre">per-file</span> <span class="pre">metadata;</span> <span class="pre">no</span> <span class="pre">key.',</span> <span class="pre">requires_key=False,</span> <span class="pre">homepage='https://commons.wikimedia.org',</span> <span class="pre">default_cacheable=True,</span> <span class="pre">license_note='Per-file</span> <span class="pre">license</span> <span class="pre">varies</span> <span class="pre">(CC/PD;</span> <span class="pre">some</span> <span class="pre">share-alike)</span> <span class="pre">—</span> <span class="pre">gate</span> <span class="pre">for</span> <span class="pre">commercial</span> <span class="pre">use.',</span> <span class="pre">rate_limit='etiquette-bound</span> <span class="pre">(descriptive</span> <span class="pre">User-Agent</span> <span class="pre">required)',</span> <span class="pre">tags=('open',</span> <span class="pre">'historical',</span> <span class="pre">'editorial',</span> <span class="pre">'breadth',</span> <span class="pre">'no-key'))</span></span><a class="headerlink" href="#illustration.providers.WikimediaSource.info" title="Link to this definition"></a></dt>
+<dd><p>Static metadata (a per-instance one is synthesized in __init__ if unset).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.WikimediaSource.max_per_page">
+<span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></span><a class="headerlink" href="#illustration.providers.WikimediaSource.max_per_page" title="Link to this definition"></a></dt>
+<dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.WikimediaSource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'wikimedia'</span></span><a class="headerlink" href="#illustration.providers.WikimediaSource.name" title="Link to this definition"></a></dt>
+<dd><p>Registry key, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;openverse&quot;</span></code>. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.providers.WikimediaSource.query_param">
+<span class="sig-name descname"><span class="pre">query_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gsrsearch'</span></span><a class="headerlink" href="#illustration.providers.WikimediaSource.query_param" title="Link to this definition"></a></dt>
 <dd><p>Native name of the free-text query parameter.</p>
 </dd></dl>
 

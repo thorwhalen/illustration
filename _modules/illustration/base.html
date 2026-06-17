@@ -58,6 +58,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
@@ -102,7 +104,7 @@
 <span class="sd">and implements three hooks: :meth:`_items`, :meth:`_normalize`, and</span>
 <span class="sd">(if the provider needs a key) :meth:`_auth_headers`.</span>
 
-<span class="sd">See ``illustration/sources/openverse.py`` for the canonical example.</span>
+<span class="sd">See ``illustration/providers/openverse.py`` for the canonical example.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -169,6 +171,8 @@
     <span class="n">per_page_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;page_size&quot;</span>
     <span class="c1">#: Hard cap on results per page this provider allows.</span>
     <span class="n">max_per_page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="c1">#: Constant native params sent on every request (e.g. an API mode/format).</span>
+    <span class="n">fixed_params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({})</span>
     <span class="c1">#: Canonical→native parameter spec (see :mod:`illustration.translation`).</span>
     <span class="c1">#: Immutable empty default so subclasses never share one mutable dict.</span>
     <span class="n">param_map</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({})</span>
@@ -199,9 +203,11 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Search ``query`` and return up to ``n`` normalized :class:`ImageResult`.</span>
 
-<span class="sd">        ``canonical`` are façade-canonical filters (``orientation``, ``size``,</span>
-<span class="sd">        ``safe``, ``license_type``); ``native_params`` are raw provider-native</span>
-<span class="sd">        params (the escape hatch) merged last, overriding translated ones.</span>
+<span class="sd">        ``canonical`` are façade-canonical filters (see the façade ``search`` and</span>
+<span class="sd">        the design doc §2); each is translated to the provider&#39;s native param via</span>
+<span class="sd">        ``param_map``, degrading gracefully where unsupported. ``native_params``</span>
+<span class="sd">        are raw provider-native params (the escape hatch) merged last, overriding</span>
+<span class="sd">        translated ones.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;query must be a non-empty string&quot;</span><span class="p">)</span>
@@ -216,10 +222,9 @@
         <span class="n">per_page</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_per_page</span><span class="p">))</span>
         <span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">page</span> <span class="o">&lt;=</span> <span class="n">MAX_PAGES</span><span class="p">:</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">native</span><span class="p">)</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">,</span> <span class="o">**</span><span class="n">native</span><span class="p">}</span>
             <span class="n">params</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">query_param</span><span class="p">]</span> <span class="o">=</span> <span class="n">query</span>
-            <span class="n">params</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">page_param</span><span class="p">]</span> <span class="o">=</span> <span class="n">page</span>
-            <span class="n">params</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">per_page_param</span><span class="p">]</span> <span class="o">=</span> <span class="n">per_page</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_page_params</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">))</span>
             <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
             <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
@@ -246,7 +251,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">check_requirements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">native_params</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span></div>
+        <span class="c1"># include fixed_params as a base so raw_search to APIs with mandatory</span>
+        <span class="c1"># constant params (e.g. action=query) still works; caller params win.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">,</span> <span class="o">**</span><span class="n">native_params</span><span class="p">},</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span></div>
 
 
     <span class="c1"># -- hooks for subclasses ------------------------------------------------</span>
@@ -259,8 +266,21 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Map one raw provider item to an :class:`ImageResult`.&quot;&quot;&quot;</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_page_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Native pagination params for a 1-based ``page``. Override for offset</span>
+<span class="sd">        models (e.g. Wikimedia&#39;s ``gsroffset``). Default is page-number based.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">page_param</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_page_param</span><span class="p">:</span> <span class="n">per_page</span><span class="p">}</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_auth_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;HTTP auth headers for this provider (default: none).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Native query params carrying auth (default: none).</span>
+
+<span class="sd">        For providers that take the key as a query param (e.g. Pixabay&#39;s</span>
+<span class="sd">        ``key=``) rather than a header.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{}</span>
 
     <span class="c1"># -- internals -----------------------------------------------------------</span>
@@ -279,9 +299,10 @@
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="ow">or</span> <span class="n">requests</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">(),</span> <span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
         <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth_headers</span><span class="p">(</span><span class="n">api_key</span><span class="p">))</span>
+        <span class="n">request_params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth_params</span><span class="p">(</span><span class="n">api_key</span><span class="p">)}</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">HTTP_TIMEOUT</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">request_params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">HTTP_TIMEOUT</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># network/transport failure</span>
             <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;request failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>

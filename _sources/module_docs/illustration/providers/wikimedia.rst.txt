@@ -1,0 +1,4 @@
+illustration.providers.wikimedia
+================================
+.. automodule:: illustration.providers.wikimedia
+   :members:
