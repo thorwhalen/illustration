@@ -34,12 +34,14 @@ That's the whole common case. Everything below is optional depth.
 
 `illustration` has two layers:
 
-1. **The provider façade** (this release) — one unified `search()` over many
-   heterogeneous image-search backends (Openverse, Pexels, …), normalizing every
-   result into one schema with license/attribution/cacheability first-class.
-2. **An agentic curation layer** (forthcoming) — query expansion, multi-provider
-   search, classical-CV + vision-LM inspection, reranking, and sequence-level
-   selection, built on the `aix` AI façade and `ir` retrieval substrate.
+1. **The provider façade** — one unified `search()` over many heterogeneous
+   image-search backends (Openverse, Pexels, …), normalizing every result into
+   one schema with license/attribution/cacheability first-class.
+2. **An agentic curation layer** — query expansion, multi-provider search,
+   classical-CV + vision-LM inspection, reranking, and a bounded corrective loop
+   that returns one vetted image per beat (`illustration.curate`, see below),
+   built on the `aix` AI façade and `ir` retrieval substrate. Sequence-level
+   selection across a whole storyboard is the next milestone.
 
 The design — provider comparison, canonical parameter mapping, escape-hatch
 design, result schema, and roadmap — is in
@@ -142,6 +144,45 @@ illustration.rerank("harbour", hits, scorer=my_scorer)
 
 Image embeddings are content-addressed and cached, so re-ranking overlapping
 candidates is cheap.
+
+## Curate (agentic, the bounded CRAG loop)
+
+`search` + `rerank` give you ranked candidates; `curate` goes one step further
+and returns *one vetted image* for a narration beat, self-correcting across a
+hard-bounded number of rounds. The loop is corrective-RAG-shaped — retrieve →
+grade → conditionally re-query — with a classical-CV pre-filter gating the
+expensive vision-LM, caption-first / judge-on-ambiguity escalation, and a
+`Budget` of caps **enforced in code**:
+
+```python
+from illustration import curate, Budget
+
+result = curate(
+    "a stormy harbour at dusk, fishermen hauling nets",
+    sources=["openverse", "pexels"],
+    budget=Budget(max_iter=3, max_judge_calls=8, accept_threshold=0.62),
+)
+result.best.result.url        # the chosen image
+result.best.rubric.overall    # its VLM rubric score (when judged)
+result.accepted, result.reason
+for step in result.trace:     # per-iteration run-log (queries, grade, action, spend)
+    print(step.iteration, step.grade, step.action)
+```
+
+```bash
+illustration curate "a stormy harbour at dusk" --source openverse --max-iter 3
+```
+
+This needs the optional `[curate]` extra (`pip install 'illustration[curate]'` —
+`aix` + `ir` + Pillow/NumPy) plus provider and LLM API keys; the NSFW safety gate
+and SigLIP rerank additionally want `[rerank]` (so `illustration[rerank,curate]`
+for the full pipeline). Every paid step is an **injectable seam** — pass your own
+`search_fn`, `expander`/`refiner`, `scorer`, `describe`, `grader`, or `checks` to
+swap a model, add a test double, or run the loop entirely offline.
+
+The image→text capability the judge/caption uses lives in `aix`
+(`aix.describe_image`, provider-neutral over LiteLLM), so any vision-capable
+model (Claude, GPT-4o, Gemini, …) works by model id alone.
 
 ## The escape hatch
 

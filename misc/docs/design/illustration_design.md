@@ -320,19 +320,28 @@ illustration/
     openverse.py   # OpenverseSource — no key
     pexels.py      # PexelsSource — needs key
   reranking.py     # M2b: precision rerank — rerank() + Scorer seam + SiglipScorer
+  _imageio.py      # M3: shared image fetch + cache (used by rerank + prefilters)
+  expansion.py     # M3: query expansion/refinement (expand_query/refine_query; aix seam)
+  inspection.py    # M3: classical-CV pre-filters + VLM caption/judge (aix seam)
+  curation.py      # M3: the bounded CRAG loop (curate; Budget; ir.fuse_hits/ir.select)
   cli.py           # thin argh wrappers (ir idiom)
   __main__.py      # argh dispatch; [project.scripts] illustration = …
 ```
 
-`reranking.py` is named to avoid shadowing the public `rerank` function (same
-reason `providers/` is not `sources/`). Layer 2 (later) adds `expand.py` (query
-formulation via `aix`), `inspect.py` (classical-CV pre-filters + VLM
-caption/judge via `aix`), `curate.py` (the bounded CRAG loop + `ir.fuse_hits` /
-`ir.select`), and `sequence.py` (MMR / submodular / pHash selection). Layer-2 AI
-calls go through `aix`; image→text and image-embeddings will be **added to
-`aix`** (the studied gap) following `aix`'s conventions. The M2b SigLIP image
+`reranking.py` / `inspection.py` / `curation.py` / `expansion.py` are named to
+avoid shadowing the public functions they export (same reason `providers/` is
+not `sources/`; `inspect.py` would also shadow the stdlib). Layer 2 (**M3,
+shipped**) adds `expansion.py` (query formulation via `aix`), `inspection.py`
+(classical-CV pre-filters + VLM caption/judge via `aix`), and `curation.py` (the
+bounded CRAG loop + `ir.fuse_hits` / `ir.select`); `_imageio.py` is the shared
+fetch path. **M4 (later)** adds `sequence.py` (MMR / submodular / pHash
+sequence-level selection) and the narration-pipeline integration hook. Layer-2
+AI calls go through `aix`; image→text was **added to `aix`** in M3 (the studied
+gap — `aix.describe_image`), following `aix`'s conventions. The M2b SigLIP image
 embedder lives in `illustration` for now (behind the `Scorer` seam) and can be
-promoted to `ef` (the embedding façade) when another consumer needs it.
+promoted to `ef` (the embedding façade) when another consumer needs it. The new
+Layer-2 deps (`aix`, `ir`) ride an **optional `[curate]` extra**, mirroring the
+`[rerank]` precedent so Layer-1 search stays dependency-light.
 
 ---
 
@@ -355,10 +364,24 @@ promoted to `ef` (the embedding façade) when another consumer needs it.
   in the optional `[rerank]` extra (transformers/torch/pillow, lazy-imported);
   content-addressed image-embedding cache; populates `ImageResult.score`. The
   `Scorer` seam keeps the SigLIP embedder extractable to `ef` later.
-- **M3 — Agentic curation.** The bounded CRAG loop (R2) via `aix` + `ir`
-  patterns; classical-CV pre-filters; add image→text to `aix`; hard budget caps.
-- **M4 — Sequence selection & integration.** MMR / submodular / pHash / NR-IQA
-  selection (license-safe libs only); an integration hook for the
+- **M3 — Agentic curation.** ✅ The per-beat bounded **CRAG loop** (R2) via
+  `aix` + `ir`. Shipped: `expansion.py` (`expand_query` / `refine_query`, default
+  on `aix.prompt_func`, injectable seam); `inspection.py` (classical-CV
+  pre-filters — aspect / min-dimension / brightness / blur on Pillow+NumPy, plus
+  an NSFW hard-drop via the Apache-2.0 Falconsai ViT — and VLM caption / pointwise
+  rubric judge via `aix.describe_image`); `curation.py` (`curate(beat, …) ->
+  CurationResult` — the state machine with `ir.fuse_hits` provider-merge, SigLIP
+  rerank, `ir.select` grade, and a `Budget` of **hard caps enforced in
+  controller code** — max iterations, per-call-type ceilings, accept threshold,
+  no-progress + optional cost ceiling — the $47k cautionary-tale lesson). Every
+  paid seam (`search_fn` / `expander` / `refiner` / `scorer` / `describe` /
+  `grader` / `checks`) is injectable, so the loop tests fully offline. The
+  **`aix` image→text gate** shipped as `aix.describe_image` (LiteLLM multimodal,
+  provider-neutral) + `aix.to_image_content`. `[curate]` extra (`aix`, `ir`,
+  pillow, numpy); the NSFW gate + SigLIP rerank additionally want `[rerank]`.
+- **M4 — Sequence selection & integration.** MMR / submodular (apricot) / pHash
+  (imagededup) / NR-IQA sequence-level selection (license-safe libs only); the
+  multi-beat plan-and-execute orchestration; an integration hook for the
   narration→TTS→Ken-Burns pipeline.
 
 ---

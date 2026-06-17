@@ -167,11 +167,13 @@ def test_l2_normalize_zero_and_unit():
 
 
 def test_fetch_image_happy_and_failure(monkeypatch):
+    # The image-fetch helper now lives in the shared illustration._imageio module
+    # (used by both the reranker and the Layer-2 pre-filters).
     np = pytest.importorskip("numpy")  # noqa: F841
     Image = pytest.importorskip("PIL.Image")
     import io
 
-    from illustration import reranking
+    from illustration import _imageio
 
     # a tiny real PNG as response bytes
     buf = io.BytesIO()
@@ -185,14 +187,14 @@ def test_fetch_image_happy_and_failure(monkeypatch):
             pass
 
     monkeypatch.setattr("requests.get", lambda url, **kw: _Resp())
-    img = reranking._fetch_image("http://x/i.png")
+    img = _imageio.fetch_image("http://x/i.png")
     assert img is not None and img.size == (4, 4) and img.mode == "RGB"
 
     def _boom(url, **kw):
         raise ConnectionError("down")
 
     monkeypatch.setattr("requests.get", _boom)
-    assert reranking._fetch_image("http://x/i.png") is None  # failure -> None, not raise
+    assert _imageio.fetch_image("http://x/i.png") is None  # failure -> None, not raise
 
 
 # --- real SigLIP inference (opt-in; downloads a model + hits the network) ---

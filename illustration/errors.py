@@ -19,6 +19,7 @@ __all__ = [
     "ProviderError",
     "RateLimitError",
     "RerankDependencyError",
+    "CurateDependencyError",
 ]
 
 
@@ -78,6 +79,29 @@ class RerankDependencyError(IllustrationError, ImportError):
         super().__init__(
             f"Local rerank needs the optional dependencies ({names}). "
             "Install them with: pip install 'illustration[rerank]'."
+        )
+
+
+class CurateDependencyError(IllustrationError, ImportError):
+    """An optional Layer-2 (agentic curation) dependency is not installed.
+
+    The message names the missing packages and the extra that provides them,
+    so the failure is actionable (e.g. ``pip install 'illustration[curate]'``).
+    """
+
+    def __init__(
+        self,
+        missing: "list[str] | None" = None,
+        *,
+        extra: str = "curate",
+        purpose: str = "agentic curation",
+    ):
+        self.missing = list(missing or [])
+        self.extra = extra
+        names = ", ".join(self.missing) if self.missing else "aix, ir"
+        super().__init__(
+            f"Layer-2 {purpose} needs the optional dependencies ({names}). "
+            f"Install them with: pip install 'illustration[{extra}]'."
         )
 
 
