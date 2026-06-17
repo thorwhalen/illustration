@@ -43,8 +43,18 @@ class PixabaySource(RetrievalSource):
     per_page_param = "per_page"
     max_per_page = 200
     param_map = {
-        "orientation": {"name": "orientation", "coerce": lambda o: _ORIENTATION.get(o, "all")},
-        "size": {"name": "min_width", "coerce": lambda s: _SIZE_MIN_WIDTH.get(s, 0)},
+        # choices guards drop an unrecognized value (matching sibling providers)
+        # rather than silently neutralizing it via the coerce default.
+        "orientation": {
+            "name": "orientation",
+            "choices": {"landscape", "portrait", "square"},
+            "coerce": lambda o: _ORIENTATION[o],
+        },
+        "size": {
+            "name": "min_width",
+            "choices": {"large", "medium", "small"},
+            "coerce": lambda s: _SIZE_MIN_WIDTH[s],
+        },
         "safe": {"name": "safesearch", "coerce": lambda safe: "true" if safe else "false"},
         "license_type": None,  # single Pixabay License
         "color": "colors",

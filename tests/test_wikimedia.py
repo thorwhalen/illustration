@@ -52,7 +52,8 @@ def test_offset_advances_on_page_two(make_session):
     src = WikimediaSource(session=make_session({1: img_page(1), 2: img_page(2)}))
     src.max_per_page = 1
     results = src.search("q", n=2)
-    assert len(results) == 2
+    # page 2 must serve DIFFERENT content (the offset-aware fake honors gsroffset)
+    assert [r.id for r in results] == ["1", "2"]
     offsets = [c["params"]["gsroffset"] for c in src._session.calls]
     assert offsets == [0, 1]
 
@@ -61,6 +62,37 @@ def test_no_key_needed(make_session, wikimedia_payload):
     sess = make_session({1: wikimedia_payload})
     WikimediaSource(session=sess).search("x", n=1)  # no api_key, no raise
     assert "Authorization" not in sess.calls[0]["headers"]
+
+
+def test_raw_search_carries_fixed_params(make_session, wikimedia_payload):
+    sess = make_session({1: wikimedia_payload})
+    WikimediaSource(session=sess).raw_search(gsrsearch="harbour")
+    sent = sess.calls[0]["params"]
+    assert sent["action"] == "query"  # fixed_params present even in raw_search
+    assert sent["gsrsearch"] == "harbour"
+
+
+def test_nonempty_attribution_used_verbatim(make_session):
+    payload = {"query": {"pages": {"1": {
+        "pageid": 1, "index": 1, "title": "File:X.jpg",
+        "imageinfo": [{"mime": "image/jpeg", "url": "u", "width": 1, "height": 1,
+                       "descriptionurl": "d",
+                       "extmetadata": {"Attribution": {"value": "Use freely, credit ACME"},
+                                       "Artist": {"value": "ACME"},
+                                       "LicenseShortName": {"value": "CC BY 4.0"}}}],
+    }}}}
+    r = WikimediaSource(session=make_session({1: payload})).search("x", n=1)[0]
+    assert r.attribution == "Use freely, credit ACME"  # verbatim, not the built fallback
+
+
+def test_image_with_empty_extmetadata_normalizes(make_session):
+    payload = {"query": {"pages": {"1": {
+        "pageid": 1, "index": 1, "title": "File:X.jpg",
+        "imageinfo": [{"mime": "image/png", "url": "u", "width": 1, "height": 1,
+                       "descriptionurl": "d", "extmetadata": {}}],
+    }}}}
+    r = WikimediaSource(session=make_session({1: payload})).search("x", n=1)[0]
+    assert r.license is None and r.author is None and r.attribution is None  # no crash
 
 
 def test_attribution_and_href_helpers():

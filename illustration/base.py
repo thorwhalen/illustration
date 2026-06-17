@@ -12,7 +12,7 @@ A subclass declares class attributes (``name``, ``endpoint``, ``query_param``,
 and implements three hooks: :meth:`_items`, :meth:`_normalize`, and
 (if the provider needs a key) :meth:`_auth_headers`.
 
-See ``illustration/sources/openverse.py`` for the canonical example.
+See ``illustration/providers/openverse.py`` for the canonical example.
 """
 
 from __future__ import annotations

@@ -149,6 +149,34 @@ def test_license_allow_custom_set(licensed_source):
     assert [h.license for h in hits] == ["by-nc"]
 
 
+def test_real_multi_provider_fanout_mixed_auth(make_session, wikimedia_payload, pixabay_payload):
+    """End-to-end fan-out across a REAL no-key + keyed provider through the base
+    template — proves per-source auth/pagination composes (not via overridden search)."""
+    from illustration.credentials import using_credentials
+    from illustration.providers.pixabay import PixabaySource
+    from illustration.providers.wikimedia import WikimediaSource
+
+    wiki_sess = make_session({1: wikimedia_payload})
+    pix_sess = make_session({1: pixabay_payload})
+    register_source(WikimediaSource(session=wiki_sess))  # overrides default instance
+    register_source(PixabaySource(session=pix_sess))
+    try:
+        with using_credentials(pixabay="K"):
+            hits = facade.search("harbour", n=1, source=["wikimedia", "pixabay"], cache=False)
+    finally:
+        register_source(WikimediaSource())  # restore keyless default instances
+        register_source(PixabaySource())
+
+    assert {h.provider for h in hits} == {"wikimedia", "pixabay"}  # both contributed
+    # per-source auth: wikimedia got no key; pixabay got key=K in its query params
+    assert "key" not in wiki_sess.calls[0]["params"]
+    assert "Authorization" not in wiki_sess.calls[0]["headers"]
+    assert pix_sess.calls[0]["params"]["key"] == "K"
+    # per-source pagination strategy: wikimedia offset, pixabay page-number
+    assert "gsroffset" in wiki_sess.calls[0]["params"]
+    assert "page" in pix_sess.calls[0]["params"] and "per_page" in pix_sess.calls[0]["params"]
+
+
 def test_default_source_is_openverse():
     # default_sources resolves to the configured default (openverse) when no
     # source is given; we don't call the network — just check resolution.

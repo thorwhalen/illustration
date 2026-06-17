@@ -58,3 +58,11 @@ def test_raw_search_also_requires_key(make_session, pexels_payload, monkeypatch)
     src = PexelsSource(session=make_session({1: pexels_payload}))
     with pytest.raises(MissingCredentialError):
         src.raw_search(query="x")
+
+
+def test_color_passthrough_and_content_type_dropped(make_session, pexels_payload):
+    sess = make_session({1: pexels_payload})
+    PexelsSource(session=sess).search("x", n=1, api_key="k", color="red", content_type="photo")
+    sent = sess.calls[0]["params"]
+    assert sent["color"] == "red"  # color passes through to Pexels
+    assert "content_type" not in sent and "image_type" not in sent  # unsupported -> dropped

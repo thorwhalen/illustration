@@ -60,3 +60,19 @@ def test_key_via_using_credentials(make_session, pixabay_payload):
     with using_credentials(pixabay="CTX"):
         PixabaySource(session=sess).search("x", n=1)
     assert sess.calls[0]["params"]["key"] == "CTX"
+
+
+def test_raw_search_carries_key(make_session, pixabay_payload):
+    sess = make_session({1: pixabay_payload})
+    PixabaySource(session=sess).raw_search(api_key="K", q="x")
+    sent = sess.calls[0]["params"]
+    assert sent["key"] == "K"  # _auth_params injects the key for raw_search too
+    assert sent["q"] == "x"
+
+
+def test_invalid_size_or_orientation_dropped(make_session, pixabay_payload):
+    sess = make_session({1: pixabay_payload})
+    PixabaySource(session=sess).search("x", n=1, api_key="k", size="huge", orientation="sideways")
+    sent = sess.calls[0]["params"]
+    assert "min_width" not in sent  # invalid size dropped (choices guard), not min_width=0
+    assert "orientation" not in sent  # invalid orientation dropped

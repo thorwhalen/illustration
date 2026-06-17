@@ -36,6 +36,8 @@ __all__ = ["WikimediaSource"]
 
 _TAG_RE = re.compile(r"<[^>]+>")
 _HREF_RE = re.compile(r'href=["\']([^"\']+)["\']', re.IGNORECASE)
+_THUMB_WIDTH = "320"  # px width requested for the generated thumbnail URL
+_ANON_SEARCH_LIMIT = 50  # anonymous search-generator per-page cap
 
 
 def _strip_html(value: "str | None") -> "str | None":
@@ -62,7 +64,7 @@ class WikimediaSource(RetrievalSource):
     name = "wikimedia"
     endpoint = "https://commons.wikimedia.org/w/api.php"
     query_param = "gsrsearch"
-    max_per_page = 50  # anonymous search-generator limit
+    max_per_page = _ANON_SEARCH_LIMIT
     fixed_params = {
         "action": "query",
         "format": "json",
@@ -70,7 +72,7 @@ class WikimediaSource(RetrievalSource):
         "gsrnamespace": "6",  # the File namespace
         "prop": "imageinfo",
         "iiprop": "url|extmetadata|size|mime|user",
-        "iiurlwidth": "320",  # produces a thumbnail URL
+        "iiurlwidth": _THUMB_WIDTH,  # produces a thumbnail URL
     }
     # param_map left empty: Commons exposes no canonical search-time filters here.
     info = SourceInfo(

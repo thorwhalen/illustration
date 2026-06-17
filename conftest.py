@@ -10,6 +10,23 @@ import pytest
 sys.path.insert(0, os.path.dirname(__file__))
 
 
+def _page_index(params):
+    """Derive the 1-based page from request params (page-number OR offset model).
+
+    Faithful to both pagination styles a source may use: an explicit ``page``,
+    or an offset pair (``gsroffset``/``gsrlimit`` for Wikimedia, ``offset``/
+    ``limit`` generally). Without this, an offset-paginating provider would always
+    re-fetch page 1.
+    """
+    if "page" in params:
+        return params["page"]
+    for off, lim in (("gsroffset", "gsrlimit"), ("offset", "limit")):
+        if off in params:
+            per = params.get(lim) or 1
+            return params[off] // per + 1
+    return 1
+
+
 class FakeResponse:
     """A stand-in for ``requests.Response`` good enough for the source layer."""
 
@@ -46,7 +63,7 @@ class FakeSession:
         if self.raises is not None:
             raise self.raises
         payload = self.response if self.response is not None else self.pages.get(
-            params.get("page", 1), {"results": [], "photos": []}
+            _page_index(params), {"results": [], "photos": []}
         )
         return FakeResponse(payload, status_code=self.status_code, text=self.text)
 
