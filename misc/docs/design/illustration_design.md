@@ -120,13 +120,17 @@ inspect or escalate (`on_unsupported='warn'|'raise'`).
 | `size` | `large\|medium\|small` | `size` (direct) | `size` (direct) | identical vocab |
 | `safe` | `bool` (default `True`) | `mature = not safe` | — (ignored; safe) | **first-class exception** |
 | `license_type` | `commercial\|all-cc\|modification\|all\|None` | `license_type` | — (ignored; single license) | **first-class exception** |
-| `color` | `str` (named/hex) | — | `color` | **1 provider → escape hatch** (promotion example) |
-| `locale` | `str` | — | `locale` | 1 provider → escape hatch |
-| `content_type` | `photo\|illustration\|vector` | `category` | — | 1 provider → escape hatch (promote when Pixabay lands) |
+| `color` | `str` (named/hex) | — | `color` | **canonical** since M2 (Pexels + Pixabay `colors` → ≥2 rule) |
+| `content_type` | `photo\|illustration\|vector` | `category` (photo→photograph; vector dropped) | — | **canonical** since M2 (Openverse `category` + Pixabay `image_type` → ≥2 rule) |
+| `locale` | `str` | — | `locale` | 1 provider → escape hatch (not yet promoted) |
 
-`color`, `locale`, `content_type` are shown to illustrate the promotion rule:
-they are reachable today via `provider_params` and become canonical the moment a
-second provider supports them (Pixabay adds `image_type` and `colors`).
+`color` and `content_type` were promoted in **M2** when Pixabay landed (Pixabay
+adds `colors` and `image_type`), demonstrating the ≥2-provider promotion rule in
+action. `locale` remains escape-hatch (only Pexels). M2 also added two providers
+beyond the M1 pair: **Wikimedia Commons** (no key; MediaWiki Action API — uses
+the base `fixed_params` + `_page_params` offset-pagination hooks) and **Pixabay**
+(keyed via a query param — the base `_auth_params` hook). The license-allowlist
+gate is reachable inline as `search(..., license_allow=...)`.
 
 ---
 
@@ -332,14 +336,17 @@ AI calls go through `aix`; image→text and image-embeddings will be **added to
 
 - **M0 — Orient & set up.** ✅ Read R1–R3, study façade packages, verify provider
   APIs, write this doc, set up the repo + issue #1.
-- **M1 — One provider end-to-end** (this milestone). Openverse end-to-end
+- **M1 — One provider end-to-end.** ✅ (PR #2) Openverse end-to-end
   (no key → works out of the box) + Pexels as the drop-in proof: `ImageResult`
   schema, `RetrievalSource` + registry, SHA-256 `dol` cache, `search()` façade,
   `argh` CLI, credentials/`check_requirements`, doctests + offline tests.
-- **M2 — Multi-provider façade.** Add Pixabay + Wikimedia (+ Unsplash with its
-  hotlink/competing-index constraints honored); finalize the escape hatch under
-  real fan-out; add the license-allowlist gate to the default path; add local
-  CLIP/SigLIP rerank (R1) on top of provider recall.
+- **M2 — Multi-provider façade.** *M2a ✅* — added **Wikimedia** (no key) +
+  **Pixabay** (keyed) via new base hooks (`fixed_params`, `_page_params`,
+  `_auth_params`); promoted `color` + `content_type` to canonical (≥2 rule);
+  added the `license_allow` gate to `search()`; hardened the escape hatch under
+  fan-out. (Unsplash deferred — hotlink/competing-index constraints, no new
+  canonical params.) *M2b* — local CLIP/SigLIP rerank (R1) over provider recall
+  (optional extra; populates `ImageResult.score`).
 - **M3 — Agentic curation.** The bounded CRAG loop (R2) via `aix` + `ir`
   patterns; classical-CV pre-filters; add image→text to `aix`; hard budget caps.
 - **M4 — Sequence selection & integration.** MMR / submodular / pHash / NR-IQA

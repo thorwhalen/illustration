@@ -81,8 +81,9 @@ def test_different_params_are_different_cache_keys(counter_sources):
 
 def test_flat_provider_kwargs_passed_as_native_single_source(counter_sources):
     a, _ = counter_sources
-    facade.search("q", n=1, source="srcA", cache=False, color="blue")
-    assert a.calls[0]["native"] == {"color": "blue"}
+    # min_width is a genuinely non-canonical native param (escape-hatch rung 3a)
+    facade.search("q", n=1, source="srcA", cache=False, min_width=500)
+    assert a.calls[0]["native"] == {"min_width": 500}
 
 
 def test_namespaced_provider_params_multi_source(counter_sources):
@@ -97,9 +98,55 @@ def test_namespaced_provider_params_multi_source(counter_sources):
 
 def test_canonical_params_forwarded(counter_sources):
     a, _ = counter_sources
-    facade.search("q", n=1, source="srcA", cache=False, orientation="landscape", size="large")
-    assert a.calls[0]["canonical"]["orientation"] == "landscape"
-    assert a.calls[0]["canonical"]["size"] == "large"
+    facade.search("q", n=1, source="srcA", cache=False, orientation="landscape", size="large",
+                  color="blue", content_type="photo")
+    c = a.calls[0]["canonical"]
+    assert c["orientation"] == "landscape" and c["size"] == "large"
+    assert c["color"] == "blue" and c["content_type"] == "photo"
+
+
+class _Licensed(RetrievalSource):
+    """Returns results with assorted licenses, for the license-gate tests."""
+
+    name = "licensedsrc"
+
+    def _items(self, response):  # pragma: no cover
+        return []
+
+    def _normalize(self, item, *, query):  # pragma: no cover
+        ...
+
+    def search(self, query, *, n=10, api_key=None, native_params=None, **canonical):
+        licenses = ["cc0", "by-sa", "by-nc", None]
+        return [
+            ImageResult(provider="licensedsrc", id=str(i), url=f"u{i}", license=lic, query=query)
+            for i, lic in enumerate(licenses)
+        ]
+
+
+@pytest.fixture
+def licensed_source():
+    register_source(_Licensed())
+    try:
+        yield
+    finally:
+        unregister_source("licensedsrc")
+
+
+def test_license_allow_off_by_default(licensed_source):
+    hits = facade.search("q", source="licensedsrc", n=4, cache=False)
+    assert len(hits) == 4  # no gate
+
+
+def test_license_allow_true_keeps_commercial_safe(licensed_source):
+    hits = facade.search("q", source="licensedsrc", n=4, cache=False, license_allow=True)
+    kept = {h.license for h in hits}
+    assert kept == {"cc0", "by-sa"}  # by-nc and None dropped
+
+
+def test_license_allow_custom_set(licensed_source):
+    hits = facade.search("q", source="licensedsrc", n=4, cache=False, license_allow={"by-nc"})
+    assert [h.license for h in hits] == ["by-nc"]
 
 
 def test_default_source_is_openverse():
@@ -124,7 +171,7 @@ def test_empty_source_list_rejected():
 
 def test_multi_source_flat_kwargs_rejected(counter_sources):
     with pytest.raises(ValueError, match="single-source"):
-        facade.search("q", source=["srcA", "srcB"], cache=False, color="blue")
+        facade.search("q", source=["srcA", "srcB"], cache=False, min_width=500)
 
 
 def test_multi_source_api_key_rejected(counter_sources):

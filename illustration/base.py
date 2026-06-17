@@ -74,6 +74,8 @@ class RetrievalSource(ABC):
     per_page_param: str = "page_size"
     #: Hard cap on results per page this provider allows.
     max_per_page: int = 20
+    #: Constant native params sent on every request (e.g. an API mode/format).
+    fixed_params: Mapping[str, Any] = MappingProxyType({})
     #: Canonical→native parameter spec (see :mod:`illustration.translation`).
     #: Immutable empty default so subclasses never share one mutable dict.
     param_map: Mapping[str, Any] = MappingProxyType({})
@@ -102,9 +104,11 @@ class RetrievalSource(ABC):
     ) -> list[ImageResult]:
         """Search ``query`` and return up to ``n`` normalized :class:`ImageResult`.
 
-        ``canonical`` are façade-canonical filters (``orientation``, ``size``,
-        ``safe``, ``license_type``); ``native_params`` are raw provider-native
-        params (the escape hatch) merged last, overriding translated ones.
+        ``canonical`` are façade-canonical filters (see the façade ``search`` and
+        the design doc §2); each is translated to the provider's native param via
+        ``param_map``, degrading gracefully where unsupported. ``native_params``
+        are raw provider-native params (the escape hatch) merged last, overriding
+        translated ones.
         """
         if not query:
             raise ValueError("query must be a non-empty string")
@@ -119,10 +123,9 @@ class RetrievalSource(ABC):
         per_page = max(1, min(n, self.max_per_page))
         page = 1
         while len(results) < n and page <= MAX_PAGES:
-            params = dict(native)
+            params = {**self.fixed_params, **native}
             params[self.query_param] = query
-            params[self.page_param] = page
-            params[self.per_page_param] = per_page
+            params.update(self._page_params(page=page, per_page=per_page))
             response = self._get(params, api_key=key)
             items = self._items(response)
             if not items:
@@ -146,7 +149,9 @@ class RetrievalSource(ABC):
         """
         check_requirements(self.name, api_key=api_key)
         key = resolve_api_key(self.name, api_key=api_key)
-        return self._get(dict(native_params), api_key=key)
+        # include fixed_params as a base so raw_search to APIs with mandatory
+        # constant params (e.g. action=query) still works; caller params win.
+        return self._get({**self.fixed_params, **native_params}, api_key=key)
 
     # -- hooks for subclasses ------------------------------------------------
 
@@ -158,8 +163,21 @@ class RetrievalSource(ABC):
     def _normalize(self, item: Mapping[str, Any], *, query: str) -> ImageResult:
         """Map one raw provider item to an :class:`ImageResult`."""
 
+    def _page_params(self, *, page: int, per_page: int) -> dict:
+        """Native pagination params for a 1-based ``page``. Override for offset
+        models (e.g. Wikimedia's ``gsroffset``). Default is page-number based."""
+        return {self.page_param: page, self.per_page_param: per_page}
+
     def _auth_headers(self, api_key: "str | None") -> dict:
         """HTTP auth headers for this provider (default: none)."""
+        return {}
+
+    def _auth_params(self, api_key: "str | None") -> dict:
+        """Native query params carrying auth (default: none).
+
+        For providers that take the key as a query param (e.g. Pixabay's
+        ``key=``) rather than a header.
+        """
         return {}
 
     # -- internals -----------------------------------------------------------
@@ -178,9 +196,10 @@ class RetrievalSource(ABC):
         session = self._session or requests
         headers = {"User-Agent": user_agent(), "Accept": "application/json"}
         headers.update(self._auth_headers(api_key))
+        request_params = {**dict(params), **self._auth_params(api_key)}
         try:
             resp = session.get(
-                self.endpoint, params=dict(params), headers=headers, timeout=HTTP_TIMEOUT
+                self.endpoint, params=request_params, headers=headers, timeout=HTTP_TIMEOUT
             )
         except Exception as e:  # network/transport failure
             raise ProviderError(self.name, f"request failed: {e}") from e

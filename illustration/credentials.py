@@ -42,11 +42,13 @@ __all__ = [
 #: Appendable: add a row when a new keyed provider is registered.
 PROVIDER_ENV_VARS: dict[str, str] = {
     "pexels": "PEXELS_API_KEY",
+    "pixabay": "PIXABAY_API_KEY",
 }
 
 #: Provider name -> where a user obtains a key (shown in the missing-key error).
 PROVIDER_CONSOLE_URLS: dict[str, str] = {
     "pexels": "https://www.pexels.com/api/new/",
+    "pixabay": "https://pixabay.com/api/docs/",
 }
 
 # Per-request key bindings (BYO keys), e.g. {"pexels": "..."}; never mutated in

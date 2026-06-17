@@ -42,17 +42,19 @@ The escape hatch is the four-rung ladder from the design doc:
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 from illustration.caching import SearchCache
 from illustration.config import DFLT_N
 from illustration.registry import default_sources, get_source
-from illustration.schema import ImageResult
+from illustration.schema import ImageResult, license_allowlist
 
 __all__ = ["search"]
 
 #: The formal canonical filter parameters (everything else is escape-hatch).
-_CANONICAL_PARAMS = ("orientation", "size", "safe", "license_type")
+#: A param joins this set once ≥2 providers support it (promotion rule);
+#: ``safe`` and ``license_type`` are first-class exceptions.
+_CANONICAL_PARAMS = ("orientation", "size", "safe", "license_type", "color", "content_type")
 
 
 def search(
@@ -64,6 +66,9 @@ def search(
     size: "str | None" = None,
     safe: bool = True,
     license_type: "str | None" = None,
+    color: "str | None" = None,
+    content_type: "str | None" = None,
+    license_allow: "bool | Iterable[str]" = False,
     provider_params: "Mapping[str, Mapping[str, Any]] | None" = None,
     api_key: "str | None" = None,
     cache: "bool | SearchCache" = True,
@@ -81,6 +86,13 @@ def search(
         safe: Exclude mature content where the provider supports it (default True).
         license_type: ``commercial`` | ``all-cc`` | ``modification`` | ``all``
             (honored by providers with license filtering, e.g. Openverse).
+        color: A named color or ``#hex`` (Pexels, Pixabay).
+        content_type: ``photo`` | ``illustration`` | ``vector`` (Openverse,
+            Pixabay; providers map/skip values they don't support).
+        license_allow: License gate (R3). ``False`` (default) = no gate; ``True``
+            = keep only commercial-safe licenses (CC0/PD/BY/BY-SA + Pexels);
+            an iterable of license codes = keep only those. Aggregators disclaim
+            license accuracy, so gate when commercial use matters.
         provider_params: Per-source native params, e.g.
             ``{"pexels": {"color": "blue"}}`` — used when fanning out to multiple
             sources so each gets the right native overrides.
@@ -126,7 +138,10 @@ def search(
                 "illustration.using_credentials(provider='...')."
             )
 
-    _values = {"orientation": orientation, "size": size, "safe": safe, "license_type": license_type}
+    _values = {
+        "orientation": orientation, "size": size, "safe": safe,
+        "license_type": license_type, "color": color, "content_type": content_type,
+    }
     canonical = {name: _values[name] for name in _CANONICAL_PARAMS}
 
     all_results: list[ImageResult] = []
@@ -154,6 +169,12 @@ def search(
             if cache_obj is not None and results:
                 cache_obj.put(name, query, key_params, results)
         all_results.extend(results)
+
+    # license gate (R3) — applied as a view over assembled results, after caching
+    # (the cache stays provider-truth; the gate re-applies cheaply per call)
+    if license_allow:
+        allow = None if license_allow is True else license_allow
+        all_results = license_allowlist(all_results, allow=allow)
     return all_results
 
 

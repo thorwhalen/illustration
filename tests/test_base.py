@@ -134,3 +134,34 @@ def test_max_pages_cap(make_session):
     results = _FakeSource(session=sess).search("q", n=10_000)
     assert len(sess.calls) == MAX_PAGES
     assert len(results) == MAX_PAGES * 2
+
+
+class _HookSource(_FakeSource):
+    """Exercises fixed_params, _auth_params (key-in-query), and a custom _page_params."""
+
+    name = "hooksrc"
+    fixed_params = {"mode": "json", "v": "1"}
+
+    def _auth_params(self, api_key):
+        return {"apikey": api_key} if api_key else {}
+
+    def _page_params(self, *, page, per_page):
+        return {"limit": per_page, "offset": (page - 1) * per_page}
+
+
+def test_fixed_params_and_query_auth_and_pagination(make_session):
+    sess = make_session({1: _page([1])})
+    _HookSource(session=sess).search("q", n=1, api_key="K")
+    sent = sess.calls[0]["params"]
+    assert sent["mode"] == "json" and sent["v"] == "1"  # fixed_params merged
+    assert sent["apikey"] == "K"  # _auth_params (key in query)
+    assert sent["limit"] == 1 and sent["offset"] == 0  # custom _page_params
+    assert sent["q"] == "q"
+
+
+def test_raw_search_includes_fixed_params(make_session):
+    sess = make_session(response={"items": []})
+    _HookSource(session=sess).raw_search(q="x")
+    sent = sess.calls[0]["params"]
+    assert sent["mode"] == "json"  # fixed_params present even in raw_search
+    assert sent["q"] == "x"

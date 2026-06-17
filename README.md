@@ -75,28 +75,31 @@ truth shared with the agentic layer):
 | source | key needed? | notes |
 |---|---|---|
 | **openverse** *(default)* | no | 800M+ CC / public-domain images; works out of the box |
+| **wikimedia** | no | 140M+ free media; historical / editorial / fine-art; deep metadata |
 | **pexels** | `PEXELS_API_KEY` | curated high-quality stock photos |
+| **pixabay** | `PIXABAY_API_KEY` | free commercial-use; license permits caching / self-hosting |
 
 Pick a source (or several), and filter:
 
 ```python
 illustration.search("harbour", source="openverse", orientation="landscape", size="large")
-illustration.search("harbour", source=["openverse", "pexels"], n=5)   # per-source
+illustration.search("harbour", source=["openverse", "wikimedia"], n=5)   # per-source, no key
 ```
 
-Canonical filters (`orientation`, `size`, `safe`, `license_type`) translate to
-each provider's native parameters and degrade gracefully where a provider
-doesn't support one.
+Canonical filters (`orientation`, `size`, `safe`, `license_type`, `color`,
+`content_type`) translate to each provider's native parameters and degrade
+gracefully where a provider doesn't support one.
 
 ### Keys
 
-Pexels needs a key (Openverse does not). Provide it however suits you:
+Pexels and Pixabay need a key (Openverse and Wikimedia do not). Provide it
+however suits you:
 
 ```python
 import os; os.environ["PEXELS_API_KEY"] = "..."      # env var
 # or per-request (the bring-your-own-key seam, e.g. a web backend):
-with illustration.using_credentials(pexels="..."):
-    illustration.search("harbour", source="pexels")
+with illustration.using_credentials(pexels="...", pixabay="..."):
+    illustration.search("harbour", source=["pexels", "pixabay"])
 ```
 
 A missing key raises an informative `MissingCredentialError` that names the key,
@@ -169,10 +172,16 @@ register_source(MySource())
 ## Licensing
 
 Licensing is first-class for commercial-adjacent video. Each result carries its
-license, license URL, attribution, and a `cacheable` flag. Aggregators disclaim
-license accuracy, so gate on a known-good set when it matters:
+license, license URL, attribution, and a `cacheable` flag. Aggregators
+(Wikimedia, Openverse) disclaim license accuracy, so gate on a known-good set
+when it matters — either inline on `search()` or with the standalone helper:
 
 ```python
+# inline gate (R3): keep only commercial-safe licenses
+illustration.search("harbour", source="wikimedia", license_allow=True)
+illustration.search("harbour", license_allow={"cc0", "pdm"})   # public-domain only
+
+# or filter an existing result list
 from illustration import license_allowlist
 safe = license_allowlist(hits)                          # CC0/PD/BY/BY-SA default
 safe = license_allowlist(hits, allow={"cc0", "pdm"})    # public-domain only
