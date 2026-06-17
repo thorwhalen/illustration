@@ -319,16 +319,20 @@ illustration/
     __init__.py    #   registers the built-ins on import
     openverse.py   # OpenverseSource — no key
     pexels.py      # PexelsSource — needs key
+  reranking.py     # M2b: precision rerank — rerank() + Scorer seam + SiglipScorer
   cli.py           # thin argh wrappers (ir idiom)
   __main__.py      # argh dispatch; [project.scripts] illustration = …
 ```
 
-Layer 2 (later) adds `expand.py` (query formulation via `aix`), `inspect.py`
-(classical-CV pre-filters + VLM caption/judge via `aix`), `rerank.py`
-(CLIP/SigLIP, optional), `curate.py` (the bounded CRAG loop + `ir.fuse_hits` /
-`ir.select`), and `sequence.py` (MMR / submodular / pHash selection). All
-AI calls go through `aix`; image→text and image-embeddings will be **added to
-`aix`** (the studied gap) following `aix`'s conventions.
+`reranking.py` is named to avoid shadowing the public `rerank` function (same
+reason `providers/` is not `sources/`). Layer 2 (later) adds `expand.py` (query
+formulation via `aix`), `inspect.py` (classical-CV pre-filters + VLM
+caption/judge via `aix`), `curate.py` (the bounded CRAG loop + `ir.fuse_hits` /
+`ir.select`), and `sequence.py` (MMR / submodular / pHash selection). Layer-2 AI
+calls go through `aix`; image→text and image-embeddings will be **added to
+`aix`** (the studied gap) following `aix`'s conventions. The M2b SigLIP image
+embedder lives in `illustration` for now (behind the `Scorer` seam) and can be
+promoted to `ef` (the embedding façade) when another consumer needs it.
 
 ---
 
@@ -345,8 +349,12 @@ AI calls go through `aix`; image→text and image-embeddings will be **added to
   `_auth_params`); promoted `color` + `content_type` to canonical (≥2 rule);
   added the `license_allow` gate to `search()`; hardened the escape hatch under
   fan-out. (Unsplash deferred — hotlink/competing-index constraints, no new
-  canonical params.) *M2b* — local CLIP/SigLIP rerank (R1) over provider recall
-  (optional extra; populates `ImageResult.score`).
+  canonical params.) *M2b ✅* — local **SigLIP-2** rerank (R1) over provider
+  recall: `rerank(query, results, *, scorer=...)` (a torch-free orchestrator
+  over an injectable `Scorer` seam) + `search(..., rerank=True)`; default scorer
+  in the optional `[rerank]` extra (transformers/torch/pillow, lazy-imported);
+  content-addressed image-embedding cache; populates `ImageResult.score`. The
+  `Scorer` seam keeps the SigLIP embedder extractable to `ef` later.
 - **M3 — Agentic curation.** The bounded CRAG loop (R2) via `aix` + `ir`
   patterns; classical-CV pre-filters; add image→text to `aix`; hard budget caps.
 - **M4 — Sequence selection & integration.** MMR / submodular / pHash / NR-IQA

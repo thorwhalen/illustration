@@ -42,7 +42,7 @@ The escape hatch is the four-rung ladder from the design doc:
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
 from illustration.caching import SearchCache
 from illustration.config import DFLT_N
@@ -69,6 +69,7 @@ def search(
     color: "str | None" = None,
     content_type: "str | None" = None,
     license_allow: "bool | Iterable[str]" = False,
+    rerank: "bool | Callable" = False,
     provider_params: "Mapping[str, Mapping[str, Any]] | None" = None,
     api_key: "str | None" = None,
     cache: "bool | SearchCache" = True,
@@ -93,6 +94,12 @@ def search(
             = keep only commercial-safe licenses (CC0/PD/BY/BY-SA + Pexels);
             an iterable of license codes = keep only those. Aggregators disclaim
             license accuracy, so gate when commercial use matters.
+        rerank: Local cross-modal precision rerank (R1). ``False`` (default) =
+            off; ``True`` = SigLIP-2 (needs the ``illustration[rerank]`` extra);
+            a ``(query, results) -> scores`` callable = a custom scorer. Applied
+            to the assembled results, which it re-scores (populating ``.score``)
+            and sorts. Use the recall→rerank pattern: ``search(q, n=50,
+            rerank=True)[:10]``.
         provider_params: Per-source native params, e.g.
             ``{"pexels": {"color": "blue"}}`` — used when fanning out to multiple
             sources so each gets the right native overrides.
@@ -175,6 +182,13 @@ def search(
     if license_allow:
         allow = None if license_allow is True else license_allow
         all_results = license_allowlist(all_results, allow=allow)
+
+    # precision rerank (R1) — re-score + sort the assembled (gated) candidates
+    if rerank:
+        from illustration.reranking import rerank as _rerank
+
+        scorer = None if rerank is True else rerank
+        all_results = _rerank(query, all_results, scorer=scorer)
     return all_results
 
 

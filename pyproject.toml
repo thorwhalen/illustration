@@ -42,6 +42,12 @@ Repository = "https://github.com/thorwhalen/illustration"
 Documentation = "https://thorwhalen.github.io/illustration"
 
 [project.optional-dependencies]
+rerank = [
+    "transformers>=4.45",
+    "torch>=2.0",
+    "pillow>=10",
+    "numpy>=1.24",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
