@@ -1,0 +1,709 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.curation &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.curation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.curation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The bounded corrective-retrieval (CRAG) loop — Layer 2&#39;s heart (R2 §1).</span>
+
+<span class="sd">Turns a high-recall provider search into a single vetted candidate for one</span>
+<span class="sd">narration beat, self-correcting across a *hard-bounded* number of rounds. The</span>
+<span class="sd">shape is CRAG [Yan et al. 2024]: retrieve → grade → conditionally re-query —</span>
+<span class="sd">wrapped in a controller whose stop conditions are enforced **in code, not</span>
+<span class="sd">prompts**. That distinction is the whole point: the cautionary tale R2 cites is a</span>
+<span class="sd">multi-agent loop that ran 11 days and cost $47k because it had cost *alerts* but</span>
+<span class="sd">no cost *enforcement*. Here, :class:`Budget` caps (max iterations, per-call-type</span>
+<span class="sd">ceilings, accept threshold, optional cost ceiling) are checked before every paid</span>
+<span class="sd">call.</span>
+
+<span class="sd">The pipeline per iteration::</span>
+
+<span class="sd">    expand → search (fan-out) → ir.fuse_hits (provider merge/dedup, rank-based)</span>
+<span class="sd">           → prefilter (classical CV) → rerank (SigLIP) → ir.select</span>
+<span class="sd">           → grade {Correct | Ambiguous | Incorrect}</span>
+<span class="sd">           → Correct: caption + accept · Ambiguous: VLM judge · Incorrect: refine</span>
+
+<span class="sd">Cost discipline (R2, in impact order): the classical-CV prefilter gates before</span>
+<span class="sd">any VLM token is spent; *Correct* uses a cheap caption and *Ambiguous* escalates</span>
+<span class="sd">to the rubric judge only when the cheap signal is unsure; everything is bounded.</span>
+
+<span class="sd">Every expensive seam is injectable — ``search_fn``, ``expander``/``refiner``,</span>
+<span class="sd">``scorer`` (SigLIP), ``describe`` (the VLM), ``grader``, ``checks`` — so the loop</span>
+<span class="sd">runs end-to-end **offline** with stubs and never spends on a paid API in a test.</span>
+
+<span class="sd">&gt;&gt;&gt; # offline: stub search + scorer + a generous-enough budget -&gt; one round</span>
+<span class="sd">&gt;&gt;&gt; from illustration.schema import ImageResult</span>
+<span class="sd">&gt;&gt;&gt; cands = [ImageResult(provider=&quot;p&quot;, id=str(i), url=f&quot;u{i}&quot;, width=900, height=600)</span>
+<span class="sd">...          for i in range(3)]</span>
+<span class="sd">&gt;&gt;&gt; res = curate(                                       # doctest: +SKIP</span>
+<span class="sd">...     &quot;a stormy harbour at dusk&quot;,</span>
+<span class="sd">...     expander=lambda beat: [],                       # no expansion</span>
+<span class="sd">...     search_fn=lambda q, **kw: cands,                # canned recall</span>
+<span class="sd">...     checks=[],                                      # skip CV (no fetch)</span>
+<span class="sd">...     scorer=lambda beat, rs: [0.9, 0.4, 0.2],        # canned relevance</span>
+<span class="sd">...     describe=lambda image, prompt: &quot;a harbour&quot;,     # canned VLM (no API)</span>
+<span class="sd">... )</span>
+<span class="sd">&gt;&gt;&gt; res.accepted, res.best.result.id, res.grade         # doctest: +SKIP</span>
+<span class="sd">(True, &#39;0&#39;, &#39;correct&#39;)</span>
+
+<span class="sd">The example is ``+SKIP``-ed under ``--doctest-modules`` because it exercises the</span>
+<span class="sd">``ir`` fan-in, which ships in the optional ``[curate]`` extra (absent in the</span>
+<span class="sd">base / CI install). ``tests/test_curation.py`` covers this path in full under</span>
+<span class="sd">``importorskip(&quot;ir&quot;)``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_SOURCES</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.expansion</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expander</span><span class="p">,</span> <span class="n">Refiner</span><span class="p">,</span> <span class="n">expand_query</span><span class="p">,</span> <span class="n">refine_query</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Check</span><span class="p">,</span>
+    <span class="n">Describe</span><span class="p">,</span>
+    <span class="n">InspectReport</span><span class="p">,</span>
+    <span class="n">RubricScore</span><span class="p">,</span>
+    <span class="n">inspect_candidate</span><span class="p">,</span>
+    <span class="n">prefilter</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">to_search_hit</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;curate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Grade&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Budget&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Candidate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;IterationRecord&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CurationResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;score_grade&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Grader&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_CURATE_N&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: Default candidates requested *per source* for the recall stage.</span>
+<span class="n">DFLT_CURATE_N</span> <span class="o">=</span> <span class="mi">12</span>
+
+
+<div class="viewcode-block" id="Grade">
+<a class="viewcode-back" href="../../module_docs/illustration/curation.html#illustration.Grade">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Grade</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CRAG&#39;s three-way retrieval grade (R2 §1).&quot;&quot;&quot;</span>
+
+    <span class="n">CORRECT</span> <span class="o">=</span> <span class="s2">&quot;correct&quot;</span>      <span class="c1"># a dominant relevant candidate -&gt; caption + accept</span>
+    <span class="n">AMBIGUOUS</span> <span class="o">=</span> <span class="s2">&quot;ambiguous&quot;</span>  <span class="c1"># several comparable candidates -&gt; escalate to VLM judge</span>
+    <span class="n">INCORRECT</span> <span class="o">=</span> <span class="s2">&quot;incorrect&quot;</span>  <span class="c1"># nothing sufficient -&gt; refine the query and retry</span></div>
+
+
+
+<span class="c1">#: A grader maps (reranked results, ir.Selection) -&gt; a :class:`Grade`.</span>
+<span class="n">Grader</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Grade</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Budget">
+<a class="viewcode-back" href="../../module_docs/illustration/curation.html#illustration.Budget">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Budget</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Hard loop bounds — the safety net, enforced in controller code (R2).</span>
+
+<span class="sd">    Counts and iterations are the deterministic, provider-independent caps. The</span>
+<span class="sd">    optional ``cost_estimator`` / ``max_cost`` overlay lets a caller add a money</span>
+<span class="sd">    ceiling on top; with no estimator the call/iteration caps alone bound spend.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="c1">#: Cap on individual ``(query, source)`` search requests across the whole run.</span>
+    <span class="n">max_search_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">max_caption_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="n">max_judge_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="c1">#: Rubric ``overall`` (0-1) at/above which a judged candidate is accepted.</span>
+    <span class="n">accept_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.62</span>
+    <span class="c1">#: Optional absolute relevance floor below which a *Correct*-graded dominant</span>
+    <span class="c1">#: candidate is escalated to the VLM judge instead of auto-accepted. ``None``</span>
+    <span class="c1">#: (default) keeps the cheap fast-path; set it (on the reranker&#39;s score scale)</span>
+    <span class="c1">#: when a dominant-but-weak top must still be rubric-verified.</span>
+    <span class="n">correct_min_score</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#: ``ir.select`` tuning for the grade (conservative selector).</span>
+    <span class="n">select_max_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">select_rel</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span>
+    <span class="c1">#: Optional absolute relevance floor for ``ir.select`` abstention. ``None`` =</span>
+    <span class="c1">#: relative-only (the loop&#39;s quality bar lives in the rubric, which is 0-1).</span>
+    <span class="n">min_score</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#: Optional money ceiling overlay. The count/iteration caps above are the</span>
+    <span class="c1">#: strict hard bound; ``max_cost`` is a *soft* ceiling — the run halts once</span>
+    <span class="c1">#: accrued ``est_cost`` reaches it, so the one call already decided upon may</span>
+    <span class="c1">#: push the total slightly past ``max_cost`` (effective bound ≈ ``max_cost`` +</span>
+    <span class="c1">#: one call&#39;s estimate).</span>
+    <span class="n">max_cost</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#: ``(call_type, info) -&gt; cost`` estimate; ``call_type`` in</span>
+    <span class="c1">#: {&quot;search&quot;, &quot;caption&quot;, &quot;judge&quot;}.</span>
+    <span class="n">cost_estimator</span><span class="p">:</span> <span class="s2">&quot;Callable[[str, dict], float] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_Spend</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mutable run accounting (the basis for every hard stop).&quot;&quot;&quot;</span>
+
+    <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">search_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">caption_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">judge_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">est_cost</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">,</span>
+            <span class="s2">&quot;search_calls&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_calls</span><span class="p">,</span>
+            <span class="s2">&quot;caption_calls&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_calls</span><span class="p">,</span>
+            <span class="s2">&quot;judge_calls&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">judge_calls</span><span class="p">,</span>
+            <span class="s2">&quot;est_cost&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">est_cost</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="p">}</span>
+
+
+<div class="viewcode-block" id="Candidate">
+<a class="viewcode-back" href="../../module_docs/illustration/curation.html#illustration.Candidate">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Candidate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;One scored (and optionally inspected) candidate.&quot;&quot;&quot;</span>
+
+    <span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span>
+    <span class="n">score</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">caption</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rubric</span><span class="p">:</span> <span class="s2">&quot;RubricScore | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rationale</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">quality</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A 0-1 comparable quality: the rubric overall if judged, else 0.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">overall</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rubric</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span></div>
+
+
+
+<div class="viewcode-block" id="IterationRecord">
+<a class="viewcode-back" href="../../module_docs/illustration/curation.html#illustration.IterationRecord">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IterationRecord</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;One iteration of the loop — the run-log R2 requires for observability.&quot;&quot;&quot;</span>
+
+    <span class="n">iteration</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">queries</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">n_candidates</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">n_passed</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">grade</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">action</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">best_score</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">search_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">caption_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">judge_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">notes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="CurationResult">
+<a class="viewcode-back" href="../../module_docs/illustration/curation.html#illustration.CurationResult">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CurationResult</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The outcome of curating one beat.&quot;&quot;&quot;</span>
+
+    <span class="n">beat</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">best</span><span class="p">:</span> <span class="s2">&quot;Candidate | None&quot;</span>
+    <span class="n">accepted</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">grade</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">candidates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Candidate</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">trace</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IterationRecord</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">spend</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="score_grade">
+<a class="viewcode-back" href="../../module_docs/illustration/curation.html#illustration.score_grade">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">score_grade</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="s2">&quot;Sequence[ImageResult]&quot;</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Grade</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The default, model-free grader — scale-robust via ``ir.select`` structure.</span>
+
+<span class="sd">    Maps the conservative selection&#39;s *shape* (not an absolute score) onto CRAG&#39;s</span>
+<span class="sd">    grade: nothing/abstained → Incorrect; a single dominant pick → Correct;</span>
+<span class="sd">    several comparable picks → Ambiguous. Because it reads relative structure, it</span>
+<span class="sd">    works regardless of the reranker&#39;s score magnitude — the absolute quality bar</span>
+<span class="sd">    lives in the rubric (0-1), applied only on the Ambiguous path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="s2">&quot;abstained&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Grade</span><span class="o">.</span><span class="n">INCORRECT</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="s2">&quot;selected&quot;</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Grade</span><span class="o">.</span><span class="n">CORRECT</span>
+    <span class="k">return</span> <span class="n">Grade</span><span class="o">.</span><span class="n">AMBIGUOUS</span></div>
+
+
+
+<div class="viewcode-block" id="curate">
+<a class="viewcode-back" href="../../module_docs/illustration/curation.html#illustration.curate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">curate</span><span class="p">(</span>
+    <span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">sources</span><span class="p">:</span> <span class="s2">&quot;str | list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DFLT_CURATE_N</span><span class="p">,</span>
+    <span class="n">budget</span><span class="p">:</span> <span class="s2">&quot;Budget | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">expander</span><span class="p">:</span> <span class="s2">&quot;Expander | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">refiner</span><span class="p">:</span> <span class="s2">&quot;Refiner | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grader</span><span class="p">:</span> <span class="s2">&quot;Grader | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">describe</span><span class="p">:</span> <span class="s2">&quot;Describe | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">scorer</span><span class="p">:</span> <span class="s2">&quot;Callable | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">checks</span><span class="p">:</span> <span class="s2">&quot;Sequence[Check] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">search_fn</span><span class="p">:</span> <span class="s2">&quot;Callable | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fetch</span><span class="p">:</span> <span class="s2">&quot;Callable | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CurationResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curate the single best image for a narration ``beat`` via the CRAG loop.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        beat: The narration beat / scene description to illustrate.</span>
+<span class="sd">        sources: Source name(s) to search, or ``None`` for the default set.</span>
+<span class="sd">        n: Candidates requested per source per query (recall width).</span>
+<span class="sd">        budget: Hard loop bounds (defaults to :class:`Budget`).</span>
+<span class="sd">        expander / refiner: Query generation / refinement seams (default: ``aix``).</span>
+<span class="sd">        grader: ``(results, selection) -&gt; Grade`` (default :func:`score_grade`).</span>
+<span class="sd">        describe: VLM ``(image, prompt) -&gt; text`` seam (default: ``aix``).</span>
+<span class="sd">        scorer: SigLIP-style ``(beat, results) -&gt; scores`` reranker. ``None`` uses</span>
+<span class="sd">            the local SigLIP scorer when its deps are present, else falls back to</span>
+<span class="sd">            the rank-fused order.</span>
+<span class="sd">        checks: Classical-CV pre-filter checks (default: dependency-aware set).</span>
+<span class="sd">        model: LLM model id passed to the default expander / refiner / describe.</span>
+<span class="sd">        search_fn: ``(query, *, source, n, ...) -&gt; [ImageResult]`` (default:</span>
+<span class="sd">            :func:`illustration.search`). Inject a stub to test offline.</span>
+<span class="sd">        fetch: Image fetch override for the pre-filters (test double).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`CurationResult` — the accepted (or best-so-far) candidate, the</span>
+<span class="sd">        full candidate set, the per-iteration trace, and the spend accounting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">budget</span> <span class="o">=</span> <span class="n">budget</span> <span class="ow">or</span> <span class="n">Budget</span><span class="p">()</span>
+    <span class="n">grader</span> <span class="o">=</span> <span class="n">grader</span> <span class="ow">or</span> <span class="n">score_grade</span>
+    <span class="n">search</span> <span class="o">=</span> <span class="n">search_fn</span> <span class="k">if</span> <span class="n">search_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_search</span>
+    <span class="n">source_list</span> <span class="o">=</span> <span class="n">_resolve_sources</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>
+
+    <span class="n">spend</span> <span class="o">=</span> <span class="n">_Spend</span><span class="p">()</span>
+    <span class="n">trace</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IterationRecord</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pool</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">Candidate</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># (provider, id) -&gt; best-known Candidate</span>
+
+    <span class="n">queries</span> <span class="o">=</span> <span class="n">expand_query</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">expander</span><span class="o">=</span><span class="n">expander</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">best_judged</span><span class="p">:</span> <span class="s2">&quot;Candidate | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">fallback_best</span><span class="p">:</span> <span class="s2">&quot;Candidate | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">prev_keyset</span><span class="p">:</span> <span class="s2">&quot;frozenset | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">stop_reason</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># --- termination, checked BEFORE the next (paid) search round (R2 T1/T2) ---</span>
+        <span class="k">if</span> <span class="n">spend</span><span class="o">.</span><span class="n">iterations</span> <span class="o">&gt;=</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_iter</span><span class="p">:</span>
+            <span class="n">stop_reason</span> <span class="o">=</span> <span class="s2">&quot;max_iter&quot;</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_cost</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">spend</span><span class="o">.</span><span class="n">est_cost</span> <span class="o">&gt;=</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_cost</span><span class="p">:</span>
+            <span class="n">stop_reason</span> <span class="o">=</span> <span class="s2">&quot;budget_cost&quot;</span>
+            <span class="k">break</span>
+        <span class="n">spend</span><span class="o">.</span><span class="n">iterations</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">searched_queries</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">queries</span><span class="p">)</span>  <span class="c1"># the queries this round actually searched</span>
+
+        <span class="c1"># --- R2: search -&gt; fuse -&gt; prefilter -&gt; rerank -&gt; select -&gt; grade ---</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">_run_search</span><span class="p">(</span><span class="n">queries</span><span class="p">,</span> <span class="n">source_list</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="n">_fuse</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">pf</span> <span class="o">=</span> <span class="n">prefilter</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="n">checks</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="n">fetch</span><span class="p">)</span>
+        <span class="n">scored</span> <span class="o">=</span> <span class="n">_rerank</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">pf</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span> <span class="n">scorer</span><span class="p">)</span>
+        <span class="n">_absorb</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="n">scored</span><span class="p">)</span>
+        <span class="n">selection</span> <span class="o">=</span> <span class="n">_select</span><span class="p">(</span><span class="n">scored</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span>
+        <span class="n">grade</span> <span class="o">=</span> <span class="n">grader</span><span class="p">(</span><span class="n">scored</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+
+        <span class="c1"># Optional absolute floor: a dominant-but-weak top is escalated to the</span>
+        <span class="c1"># rubric judge rather than auto-accepted on the cheap Correct path.</span>
+        <span class="k">if</span> <span class="n">grade</span> <span class="o">==</span> <span class="n">Grade</span><span class="o">.</span><span class="n">CORRECT</span> <span class="ow">and</span> <span class="n">budget</span><span class="o">.</span><span class="n">correct_min_score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">top_score</span> <span class="o">=</span> <span class="n">scored</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">score</span> <span class="k">if</span> <span class="n">scored</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">top_score</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">top_score</span> <span class="o">&lt;</span> <span class="n">budget</span><span class="o">.</span><span class="n">correct_min_score</span><span class="p">:</span>
+                <span class="n">grade</span> <span class="o">=</span> <span class="n">Grade</span><span class="o">.</span><span class="n">AMBIGUOUS</span>
+
+        <span class="n">iter_caption_calls</span> <span class="o">=</span> <span class="n">iter_judge_calls</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">best_score</span> <span class="o">=</span> <span class="n">scored</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">score</span> <span class="k">if</span> <span class="n">scored</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">grade</span> <span class="o">==</span> <span class="n">Grade</span><span class="o">.</span><span class="n">CORRECT</span><span class="p">:</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="n">scored</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">cand</span> <span class="o">=</span> <span class="n">pool</span><span class="p">[(</span><span class="n">top</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">top</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span>
+            <span class="n">cand</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">score</span>
+            <span class="k">if</span> <span class="n">_can_caption</span><span class="p">(</span><span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">):</span>
+                <span class="n">_charge</span><span class="p">(</span><span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">,</span> <span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">top</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
+                <span class="n">spend</span><span class="o">.</span><span class="n">caption_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">iter_caption_calls</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">report</span> <span class="o">=</span> <span class="n">inspect_candidate</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="n">describe</span><span class="o">=</span><span class="n">describe</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+                <span class="n">cand</span><span class="o">.</span><span class="n">caption</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">caption</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;caption+accept&quot;</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_record</span><span class="p">(</span><span class="n">spend</span><span class="o">.</span><span class="n">iterations</span><span class="p">,</span> <span class="n">searched_queries</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">pf</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span>
+                                  <span class="n">best_score</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iter_caption_calls</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">notes</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">_finish</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">cand</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">spend</span><span class="p">,</span> <span class="n">accepted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">grade</span><span class="o">=</span><span class="n">grade</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;correct&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">grade</span> <span class="o">==</span> <span class="n">Grade</span><span class="o">.</span><span class="n">AMBIGUOUS</span><span class="p">:</span>
+            <span class="n">judged</span> <span class="o">=</span> <span class="n">_judge_selection</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">scored</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">describe</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span>
+            <span class="n">iter_judge_calls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">judged</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">cand</span> <span class="ow">in</span> <span class="n">judged</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">best_judged</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cand</span><span class="o">.</span><span class="n">quality</span> <span class="o">&gt;</span> <span class="n">best_judged</span><span class="o">.</span><span class="n">quality</span><span class="p">:</span>
+                    <span class="n">best_judged</span> <span class="o">=</span> <span class="n">cand</span>
+            <span class="k">if</span> <span class="n">best_judged</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">best_judged</span><span class="o">.</span><span class="n">quality</span> <span class="o">&gt;=</span> <span class="n">budget</span><span class="o">.</span><span class="n">accept_threshold</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;judge+accept&quot;</span>
+                <span class="n">trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_record</span><span class="p">(</span><span class="n">spend</span><span class="o">.</span><span class="n">iterations</span><span class="p">,</span> <span class="n">searched_queries</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">pf</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span>
+                                     <span class="n">best_judged</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iter_judge_calls</span><span class="p">,</span> <span class="n">notes</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">_finish</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">best_judged</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">spend</span><span class="p">,</span> <span class="n">accepted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                               <span class="n">grade</span><span class="o">=</span><span class="n">grade</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;accept_threshold&quot;</span><span class="p">)</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;judge+refine&quot;</span>
+            <span class="n">critique</span> <span class="o">=</span> <span class="n">_critique_from_judgements</span><span class="p">(</span><span class="n">judged</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span>
+            <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span><span class="n">refine_query</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">critique</span><span class="p">,</span> <span class="n">refiner</span><span class="o">=</span><span class="n">refiner</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)]</span>
+            <span class="n">notes</span> <span class="o">=</span> <span class="n">critique</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># INCORRECT</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;refine&quot;</span>
+            <span class="k">if</span> <span class="n">scored</span> <span class="ow">and</span> <span class="n">fallback_best</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">fallback_best</span> <span class="o">=</span> <span class="n">pool</span><span class="p">[(</span><span class="n">scored</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">scored</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span>
+            <span class="n">critique</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;no candidates survived pre-filtering&quot;</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pf</span><span class="o">.</span><span class="n">passed</span>
+                <span class="k">else</span> <span class="s2">&quot;no sufficiently relevant candidate&quot;</span>
+            <span class="p">)</span>
+            <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span><span class="n">refine_query</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">critique</span><span class="p">,</span> <span class="n">refiner</span><span class="o">=</span><span class="n">refiner</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)]</span>
+            <span class="n">notes</span> <span class="o">=</span> <span class="n">critique</span>
+
+        <span class="n">trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_record</span><span class="p">(</span><span class="n">spend</span><span class="o">.</span><span class="n">iterations</span><span class="p">,</span> <span class="n">searched_queries</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">pf</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span>
+                             <span class="n">best_score</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iter_caption_calls</span><span class="p">,</span> <span class="n">iter_judge_calls</span><span class="p">,</span> <span class="n">notes</span><span class="p">))</span>
+
+        <span class="c1"># --- no-progress stop (R2 T4): same candidate set as last round ---</span>
+        <span class="n">keyset</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">((</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prev_keyset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">keyset</span> <span class="o">==</span> <span class="n">prev_keyset</span><span class="p">:</span>
+            <span class="n">stop_reason</span> <span class="o">=</span> <span class="s2">&quot;no_progress&quot;</span>
+            <span class="k">break</span>
+        <span class="n">prev_keyset</span> <span class="o">=</span> <span class="n">keyset</span>
+
+    <span class="c1"># --- loop ended without acceptance: return best-so-far ---</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="n">best_judged</span> <span class="ow">or</span> <span class="n">fallback_best</span> <span class="ow">or</span> <span class="n">_top_of_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_finish</span><span class="p">(</span>
+        <span class="n">beat</span><span class="p">,</span> <span class="n">best</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">spend</span><span class="p">,</span> <span class="n">accepted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">grade</span><span class="o">=</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grade</span> <span class="k">if</span> <span class="n">trace</span> <span class="k">else</span> <span class="n">Grade</span><span class="o">.</span><span class="n">INCORRECT</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+        <span class="n">reason</span><span class="o">=</span><span class="n">stop_reason</span> <span class="ow">or</span> <span class="s2">&quot;exhausted&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="c1"># --- internals --------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_search</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">illustration</span>  <span class="c1"># lazy to avoid an import cycle at module load</span>
+
+    <span class="k">return</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_sources</span><span class="p">(</span><span class="n">sources</span><span class="p">:</span> <span class="s2">&quot;str | list[str] | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">sources</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">DFLT_SOURCES</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">sources</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_search</span><span class="p">(</span><span class="n">queries</span><span class="p">,</span> <span class="n">source_list</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">spend</span><span class="p">:</span> <span class="n">_Spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search each (query, source) request, honoring the per-request search cap.</span>
+
+<span class="sd">    Each provider request is gated and charged individually, so the cap bounds</span>
+<span class="sd">    real provider HTTP requests (not just logical queries) and the cost overlay</span>
+<span class="sd">    can price each source&#39;s request separately.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">queries</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">source_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">spend</span><span class="o">.</span><span class="n">search_calls</span> <span class="o">&gt;=</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_search_calls</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">out</span>
+            <span class="k">if</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_cost</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">spend</span><span class="o">.</span><span class="n">est_cost</span> <span class="o">&gt;=</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_cost</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">out</span>
+            <span class="n">_charge</span><span class="p">(</span><span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">,</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">source</span><span class="p">})</span>
+            <span class="n">spend</span><span class="o">.</span><span class="n">search_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># one provider hiccup mustn&#39;t sink the round</span>
+                <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_fuse</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge per-provider hits with ``ir.fuse_hits`` (rank-based; dedup by id).</span>
+
+<span class="sd">    Returns the fused-ordered :class:`ImageResult` list (provider-balanced via</span>
+<span class="sd">    Reciprocal Rank Fusion; raw scores never cross a source boundary).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">by_key</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">hits_by_source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">by_key</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">hits_by_source</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_search_hit</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">ir</span><span class="w"> </span><span class="kn">import</span> <span class="n">fuse_hits</span>
+
+    <span class="n">ordered</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">seen</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">fuse_hits</span><span class="p">(</span><span class="n">hits_by_source</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">hit</span><span class="o">.</span><span class="n">artifact_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">by_key</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">ordered</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">by_key</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">ordered</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_rerank</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">scorer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;SigLIP rerank when available/injected; else score by the fused rank.</span>
+
+<span class="sd">    The fallback derives a strictly-positive, rank-descending score from the</span>
+<span class="sd">    already-fused order rather than copying the fused scores: ``fuse_hits``</span>
+<span class="sd">    preserves raw scores for a single source, which are ``0.0`` for un-reranked</span>
+<span class="sd">    Layer-1 results — and an all-zero set would collapse ``ir.select`` to a</span>
+<span class="sd">    degenerate case, flattening the grade. Synthesizing from rank keeps the</span>
+<span class="sd">    relative structure the grader reads.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">scorer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">_rerank_available</span><span class="p">():</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.reranking</span><span class="w"> </span><span class="kn">import</span> <span class="n">rerank</span> <span class="k">as</span> <span class="n">_rk</span>
+
+        <span class="k">return</span> <span class="n">_rk</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">scorer</span><span class="o">=</span><span class="n">scorer</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">total</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span><span class="p">})</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_select</span><span class="p">(</span><span class="n">scored</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">ir</span><span class="w"> </span><span class="kn">import</span> <span class="n">select</span>
+
+    <span class="n">hits</span> <span class="o">=</span> <span class="p">[</span><span class="n">to_search_hit</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">select</span><span class="p">(</span>
+        <span class="n">hits</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;conservative&quot;</span><span class="p">,</span> <span class="n">max_k</span><span class="o">=</span><span class="n">budget</span><span class="o">.</span><span class="n">select_max_k</span><span class="p">,</span>
+        <span class="n">rel</span><span class="o">=</span><span class="n">budget</span><span class="o">.</span><span class="n">select_rel</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="n">budget</span><span class="o">.</span><span class="n">min_score</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_judge_selection</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">scored</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">describe</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Candidate</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;VLM-judge the selected (ambiguous) candidates, honoring the judge cap.&quot;&quot;&quot;</span>
+    <span class="n">selected_ids</span> <span class="o">=</span> <span class="p">{(</span><span class="n">h</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">artifact_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="s2">&quot;selected&quot;</span><span class="p">,</span> <span class="p">[])}</span>
+    <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">scored</span> <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">selected_ids</span><span class="p">]</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">(</span><span class="n">scored</span><span class="p">[:</span><span class="n">budget</span><span class="o">.</span><span class="n">select_max_k</span><span class="p">])</span>
+    <span class="n">judged</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Candidate</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_can_judge</span><span class="p">(</span><span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="n">_charge</span><span class="p">(</span><span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">,</span> <span class="s2">&quot;judge&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
+        <span class="n">spend</span><span class="o">.</span><span class="n">judge_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">report</span><span class="p">:</span> <span class="n">InspectReport</span> <span class="o">=</span> <span class="n">inspect_candidate</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;judge&quot;</span><span class="p">,</span> <span class="n">describe</span><span class="o">=</span><span class="n">describe</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">cand</span> <span class="o">=</span> <span class="n">pool</span><span class="p">[(</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span>
+        <span class="n">cand</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">score</span>
+        <span class="n">cand</span><span class="o">.</span><span class="n">rubric</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">rubric</span>
+        <span class="n">cand</span><span class="o">.</span><span class="n">rationale</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">rationale</span>
+        <span class="n">judged</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cand</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">judged</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_critique_from_judgements</span><span class="p">(</span><span class="n">judged</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Candidate</span><span class="p">],</span> <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarize why the best judged candidate fell short, to steer the refine.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">judged</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;the candidates did not match the scene&quot;</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">judged</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">quality</span><span class="p">)</span>
+    <span class="n">rubric</span> <span class="o">=</span> <span class="n">best</span><span class="o">.</span><span class="n">rubric</span>
+    <span class="k">if</span> <span class="n">rubric</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;the candidates did not match the scene&quot;</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="n">rubric</span><span class="o">.</span><span class="n">subject</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="n">rubric</span><span class="o">.</span><span class="n">action</span><span class="p">,</span> <span class="s2">&quot;setting&quot;</span><span class="p">:</span> <span class="n">rubric</span><span class="o">.</span><span class="n">setting</span><span class="p">,</span>
+        <span class="s2">&quot;mood&quot;</span><span class="p">:</span> <span class="n">rubric</span><span class="o">.</span><span class="n">mood</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="n">rubric</span><span class="o">.</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="n">rubric</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">weakest</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">dims</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;best match scored </span><span class="si">{</span><span class="n">rubric</span><span class="o">.</span><span class="n">overall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (&lt; </span><span class="si">{</span><span class="n">budget</span><span class="o">.</span><span class="n">accept_threshold</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">); &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;weakest on </span><span class="si">{</span><span class="n">weakest</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_absorb</span><span class="p">(</span><span class="n">pool</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">scored</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pool</span><span class="p">:</span>
+            <span class="n">pool</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Candidate</span><span class="p">(</span><span class="n">result</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">score</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pool</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">score</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_top_of_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Candidate | None&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">score</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_record</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">queries</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">pf</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">best_score</span><span class="p">,</span>
+            <span class="n">sc</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">jc</span><span class="p">,</span> <span class="n">notes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IterationRecord</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">IterationRecord</span><span class="p">(</span>
+        <span class="n">iteration</span><span class="o">=</span><span class="n">iteration</span><span class="p">,</span> <span class="n">queries</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">queries</span><span class="p">),</span> <span class="n">n_candidates</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">),</span>
+        <span class="n">n_passed</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">pf</span><span class="o">.</span><span class="n">passed</span><span class="p">),</span> <span class="n">grade</span><span class="o">=</span><span class="n">grade</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grade</span><span class="p">,</span> <span class="n">Grade</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">grade</span><span class="p">),</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">,</span> <span class="n">best_score</span><span class="o">=</span><span class="n">best_score</span><span class="p">,</span> <span class="n">search_calls</span><span class="o">=</span><span class="n">sc</span><span class="p">,</span> <span class="n">caption_calls</span><span class="o">=</span><span class="n">cc</span><span class="p">,</span>
+        <span class="n">judge_calls</span><span class="o">=</span><span class="n">jc</span><span class="p">,</span> <span class="n">notes</span><span class="o">=</span><span class="n">notes</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_finish</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">best</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">spend</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">accepted</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">reason</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CurationResult</span><span class="p">:</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="n">pool</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">score</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">),</span>
+        <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">CurationResult</span><span class="p">(</span>
+        <span class="n">beat</span><span class="o">=</span><span class="n">beat</span><span class="p">,</span> <span class="n">best</span><span class="o">=</span><span class="n">best</span><span class="p">,</span> <span class="n">accepted</span><span class="o">=</span><span class="n">accepted</span><span class="p">,</span>
+        <span class="n">grade</span><span class="o">=</span><span class="n">grade</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grade</span><span class="p">,</span> <span class="n">Grade</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">grade</span><span class="p">),</span>
+        <span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="n">candidates</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span> <span class="n">spend</span><span class="o">=</span><span class="n">spend</span><span class="o">.</span><span class="n">as_dict</span><span class="p">(),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_can_caption</span><span class="p">(</span><span class="n">spend</span><span class="p">:</span> <span class="n">_Spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">spend</span><span class="o">.</span><span class="n">caption_calls</span> <span class="o">&lt;</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_caption_calls</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_over_cost</span><span class="p">(</span><span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_can_judge</span><span class="p">(</span><span class="n">spend</span><span class="p">:</span> <span class="n">_Spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">spend</span><span class="o">.</span><span class="n">judge_calls</span> <span class="o">&lt;</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_judge_calls</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_over_cost</span><span class="p">(</span><span class="n">spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_over_cost</span><span class="p">(</span><span class="n">spend</span><span class="p">:</span> <span class="n">_Spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_cost</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">spend</span><span class="o">.</span><span class="n">est_cost</span> <span class="o">&gt;=</span> <span class="n">budget</span><span class="o">.</span><span class="n">max_cost</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_charge</span><span class="p">(</span><span class="n">spend</span><span class="p">:</span> <span class="n">_Spend</span><span class="p">,</span> <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">,</span> <span class="n">call_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">budget</span><span class="o">.</span><span class="n">cost_estimator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">spend</span><span class="o">.</span><span class="n">est_cost</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">budget</span><span class="o">.</span><span class="n">cost_estimator</span><span class="p">(</span><span class="n">call_type</span><span class="p">,</span> <span class="n">info</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_rerank_available</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span>
+        <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;torch&quot;</span><span class="p">,</span> <span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="s2">&quot;PIL&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

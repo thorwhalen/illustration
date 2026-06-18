@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.curation &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.errors" href="errors.html" />
+    <link rel="prev" title="illustration.credentials" href="credentials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.curation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.Budget"><code class="docutils literal notranslate"><span class="pre">Budget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Budget.accept_threshold"><code class="docutils literal notranslate"><span class="pre">Budget.accept_threshold</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Budget.correct_min_score"><code class="docutils literal notranslate"><span class="pre">Budget.correct_min_score</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Budget.cost_estimator"><code class="docutils literal notranslate"><span class="pre">Budget.cost_estimator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Budget.max_cost"><code class="docutils literal notranslate"><span class="pre">Budget.max_cost</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Budget.max_search_calls"><code class="docutils literal notranslate"><span class="pre">Budget.max_search_calls</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Budget.min_score"><code class="docutils literal notranslate"><span class="pre">Budget.min_score</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Budget.select_max_k"><code class="docutils literal notranslate"><span class="pre">Budget.select_max_k</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.Candidate"><code class="docutils literal notranslate"><span class="pre">Candidate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Candidate.model_config"><code class="docutils literal notranslate"><span class="pre">Candidate.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.Candidate.quality"><code class="docutils literal notranslate"><span class="pre">Candidate.quality</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.CurationResult"><code class="docutils literal notranslate"><span class="pre">CurationResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.CurationResult.model_config"><code class="docutils literal notranslate"><span class="pre">CurationResult.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.DFLT_CURATE_N"><code class="docutils literal notranslate"><span class="pre">DFLT_CURATE_N</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.Grade"><code class="docutils literal notranslate"><span class="pre">Grade</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.Grader"><code class="docutils literal notranslate"><span class="pre">Grader</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.IterationRecord"><code class="docutils literal notranslate"><span class="pre">IterationRecord</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.curation.IterationRecord.model_config"><code class="docutils literal notranslate"><span class="pre">IterationRecord.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.curation.score_grade"><code class="docutils literal notranslate"><span class="pre">score_grade()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.curation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/curation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.curation">
+<span id="illustration-curation"></span><h1>illustration.curation<a class="headerlink" href="#module-illustration.curation" title="Link to this heading"></a></h1>
+<p>The bounded corrective-retrieval (CRAG) loop — Layer 2’s heart (R2 §1).</p>
+<p>Turns a high-recall provider search into a single vetted candidate for one
+narration beat, self-correcting across a <em>hard-bounded</em> number of rounds. The
+shape is CRAG [Yan et al. 2024]: retrieve → grade → conditionally re-query —
+wrapped in a controller whose stop conditions are enforced <strong>in code, not
+prompts</strong>. That distinction is the whole point: the cautionary tale R2 cites is a
+multi-agent loop that ran 11 days and cost $47k because it had cost <em>alerts</em> but
+no cost <em>enforcement</em>. Here, <a class="reference internal" href="#illustration.curation.Budget" title="illustration.curation.Budget"><code class="xref py py-class docutils literal notranslate"><span class="pre">Budget</span></code></a> caps (max iterations, per-call-type
+ceilings, accept threshold, optional cost ceiling) are checked before every paid
+call.</p>
+<p>The pipeline per iteration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>expand → search (fan-out) → ir.fuse_hits (provider merge/dedup, rank-based)
+       → prefilter (classical CV) → rerank (SigLIP) → ir.select
+       → grade {Correct | Ambiguous | Incorrect}
+       → Correct: caption + accept · Ambiguous: VLM judge · Incorrect: refine
+</pre></div>
+</div>
+<p>Cost discipline (R2, in impact order): the classical-CV prefilter gates before
+any VLM token is spent; <em>Correct</em> uses a cheap caption and <em>Ambiguous</em> escalates
+to the rubric judge only when the cheap signal is unsure; everything is bounded.</p>
+<p>Every expensive seam is injectable — <code class="docutils literal notranslate"><span class="pre">search_fn</span></code>, <code class="docutils literal notranslate"><span class="pre">expander</span></code>/<code class="docutils literal notranslate"><span class="pre">refiner</span></code>,
+<code class="docutils literal notranslate"><span class="pre">scorer</span></code> (SigLIP), <code class="docutils literal notranslate"><span class="pre">describe</span></code> (the VLM), <code class="docutils literal notranslate"><span class="pre">grader</span></code>, <code class="docutils literal notranslate"><span class="pre">checks</span></code> — so the loop
+runs end-to-end <strong>offline</strong> with stubs and never spends on a paid API in a test.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline: stub search + scorer + a generous-enough budget -&gt; one round</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cands</span> <span class="o">=</span> <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;u</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="gp">... </span>         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">curate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;a stormy harbour at dusk&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">expander</span><span class="o">=</span><span class="k">lambda</span> <span class="n">beat</span><span class="p">:</span> <span class="p">[],</span>                       <span class="c1"># no expansion</span>
+<span class="gp">... </span>    <span class="n">search_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">q</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">cands</span><span class="p">,</span>                <span class="c1"># canned recall</span>
+<span class="gp">... </span>    <span class="n">checks</span><span class="o">=</span><span class="p">[],</span>                                      <span class="c1"># skip CV (no fetch)</span>
+<span class="gp">... </span>    <span class="n">scorer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">beat</span><span class="p">,</span> <span class="n">rs</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>        <span class="c1"># canned relevance</span>
+<span class="gp">... </span>    <span class="n">describe</span><span class="o">=</span><span class="k">lambda</span> <span class="n">image</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="s2">&quot;a harbour&quot;</span><span class="p">,</span>     <span class="c1"># canned VLM (no API)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">accepted</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">grade</span>
+<span class="go">(True, &#39;0&#39;, &#39;correct&#39;)</span>
+</pre></div>
+</div>
+<p>The example is <code class="docutils literal notranslate"><span class="pre">+SKIP</span></code>-ed under <code class="docutils literal notranslate"><span class="pre">--doctest-modules</span></code> because it exercises the
+<code class="docutils literal notranslate"><span class="pre">ir</span></code> fan-in, which ships in the optional <code class="docutils literal notranslate"><span class="pre">[curate]</span></code> extra (absent in the
+base / CI install). <code class="docutils literal notranslate"><span class="pre">tests/test_curation.py</span></code> covers this path in full under
+<code class="docutils literal notranslate"><span class="pre">importorskip(&quot;ir&quot;)</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.curation.Budget">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">Budget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_search_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_caption_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_judge_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accept_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.62</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correct_min_score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_max_k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_rel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_cost</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_estimator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/curation.html#Budget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.curation.Budget" title="Link to this definition"></a></dt>
+<dd><p>Hard loop bounds — the safety net, enforced in controller code (R2).</p>
+<p>Counts and iterations are the deterministic, provider-independent caps. The
+optional <code class="docutils literal notranslate"><span class="pre">cost_estimator</span></code> / <code class="docutils literal notranslate"><span class="pre">max_cost</span></code> overlay lets a caller add a money
+ceiling on top; with no estimator the call/iteration caps alone bound spend.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Budget.accept_threshold">
+<span class="sig-name descname"><span class="pre">accept_threshold</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.62</span></span><a class="headerlink" href="#illustration.curation.Budget.accept_threshold" title="Link to this definition"></a></dt>
+<dd><p>Rubric <code class="docutils literal notranslate"><span class="pre">overall</span></code> (0-1) at/above which a judged candidate is accepted.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Budget.correct_min_score">
+<span class="sig-name descname"><span class="pre">correct_min_score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#illustration.curation.Budget.correct_min_score" title="Link to this definition"></a></dt>
+<dd><p>Optional absolute relevance floor below which a <em>Correct</em>-graded dominant
+candidate is escalated to the VLM judge instead of auto-accepted. <code class="docutils literal notranslate"><span class="pre">None</span></code>
+(default) keeps the cheap fast-path; set it (on the reranker’s score scale)
+when a dominant-but-weak top must still be rubric-verified.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Budget.cost_estimator">
+<span class="sig-name descname"><span class="pre">cost_estimator</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#illustration.curation.Budget.cost_estimator" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">(call_type,</span> <span class="pre">info)</span> <span class="pre">-&gt;</span> <span class="pre">cost</span></code> estimate; <code class="docutils literal notranslate"><span class="pre">call_type</span></code> in
+{“search”, “caption”, “judge”}.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Budget.max_cost">
+<span class="sig-name descname"><span class="pre">max_cost</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#illustration.curation.Budget.max_cost" title="Link to this definition"></a></dt>
+<dd><p>Optional money ceiling overlay. The count/iteration caps above are the
+strict hard bound; <code class="docutils literal notranslate"><span class="pre">max_cost</span></code> is a <em>soft</em> ceiling — the run halts once
+accrued <code class="docutils literal notranslate"><span class="pre">est_cost</span></code> reaches it, so the one call already decided upon may
+push the total slightly past <code class="docutils literal notranslate"><span class="pre">max_cost</span></code> (effective bound ≈ <code class="docutils literal notranslate"><span class="pre">max_cost</span></code> +
+one call’s estimate).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Budget.max_search_calls">
+<span class="sig-name descname"><span class="pre">max_search_calls</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></span><a class="headerlink" href="#illustration.curation.Budget.max_search_calls" title="Link to this definition"></a></dt>
+<dd><p>Cap on individual <code class="docutils literal notranslate"><span class="pre">(query,</span> <span class="pre">source)</span></code> search requests across the whole run.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Budget.min_score">
+<span class="sig-name descname"><span class="pre">min_score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#illustration.curation.Budget.min_score" title="Link to this definition"></a></dt>
+<dd><p>Optional absolute relevance floor for <code class="docutils literal notranslate"><span class="pre">ir.select</span></code> abstention. <code class="docutils literal notranslate"><span class="pre">None</span></code> =
+relative-only (the loop’s quality bar lives in the rubric, which is 0-1).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Budget.select_max_k">
+<span class="sig-name descname"><span class="pre">select_max_k</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#illustration.curation.Budget.select_max_k" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">ir.select</span></code> tuning for the grade (conservative selector).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.curation.Candidate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">Candidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rubric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inspection.html#illustration.inspection.RubricScore" title="illustration.inspection.RubricScore"><span class="pre">RubricScore</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rationale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/curation.html#Candidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.curation.Candidate" title="Link to this definition"></a></dt>
+<dd><p>One scored (and optionally inspected) candidate.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.Candidate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.curation.Candidate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="illustration.curation.Candidate.quality">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">quality</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#illustration.curation.Candidate.quality" title="Link to this definition"></a></dt>
+<dd><p>the rubric overall if judged, else 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A 0-1 comparable quality</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.curation.CurationResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">CurationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">best</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#illustration.curation.Candidate" title="illustration.curation.Candidate"><span class="pre">Candidate</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accepted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grade</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.curation.Candidate" title="illustration.curation.Candidate"><span class="pre">Candidate</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.curation.IterationRecord" title="illustration.curation.IterationRecord"><span class="pre">IterationRecord</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/curation.html#CurationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.curation.CurationResult" title="Link to this definition"></a></dt>
+<dd><p>The outcome of curating one beat.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.CurationResult.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.curation.CurationResult.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.curation.DFLT_CURATE_N">
+<span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">DFLT_CURATE_N</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></span><a class="headerlink" href="#illustration.curation.DFLT_CURATE_N" title="Link to this definition"></a></dt>
+<dd><p>Default candidates requested <em>per source</em> for the recall stage.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.curation.Grade">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">Grade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/curation.html#Grade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.curation.Grade" title="Link to this definition"></a></dt>
+<dd><p>CRAG’s three-way retrieval grade (R2 §1).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.curation.Grader">
+<span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">Grader</span></span><a class="headerlink" href="#illustration.curation.Grader" title="Link to this definition"></a></dt>
+<dd><p>A grader maps (reranked results, ir.Selection) -&gt; a <a class="reference internal" href="#illustration.curation.Grade" title="illustration.curation.Grade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Grade</span></code></a>.</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>], <a class="reference internal" href="#illustration.curation.Grade" title="illustration.curation.Grade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Grade</span></code></a>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.curation.IterationRecord">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">IterationRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">iteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_passed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grade</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">best_score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">judge_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/curation.html#IterationRecord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.curation.IterationRecord" title="Link to this definition"></a></dt>
+<dd><p>One iteration of the loop — the run-log R2 requires for observability.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.curation.IterationRecord.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.curation.IterationRecord.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.curation.curate">
+<span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">curate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">budget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#illustration.curation.Budget" title="illustration.curation.Budget"><span class="pre">Budget</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expander</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refiner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#illustration.curation.Grade" title="illustration.curation.Grade"><span class="pre">Grade</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">describe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scorer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="inspection.html#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><span class="pre">CheckOutcome</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.curation.CurationResult" title="illustration.curation.CurationResult"><span class="pre">CurationResult</span></a></span></span><a class="reference internal" href="../../_modules/illustration/curation.html#curate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.curation.curate" title="Link to this definition"></a></dt>
+<dd><p>Curate the single best image for a narration <code class="docutils literal notranslate"><span class="pre">beat</span></code> via the CRAG loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beat</strong> – The narration beat / scene description to illustrate.</p></li>
+<li><p><strong>sources</strong> – Source name(s) to search, or <code class="docutils literal notranslate"><span class="pre">None</span></code> for the default set.</p></li>
+<li><p><strong>n</strong> – Candidates requested per source per query (recall width).</p></li>
+<li><p><strong>budget</strong> – Hard loop bounds (defaults to <a class="reference internal" href="#illustration.curation.Budget" title="illustration.curation.Budget"><code class="xref py py-class docutils literal notranslate"><span class="pre">Budget</span></code></a>).</p></li>
+<li><p><strong>refiner</strong> (<em>expander /</em>) – Query generation / refinement seams (default: <code class="docutils literal notranslate"><span class="pre">aix</span></code>).</p></li>
+<li><p><strong>grader</strong> – <code class="docutils literal notranslate"><span class="pre">(results,</span> <span class="pre">selection)</span> <span class="pre">-&gt;</span> <span class="pre">Grade</span></code> (default <a class="reference internal" href="#illustration.curation.score_grade" title="illustration.curation.score_grade"><code class="xref py py-func docutils literal notranslate"><span class="pre">score_grade()</span></code></a>).</p></li>
+<li><p><strong>describe</strong> – VLM <code class="docutils literal notranslate"><span class="pre">(image,</span> <span class="pre">prompt)</span> <span class="pre">-&gt;</span> <span class="pre">text</span></code> seam (default: <code class="docutils literal notranslate"><span class="pre">aix</span></code>).</p></li>
+<li><p><strong>scorer</strong> – SigLIP-style <code class="docutils literal notranslate"><span class="pre">(beat,</span> <span class="pre">results)</span> <span class="pre">-&gt;</span> <span class="pre">scores</span></code> reranker. <code class="docutils literal notranslate"><span class="pre">None</span></code> uses
+the local SigLIP scorer when its deps are present, else falls back to
+the rank-fused order.</p></li>
+<li><p><strong>checks</strong> – Classical-CV pre-filter checks (default: dependency-aware set).</p></li>
+<li><p><strong>model</strong> – LLM model id passed to the default expander / refiner / describe.</p></li>
+<li><p><strong>search_fn</strong> – <code class="docutils literal notranslate"><span class="pre">(query,</span> <span class="pre">*,</span> <span class="pre">source,</span> <span class="pre">n,</span> <span class="pre">...)</span> <span class="pre">-&gt;</span> <span class="pre">[ImageResult]</span></code> (default:
+<a class="reference internal" href="../illustration.html#illustration.search" title="illustration.search"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.search()</span></code></a>). Inject a stub to test offline.</p></li>
+<li><p><strong>fetch</strong> – Image fetch override for the pre-filters (test double).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#illustration.curation.CurationResult" title="illustration.curation.CurationResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">CurationResult</span></code></a> — the accepted (or best-so-far) candidate, the
+full candidate set, the per-iteration trace, and the spend accounting.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.curation.score_grade">
+<span class="sig-prename descclassname"><span class="pre">illustration.curation.</span></span><span class="sig-name descname"><span class="pre">score_grade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.curation.Grade" title="illustration.curation.Grade"><span class="pre">Grade</span></a></span></span><a class="reference internal" href="../../_modules/illustration/curation.html#score_grade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.curation.score_grade" title="Link to this definition"></a></dt>
+<dd><p>The default, model-free grader — scale-robust via <code class="docutils literal notranslate"><span class="pre">ir.select</span></code> structure.</p>
+<p>Maps the conservative selection’s <em>shape</em> (not an absolute score) onto CRAG’s
+grade: nothing/abstained → Incorrect; a single dominant pick → Correct;
+several comparable picks → Ambiguous. Because it reads relative structure, it
+works regardless of the reranker’s score magnitude — the absolute quality bar
+lives in the rubric (0-1), applied only on the Ambiguous path.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="credentials.html" class="btn btn-neutral float-left" title="illustration.credentials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="errors.html" class="btn btn-neutral float-right" title="illustration.errors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

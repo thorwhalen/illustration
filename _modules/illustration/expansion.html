@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.expansion &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.expansion</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.expansion</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Query expansion &amp; refinement — the first node of the curation loop (R2 §1).</span>
+
+<span class="sd">A narration *beat* (&quot;a stormy harbour at dusk, fishermen hauling nets&quot;) is not a</span>
+<span class="sd">good stock-image query verbatim. This module turns a beat into a small set of</span>
+<span class="sd">concrete, visual search queries, and — when a search round comes back empty or</span>
+<span class="sd">off — refines a query given a short critique. These are the ``generate_query``</span>
+<span class="sd">and ``refine_query`` steps of the bounded CRAG loop.</span>
+
+<span class="sd">The default generator is built on :func:`aix.prompt_func` (the multi-provider</span>
+<span class="sd">LLM facade) and is imported **lazily**, so ``import illustration`` never requires</span>
+<span class="sd">``aix``. Every entry point takes an injectable seam (a plain</span>
+<span class="sd">``beat -&gt; queries`` / ``(beat, critique) -&gt; query`` callable) so the loop is</span>
+<span class="sd">fully testable offline with a stub — the same string-or-callable + lazy-LLM</span>
+<span class="sd">idiom ``ir`` uses for its formulators.</span>
+
+<span class="sd">&gt;&gt;&gt; # offline: inject a stub expander (no LLM, no network)</span>
+<span class="sd">&gt;&gt;&gt; expand_query(&quot;a stormy harbour&quot;, expander=lambda beat: [&quot;harbour storm&quot;, &quot;rough sea&quot;])</span>
+<span class="sd">[&#39;a stormy harbour&#39;, &#39;harbour storm&#39;, &#39;rough sea&#39;]</span>
+<span class="sd">&gt;&gt;&gt; refine_query(&quot;a stormy harbour&quot;, &quot;too generic&quot;, refiner=lambda b, c: &quot;harbour at dusk in a gale&quot;)</span>
+<span class="sd">&#39;harbour at dusk in a gale&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;expand_query&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;refine_query&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_query_expander&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_query_refiner&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Expander&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Refiner&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_N_EXPANSIONS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;EXPANSION_PROMPT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;REFINEMENT_PROMPT&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: An expander maps a beat to a list of candidate image-search queries.</span>
+<span class="n">Expander</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+
+<span class="c1">#: A refiner maps (beat, critique) to one improved query.</span>
+<span class="n">Refiner</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span>
+
+<span class="c1">#: Default number of expansions the LLM generator is asked for.</span>
+<span class="n">DFLT_N_EXPANSIONS</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">EXPANSION_PROMPT</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;You turn a narration beat into concrete, visual stock-image search queries.</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Beat: </span><span class="si">{beat}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Write </span><span class="si">{n}</span><span class="s2"> short queries (3-7 words each), one per line, no numbering. Each must &quot;</span>
+    <span class="s2">&quot;name concrete, depictable subjects/scenes/lighting a photographer could shoot — &quot;</span>
+    <span class="s2">&quot;not abstract narration. Vary the angle (subject, setting, mood) across the lines.&quot;</span>
+<span class="p">)</span>
+
+<span class="n">REFINEMENT_PROMPT</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;A stock-image search for a narration beat did not return good matches.</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Beat: </span><span class="si">{beat}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;What went wrong: </span><span class="si">{critique}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Write ONE improved search query (3-7 words) that is more concrete and more &quot;</span>
+    <span class="s2">&quot;likely to match real photographs. Output only the query, nothing else.&quot;</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="expand_query">
+<a class="viewcode-back" href="../../module_docs/illustration/expansion.html#illustration.expand_query">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">expand_query</span><span class="p">(</span>
+    <span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DFLT_N_EXPANSIONS</span><span class="p">,</span>
+    <span class="n">expander</span><span class="p">:</span> <span class="s2">&quot;Expander | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">include_verbatim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Expand a narration ``beat`` into a deduped list of image-search queries.</span>
+
+<span class="sd">    The verbatim beat is included first by default (so the literal phrasing is</span>
+<span class="sd">    never lost), followed by the expander&#39;s suggestions. ``expander`` defaults to</span>
+<span class="sd">    an :func:`aix.prompt_func`-backed generator (built lazily); inject a</span>
+<span class="sd">    ``beat -&gt; [query, ...]`` callable to override it or to test offline.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">expander</span> <span class="k">if</span> <span class="n">expander</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">make_query_expander</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">queries</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">beat</span><span class="p">]</span> <span class="k">if</span> <span class="n">include_verbatim</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">queries</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">beat</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># an LLM hiccup must not sink the loop — fall back to verbatim</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">queries</span><span class="p">:</span>
+            <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span><span class="n">beat</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_dedupe_nonempty</span><span class="p">(</span><span class="n">queries</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="refine_query">
+<a class="viewcode-back" href="../../module_docs/illustration/expansion.html#illustration.refine_query">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">refine_query</span><span class="p">(</span>
+    <span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">critique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">refiner</span><span class="p">:</span> <span class="s2">&quot;Refiner | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Refine a query for ``beat`` given a short ``critique`` of the last round.</span>
+
+<span class="sd">    ``refiner`` defaults to an :func:`aix.prompt_func`-backed refiner (lazy);</span>
+<span class="sd">    inject a ``(beat, critique) -&gt; query`` callable to override or test offline.</span>
+<span class="sd">    Falls back to the verbatim beat if the refiner errors or returns nothing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">refiner</span> <span class="k">if</span> <span class="n">refiner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">make_query_refiner</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">refined</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">critique</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">refined</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">refined</span> <span class="o">=</span> <span class="p">(</span><span class="n">refined</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">refined</span> <span class="ow">or</span> <span class="n">beat</span></div>
+
+
+
+<div class="viewcode-block" id="make_query_expander">
+<a class="viewcode-back" href="../../module_docs/illustration/expansion.html#illustration.make_query_expander">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_query_expander</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DFLT_N_EXPANSIONS</span><span class="p">,</span>
+    <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">EXPANSION_PROMPT</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expander</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the default LLM expander on ``aix`` (lazy import on first call).&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">expander</span><span class="p">(</span><span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">aix</span>  <span class="c1"># lazy: Layer-2 dependency only</span>
+
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">aix</span><span class="o">.</span><span class="n">prompt_func</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">egress</span><span class="o">=</span><span class="n">_parse_lines</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;expand_query&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">beat</span><span class="o">=</span><span class="n">beat</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">expander</span></div>
+
+
+
+<div class="viewcode-block" id="make_query_refiner">
+<a class="viewcode-back" href="../../module_docs/illustration/expansion.html#illustration.make_query_refiner">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_query_refiner</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">REFINEMENT_PROMPT</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Refiner</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the default LLM refiner on ``aix`` (lazy import on first call).&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">refiner</span><span class="p">(</span><span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">critique</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">aix</span>  <span class="c1"># lazy</span>
+
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">aix</span><span class="o">.</span><span class="n">prompt_func</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">egress</span><span class="o">=</span><span class="n">_first_line</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;refine_query&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="n">beat</span><span class="o">=</span><span class="n">beat</span><span class="p">,</span> <span class="n">critique</span><span class="o">=</span><span class="n">critique</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">refiner</span></div>
+
+
+
+<span class="c1"># --- internals --------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_lines</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse an LLM list reply into clean query strings (strip bullets/numbers).&quot;&quot;&quot;</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">raw</span> <span class="ow">in</span> <span class="p">(</span><span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;-*•&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="c1"># drop a leading &quot;1.&quot; / &quot;2)&quot; enumerator</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;.)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_first_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">_parse_lines</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">lines</span> <span class="k">else</span> <span class="p">(</span><span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_dedupe_nonempty</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="n">seen</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">it</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

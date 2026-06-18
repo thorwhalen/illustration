@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.expansion &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.facade" href="facade.html" />
+    <link rel="prev" title="illustration.errors" href="errors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.expansion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.expansion.DFLT_N_EXPANSIONS"><code class="docutils literal notranslate"><span class="pre">DFLT_N_EXPANSIONS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.expansion.Expander"><code class="docutils literal notranslate"><span class="pre">Expander</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.expansion.Refiner"><code class="docutils literal notranslate"><span class="pre">Refiner</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.expansion.expand_query"><code class="docutils literal notranslate"><span class="pre">expand_query()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.expansion.make_query_expander"><code class="docutils literal notranslate"><span class="pre">make_query_expander()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.expansion.make_query_refiner"><code class="docutils literal notranslate"><span class="pre">make_query_refiner()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.expansion.refine_query"><code class="docutils literal notranslate"><span class="pre">refine_query()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.expansion</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/expansion.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.expansion">
+<span id="illustration-expansion"></span><h1>illustration.expansion<a class="headerlink" href="#module-illustration.expansion" title="Link to this heading"></a></h1>
+<p>Query expansion &amp; refinement — the first node of the curation loop (R2 §1).</p>
+<p>A narration <em>beat</em> (“a stormy harbour at dusk, fishermen hauling nets”) is not a
+good stock-image query verbatim. This module turns a beat into a small set of
+concrete, visual search queries, and — when a search round comes back empty or
+off — refines a query given a short critique. These are the <code class="docutils literal notranslate"><span class="pre">generate_query</span></code>
+and <code class="docutils literal notranslate"><span class="pre">refine_query</span></code> steps of the bounded CRAG loop.</p>
+<p>The default generator is built on <code class="xref py py-func docutils literal notranslate"><span class="pre">aix.prompt_func()</span></code> (the multi-provider
+LLM facade) and is imported <strong>lazily</strong>, so <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">illustration</span></code> never requires
+<code class="docutils literal notranslate"><span class="pre">aix</span></code>. Every entry point takes an injectable seam (a plain
+<code class="docutils literal notranslate"><span class="pre">beat</span> <span class="pre">-&gt;</span> <span class="pre">queries</span></code> / <code class="docutils literal notranslate"><span class="pre">(beat,</span> <span class="pre">critique)</span> <span class="pre">-&gt;</span> <span class="pre">query</span></code> callable) so the loop is
+fully testable offline with a stub — the same string-or-callable + lazy-LLM
+idiom <code class="docutils literal notranslate"><span class="pre">ir</span></code> uses for its formulators.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline: inject a stub expander (no LLM, no network)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_query</span><span class="p">(</span><span class="s2">&quot;a stormy harbour&quot;</span><span class="p">,</span> <span class="n">expander</span><span class="o">=</span><span class="k">lambda</span> <span class="n">beat</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;harbour storm&quot;</span><span class="p">,</span> <span class="s2">&quot;rough sea&quot;</span><span class="p">])</span>
+<span class="go">[&#39;a stormy harbour&#39;, &#39;harbour storm&#39;, &#39;rough sea&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">refine_query</span><span class="p">(</span><span class="s2">&quot;a stormy harbour&quot;</span><span class="p">,</span> <span class="s2">&quot;too generic&quot;</span><span class="p">,</span> <span class="n">refiner</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="s2">&quot;harbour at dusk in a gale&quot;</span><span class="p">)</span>
+<span class="go">&#39;harbour at dusk in a gale&#39;</span>
+</pre></div>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.expansion.DFLT_N_EXPANSIONS">
+<span class="sig-prename descclassname"><span class="pre">illustration.expansion.</span></span><span class="sig-name descname"><span class="pre">DFLT_N_EXPANSIONS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#illustration.expansion.DFLT_N_EXPANSIONS" title="Link to this definition"></a></dt>
+<dd><p>Default number of expansions the LLM generator is asked for.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.expansion.Expander">
+<span class="sig-prename descclassname"><span class="pre">illustration.expansion.</span></span><span class="sig-name descname"><span class="pre">Expander</span></span><a class="headerlink" href="#illustration.expansion.Expander" title="Link to this definition"></a></dt>
+<dd><p>An expander maps a beat to a list of candidate image-search queries.</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.expansion.Refiner">
+<span class="sig-prename descclassname"><span class="pre">illustration.expansion.</span></span><span class="sig-name descname"><span class="pre">Refiner</span></span><a class="headerlink" href="#illustration.expansion.Refiner" title="Link to this definition"></a></dt>
+<dd><p>A refiner maps (beat, critique) to one improved query.</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.expansion.expand_query">
+<span class="sig-prename descclassname"><span class="pre">illustration.expansion.</span></span><span class="sig-name descname"><span class="pre">expand_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expander</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_verbatim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/expansion.html#expand_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.expansion.expand_query" title="Link to this definition"></a></dt>
+<dd><p>Expand a narration <code class="docutils literal notranslate"><span class="pre">beat</span></code> into a deduped list of image-search queries.</p>
+<p>The verbatim beat is included first by default (so the literal phrasing is
+never lost), followed by the expander’s suggestions. <code class="docutils literal notranslate"><span class="pre">expander</span></code> defaults to
+an <code class="xref py py-func docutils literal notranslate"><span class="pre">aix.prompt_func()</span></code>-backed generator (built lazily); inject a
+<code class="docutils literal notranslate"><span class="pre">beat</span> <span class="pre">-&gt;</span> <span class="pre">[query,</span> <span class="pre">...]</span></code> callable to override it or to test offline.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.expansion.make_query_expander">
+<span class="sig-prename descclassname"><span class="pre">illustration.expansion.</span></span><span class="sig-name descname"><span class="pre">make_query_expander</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'You</span> <span class="pre">turn</span> <span class="pre">a</span> <span class="pre">narration</span> <span class="pre">beat</span> <span class="pre">into</span> <span class="pre">concrete,</span> <span class="pre">visual</span> <span class="pre">stock-image</span> <span class="pre">search</span> <span class="pre">queries.\nBeat:</span> <span class="pre">{beat}\n\nWrite</span> <span class="pre">{n}</span> <span class="pre">short</span> <span class="pre">queries</span> <span class="pre">(3-7</span> <span class="pre">words</span> <span class="pre">each),</span> <span class="pre">one</span> <span class="pre">per</span> <span class="pre">line,</span> <span class="pre">no</span> <span class="pre">numbering.</span> <span class="pre">Each</span> <span class="pre">must</span> <span class="pre">name</span> <span class="pre">concrete,</span> <span class="pre">depictable</span> <span class="pre">subjects/scenes/lighting</span> <span class="pre">a</span> <span class="pre">photographer</span> <span class="pre">could</span> <span class="pre">shoot</span> <span class="pre">—</span> <span class="pre">not</span> <span class="pre">abstract</span> <span class="pre">narration.</span> <span class="pre">Vary</span> <span class="pre">the</span> <span class="pre">angle</span> <span class="pre">(subject,</span> <span class="pre">setting,</span> <span class="pre">mood)</span> <span class="pre">across</span> <span class="pre">the</span> <span class="pre">lines.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/expansion.html#make_query_expander"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.expansion.make_query_expander" title="Link to this definition"></a></dt>
+<dd><p>Build the default LLM expander on <code class="docutils literal notranslate"><span class="pre">aix</span></code> (lazy import on first call).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.expansion.make_query_refiner">
+<span class="sig-prename descclassname"><span class="pre">illustration.expansion.</span></span><span class="sig-name descname"><span class="pre">make_query_refiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'A</span> <span class="pre">stock-image</span> <span class="pre">search</span> <span class="pre">for</span> <span class="pre">a</span> <span class="pre">narration</span> <span class="pre">beat</span> <span class="pre">did</span> <span class="pre">not</span> <span class="pre">return</span> <span class="pre">good</span> <span class="pre">matches.\nBeat:</span> <span class="pre">{beat}\nWhat</span> <span class="pre">went</span> <span class="pre">wrong:</span> <span class="pre">{critique}\n\nWrite</span> <span class="pre">ONE</span> <span class="pre">improved</span> <span class="pre">search</span> <span class="pre">query</span> <span class="pre">(3-7</span> <span class="pre">words)</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">more</span> <span class="pre">concrete</span> <span class="pre">and</span> <span class="pre">more</span> <span class="pre">likely</span> <span class="pre">to</span> <span class="pre">match</span> <span class="pre">real</span> <span class="pre">photographs.</span> <span class="pre">Output</span> <span class="pre">only</span> <span class="pre">the</span> <span class="pre">query,</span> <span class="pre">nothing</span> <span class="pre">else.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/expansion.html#make_query_refiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.expansion.make_query_refiner" title="Link to this definition"></a></dt>
+<dd><p>Build the default LLM refiner on <code class="docutils literal notranslate"><span class="pre">aix</span></code> (lazy import on first call).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.expansion.refine_query">
+<span class="sig-prename descclassname"><span class="pre">illustration.expansion.</span></span><span class="sig-name descname"><span class="pre">refine_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critique</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">refiner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/illustration/expansion.html#refine_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.expansion.refine_query" title="Link to this definition"></a></dt>
+<dd><p>Refine a query for <code class="docutils literal notranslate"><span class="pre">beat</span></code> given a short <code class="docutils literal notranslate"><span class="pre">critique</span></code> of the last round.</p>
+<p><code class="docutils literal notranslate"><span class="pre">refiner</span></code> defaults to an <code class="xref py py-func docutils literal notranslate"><span class="pre">aix.prompt_func()</span></code>-backed refiner (lazy);
+inject a <code class="docutils literal notranslate"><span class="pre">(beat,</span> <span class="pre">critique)</span> <span class="pre">-&gt;</span> <span class="pre">query</span></code> callable to override or test offline.
+Falls back to the verbatim beat if the refiner errors or returns nothing.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="errors.html" class="btn btn-neutral float-left" title="illustration.errors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="facade.html" class="btn btn-neutral float-right" title="illustration.facade" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

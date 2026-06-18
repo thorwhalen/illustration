@@ -1,0 +1,4 @@
+illustration.expansion
+======================
+.. automodule:: illustration.expansion
+   :members:

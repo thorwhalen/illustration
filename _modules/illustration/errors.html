@@ -48,13 +48,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
@@ -112,6 +116,7 @@
     <span class="s2">&quot;ProviderError&quot;</span><span class="p">,</span>
     <span class="s2">&quot;RateLimitError&quot;</span><span class="p">,</span>
     <span class="s2">&quot;RerankDependencyError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CurateDependencyError&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -182,6 +187,32 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Local rerank needs the optional dependencies (</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">). &quot;</span>
             <span class="s2">&quot;Install them with: pip install &#39;illustration[rerank]&#39;.&quot;</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CurateDependencyError">
+<a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.CurateDependencyError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CurateDependencyError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An optional Layer-2 (agentic curation) dependency is not installed.</span>
+
+<span class="sd">    The message names the missing packages and the extra that provides them,</span>
+<span class="sd">    so the failure is actionable (e.g. ``pip install &#39;illustration[curate]&#39;``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">missing</span><span class="p">:</span> <span class="s2">&quot;list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;curate&quot;</span><span class="p">,</span>
+        <span class="n">purpose</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;agentic curation&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">missing</span> <span class="ow">or</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">extra</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">missing</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="k">else</span> <span class="s2">&quot;aix, ir&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Layer-2 </span><span class="si">{</span><span class="n">purpose</span><span class="si">}</span><span class="s2"> needs the optional dependencies (</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Install them with: pip install &#39;illustration[</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">]&#39;.&quot;</span>
         <span class="p">)</span></div>
 
 

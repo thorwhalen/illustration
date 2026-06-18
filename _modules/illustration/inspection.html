@@ -1,0 +1,690 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.inspection &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.inspection</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.inspection</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Candidate inspection — classical-CV pre-filters + VLM caption/judge (R2 §2-3).</span>
+
+<span class="sd">Two cost tiers, cheapest first:</span>
+
+<span class="sd">1. **Classical-CV pre-filters** (R2 §3) — sub-10ms/image checks (aspect ratio,</span>
+<span class="sd">   minimum size, brightness, blur, NSFW) that drop unusable candidates *before*</span>
+<span class="sd">   any VLM token is spent. This is the single biggest cost lever in the loop.</span>
+<span class="sd">   License-safe libraries only: Pillow (MIT-CMU) + NumPy for the core checks;</span>
+<span class="sd">   the NSFW gate defaults to the Apache-2.0 ``Falconsai/nsfw_image_detection``</span>
+<span class="sd">   ViT (the torch stack the reranker already uses) and is fully injectable.</span>
+<span class="sd">2. **VLM inspect** (R2 §2) — a cheap one-sentence caption for the *Correct* path,</span>
+<span class="sd">   or a full pointwise rubric judgement for the *Ambiguous* path. Both go through</span>
+<span class="sd">   the injectable ``describe`` seam, which defaults to :func:`aix.describe_image`</span>
+<span class="sd">   (lazy import). Judgements are **pointwise** (one image at a time) rather than</span>
+<span class="sd">   pairwise, mitigating the position bias that plagues comparative VLM judges</span>
+<span class="sd">   (R2 §4); use a judge model from a *different* family than any generator to</span>
+<span class="sd">   cut self-preference bias.</span>
+
+<span class="sd">Every expensive step is an injectable seam, so the whole module is testable</span>
+<span class="sd">offline with stubs (synthetic PIL images for the CV checks, canned strings for</span>
+<span class="sd">``describe``) — no network, no paid API.</span>
+
+<span class="sd">&gt;&gt;&gt; # offline: a metadata-only check needs no image fetch</span>
+<span class="sd">&gt;&gt;&gt; from illustration.schema import ImageResult</span>
+<span class="sd">&gt;&gt;&gt; r = ImageResult(provider=&quot;p&quot;, id=&quot;1&quot;, url=&quot;u&quot;, width=1200, height=800)</span>
+<span class="sd">&gt;&gt;&gt; out = aspect_ratio_check()(r, lambda: None)</span>
+<span class="sd">&gt;&gt;&gt; out.name, out.passed</span>
+<span class="sd">(&#39;aspect_ratio&#39;, True)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration._imageio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_IMAGE_FIELD</span><span class="p">,</span> <span class="n">memoized_image_loader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">CurateDependencyError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># prefilter</span>
+    <span class="s2">&quot;CheckOutcome&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PrefilterReport&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PrefilterResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Check&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;prefilter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;aspect_ratio_check&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;min_dimension_check&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;brightness_check&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;blur_check&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nsfw_check&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CORE_CHECKS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DEFAULT_CHECKS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;default_checks&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SafetyGateDisabledWarning&quot;</span><span class="p">,</span>
+    <span class="c1"># VLM inspect</span>
+    <span class="s2">&quot;RubricScore&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;InspectReport&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Describe&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;inspect_candidate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;judge_candidate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CAPTION_PROMPT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;JUDGE_PROMPT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_CAPTION_MAX_TOKENS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_JUDGE_MAX_TOKENS&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="SafetyGateDisabledWarning">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.SafetyGateDisabledWarning">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SafetyGateDisabledWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when the default pre-filter set runs without the NSFW safety gate.&quot;&quot;&quot;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># Classical-CV pre-filters</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+
+<div class="viewcode-block" id="CheckOutcome">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.CheckOutcome">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CheckOutcome</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The result of one check on one candidate.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">passed</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">value</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">reason</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<span class="c1">#: A check maps (result, get_image) -&gt; CheckOutcome. ``get_image`` is a 0-arg</span>
+<span class="c1">#: thunk returning the candidate&#39;s PIL image (cached) or ``None`` if unfetchable;</span>
+<span class="c1">#: metadata-only checks ignore it (so a metadata fail never triggers a fetch).</span>
+<span class="n">Check</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageResult</span><span class="p">,</span> <span class="s2">&quot;Callable[[], Any]&quot;</span><span class="p">],</span> <span class="n">CheckOutcome</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="PrefilterReport">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.PrefilterReport">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PrefilterReport</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Per-candidate pre-filter verdict (the R2 PREFILTER stage record).&quot;&quot;&quot;</span>
+
+    <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">passed</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">reasons</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="PrefilterResult">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.PrefilterResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PrefilterResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The outcome of pre-filtering a candidate set.&quot;&quot;&quot;</span>
+
+    <span class="n">passed</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span>
+    <span class="n">reports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PrefilterReport</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dropped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PrefilterReport</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reports for the candidates that failed at least one check.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="o">.</span><span class="n">passed</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="prefilter">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.prefilter">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">prefilter</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">checks</span><span class="p">:</span> <span class="s2">&quot;Sequence[Check] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_IMAGE_FIELD</span><span class="p">,</span>
+    <span class="n">fetch</span><span class="p">:</span> <span class="s2">&quot;Callable | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrefilterResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ``checks`` over ``results``, keeping only candidates that pass all.</span>
+
+<span class="sd">    Checks run cheapest-first and **short-circuit** on the first failure, so a</span>
+<span class="sd">    candidate dropped on its (free) metadata never triggers an image fetch.</span>
+<span class="sd">    Images are fetched at most once per URL (in-memory, for this call only);</span>
+<span class="sd">    ``fetch`` overrides the fetch function (a test double avoids the network).</span>
+<span class="sd">    ``checks`` defaults to :func:`default_checks` (core CV + NSFW where its deps</span>
+<span class="sd">    are available).</span>
+
+<span class="sd">    Returns a :class:`PrefilterResult` with the surviving ``passed`` results and</span>
+<span class="sd">    a :class:`PrefilterReport` per input candidate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">checks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">checks</span> <span class="k">if</span> <span class="n">checks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">default_checks</span><span class="p">())</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">memoized_image_loader</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="n">fetch</span><span class="p">)</span>
+
+    <span class="n">passed</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">reports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PrefilterReport</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">get_image</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">r</span><span class="o">=</span><span class="n">result</span><span class="p">:</span> <span class="n">loader</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>  <span class="c1"># noqa: E731 - intentional per-result thunk</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">reasons</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="n">checks</span><span class="p">:</span>
+            <span class="n">outcome</span> <span class="o">=</span> <span class="n">check</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">get_image</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">outcome</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">values</span><span class="p">[</span><span class="n">outcome</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">outcome</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="p">:</span>
+                <span class="n">ok</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">reason</span> <span class="ow">or</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">outcome</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> failed&quot;</span><span class="p">)</span>
+                <span class="k">break</span>  <span class="c1"># short-circuit: stop at the first failure</span>
+        <span class="n">reports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">PrefilterReport</span><span class="p">(</span>
+                <span class="n">provider</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="n">ok</span><span class="p">,</span>
+                <span class="n">reasons</span><span class="o">=</span><span class="n">reasons</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="n">passed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">PrefilterResult</span><span class="p">(</span><span class="n">passed</span><span class="o">=</span><span class="n">passed</span><span class="p">,</span> <span class="n">reports</span><span class="o">=</span><span class="n">reports</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="aspect_ratio_check">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.aspect_ratio_check">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">aspect_ratio_check</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">min_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">max_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Check</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reject degenerate aspect ratios (extreme slivers/panoramas). Metadata-only.</span>
+
+<span class="sd">    Uses the result&#39;s ``width``/``height``; passes when either is missing (can&#39;t</span>
+<span class="sd">    assess). ``ratio = width / height``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">get_image</span><span class="p">:</span> <span class="s2">&quot;Callable[[], Any]&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckOutcome</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">width</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;aspect_ratio&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;no dimensions&quot;</span><span class="p">)</span>
+        <span class="n">ratio</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">result</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">min_ratio</span> <span class="o">&lt;=</span> <span class="n">ratio</span> <span class="o">&lt;=</span> <span class="n">max_ratio</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">ok</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;aspect ratio </span><span class="si">{</span><span class="n">ratio</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> outside [</span><span class="si">{</span><span class="n">min_ratio</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">max_ratio</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;aspect_ratio&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="n">ok</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+
+
+
+<div class="viewcode-block" id="min_dimension_check">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.min_dimension_check">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">min_dimension_check</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">min_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">min_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Check</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reject tiny images. Metadata-only (passes when dimensions are unknown).&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">get_image</span><span class="p">:</span> <span class="s2">&quot;Callable[[], Any]&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckOutcome</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">width</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;min_dimension&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;no dimensions&quot;</span><span class="p">)</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;=</span> <span class="n">min_width</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">height</span> <span class="o">&gt;=</span> <span class="n">min_height</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">ok</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s2"> below </span><span class="si">{</span><span class="n">min_width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">min_height</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span>
+            <span class="s2">&quot;min_dimension&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="n">ok</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">height</span><span class="p">)),</span> <span class="n">reason</span><span class="o">=</span><span class="n">reason</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+
+
+
+<div class="viewcode-block" id="brightness_check">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.brightness_check">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">brightness_check</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">min_brightness</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.10</span><span class="p">,</span> <span class="n">max_brightness</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Check</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reject near-black / blown-out images. Mean luminance, normalized to [0, 1].&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">get_image</span><span class="p">:</span> <span class="s2">&quot;Callable[[], Any]&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckOutcome</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">get_image</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;brightness&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;image unavailable&quot;</span><span class="p">)</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageStat</span>
+
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">ImageStat</span><span class="o">.</span><span class="n">Stat</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mf">255.0</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">min_brightness</span> <span class="o">&lt;=</span> <span class="n">mean</span> <span class="o">&lt;=</span> <span class="n">max_brightness</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">ok</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;brightness </span><span class="si">{</span><span class="n">mean</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> outside [</span><span class="si">{</span><span class="n">min_brightness</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">max_brightness</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;brightness&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="n">ok</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+
+
+
+<div class="viewcode-block" id="blur_check">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.blur_check">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">blur_check</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">min_variance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Check</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reject blurry images via variance of the Laplacian (R2 §3; OpenCV-free).</span>
+
+<span class="sd">    The 3x3 Laplacian is applied with NumPy (no OpenCV) on the grayscale image;</span>
+<span class="sd">    a low response variance means few sharp edges, i.e. blur.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">get_image</span><span class="p">:</span> <span class="s2">&quot;Callable[[], Any]&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckOutcome</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">get_image</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;image unavailable&quot;</span><span class="p">)</span>
+        <span class="n">variance</span> <span class="o">=</span> <span class="n">_laplacian_variance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">variance</span> <span class="o">&gt;=</span> <span class="n">min_variance</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">ok</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;blur variance </span><span class="si">{</span><span class="n">variance</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> below </span><span class="si">{</span><span class="n">min_variance</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="n">ok</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">variance</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+
+
+
+<div class="viewcode-block" id="nsfw_check">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.nsfw_check">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">nsfw_check</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span> <span class="n">max_prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">classifier</span><span class="p">:</span> <span class="s2">&quot;Callable[[Any], float] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Check</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Hard-drop unsafe images (R2: NSFW is a non-negotiable drop).</span>
+
+<span class="sd">    ``classifier`` is ``image -&gt; nsfw_probability``; it defaults to the</span>
+<span class="sd">    Apache-2.0 ``Falconsai/nsfw_image_detection`` ViT (torch/transformers — the</span>
+<span class="sd">    ``[rerank]`` extra). Fails **closed**: a candidate whose image can&#39;t be</span>
+<span class="sd">    fetched or classified is dropped, never passed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">get_image</span><span class="p">:</span> <span class="s2">&quot;Callable[[], Any]&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckOutcome</span><span class="p">:</span>
+        <span class="n">clf</span> <span class="o">=</span> <span class="n">classifier</span> <span class="k">if</span> <span class="n">classifier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_nsfw_classifier</span><span class="p">()</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">get_image</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;nsfw&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;image unavailable (safety fails closed)&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">prob</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">clf</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;nsfw&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;nsfw check errored: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">prob</span> <span class="o">&lt;=</span> <span class="n">max_prob</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">ok</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;nsfw probability </span><span class="si">{</span><span class="n">prob</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> &gt; </span><span class="si">{</span><span class="n">max_prob</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">CheckOutcome</span><span class="p">(</span><span class="s2">&quot;nsfw&quot;</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="n">ok</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+
+
+
+<span class="c1">#: Core checks — need only Pillow + NumPy (the ``[curate]`` extra), no model.</span>
+<span class="n">CORE_CHECKS</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">aspect_ratio_check</span><span class="p">(),</span>
+    <span class="n">min_dimension_check</span><span class="p">(),</span>
+    <span class="n">brightness_check</span><span class="p">(),</span>
+    <span class="n">blur_check</span><span class="p">(),</span>
+<span class="p">)</span>
+
+
+<span class="c1">#: The recommended set: core CV + the NSFW gate. The NSFW check needs the</span>
+<span class="c1">#: classifier deps (``[rerank]`` extra); see :func:`default_checks` for the</span>
+<span class="c1">#: dependency-aware default actually used when ``checks`` is omitted.</span>
+<span class="n">DEFAULT_CHECKS</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="n">CORE_CHECKS</span> <span class="o">+</span> <span class="p">(</span><span class="n">nsfw_check</span><span class="p">(),)</span>
+
+
+<div class="viewcode-block" id="default_checks">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.default_checks">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">default_checks</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The default check set, chosen by what&#39;s installed.</span>
+
+<span class="sd">    Returns :data:`DEFAULT_CHECKS` (core + NSFW) when the NSFW classifier deps</span>
+<span class="sd">    are importable, else :data:`CORE_CHECKS` — and **emits a</span>
+<span class="sd">    :class:`SafetyGateDisabledWarning`** so the absence of the safety screen is</span>
+<span class="sd">    never silent (install ``illustration[rerank]`` to enable it). Passing</span>
+<span class="sd">    ``checks=`` to :func:`prefilter` explicitly always overrides this.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">_nsfw_available</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">DEFAULT_CHECKS</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;The NSFW safety gate is disabled: its classifier deps (transformers, &quot;</span>
+        <span class="s2">&quot;torch) are not installed, so pre-filtering runs core CV checks only. &quot;</span>
+        <span class="s2">&quot;Install illustration[rerank] to enable the safety screen, or pass an &quot;</span>
+        <span class="s2">&quot;explicit `checks=` (e.g. with your own nsfw_check classifier).&quot;</span><span class="p">,</span>
+        <span class="n">SafetyGateDisabledWarning</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">CORE_CHECKS</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># VLM inspect (caption + pointwise rubric judge)</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+
+<span class="c1">#: The six pointwise rubric dimensions (R2 §4), in display order.</span>
+<span class="n">RUBRIC_DIMENSIONS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;subject&quot;</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">,</span> <span class="s2">&quot;setting&quot;</span><span class="p">,</span> <span class="s2">&quot;mood&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;quality&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RubricScore">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.RubricScore">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RubricScore</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A pointwise VLM judgement of one candidate (R2 §4 rubric dimensions).&quot;&quot;&quot;</span>
+
+    <span class="n">subject</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">action</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">setting</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">mood</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">style</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">quality</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">overall</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">rationale</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">parsed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="RubricScore.recompute_overall">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.RubricScore.recompute_overall">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recompute_overall</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RubricScore&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set ``overall`` to the mean of the six rubric dimensions.&quot;&quot;&quot;</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">RUBRIC_DIMENSIONS</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overall</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="InspectReport">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.InspectReport">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">InspectReport</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A VLM inspection of one candidate (caption or judge mode; R2 INSPECT).&quot;&quot;&quot;</span>
+
+    <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># &quot;caption&quot; | &quot;judge&quot;</span>
+    <span class="n">caption</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rubric</span><span class="p">:</span> <span class="s2">&quot;RubricScore | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rationale</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<span class="c1">#: A describe seam maps (image_ref, prompt) -&gt; text. ``image_ref`` is anything</span>
+<span class="c1">#: :func:`aix.describe_image` accepts (URL / path / bytes / PIL / data URI).</span>
+<span class="n">Describe</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span>
+
+<span class="c1">#: Token caps for the default VLM seam — a soft cost bound on the paid path. A</span>
+<span class="c1">#: one-sentence caption and a compact JSON rubric both need very few tokens.</span>
+<span class="n">DFLT_CAPTION_MAX_TOKENS</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">DFLT_JUDGE_MAX_TOKENS</span> <span class="o">=</span> <span class="mi">220</span>
+
+<span class="n">CAPTION_PROMPT</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;In one concise sentence, describe what this image shows. Then, in a few &quot;</span>
+    <span class="s2">&quot;words, say how well it fits this scene: </span><span class="si">{query}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="n">JUDGE_PROMPT</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;You are scoring how well an image matches a narration beat for a storyboard.</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Beat/scene: </span><span class="si">{query}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Score each dimension from 0.0 (no match) to 1.0 (perfect match):</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;- subject: are the key subjects present?</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;- action: does the depicted action/pose match?</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;- setting: does the location/environment match?</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;- mood: does the lighting/mood match?</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;- style: is the visual style appropriate?</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;- quality: is it technically good (sharp, well-exposed, well-composed)?</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Respond with ONLY a compact JSON object with numeric keys subject, action, &quot;</span>
+    <span class="s2">&quot;setting, mood, style, quality (each 0-1) and a &#39;rationale&#39; string (one short &quot;</span>
+    <span class="s2">&quot;sentence). No markdown, no code fence.&quot;</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="inspect_candidate">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.inspect_candidate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">inspect_candidate</span><span class="p">(</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;caption&quot;</span><span class="p">,</span>
+    <span class="n">describe</span><span class="p">:</span> <span class="s2">&quot;Describe | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="p">:</span> <span class="s2">&quot;int | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InspectReport</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inspect one candidate: a cheap caption (default) or a full rubric judge.</span>
+
+<span class="sd">    ``mode=&quot;caption&quot;`` (the *Correct*-grade path) produces a one-sentence</span>
+<span class="sd">    caption from the thumbnail; ``mode=&quot;judge&quot;`` (the *Ambiguous* path) delegates</span>
+<span class="sd">    to :func:`judge_candidate`. ``describe`` defaults to a lazy</span>
+<span class="sd">    :func:`aix.describe_image` bound to ``model`` and capped at</span>
+<span class="sd">    ``max_tokens`` (default :data:`DFLT_CAPTION_MAX_TOKENS`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;judge&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">judge_candidate</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">describe</span><span class="o">=</span><span class="n">describe</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">)</span>
+    <span class="n">cap</span> <span class="o">=</span> <span class="n">max_tokens</span> <span class="k">if</span> <span class="n">max_tokens</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">DFLT_CAPTION_MAX_TOKENS</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">describe</span> <span class="k">if</span> <span class="n">describe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_describe</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="n">cap</span><span class="p">)</span>
+    <span class="n">image_ref</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">thumbnail_url</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">url</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">image_ref</span><span class="p">,</span> <span class="n">CAPTION_PROMPT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">InspectReport</span><span class="p">(</span>
+        <span class="n">provider</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span>
+        <span class="n">caption</span><span class="o">=</span><span class="p">(</span><span class="n">caption</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="judge_candidate">
+<a class="viewcode-back" href="../../module_docs/illustration/inspection.html#illustration.judge_candidate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">judge_candidate</span><span class="p">(</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">describe</span><span class="p">:</span> <span class="s2">&quot;Describe | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="p">:</span> <span class="s2">&quot;int | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InspectReport</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Score one candidate against ``query`` with a pointwise VLM rubric.</span>
+
+<span class="sd">    Uses the full-resolution image for accuracy. ``describe`` defaults to a lazy</span>
+<span class="sd">    :func:`aix.describe_image` capped at ``max_tokens`` (default</span>
+<span class="sd">    :data:`DFLT_JUDGE_MAX_TOKENS`). The reply is parsed into a</span>
+<span class="sd">    :class:`RubricScore` (``overall`` = mean of the six dimensions); an</span>
+<span class="sd">    unparseable reply yields a neutral score flagged ``parsed=False`` so the loop</span>
+<span class="sd">    can treat it as ambiguous rather than wrongly accept or reject.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cap</span> <span class="o">=</span> <span class="n">max_tokens</span> <span class="k">if</span> <span class="n">max_tokens</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">DFLT_JUDGE_MAX_TOKENS</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">describe</span> <span class="k">if</span> <span class="n">describe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_describe</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="n">cap</span><span class="p">)</span>
+    <span class="n">image_ref</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">url</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">thumbnail_url</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">image_ref</span><span class="p">,</span> <span class="n">JUDGE_PROMPT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">))</span>
+    <span class="n">rubric</span> <span class="o">=</span> <span class="n">_parse_rubric</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">InspectReport</span><span class="p">(</span>
+        <span class="n">provider</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;judge&quot;</span><span class="p">,</span>
+        <span class="n">rubric</span><span class="o">=</span><span class="n">rubric</span><span class="p">,</span> <span class="n">rationale</span><span class="o">=</span><span class="n">rubric</span><span class="o">.</span><span class="n">rationale</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="c1"># --- internals --------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_describe</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_tokens</span><span class="p">:</span> <span class="s2">&quot;int | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Describe</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The default describe seam, backed by ``aix.describe_image`` (lazy).&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="n">image_ref</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">aix</span>  <span class="c1"># lazy: Layer-2 dependency only</span>
+        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - exercised only without aix</span>
+            <span class="k">raise</span> <span class="n">CurateDependencyError</span><span class="p">([</span><span class="s2">&quot;aix&quot;</span><span class="p">])</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">return</span> <span class="n">aix</span><span class="o">.</span><span class="n">describe_image</span><span class="p">(</span><span class="n">image_ref</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">describe</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_rubric</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RubricScore</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a :class:`RubricScore` from a VLM reply; neutral on parse failure.&quot;&quot;&quot;</span>
+    <span class="n">blob</span> <span class="o">=</span> <span class="n">_extract_json_object</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">blob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">{</span><span class="o">*</span><span class="n">RUBRIC_DIMENSIONS</span><span class="p">,</span> <span class="s2">&quot;rationale&quot;</span><span class="p">}}</span>
+            <span class="k">return</span> <span class="n">RubricScore</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">recompute_overall</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># malformed numbers / structure</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">RubricScore</span><span class="p">(</span>
+        <span class="n">overall</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">parsed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rationale</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;unparsed VLM reply: </span><span class="si">{</span><span class="p">(</span><span class="n">text</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)[:</span><span class="mi">160</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_json_object</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;str | None&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the first ``{...}`` JSON object substring in ``text``, if any.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\{.*\}&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">match</span> <span class="k">else</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_laplacian_variance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Variance of the Laplacian of the grayscale image (sharpness; NumPy-only).&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gray</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="nb">min</span><span class="p">(</span><span class="n">gray</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="c1"># 3x3 Laplacian via interior finite differences (no SciPy/OpenCV).</span>
+    <span class="n">lap</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="o">-</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">gray</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">gray</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gray</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">gray</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">gray</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">lap</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_nsfw_classifier</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Falconsai/nsfw_image_detection&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[[Any], float]&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the default NSFW classifier (Falconsai ViT, Apache-2.0; cached).&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_nsfw_available</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="n">CurateDependencyError</span><span class="p">(</span>
+            <span class="p">[</span><span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="s2">&quot;torch&quot;</span><span class="p">,</span> <span class="s2">&quot;pillow&quot;</span><span class="p">],</span> <span class="n">extra</span><span class="o">=</span><span class="s2">&quot;rerank&quot;</span><span class="p">,</span> <span class="n">purpose</span><span class="o">=</span><span class="s2">&quot;the NSFW safety gate&quot;</span>
+        <span class="p">)</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;USE_TF&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;USE_FLAX&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">pipeline</span>
+
+    <span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;image-classification&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">classify</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">pipe</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;nsfw&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">classify</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_nsfw_available</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="s2">&quot;torch&quot;</span><span class="p">,</span> <span class="s2">&quot;PIL&quot;</span><span class="p">))</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

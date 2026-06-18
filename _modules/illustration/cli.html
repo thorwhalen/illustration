@@ -48,13 +48,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
@@ -108,7 +112,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">illustration</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="s2">&quot;sources&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;COMMANDS&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="s2">&quot;curate&quot;</span><span class="p">,</span> <span class="s2">&quot;sources&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;COMMANDS&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="search">
@@ -147,6 +151,57 @@
 
 
 
+<div class="viewcode-block" id="curate">
+<a class="viewcode-back" href="../../module_docs/illustration/cli.html#illustration.cli.curate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">curate</span><span class="p">(</span>
+    <span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curate the best image for a narration BEAT via the bounded CRAG loop.</span>
+
+<span class="sd">    Needs the optional ``[curate]`` extra (aix + ir) and provider/LLM API keys;</span>
+<span class="sd">    see the agentic-curation docs. Prints the accepted candidate (or the</span>
+<span class="sd">    best-so-far) and a one-line spend summary, or the full result with ``--json``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.curation</span><span class="w"> </span><span class="kn">import</span> <span class="n">Budget</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">curate</span><span class="p">(</span>
+        <span class="n">beat</span><span class="p">,</span>
+        <span class="n">sources</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+        <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
+        <span class="n">budget</span><span class="o">=</span><span class="n">Budget</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">),</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">json</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">best</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;ACCEPTED&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">accepted</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;BEST-SO-FAR&#39;</span><span class="si">}</span><span class="s2"> &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;(grade=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">grade</span><span class="si">}</span><span class="s2">, reason=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">head</span><span class="si">}</span><span class="se">\n</span><span class="s2">(no candidate found)</span><span class="se">\n</span><span class="s2">spend: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">spend</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">head</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;  license: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">license</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;unknown&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  rubric: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">overall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">rubric</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  score: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">score</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">caption</span><span class="p">:</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  caption: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">caption</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">rationale</span><span class="p">:</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  rationale: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">rationale</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  spend: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">spend</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+
+
+
 <div class="viewcode-block" id="sources">
 <a class="viewcode-back" href="../../module_docs/illustration/cli.html#illustration.cli.sources">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sources</span><span class="p">():</span>
@@ -165,7 +220,7 @@
 
 
 <span class="c1">#: Commands exposed by the CLI (consumed by ``illustration/__main__.py``).</span>
-<span class="n">COMMANDS</span> <span class="o">=</span> <span class="p">[</span><span class="n">search</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">info</span><span class="p">]</span>
+<span class="n">COMMANDS</span> <span class="o">=</span> <span class="p">[</span><span class="n">search</span><span class="p">,</span> <span class="n">curate</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">info</span><span class="p">]</span>
 </pre></div>
 
            </div>

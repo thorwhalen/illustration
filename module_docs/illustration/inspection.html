@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.inspection &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.providers" href="providers.html" />
+    <link rel="prev" title="illustration.facade" href="facade.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.inspection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.CORE_CHECKS"><code class="docutils literal notranslate"><span class="pre">CORE_CHECKS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.Check"><code class="docutils literal notranslate"><span class="pre">Check</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.CheckOutcome"><code class="docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.DEFAULT_CHECKS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_CHECKS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.DFLT_CAPTION_MAX_TOKENS"><code class="docutils literal notranslate"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.Describe"><code class="docutils literal notranslate"><span class="pre">Describe</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.InspectReport"><code class="docutils literal notranslate"><span class="pre">InspectReport</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.inspection.InspectReport.model_config"><code class="docutils literal notranslate"><span class="pre">InspectReport.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.PrefilterReport"><code class="docutils literal notranslate"><span class="pre">PrefilterReport</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.inspection.PrefilterReport.model_config"><code class="docutils literal notranslate"><span class="pre">PrefilterReport.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.PrefilterResult"><code class="docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.inspection.PrefilterResult.dropped"><code class="docutils literal notranslate"><span class="pre">PrefilterResult.dropped</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.RubricScore"><code class="docutils literal notranslate"><span class="pre">RubricScore</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.inspection.RubricScore.model_config"><code class="docutils literal notranslate"><span class="pre">RubricScore.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.inspection.RubricScore.recompute_overall"><code class="docutils literal notranslate"><span class="pre">RubricScore.recompute_overall()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.SafetyGateDisabledWarning"><code class="docutils literal notranslate"><span class="pre">SafetyGateDisabledWarning</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.aspect_ratio_check"><code class="docutils literal notranslate"><span class="pre">aspect_ratio_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.blur_check"><code class="docutils literal notranslate"><span class="pre">blur_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.brightness_check"><code class="docutils literal notranslate"><span class="pre">brightness_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.default_checks"><code class="docutils literal notranslate"><span class="pre">default_checks()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.inspect_candidate"><code class="docutils literal notranslate"><span class="pre">inspect_candidate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.judge_candidate"><code class="docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.min_dimension_check"><code class="docutils literal notranslate"><span class="pre">min_dimension_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.nsfw_check"><code class="docutils literal notranslate"><span class="pre">nsfw_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.inspection.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.inspection</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/inspection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.inspection">
+<span id="illustration-inspection"></span><h1>illustration.inspection<a class="headerlink" href="#module-illustration.inspection" title="Link to this heading"></a></h1>
+<p>Candidate inspection — classical-CV pre-filters + VLM caption/judge (R2 §2-3).</p>
+<p>Two cost tiers, cheapest first:</p>
+<ol class="arabic simple">
+<li><p><strong>Classical-CV pre-filters</strong> (R2 §3) — sub-10ms/image checks (aspect ratio,
+minimum size, brightness, blur, NSFW) that drop unusable candidates <em>before</em>
+any VLM token is spent. This is the single biggest cost lever in the loop.
+License-safe libraries only: Pillow (MIT-CMU) + NumPy for the core checks;
+the NSFW gate defaults to the Apache-2.0 <code class="docutils literal notranslate"><span class="pre">Falconsai/nsfw_image_detection</span></code>
+ViT (the torch stack the reranker already uses) and is fully injectable.</p></li>
+<li><p><strong>VLM inspect</strong> (R2 §2) — a cheap one-sentence caption for the <em>Correct</em> path,
+or a full pointwise rubric judgement for the <em>Ambiguous</em> path. Both go through
+the injectable <code class="docutils literal notranslate"><span class="pre">describe</span></code> seam, which defaults to <code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code>
+(lazy import). Judgements are <strong>pointwise</strong> (one image at a time) rather than
+pairwise, mitigating the position bias that plagues comparative VLM judges
+(R2 §4); use a judge model from a <em>different</em> family than any generator to
+cut self-preference bias.</p></li>
+</ol>
+<p>Every expensive step is an injectable seam, so the whole module is testable
+offline with stubs (synthetic PIL images for the CV checks, canned strings for
+<code class="docutils literal notranslate"><span class="pre">describe</span></code>) — no network, no paid API.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline: a metadata-only check needs no image fetch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">aspect_ratio_check</span><span class="p">()(</span><span class="n">r</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">passed</span>
+<span class="go">(&#39;aspect_ratio&#39;, True)</span>
+</pre></div>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.CORE_CHECKS">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">CORE_CHECKS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(&lt;function</span> <span class="pre">aspect_ratio_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">min_dimension_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">brightness_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">blur_check.&lt;locals&gt;.check&gt;)</span></span><a class="headerlink" href="#illustration.inspection.CORE_CHECKS" title="Link to this definition"></a></dt>
+<dd><p>Core checks — need only Pillow + NumPy (the <code class="docutils literal notranslate"><span class="pre">[curate]</span></code> extra), no model.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.Check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">Check</span></span><a class="headerlink" href="#illustration.inspection.Check" title="Link to this definition"></a></dt>
+<dd><p>A check maps (result, get_image) -&gt; CheckOutcome. <code class="docutils literal notranslate"><span class="pre">get_image</span></code> is a 0-arg
+thunk returning the candidate’s PIL image (cached) or <code class="docutils literal notranslate"><span class="pre">None</span></code> if unfetchable;
+metadata-only checks ignore it (so a metadata fail never triggers a fetch).</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable[[],</span> <span class="pre">Any]</span></code>], <a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.CheckOutcome">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">CheckOutcome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/inspection.html#CheckOutcome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.CheckOutcome" title="Link to this definition"></a></dt>
+<dd><p>The result of one check on one candidate.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.DEFAULT_CHECKS">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_CHECKS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(&lt;function</span> <span class="pre">aspect_ratio_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">min_dimension_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">brightness_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">blur_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">nsfw_check.&lt;locals&gt;.check&gt;)</span></span><a class="headerlink" href="#illustration.inspection.DEFAULT_CHECKS" title="Link to this definition"></a></dt>
+<dd><p>core CV + the NSFW gate. The NSFW check needs the
+classifier deps (<code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> extra); see <a class="reference internal" href="#illustration.inspection.default_checks" title="illustration.inspection.default_checks"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_checks()</span></code></a> for the
+dependency-aware default actually used when <code class="docutils literal notranslate"><span class="pre">checks</span></code> is omitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The recommended set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.DFLT_CAPTION_MAX_TOKENS">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></span><a class="headerlink" href="#illustration.inspection.DFLT_CAPTION_MAX_TOKENS" title="Link to this definition"></a></dt>
+<dd><p>Token caps for the default VLM seam — a soft cost bound on the paid path. A
+one-sentence caption and a compact JSON rubric both need very few tokens.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.Describe">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">Describe</span></span><a class="headerlink" href="#illustration.inspection.Describe" title="Link to this definition"></a></dt>
+<dd><p>A describe seam maps (image_ref, prompt) -&gt; text. <code class="docutils literal notranslate"><span class="pre">image_ref</span></code> is anything
+<code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code> accepts (URL / path / bytes / PIL / data URI).</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.InspectReport">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">InspectReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rubric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#illustration.inspection.RubricScore" title="illustration.inspection.RubricScore"><span class="pre">RubricScore</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rationale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/inspection.html#InspectReport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.InspectReport" title="Link to this definition"></a></dt>
+<dd><p>A VLM inspection of one candidate (caption or judge mode; R2 INSPECT).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.inspection.InspectReport.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.inspection.InspectReport.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterReport">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">PrefilterReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reasons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">float]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/inspection.html#PrefilterReport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.PrefilterReport" title="Link to this definition"></a></dt>
+<dd><p>Per-candidate pre-filter verdict (the R2 PREFILTER stage record).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterReport.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.inspection.PrefilterReport.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">PrefilterResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reports</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.inspection.PrefilterReport" title="illustration.inspection.PrefilterReport"><span class="pre">PrefilterReport</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/inspection.html#PrefilterResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.PrefilterResult" title="Link to this definition"></a></dt>
+<dd><p>The outcome of pre-filtering a candidate set.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterResult.dropped">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dropped</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.inspection.PrefilterReport" title="illustration.inspection.PrefilterReport"><span class="pre">PrefilterReport</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#illustration.inspection.PrefilterResult.dropped" title="Link to this definition"></a></dt>
+<dd><p>Reports for the candidates that failed at least one check.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.RubricScore">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">RubricScore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setting</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mood</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rationale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parsed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/inspection.html#RubricScore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.RubricScore" title="Link to this definition"></a></dt>
+<dd><p>A pointwise VLM judgement of one candidate (R2 §4 rubric dimensions).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.inspection.RubricScore.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.inspection.RubricScore.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="illustration.inspection.RubricScore.recompute_overall">
+<span class="sig-name descname"><span class="pre">recompute_overall</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.inspection.RubricScore" title="illustration.inspection.RubricScore"><span class="pre">RubricScore</span></a></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#RubricScore.recompute_overall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.RubricScore.recompute_overall" title="Link to this definition"></a></dt>
+<dd><p>Set <code class="docutils literal notranslate"><span class="pre">overall</span></code> to the mean of the six rubric dimensions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="illustration.inspection.SafetyGateDisabledWarning">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">SafetyGateDisabledWarning</span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#SafetyGateDisabledWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.SafetyGateDisabledWarning" title="Link to this definition"></a></dt>
+<dd><p>Raised when the default pre-filter set runs without the NSFW safety gate.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.aspect_ratio_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">aspect_ratio_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_ratio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ratio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><span class="pre">CheckOutcome</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#aspect_ratio_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.aspect_ratio_check" title="Link to this definition"></a></dt>
+<dd><p>Reject degenerate aspect ratios (extreme slivers/panoramas). Metadata-only.</p>
+<p>Uses the result’s <code class="docutils literal notranslate"><span class="pre">width</span></code>/<code class="docutils literal notranslate"><span class="pre">height</span></code>; passes when either is missing (can’t
+assess). <code class="docutils literal notranslate"><span class="pre">ratio</span> <span class="pre">=</span> <span class="pre">width</span> <span class="pre">/</span> <span class="pre">height</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.blur_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">blur_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_variance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><span class="pre">CheckOutcome</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#blur_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.blur_check" title="Link to this definition"></a></dt>
+<dd><p>Reject blurry images via variance of the Laplacian (R2 §3; OpenCV-free).</p>
+<p>The 3x3 Laplacian is applied with NumPy (no OpenCV) on the grayscale image;
+a low response variance means few sharp edges, i.e. blur.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.brightness_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">brightness_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_brightness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_brightness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><span class="pre">CheckOutcome</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#brightness_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.brightness_check" title="Link to this definition"></a></dt>
+<dd><p>Reject near-black / blown-out images. Mean luminance, normalized to [0, 1].</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.default_checks">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">default_checks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#default_checks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.default_checks" title="Link to this definition"></a></dt>
+<dd><p>The default check set, chosen by what’s installed.</p>
+<p>Returns <a class="reference internal" href="#illustration.inspection.DEFAULT_CHECKS" title="illustration.inspection.DEFAULT_CHECKS"><code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_CHECKS</span></code></a> (core + NSFW) when the NSFW classifier deps
+are importable, else <a class="reference internal" href="#illustration.inspection.CORE_CHECKS" title="illustration.inspection.CORE_CHECKS"><code class="xref py py-data docutils literal notranslate"><span class="pre">CORE_CHECKS</span></code></a> — and <strong>emits a
+:class:`SafetyGateDisabledWarning`</strong> so the absence of the safety screen is
+never silent (install <code class="docutils literal notranslate"><span class="pre">illustration[rerank]</span></code> to enable it). Passing
+<code class="docutils literal notranslate"><span class="pre">checks=</span></code> to <a class="reference internal" href="#illustration.inspection.prefilter" title="illustration.inspection.prefilter"><code class="xref py py-func docutils literal notranslate"><span class="pre">prefilter()</span></code></a> explicitly always overrides this.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.inspect_candidate">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">inspect_candidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'caption'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">describe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.inspection.InspectReport" title="illustration.inspection.InspectReport"><span class="pre">InspectReport</span></a></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#inspect_candidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.inspect_candidate" title="Link to this definition"></a></dt>
+<dd><p>Inspect one candidate: a cheap caption (default) or a full rubric judge.</p>
+<p><code class="docutils literal notranslate"><span class="pre">mode=&quot;caption&quot;</span></code> (the <em>Correct</em>-grade path) produces a one-sentence
+caption from the thumbnail; <code class="docutils literal notranslate"><span class="pre">mode=&quot;judge&quot;</span></code> (the <em>Ambiguous</em> path) delegates
+to <a class="reference internal" href="#illustration.inspection.judge_candidate" title="illustration.inspection.judge_candidate"><code class="xref py py-func docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a>. <code class="docutils literal notranslate"><span class="pre">describe</span></code> defaults to a lazy
+<code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code> bound to <code class="docutils literal notranslate"><span class="pre">model</span></code> and capped at
+<code class="docutils literal notranslate"><span class="pre">max_tokens</span></code> (default <a class="reference internal" href="#illustration.inspection.DFLT_CAPTION_MAX_TOKENS" title="illustration.inspection.DFLT_CAPTION_MAX_TOKENS"><code class="xref py py-data docutils literal notranslate"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.judge_candidate">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">judge_candidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">describe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.inspection.InspectReport" title="illustration.inspection.InspectReport"><span class="pre">InspectReport</span></a></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#judge_candidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.judge_candidate" title="Link to this definition"></a></dt>
+<dd><p>Score one candidate against <code class="docutils literal notranslate"><span class="pre">query</span></code> with a pointwise VLM rubric.</p>
+<p>Uses the full-resolution image for accuracy. <code class="docutils literal notranslate"><span class="pre">describe</span></code> defaults to a lazy
+<code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code> capped at <code class="docutils literal notranslate"><span class="pre">max_tokens</span></code> (default
+<code class="xref py py-data docutils literal notranslate"><span class="pre">DFLT_JUDGE_MAX_TOKENS</span></code>). The reply is parsed into a
+<a class="reference internal" href="#illustration.inspection.RubricScore" title="illustration.inspection.RubricScore"><code class="xref py py-class docutils literal notranslate"><span class="pre">RubricScore</span></code></a> (<code class="docutils literal notranslate"><span class="pre">overall</span></code> = mean of the six dimensions); an
+unparseable reply yields a neutral score flagged <code class="docutils literal notranslate"><span class="pre">parsed=False</span></code> so the loop
+can treat it as ambiguous rather than wrongly accept or reject.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.min_dimension_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">min_dimension_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><span class="pre">CheckOutcome</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#min_dimension_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.min_dimension_check" title="Link to this definition"></a></dt>
+<dd><p>Reject tiny images. Metadata-only (passes when dimensions are unknown).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.nsfw_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">nsfw_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_prob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><span class="pre">CheckOutcome</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#nsfw_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.nsfw_check" title="Link to this definition"></a></dt>
+<dd><p>Hard-drop unsafe images (R2: NSFW is a non-negotiable drop).</p>
+<p><code class="docutils literal notranslate"><span class="pre">classifier</span></code> is <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">-&gt;</span> <span class="pre">nsfw_probability</span></code>; it defaults to the
+Apache-2.0 <code class="docutils literal notranslate"><span class="pre">Falconsai/nsfw_image_detection</span></code> ViT (torch/transformers — the
+<code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> extra). Fails <strong>closed</strong>: a candidate whose image can’t be
+fetched or classified is dropped, never passed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.prefilter">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">prefilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">checks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><span class="pre">CheckOutcome</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'thumbnail_url'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.inspection.PrefilterResult" title="illustration.inspection.PrefilterResult"><span class="pre">PrefilterResult</span></a></span></span><a class="reference internal" href="../../_modules/illustration/inspection.html#prefilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.prefilter" title="Link to this definition"></a></dt>
+<dd><p>Run <code class="docutils literal notranslate"><span class="pre">checks</span></code> over <code class="docutils literal notranslate"><span class="pre">results</span></code>, keeping only candidates that pass all.</p>
+<p>Checks run cheapest-first and <strong>short-circuit</strong> on the first failure, so a
+candidate dropped on its (free) metadata never triggers an image fetch.
+Images are fetched at most once per URL (in-memory, for this call only);
+<code class="docutils literal notranslate"><span class="pre">fetch</span></code> overrides the fetch function (a test double avoids the network).
+<code class="docutils literal notranslate"><span class="pre">checks</span></code> defaults to <a class="reference internal" href="#illustration.inspection.default_checks" title="illustration.inspection.default_checks"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_checks()</span></code></a> (core CV + NSFW where its deps
+are available).</p>
+<p>Returns a <a class="reference internal" href="#illustration.inspection.PrefilterResult" title="illustration.inspection.PrefilterResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a> with the surviving <code class="docutils literal notranslate"><span class="pre">passed</span></code> results and
+a <a class="reference internal" href="#illustration.inspection.PrefilterReport" title="illustration.inspection.PrefilterReport"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefilterReport</span></code></a> per input candidate.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="facade.html" class="btn btn-neutral float-left" title="illustration.facade" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="providers.html" class="btn btn-neutral float-right" title="illustration.providers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

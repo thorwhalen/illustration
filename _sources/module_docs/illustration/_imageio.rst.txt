@@ -1,0 +1,4 @@
+illustration._imageio
+=====================
+.. automodule:: illustration._imageio
+   :members:

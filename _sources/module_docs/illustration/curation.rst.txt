@@ -1,0 +1,4 @@
+illustration.curation
+=====================
+.. automodule:: illustration.curation
+   :members:
