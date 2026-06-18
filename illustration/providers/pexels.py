@@ -68,7 +68,9 @@ class PexelsSource(RetrievalSource):
         src = item.get("src") or {}
         photographer = item.get("photographer")
         attribution = (
-            f"Photo by {photographer} on Pexels" if photographer else "Photo from Pexels"
+            f"Photo by {photographer} on Pexels"
+            if photographer
+            else "Photo from Pexels"
         )
         return ImageResult(
             provider=self.name,

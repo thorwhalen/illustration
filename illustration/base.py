@@ -182,7 +182,9 @@ class RetrievalSource(ABC):
 
     # -- internals -----------------------------------------------------------
 
-    def _safe_normalize(self, item: Mapping[str, Any], *, query: str) -> "ImageResult | None":
+    def _safe_normalize(
+        self, item: Mapping[str, Any], *, query: str
+    ) -> "ImageResult | None":
         """Normalize one item, skipping (not failing) on a malformed item."""
         try:
             return self._normalize(item, query=query)
@@ -199,7 +201,10 @@ class RetrievalSource(ABC):
         request_params = {**dict(params), **self._auth_params(api_key)}
         try:
             resp = session.get(
-                self.endpoint, params=request_params, headers=headers, timeout=HTTP_TIMEOUT
+                self.endpoint,
+                params=request_params,
+                headers=headers,
+                timeout=HTTP_TIMEOUT,
             )
         except Exception as e:  # network/transport failure
             raise ProviderError(self.name, f"request failed: {e}") from e

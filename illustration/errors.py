@@ -75,7 +75,9 @@ class RerankDependencyError(IllustrationError, ImportError):
 
     def __init__(self, missing: "list[str] | None" = None):
         self.missing = list(missing or [])
-        names = ", ".join(self.missing) if self.missing else "transformers, torch, pillow"
+        names = (
+            ", ".join(self.missing) if self.missing else "transformers, torch, pillow"
+        )
         super().__init__(
             f"Local rerank needs the optional dependencies ({names}). "
             "Install them with: pip install 'illustration[rerank]'."

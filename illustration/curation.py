@@ -85,7 +85,7 @@ DFLT_CURATE_N = 12
 class Grade(str, Enum):
     """CRAG's three-way retrieval grade (R2 §1)."""
 
-    CORRECT = "correct"      # a dominant relevant candidate -> caption + accept
+    CORRECT = "correct"  # a dominant relevant candidate -> caption + accept
     AMBIGUOUS = "ambiguous"  # several comparable candidates -> escalate to VLM judge
     INCORRECT = "incorrect"  # nothing sufficient -> refine the query and retry
 
@@ -306,26 +306,75 @@ def curate(
                 _charge(spend, budget, "caption", {"id": top.id})
                 spend.caption_calls += 1
                 iter_caption_calls = 1
-                report = inspect_candidate(beat, top, mode="caption", describe=describe, model=model)
+                report = inspect_candidate(
+                    beat, top, mode="caption", describe=describe, model=model
+                )
                 cand.caption = report.caption
             action = "caption+accept"
-            trace.append(_record(spend.iterations, searched_queries, candidates, pf, grade, action,
-                                  best_score, 0, iter_caption_calls, 0, notes))
-            return _finish(beat, cand, pool, trace, spend, accepted=True,
-                           grade=grade, reason="correct")
+            trace.append(
+                _record(
+                    spend.iterations,
+                    searched_queries,
+                    candidates,
+                    pf,
+                    grade,
+                    action,
+                    best_score,
+                    0,
+                    iter_caption_calls,
+                    0,
+                    notes,
+                )
+            )
+            return _finish(
+                beat,
+                cand,
+                pool,
+                trace,
+                spend,
+                accepted=True,
+                grade=grade,
+                reason="correct",
+            )
 
         if grade == Grade.AMBIGUOUS:
-            judged = _judge_selection(beat, scored, selection, pool, describe, model, spend, budget)
+            judged = _judge_selection(
+                beat, scored, selection, pool, describe, model, spend, budget
+            )
             iter_judge_calls = len(judged)
             for cand in judged:
                 if best_judged is None or cand.quality > best_judged.quality:
                     best_judged = cand
-            if best_judged is not None and best_judged.quality >= budget.accept_threshold:
+            if (
+                best_judged is not None
+                and best_judged.quality >= budget.accept_threshold
+            ):
                 action = "judge+accept"
-                trace.append(_record(spend.iterations, searched_queries, candidates, pf, grade, action,
-                                     best_judged.quality, 0, 0, iter_judge_calls, notes))
-                return _finish(beat, best_judged, pool, trace, spend, accepted=True,
-                               grade=grade, reason="accept_threshold")
+                trace.append(
+                    _record(
+                        spend.iterations,
+                        searched_queries,
+                        candidates,
+                        pf,
+                        grade,
+                        action,
+                        best_judged.quality,
+                        0,
+                        0,
+                        iter_judge_calls,
+                        notes,
+                    )
+                )
+                return _finish(
+                    beat,
+                    best_judged,
+                    pool,
+                    trace,
+                    spend,
+                    accepted=True,
+                    grade=grade,
+                    reason="accept_threshold",
+                )
             action = "judge+refine"
             critique = _critique_from_judgements(judged, budget)
             queries = [refine_query(beat, critique, refiner=refiner, model=model)]
@@ -343,8 +392,21 @@ def curate(
             queries = [refine_query(beat, critique, refiner=refiner, model=model)]
             notes = critique
 
-        trace.append(_record(spend.iterations, searched_queries, candidates, pf, grade, action,
-                             best_score, 0, iter_caption_calls, iter_judge_calls, notes))
+        trace.append(
+            _record(
+                spend.iterations,
+                searched_queries,
+                candidates,
+                pf,
+                grade,
+                action,
+                best_score,
+                0,
+                iter_caption_calls,
+                iter_judge_calls,
+                notes,
+            )
+        )
 
         # --- no-progress stop (R2 T4): same candidate set as last round ---
         keyset = frozenset((r.provider, r.id) for r in scored)
@@ -356,7 +418,12 @@ def curate(
     # --- loop ended without acceptance: return best-so-far ---
     best = best_judged or fallback_best or _top_of_pool(pool)
     return _finish(
-        beat, best, pool, trace, spend, accepted=False,
+        beat,
+        best,
+        pool,
+        trace,
+        spend,
+        accepted=False,
         grade=(trace[-1].grade if trace else Grade.INCORRECT.value),
         reason=stop_reason or "exhausted",
     )
@@ -377,7 +444,9 @@ def _resolve_sources(sources: "str | list[str] | None") -> list[str]:
     return [sources] if isinstance(sources, str) else list(sources)
 
 
-def _run_search(queries, source_list, n, search, spend: _Spend, budget: Budget) -> list[ImageResult]:
+def _run_search(
+    queries, source_list, n, search, spend: _Spend, budget: Budget
+) -> list[ImageResult]:
     """Search each (query, source) request, honoring the per-request search cap.
 
     Each provider request is gated and charged individually, so the cap bounds
@@ -455,22 +524,33 @@ def _select(scored: Sequence[ImageResult], budget: Budget):
 
     hits = [to_search_hit(r) for r in scored]
     return select(
-        hits, strategy="conservative", max_k=budget.select_max_k,
-        rel=budget.select_rel, min_score=budget.min_score,
+        hits,
+        strategy="conservative",
+        max_k=budget.select_max_k,
+        rel=budget.select_rel,
+        min_score=budget.min_score,
     )
 
 
-def _judge_selection(beat, scored, selection, pool, describe, model, spend, budget) -> list[Candidate]:
+def _judge_selection(
+    beat, scored, selection, pool, describe, model, spend, budget
+) -> list[Candidate]:
     """VLM-judge the selected (ambiguous) candidates, honoring the judge cap."""
-    selected_ids = {(h.source, h.artifact_id) for h in getattr(selection, "selected", [])}
-    targets = [r for r in scored if (r.provider, r.id) in selected_ids] or list(scored[:budget.select_max_k])
+    selected_ids = {
+        (h.source, h.artifact_id) for h in getattr(selection, "selected", [])
+    }
+    targets = [r for r in scored if (r.provider, r.id) in selected_ids] or list(
+        scored[: budget.select_max_k]
+    )
     judged: list[Candidate] = []
     for r in targets:
         if not _can_judge(spend, budget):
             break
         _charge(spend, budget, "judge", {"id": r.id})
         spend.judge_calls += 1
-        report: InspectReport = inspect_candidate(beat, r, mode="judge", describe=describe, model=model)
+        report: InspectReport = inspect_candidate(
+            beat, r, mode="judge", describe=describe, model=model
+        )
         cand = pool[(r.provider, r.id)]
         cand.score = r.score
         cand.rubric = report.rubric
@@ -488,8 +568,12 @@ def _critique_from_judgements(judged: Sequence[Candidate], budget: Budget) -> st
     if rubric is None:
         return "the candidates did not match the scene"
     dims = {
-        "subject": rubric.subject, "action": rubric.action, "setting": rubric.setting,
-        "mood": rubric.mood, "style": rubric.style, "quality": rubric.quality,
+        "subject": rubric.subject,
+        "action": rubric.action,
+        "setting": rubric.setting,
+        "mood": rubric.mood,
+        "style": rubric.style,
+        "quality": rubric.quality,
     }
     weakest = min(dims, key=dims.get)
     return (
@@ -510,33 +594,51 @@ def _absorb(pool: dict, scored: Sequence[ImageResult]) -> None:
 def _top_of_pool(pool: dict) -> "Candidate | None":
     if not pool:
         return None
-    return max(pool.values(), key=lambda c: (c.score if c.score is not None else 0.0))
+    return max(pool.values(), key=lambda c: c.score if c.score is not None else 0.0)
 
 
-def _record(iteration, queries, candidates, pf, grade, action, best_score,
-            sc, cc, jc, notes) -> IterationRecord:
+def _record(
+    iteration, queries, candidates, pf, grade, action, best_score, sc, cc, jc, notes
+) -> IterationRecord:
     return IterationRecord(
-        iteration=iteration, queries=list(queries), n_candidates=len(candidates),
-        n_passed=len(pf.passed), grade=grade.value if isinstance(grade, Grade) else str(grade),
-        action=action, best_score=best_score, search_calls=sc, caption_calls=cc,
-        judge_calls=jc, notes=notes,
+        iteration=iteration,
+        queries=list(queries),
+        n_candidates=len(candidates),
+        n_passed=len(pf.passed),
+        grade=grade.value if isinstance(grade, Grade) else str(grade),
+        action=action,
+        best_score=best_score,
+        search_calls=sc,
+        caption_calls=cc,
+        judge_calls=jc,
+        notes=notes,
     )
 
 
-def _finish(beat, best, pool, trace, spend, *, accepted, grade, reason) -> CurationResult:
+def _finish(
+    beat, best, pool, trace, spend, *, accepted, grade, reason
+) -> CurationResult:
     candidates = sorted(
-        pool.values(), key=lambda c: (c.quality, c.score if c.score is not None else 0.0),
+        pool.values(),
+        key=lambda c: (c.quality, c.score if c.score is not None else 0.0),
         reverse=True,
     )
     return CurationResult(
-        beat=beat, best=best, accepted=accepted,
+        beat=beat,
+        best=best,
+        accepted=accepted,
         grade=grade.value if isinstance(grade, Grade) else str(grade),
-        reason=reason, candidates=candidates, trace=trace, spend=spend.as_dict(),
+        reason=reason,
+        candidates=candidates,
+        trace=trace,
+        spend=spend.as_dict(),
     )
 
 
 def _can_caption(spend: _Spend, budget: Budget) -> bool:
-    return spend.caption_calls < budget.max_caption_calls and not _over_cost(spend, budget)
+    return spend.caption_calls < budget.max_caption_calls and not _over_cost(
+        spend, budget
+    )
 
 
 def _can_judge(spend: _Spend, budget: Budget) -> bool:

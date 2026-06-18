@@ -49,21 +49,29 @@ class FakeSession:
     Records each call in ``.calls`` for assertions.
     """
 
-    def __init__(self, pages=None, *, response=None, status_code=200, text="", raises=None):
+    def __init__(
+        self, pages=None, *, response=None, status_code=200, text="", raises=None
+    ):
         self.pages = pages or {}
         self.response = response
         self.status_code = status_code
         self.text = text
-        self.raises = raises  # an exception instance to raise from .get() (transport error)
+        self.raises = (
+            raises  # an exception instance to raise from .get() (transport error)
+        )
         self.calls = []
 
     def get(self, url, params=None, headers=None, timeout=None):
         params = dict(params or {})
-        self.calls.append({"url": url, "params": params, "headers": dict(headers or {})})
+        self.calls.append(
+            {"url": url, "params": params, "headers": dict(headers or {})}
+        )
         if self.raises is not None:
             raise self.raises
-        payload = self.response if self.response is not None else self.pages.get(
-            _page_index(params), {"results": [], "photos": []}
+        payload = (
+            self.response
+            if self.response is not None
+            else self.pages.get(_page_index(params), {"results": [], "photos": []})
         )
         return FakeResponse(payload, status_code=self.status_code, text=self.text)
 
@@ -217,9 +225,15 @@ def wikimedia_payload():
                             "extmetadata": {
                                 "License": {"value": "cc-by-sa-4.0"},
                                 "LicenseShortName": {"value": "CC BY-SA 4.0"},
-                                "LicenseUrl": {"value": "https://creativecommons.org/licenses/by-sa/4.0"},
-                                "Artist": {"value": '<a href="//commons.wikimedia.org/wiki/User:Alice">Alice</a>'},
-                                "ImageDescription": {"value": "A <b>stormy</b> harbour at dusk."},
+                                "LicenseUrl": {
+                                    "value": "https://creativecommons.org/licenses/by-sa/4.0"
+                                },
+                                "Artist": {
+                                    "value": '<a href="//commons.wikimedia.org/wiki/User:Alice">Alice</a>'
+                                },
+                                "ImageDescription": {
+                                    "value": "A <b>stormy</b> harbour at dusk."
+                                },
                                 "Attribution": {"value": ""},
                             },
                         }
@@ -231,8 +245,13 @@ def wikimedia_payload():
                     "title": "File:Foghorn.ogg",
                     "index": 2,
                     "imageinfo": [
-                        {"mime": "audio/ogg", "url": "https://upload.wikimedia.example/Foghorn.ogg",
-                         "width": 0, "height": 0, "extmetadata": {}}
+                        {
+                            "mime": "audio/ogg",
+                            "url": "https://upload.wikimedia.example/Foghorn.ogg",
+                            "width": 0,
+                            "height": 0,
+                            "extmetadata": {},
+                        }
                     ],
                 },
             }

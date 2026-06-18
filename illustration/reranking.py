@@ -88,7 +88,11 @@ def rerank(
             f"scorer returned {len(scores)} scores for {len(items)} results"
         )
     scored = [r.model_copy(update={"score": float(s)}) for r, s in zip(items, scores)]
-    return sorted(scored, key=lambda r: r.score if r.score is not None else 0.0, reverse=descending)
+    return sorted(
+        scored,
+        key=lambda r: r.score if r.score is not None else 0.0,
+        reverse=descending,
+    )
 
 
 @lru_cache(maxsize=4)
@@ -123,7 +127,9 @@ def make_siglip_scorer(
 ) -> "SiglipScorer":
     """Build a SigLIP :class:`SiglipScorer` (raises if the extra is missing)."""
     check_rerank_requirements()
-    return SiglipScorer(model=model, cache=cache, device=device, image_field=image_field)
+    return SiglipScorer(
+        model=model, cache=cache, device=device, image_field=image_field
+    )
 
 
 def check_rerank_requirements() -> None:
@@ -169,7 +175,9 @@ class SiglipScorer:
         scores: list[float] = []
         for r in results:
             img_vec = self._image_embedding(r, model, processor)
-            scores.append(float(np.dot(text_vec, img_vec)) if img_vec is not None else -1.0)
+            scores.append(
+                float(np.dot(text_vec, img_vec)) if img_vec is not None else -1.0
+            )
         return scores
 
     def image_embeddings(self, results: Sequence[ImageResult]) -> list:

@@ -55,10 +55,16 @@ class PixabaySource(RetrievalSource):
             "choices": {"large", "medium", "small"},
             "coerce": lambda s: _SIZE_MIN_WIDTH[s],
         },
-        "safe": {"name": "safesearch", "coerce": lambda safe: "true" if safe else "false"},
+        "safe": {
+            "name": "safesearch",
+            "coerce": lambda safe: "true" if safe else "false",
+        },
         "license_type": None,  # single Pixabay License
         "color": "colors",
-        "content_type": {"name": "image_type", "choices": {"photo", "illustration", "vector"}},
+        "content_type": {
+            "name": "image_type",
+            "choices": {"photo", "illustration", "vector"},
+        },
     }
     info = SourceInfo(
         name="pixabay",
@@ -84,7 +90,9 @@ class PixabaySource(RetrievalSource):
         return ImageResult(
             provider=self.name,
             id=str(item["id"]),
-            url=item.get("largeImageURL") or item.get("webformatURL") or item.get("imageURL"),
+            url=item.get("largeImageURL")
+            or item.get("webformatURL")
+            or item.get("imageURL"),
             thumbnail_url=item.get("previewURL"),
             width=item.get("imageWidth"),
             height=item.get("imageHeight"),

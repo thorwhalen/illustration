@@ -159,8 +159,11 @@ def prefilter(
                 break  # short-circuit: stop at the first failure
         reports.append(
             PrefilterReport(
-                provider=result.provider, id=result.id, passed=ok,
-                reasons=reasons, values=values,
+                provider=result.provider,
+                id=result.id,
+                passed=ok,
+                reasons=reasons,
+                values=values,
             )
         )
         if ok:
@@ -180,8 +183,14 @@ def aspect_ratio_check(*, min_ratio: float = 0.2, max_ratio: float = 5.0) -> Che
             return CheckOutcome("aspect_ratio", passed=True, reason="no dimensions")
         ratio = result.width / result.height
         ok = min_ratio <= ratio <= max_ratio
-        reason = None if ok else f"aspect ratio {ratio:.2f} outside [{min_ratio}, {max_ratio}]"
-        return CheckOutcome("aspect_ratio", passed=ok, value=round(ratio, 3), reason=reason)
+        reason = (
+            None
+            if ok
+            else f"aspect ratio {ratio:.2f} outside [{min_ratio}, {max_ratio}]"
+        )
+        return CheckOutcome(
+            "aspect_ratio", passed=ok, value=round(ratio, 3), reason=reason
+        )
 
     return check
 
@@ -193,15 +202,24 @@ def min_dimension_check(*, min_width: int = 200, min_height: int = 200) -> Check
         if not result.width or not result.height:
             return CheckOutcome("min_dimension", passed=True, reason="no dimensions")
         ok = result.width >= min_width and result.height >= min_height
-        reason = None if ok else f"{result.width}x{result.height} below {min_width}x{min_height}"
+        reason = (
+            None
+            if ok
+            else f"{result.width}x{result.height} below {min_width}x{min_height}"
+        )
         return CheckOutcome(
-            "min_dimension", passed=ok, value=float(min(result.width, result.height)), reason=reason
+            "min_dimension",
+            passed=ok,
+            value=float(min(result.width, result.height)),
+            reason=reason,
         )
 
     return check
 
 
-def brightness_check(*, min_brightness: float = 0.10, max_brightness: float = 0.95) -> Check:
+def brightness_check(
+    *, min_brightness: float = 0.10, max_brightness: float = 0.95
+) -> Check:
     """Reject near-black / blown-out images. Mean luminance, normalized to [0, 1]."""
 
     def check(result: ImageResult, get_image: "Callable[[], Any]") -> CheckOutcome:
@@ -212,8 +230,14 @@ def brightness_check(*, min_brightness: float = 0.10, max_brightness: float = 0.
 
         mean = ImageStat.Stat(image.convert("L")).mean[0] / 255.0
         ok = min_brightness <= mean <= max_brightness
-        reason = None if ok else f"brightness {mean:.2f} outside [{min_brightness}, {max_brightness}]"
-        return CheckOutcome("brightness", passed=ok, value=round(mean, 3), reason=reason)
+        reason = (
+            None
+            if ok
+            else f"brightness {mean:.2f} outside [{min_brightness}, {max_brightness}]"
+        )
+        return CheckOutcome(
+            "brightness", passed=ok, value=round(mean, 3), reason=reason
+        )
 
     return check
 
@@ -231,7 +255,9 @@ def blur_check(*, min_variance: float = 100.0) -> Check:
             return CheckOutcome("blur", passed=False, reason="image unavailable")
         variance = _laplacian_variance(image)
         ok = variance >= min_variance
-        reason = None if ok else f"blur variance {variance:.0f} below {min_variance:.0f}"
+        reason = (
+            None if ok else f"blur variance {variance:.0f} below {min_variance:.0f}"
+        )
         return CheckOutcome("blur", passed=ok, value=round(variance, 1), reason=reason)
 
     return check
@@ -252,7 +278,9 @@ def nsfw_check(
         clf = classifier if classifier is not None else _default_nsfw_classifier()
         image = get_image()
         if image is None:
-            return CheckOutcome("nsfw", passed=False, reason="image unavailable (safety fails closed)")
+            return CheckOutcome(
+                "nsfw", passed=False, reason="image unavailable (safety fails closed)"
+            )
         try:
             prob = float(clf(image))
         except Exception as e:
@@ -389,13 +417,17 @@ def inspect_candidate(
     ``max_tokens`` (default :data:`DFLT_CAPTION_MAX_TOKENS`).
     """
     if mode == "judge":
-        return judge_candidate(query, result, describe=describe, model=model, max_tokens=max_tokens)
+        return judge_candidate(
+            query, result, describe=describe, model=model, max_tokens=max_tokens
+        )
     cap = max_tokens if max_tokens is not None else DFLT_CAPTION_MAX_TOKENS
     fn = describe if describe is not None else _default_describe(model, max_tokens=cap)
     image_ref = result.thumbnail_url or result.url
     caption = fn(image_ref, CAPTION_PROMPT.format(query=query))
     return InspectReport(
-        provider=result.provider, id=result.id, mode="caption",
+        provider=result.provider,
+        id=result.id,
+        mode="caption",
         caption=(caption or "").strip() or None,
     )
 
@@ -423,15 +455,20 @@ def judge_candidate(
     text = fn(image_ref, JUDGE_PROMPT.format(query=query))
     rubric = _parse_rubric(text)
     return InspectReport(
-        provider=result.provider, id=result.id, mode="judge",
-        rubric=rubric, rationale=rubric.rationale or None,
+        provider=result.provider,
+        id=result.id,
+        mode="judge",
+        rubric=rubric,
+        rationale=rubric.rationale or None,
     )
 
 
 # --- internals --------------------------------------------------------------
 
 
-def _default_describe(model: "str | None", *, max_tokens: "int | None" = None) -> Describe:
+def _default_describe(
+    model: "str | None", *, max_tokens: "int | None" = None
+) -> Describe:
     """The default describe seam, backed by ``aix.describe_image`` (lazy)."""
 
     def describe(image_ref: Any, prompt: str) -> str:
@@ -439,7 +476,9 @@ def _default_describe(model: "str | None", *, max_tokens: "int | None" = None) -
             import aix  # lazy: Layer-2 dependency only
         except ImportError as e:  # pragma: no cover - exercised only without aix
             raise CurateDependencyError(["aix"]) from e
-        return aix.describe_image(image_ref, prompt=prompt, model=model, max_tokens=max_tokens)
+        return aix.describe_image(
+            image_ref, prompt=prompt, model=model, max_tokens=max_tokens
+        )
 
     return describe
 
@@ -477,8 +516,10 @@ def _laplacian_variance(image) -> float:
     # 3x3 Laplacian via interior finite differences (no SciPy/OpenCV).
     lap = (
         -4.0 * gray[1:-1, 1:-1]
-        + gray[:-2, 1:-1] + gray[2:, 1:-1]
-        + gray[1:-1, :-2] + gray[1:-1, 2:]
+        + gray[:-2, 1:-1]
+        + gray[2:, 1:-1]
+        + gray[1:-1, :-2]
+        + gray[1:-1, 2:]
     )
     return float(lap.var())
 
@@ -490,7 +531,9 @@ def _default_nsfw_classifier(
     """Build the default NSFW classifier (Falconsai ViT, Apache-2.0; cached)."""
     if not _nsfw_available():
         raise CurateDependencyError(
-            ["transformers", "torch", "pillow"], extra="rerank", purpose="the NSFW safety gate"
+            ["transformers", "torch", "pillow"],
+            extra="rerank",
+            purpose="the NSFW safety gate",
         )
     import os
 
@@ -512,4 +555,7 @@ def _default_nsfw_classifier(
 def _nsfw_available() -> bool:
     import importlib.util
 
-    return all(importlib.util.find_spec(m) is not None for m in ("transformers", "torch", "PIL"))
+    return all(
+        importlib.util.find_spec(m) is not None
+        for m in ("transformers", "torch", "PIL")
+    )

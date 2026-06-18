@@ -46,7 +46,10 @@ class OpenverseSource(RetrievalSource):
         "content_type": {
             "name": "category",
             "choices": {"photo", "illustration"},
-            "coerce": lambda ct: {"photo": "photograph", "illustration": "illustration"}[ct],
+            "coerce": lambda ct: {
+                "photo": "photograph",
+                "illustration": "illustration",
+            }[ct],
         },
         "color": None,  # Openverse has no color filter (explicitly unsupported)
     }

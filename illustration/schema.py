@@ -43,20 +43,36 @@ class ImageResult(BaseModel):
     width: int | None = None
     height: int | None = None
     title: str | None = None
-    description: str | None = Field(default=None, description="Alt text / longer description.")
+    description: str | None = Field(
+        default=None, description="Alt text / longer description."
+    )
     tags: list[str] = Field(default_factory=list)
-    license: str | None = Field(default=None, description="License code or name (e.g. 'by-sa').")
+    license: str | None = Field(
+        default=None, description="License code or name (e.g. 'by-sa')."
+    )
     license_url: str | None = None
-    attribution: str | None = Field(default=None, description="Ready-to-render attribution sentence.")
+    attribution: str | None = Field(
+        default=None, description="Ready-to-render attribution sentence."
+    )
     source_page_url: str | None = None
     author: str | None = None
     author_url: str | None = None
-    cacheable: bool = Field(default=False, description="May the bytes be downloaded/cached to our server?")
-    avg_color: str | None = Field(default=None, description="Dominant-color hint where available.")
+    cacheable: bool = Field(
+        default=False, description="May the bytes be downloaded/cached to our server?"
+    )
+    avg_color: str | None = Field(
+        default=None, description="Dominant-color hint where available."
+    )
     # provenance / forward-compatibility
-    query: str | None = Field(default=None, description="Canonical query that produced this hit.")
-    score: float | None = Field(default=None, description="Reserved for Layer-2 rerank; None at Layer 1.")
-    raw: dict[str, Any] = Field(default_factory=dict, description="Untranslated provider payload.")
+    query: str | None = Field(
+        default=None, description="Canonical query that produced this hit."
+    )
+    score: float | None = Field(
+        default=None, description="Reserved for Layer-2 rerank; None at Layer 1."
+    )
+    raw: dict[str, Any] = Field(
+        default_factory=dict, description="Untranslated provider payload."
+    )
 
     def to_search_hit(self):
         """Adapt to an ``ir.SearchHit`` for Layer-2 cross-provider fusion.
@@ -115,7 +131,9 @@ def license_allowlist(
     >>> [r.id for r in license_allowlist([a, b, c], allow={"by-nc"})]
     ['2']
     """
-    allowed = {s.lower() for s in (allow if allow is not None else DFLT_LICENSE_ALLOWLIST)}
+    allowed = {
+        s.lower() for s in (allow if allow is not None else DFLT_LICENSE_ALLOWLIST)
+    }
     return [r for r in results if r.license and r.license.lower() in allowed]
 
 

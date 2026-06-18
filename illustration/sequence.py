@@ -169,7 +169,17 @@ def select_sequence(
             coh = _cosine(e, prev_emb)
             red = max((_cosine(e, ce) for ce in chosen_embs), default=0.0)
             j = rel_fn(c) + alpha * coh - beta * red
-            scored.append({"j": j, "near_dup": near_dup, "c": c, "e": e, "h": h, "coh": coh, "red": red})
+            scored.append(
+                {
+                    "j": j,
+                    "near_dup": near_dup,
+                    "c": c,
+                    "e": e,
+                    "h": h,
+                    "coh": coh,
+                    "red": red,
+                }
+            )
 
         valid = [s for s in scored if not s["near_dup"]]
         pool = valid if valid else scored
@@ -183,16 +193,22 @@ def select_sequence(
 
         selections.append(
             BeatSelection(
-                beat_index=i, chosen=best["c"], relevance=rel_fn(best["c"]),
-                coherence=round(best["coh"], 4), redundancy=round(best["red"], 4),
-                forced_duplicate=forced, n_candidates=len(cands),
+                beat_index=i,
+                chosen=best["c"],
+                relevance=rel_fn(best["c"]),
+                coherence=round(best["coh"], 4),
+                redundancy=round(best["red"], 4),
+                forced_duplicate=forced,
+                n_candidates=len(cands),
             )
         )
         chosen_embs.append(best["e"])
         chosen_hashes.append(best["h"])
         total += best["j"]
 
-    return SequenceSelection(selections=selections, objective=round(total, 4), notes=notes)
+    return SequenceSelection(
+        selections=selections, objective=round(total, 4), notes=notes
+    )
 
 
 def curate_sequence(
@@ -295,7 +311,9 @@ def _default_per_beat(sources, n) -> "Callable[[str], list[ImageResult]]":
 
         from illustration.reranking import _importable
 
-        use_rerank = all(_importable(m) for m in ("torch", "transformers", "PIL", "numpy"))
+        use_rerank = all(
+            _importable(m) for m in ("torch", "transformers", "PIL", "numpy")
+        )
         return illustration.search(beat, source=sources, n=n, rerank=use_rerank)
 
     return per_beat

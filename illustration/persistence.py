@@ -108,7 +108,9 @@ def persist_sequence(
             candidates=[_candidate_ref(bs.chosen)] if bs.chosen is not None else [],
             forced_duplicate=bool(getattr(bs, "forced_duplicate", False)),
         )
-        _add_selection(store, bs.beat_index, body, actor=actor, activity=activity, at_time=at_time)
+        _add_selection(
+            store, bs.beat_index, body, actor=actor, activity=activity, at_time=at_time
+        )
     return store
 
 
@@ -130,16 +132,25 @@ def record_override(
     """
     prior = _latest_annotation(store, beat_index)
     derived = [prior.id] if prior is not None else []
-    beat_text = beat if beat is not None else (prior.body.get("beat", "") if prior else "")
+    beat_text = (
+        beat if beat is not None else (prior.body.get("beat", "") if prior else "")
+    )
     body = SelectionBody(
-        beat=beat_text, beat_index=beat_index, source="director",
+        beat=beat_text,
+        beat_index=beat_index,
+        source="director",
         selected=_candidate_ref(chosen),
         candidates=[_candidate_ref(chosen)] if chosen is not None else [],
         reason=reason,
     )
     return _add_selection(
-        store, beat_index, body, actor=actor, activity="derive",
-        was_derived_from=derived, at_time=at_time,
+        store,
+        beat_index,
+        body,
+        actor=actor,
+        activity="derive",
+        was_derived_from=derived,
+        at_time=at_time,
     )
 
 
@@ -205,14 +216,23 @@ def _ensure_store(store: Any) -> Any:
 
 
 def _add_selection(
-    store, beat_index, body: SelectionBody, *, actor, activity, was_derived_from=None, at_time=None
+    store,
+    beat_index,
+    body: SelectionBody,
+    *,
+    actor,
+    activity,
+    was_derived_from=None,
+    at_time=None,
 ):
     from uuid import uuid4
 
     from lacing import Annotation, NodeRef, Provenance, RationalTime, TimeInterval
 
     when = at_time if at_time is not None else RationalTime.now()
-    interval = TimeInterval(RationalTime(beat_index, rate=1), RationalTime(beat_index + 1, rate=1))
+    interval = TimeInterval(
+        RationalTime(beat_index, rate=1), RationalTime(beat_index + 1, rate=1)
+    )
     ann = Annotation(
         id=uuid4(),
         tier=SELECTIONS_TIER,
@@ -235,7 +255,11 @@ def _latest_annotation(store, beat_index: int):
     # by_tier yields in append (insertion) order; tie-break a timestamp draw
     # toward the later-inserted annotation, so resolve_selection and
     # resolved_selections agree on "the latest override wins".
-    anns = [a for a in store.by_tier(SELECTIONS_TIER) if int(a.body.get("beat_index", -1)) == beat_index]
+    anns = [
+        a
+        for a in store.by_tier(SELECTIONS_TIER)
+        if int(a.body.get("beat_index", -1)) == beat_index
+    ]
     if not anns:
         return None
     return max(enumerate(anns), key=lambda t: (_gen_seconds(t[1]), t[0]))[1]
@@ -248,7 +272,9 @@ def _gen_seconds(ann) -> float:
 def _candidate_ref(result: "ImageResult | None") -> "_CandidateRef | None":
     if result is None:
         return None
-    return _CandidateRef(provider=result.provider, id=result.id, url=result.url, score=result.score)
+    return _CandidateRef(
+        provider=result.provider, id=result.id, url=result.url, score=result.score
+    )
 
 
 def _beat_text(result: Any, beat_index: int) -> str:

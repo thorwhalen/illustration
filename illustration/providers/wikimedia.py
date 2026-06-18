@@ -108,7 +108,7 @@ class WikimediaSource(RetrievalSource):
         artist_html = _em("Artist")
         title = item.get("title") or ""
         if title.startswith("File:"):
-            title = title[len("File:"):]
+            title = title[len("File:") :]
         license_short = _em("LicenseShortName")
         return ImageResult(
             provider=self.name,
@@ -134,7 +134,9 @@ class WikimediaSource(RetrievalSource):
         )
 
 
-def _build_attribution(author: "str | None", license_short: "str | None") -> "str | None":
+def _build_attribution(
+    author: "str | None", license_short: "str | None"
+) -> "str | None":
     if author and license_short:
         return f"{author} / {license_short}, via Wikimedia Commons"
     if author:

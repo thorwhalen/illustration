@@ -33,7 +33,9 @@ __all__ = [
 _SOURCES: "dict[str, RetrievalSource]" = {}
 
 
-def register_source(source: RetrievalSource, *, name: "str | None" = None) -> RetrievalSource:
+def register_source(
+    source: RetrievalSource, *, name: "str | None" = None
+) -> RetrievalSource:
     """Register a source instance under ``name`` (default ``source.name``).
 
     Returns the source, so it can be used as ``SRC = register_source(MySource())``.

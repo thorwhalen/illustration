@@ -120,7 +120,9 @@ def make_query_expander(
     def expander(beat: str) -> list[str]:
         import aix  # lazy: Layer-2 dependency only
 
-        fn = aix.prompt_func(prompt, egress=_parse_lines, name="expand_query", model=model)
+        fn = aix.prompt_func(
+            prompt, egress=_parse_lines, name="expand_query", model=model
+        )
         return list(fn(beat=beat, n=n))
 
     return expander
@@ -134,7 +136,9 @@ def make_query_refiner(
     def refiner(beat: str, critique: str) -> str:
         import aix  # lazy
 
-        fn = aix.prompt_func(prompt, egress=_first_line, name="refine_query", model=model)
+        fn = aix.prompt_func(
+            prompt, egress=_first_line, name="refine_query", model=model
+        )
         return fn(beat=beat, critique=critique)
 
     return refiner

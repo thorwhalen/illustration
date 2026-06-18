@@ -54,7 +54,14 @@ __all__ = ["search"]
 #: The formal canonical filter parameters (everything else is escape-hatch).
 #: A param joins this set once ≥2 providers support it (promotion rule);
 #: ``safe`` and ``license_type`` are first-class exceptions.
-_CANONICAL_PARAMS = ("orientation", "size", "safe", "license_type", "color", "content_type")
+_CANONICAL_PARAMS = (
+    "orientation",
+    "size",
+    "safe",
+    "license_type",
+    "color",
+    "content_type",
+)
 
 
 def search(
@@ -146,8 +153,12 @@ def search(
             )
 
     _values = {
-        "orientation": orientation, "size": size, "safe": safe,
-        "license_type": license_type, "color": color, "content_type": content_type,
+        "orientation": orientation,
+        "size": size,
+        "safe": safe,
+        "license_type": license_type,
+        "color": color,
+        "content_type": content_type,
     }
     canonical = {name: _values[name] for name in _CANONICAL_PARAMS}
 

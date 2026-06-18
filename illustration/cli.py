@@ -47,7 +47,9 @@ def search(
     for r in results:
         label = r.title or r.description or "(untitled)"
         label = label if len(label) <= 60 else label[:57] + "..."
-        lines.append(f"[{r.provider}] {label}\n    {r.url}  ({r.license or 'unknown license'})")
+        lines.append(
+            f"[{r.provider}] {label}\n    {r.url}  ({r.license or 'unknown license'})"
+        )
     return "\n".join(lines)
 
 

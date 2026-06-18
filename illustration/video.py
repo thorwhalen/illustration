@@ -110,8 +110,15 @@ def to_walkthru_document(
     Beats with no chosen image are skipped. Needs the ``[video]`` extra.
     """
     from walkthru import (
-        AssetRef, Beat, DemoDocument, Meta, NarrationAnchor, NarrationSegment,
-        Section, Timing, Tracks,
+        AssetRef,
+        Beat,
+        DemoDocument,
+        Meta,
+        NarrationAnchor,
+        NarrationSegment,
+        Section,
+        Timing,
+        Tracks,
     )
 
     images = _chosen_images(selections)
@@ -127,14 +134,18 @@ def to_walkthru_document(
         text = beats_text[i] if i < len(beats_text) else None
         steps.append(
             Beat(
-                id=beat_id, beat_kind="broll", timing=Timing(duration_ms=dur_ms),
-                text=text, poster=AssetRef(uri=img.url, mime=_guess_mime(img.url)),
+                id=beat_id,
+                beat_kind="broll",
+                timing=Timing(duration_ms=dur_ms),
+                text=text,
+                poster=AssetRef(uri=img.url, mime=_guess_mime(img.url)),
             )
         )
         if narration is not None and i < len(narration) and narration[i]:
             narration_segs.append(
                 NarrationSegment(
-                    id=f"narr-{i}", text=narration[i],
+                    id=f"narr-{i}",
+                    text=narration[i],
                     anchor=NarrationAnchor(step_id=beat_id, duration_ms=dur_ms),
                 )
             )

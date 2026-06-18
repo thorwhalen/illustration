@@ -50,9 +50,7 @@ DFLT_SOURCES = ("openverse",)
 #: Conservative default license allowlist for the (opt-in) license gate.
 #: CC0 / public-domain / CC-BY / CC-BY-SA are commercial-safe (BY-SA imposes
 #: share-alike — flagged, not rejected). NC/ND and unknowns are excluded.
-DFLT_LICENSE_ALLOWLIST = frozenset(
-    {"cc0", "pdm", "by", "by-sa", "pexels license"}
-)
+DFLT_LICENSE_ALLOWLIST = frozenset({"cc0", "pdm", "by", "by-sa", "pexels license"})
 
 #: HTTP request timeout, seconds.
 HTTP_TIMEOUT = 30
@@ -82,17 +80,23 @@ def _base_dir(env_var: str, xdg_var: str, home_subpath: str) -> Path:
 
 def config_dir(*, ensure: bool = False) -> Path:
     """Directory for durable configuration (e.g. registered sources)."""
-    return _ensure(_base_dir("ILLUSTRATION_CONFIG_DIR", "XDG_CONFIG_HOME", ".config"), ensure)
+    return _ensure(
+        _base_dir("ILLUSTRATION_CONFIG_DIR", "XDG_CONFIG_HOME", ".config"), ensure
+    )
 
 
 def data_dir(*, ensure: bool = False) -> Path:
     """Directory for durable data."""
-    return _ensure(_base_dir("ILLUSTRATION_DATA_DIR", "XDG_DATA_HOME", ".local/share"), ensure)
+    return _ensure(
+        _base_dir("ILLUSTRATION_DATA_DIR", "XDG_DATA_HOME", ".local/share"), ensure
+    )
 
 
 def cache_dir(*, ensure: bool = False) -> Path:
     """Directory for regenerable caches (the default search-result store)."""
-    return _ensure(_base_dir("ILLUSTRATION_CACHE_DIR", "XDG_CACHE_HOME", ".cache"), ensure)
+    return _ensure(
+        _base_dir("ILLUSTRATION_CACHE_DIR", "XDG_CACHE_HOME", ".cache"), ensure
+    )
 
 
 def _ensure(path: Path, ensure: bool) -> Path:

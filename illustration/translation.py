@@ -71,7 +71,9 @@ def make_param_translator(
             if spec is None or spec is _UNSUPPORTED:
                 _handle_unsupported(key, on_unsupported, source_name, dropped)
                 continue
-            native_name, coerced = _apply_spec(key, value, spec, on_unsupported, source_name)
+            native_name, coerced = _apply_spec(
+                key, value, spec, on_unsupported, source_name
+            )
             if native_name is None:  # choices validation failed under 'ignore'/'warn'
                 dropped.append(key)
                 continue
@@ -122,7 +124,8 @@ def _apply_spec(
                 )
             if policy == "warn":
                 warnings.warn(
-                    f"Dropping {key!r}={value!r}: not in {sorted(choices)}.", stacklevel=4
+                    f"Dropping {key!r}={value!r}: not in {sorted(choices)}.",
+                    stacklevel=4,
                 )
             return None, None
         coerce = spec.get("coerce")
