@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.providers.wikimedia &mdash; illustration 0.0.2 documentation</title>
+  <title>illustration.providers.wikimedia &mdash; illustration 0.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/documentation_options.js?v=47de8214"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -210,7 +210,7 @@
         <span class="n">artist_html</span> <span class="o">=</span> <span class="n">_em</span><span class="p">(</span><span class="s2">&quot;Artist&quot;</span><span class="p">)</span>
         <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;File:&quot;</span><span class="p">):</span>
-            <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;File:&quot;</span><span class="p">):]</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;File:&quot;</span><span class="p">)</span> <span class="p">:]</span>
         <span class="n">license_short</span> <span class="o">=</span> <span class="n">_em</span><span class="p">(</span><span class="s2">&quot;LicenseShortName&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
             <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
@@ -237,7 +237,9 @@
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_build_attribution</span><span class="p">(</span><span class="n">author</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">,</span> <span class="n">license_short</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;str | None&quot;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_attribution</span><span class="p">(</span>
+    <span class="n">author</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">,</span> <span class="n">license_short</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;str | None&quot;</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">author</span> <span class="ow">and</span> <span class="n">license_short</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">license_short</span><span class="si">}</span><span class="s2">, via Wikimedia Commons&quot;</span>
     <span class="k">if</span> <span class="n">author</span><span class="p">:</span>

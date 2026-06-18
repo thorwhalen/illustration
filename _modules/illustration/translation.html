@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.translation &mdash; illustration 0.0.2 documentation</title>
+  <title>illustration.translation &mdash; illustration 0.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -173,7 +173,9 @@
             <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">spec</span> <span class="ow">is</span> <span class="n">_UNSUPPORTED</span><span class="p">:</span>
                 <span class="n">_handle_unsupported</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="p">,</span> <span class="n">source_name</span><span class="p">,</span> <span class="n">dropped</span><span class="p">)</span>
                 <span class="k">continue</span>
-            <span class="n">native_name</span><span class="p">,</span> <span class="n">coerced</span> <span class="o">=</span> <span class="n">_apply_spec</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="p">,</span> <span class="n">source_name</span><span class="p">)</span>
+            <span class="n">native_name</span><span class="p">,</span> <span class="n">coerced</span> <span class="o">=</span> <span class="n">_apply_spec</span><span class="p">(</span>
+                <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="p">,</span> <span class="n">source_name</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">native_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># choices validation failed under &#39;ignore&#39;/&#39;warn&#39;</span>
                 <span class="n">dropped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
                 <span class="k">continue</span>
@@ -225,7 +227,8 @@
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Dropping </span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">: not in </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">4</span>
+                    <span class="sa">f</span><span class="s2">&quot;Dropping </span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">: not in </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
         <span class="n">coerce</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>

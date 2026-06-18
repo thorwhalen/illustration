@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.persistence &mdash; illustration 0.0.2 documentation</title>
+  <title>illustration.persistence &mdash; illustration 0.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -213,7 +213,9 @@
             <span class="n">candidates</span><span class="o">=</span><span class="p">[</span><span class="n">_candidate_ref</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="p">)]</span> <span class="k">if</span> <span class="n">bs</span><span class="o">.</span><span class="n">chosen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[],</span>
             <span class="n">forced_duplicate</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="s2">&quot;forced_duplicate&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)),</span>
         <span class="p">)</span>
-        <span class="n">_add_selection</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span> <span class="n">activity</span><span class="o">=</span><span class="n">activity</span><span class="p">,</span> <span class="n">at_time</span><span class="o">=</span><span class="n">at_time</span><span class="p">)</span>
+        <span class="n">_add_selection</span><span class="p">(</span>
+            <span class="n">store</span><span class="p">,</span> <span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span> <span class="n">activity</span><span class="o">=</span><span class="n">activity</span><span class="p">,</span> <span class="n">at_time</span><span class="o">=</span><span class="n">at_time</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">store</span></div>
 
 
@@ -238,16 +240,25 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">prior</span> <span class="o">=</span> <span class="n">_latest_annotation</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">)</span>
     <span class="n">derived</span> <span class="o">=</span> <span class="p">[</span><span class="n">prior</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="k">if</span> <span class="n">prior</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
-    <span class="n">beat_text</span> <span class="o">=</span> <span class="n">beat</span> <span class="k">if</span> <span class="n">beat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">prior</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;beat&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">prior</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">beat_text</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">beat</span> <span class="k">if</span> <span class="n">beat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">prior</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;beat&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">prior</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
     <span class="n">body</span> <span class="o">=</span> <span class="n">SelectionBody</span><span class="p">(</span>
-        <span class="n">beat</span><span class="o">=</span><span class="n">beat_text</span><span class="p">,</span> <span class="n">beat_index</span><span class="o">=</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;director&quot;</span><span class="p">,</span>
+        <span class="n">beat</span><span class="o">=</span><span class="n">beat_text</span><span class="p">,</span>
+        <span class="n">beat_index</span><span class="o">=</span><span class="n">beat_index</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;director&quot;</span><span class="p">,</span>
         <span class="n">selected</span><span class="o">=</span><span class="n">_candidate_ref</span><span class="p">(</span><span class="n">chosen</span><span class="p">),</span>
         <span class="n">candidates</span><span class="o">=</span><span class="p">[</span><span class="n">_candidate_ref</span><span class="p">(</span><span class="n">chosen</span><span class="p">)]</span> <span class="k">if</span> <span class="n">chosen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[],</span>
         <span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">_add_selection</span><span class="p">(</span>
-        <span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span> <span class="n">activity</span><span class="o">=</span><span class="s2">&quot;derive&quot;</span><span class="p">,</span>
-        <span class="n">was_derived_from</span><span class="o">=</span><span class="n">derived</span><span class="p">,</span> <span class="n">at_time</span><span class="o">=</span><span class="n">at_time</span><span class="p">,</span>
+        <span class="n">store</span><span class="p">,</span>
+        <span class="n">beat_index</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span>
+        <span class="n">activity</span><span class="o">=</span><span class="s2">&quot;derive&quot;</span><span class="p">,</span>
+        <span class="n">was_derived_from</span><span class="o">=</span><span class="n">derived</span><span class="p">,</span>
+        <span class="n">at_time</span><span class="o">=</span><span class="n">at_time</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
@@ -323,14 +334,23 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_add_selection</span><span class="p">(</span>
-    <span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">SelectionBody</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">was_derived_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">at_time</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">store</span><span class="p">,</span>
+    <span class="n">beat_index</span><span class="p">,</span>
+    <span class="n">body</span><span class="p">:</span> <span class="n">SelectionBody</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">actor</span><span class="p">,</span>
+    <span class="n">activity</span><span class="p">,</span>
+    <span class="n">was_derived_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">at_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">lacing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotation</span><span class="p">,</span> <span class="n">NodeRef</span><span class="p">,</span> <span class="n">Provenance</span><span class="p">,</span> <span class="n">RationalTime</span><span class="p">,</span> <span class="n">TimeInterval</span>
 
     <span class="n">when</span> <span class="o">=</span> <span class="n">at_time</span> <span class="k">if</span> <span class="n">at_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">RationalTime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-    <span class="n">interval</span> <span class="o">=</span> <span class="n">TimeInterval</span><span class="p">(</span><span class="n">RationalTime</span><span class="p">(</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">RationalTime</span><span class="p">(</span><span class="n">beat_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">TimeInterval</span><span class="p">(</span>
+        <span class="n">RationalTime</span><span class="p">(</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">RationalTime</span><span class="p">(</span><span class="n">beat_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
     <span class="n">ann</span> <span class="o">=</span> <span class="n">Annotation</span><span class="p">(</span>
         <span class="nb">id</span><span class="o">=</span><span class="n">uuid4</span><span class="p">(),</span>
         <span class="n">tier</span><span class="o">=</span><span class="n">SELECTIONS_TIER</span><span class="p">,</span>
@@ -353,7 +373,11 @@
     <span class="c1"># by_tier yields in append (insertion) order; tie-break a timestamp draw</span>
     <span class="c1"># toward the later-inserted annotation, so resolve_selection and</span>
     <span class="c1"># resolved_selections agree on &quot;the latest override wins&quot;.</span>
-    <span class="n">anns</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">store</span><span class="o">.</span><span class="n">by_tier</span><span class="p">(</span><span class="n">SELECTIONS_TIER</span><span class="p">)</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;beat_index&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">beat_index</span><span class="p">]</span>
+    <span class="n">anns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">a</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">store</span><span class="o">.</span><span class="n">by_tier</span><span class="p">(</span><span class="n">SELECTIONS_TIER</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;beat_index&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">beat_index</span>
+    <span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">anns</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">anns</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="n">_gen_seconds</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">1</span><span class="p">]</span>
@@ -366,7 +390,9 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_candidate_ref</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="s2">&quot;ImageResult | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_CandidateRef | None&quot;</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">return</span> <span class="n">_CandidateRef</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">score</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_CandidateRef</span><span class="p">(</span>
+        <span class="n">provider</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">score</span>
+    <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_beat_text</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

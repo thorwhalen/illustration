@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.config &mdash; illustration 0.0.2 documentation</title>
+  <title>illustration.config &mdash; illustration 0.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -150,9 +150,7 @@
 <span class="c1">#: Conservative default license allowlist for the (opt-in) license gate.</span>
 <span class="c1">#: CC0 / public-domain / CC-BY / CC-BY-SA are commercial-safe (BY-SA imposes</span>
 <span class="c1">#: share-alike — flagged, not rejected). NC/ND and unknowns are excluded.</span>
-<span class="n">DFLT_LICENSE_ALLOWLIST</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
-    <span class="p">{</span><span class="s2">&quot;cc0&quot;</span><span class="p">,</span> <span class="s2">&quot;pdm&quot;</span><span class="p">,</span> <span class="s2">&quot;by&quot;</span><span class="p">,</span> <span class="s2">&quot;by-sa&quot;</span><span class="p">,</span> <span class="s2">&quot;pexels license&quot;</span><span class="p">}</span>
-<span class="p">)</span>
+<span class="n">DFLT_LICENSE_ALLOWLIST</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">&quot;cc0&quot;</span><span class="p">,</span> <span class="s2">&quot;pdm&quot;</span><span class="p">,</span> <span class="s2">&quot;by&quot;</span><span class="p">,</span> <span class="s2">&quot;by-sa&quot;</span><span class="p">,</span> <span class="s2">&quot;pexels license&quot;</span><span class="p">})</span>
 
 <span class="c1">#: HTTP request timeout, seconds.</span>
 <span class="n">HTTP_TIMEOUT</span> <span class="o">=</span> <span class="mi">30</span>
@@ -184,7 +182,9 @@
 <a class="viewcode-back" href="../../module_docs/illustration/config.html#illustration.config_dir">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">config_dir</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">ensure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Directory for durable configuration (e.g. registered sources).&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_ensure</span><span class="p">(</span><span class="n">_base_dir</span><span class="p">(</span><span class="s2">&quot;ILLUSTRATION_CONFIG_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;XDG_CONFIG_HOME&quot;</span><span class="p">,</span> <span class="s2">&quot;.config&quot;</span><span class="p">),</span> <span class="n">ensure</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_ensure</span><span class="p">(</span>
+        <span class="n">_base_dir</span><span class="p">(</span><span class="s2">&quot;ILLUSTRATION_CONFIG_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;XDG_CONFIG_HOME&quot;</span><span class="p">,</span> <span class="s2">&quot;.config&quot;</span><span class="p">),</span> <span class="n">ensure</span>
+    <span class="p">)</span></div>
 
 
 
@@ -192,7 +192,9 @@
 <a class="viewcode-back" href="../../module_docs/illustration/config.html#illustration.data_dir">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">data_dir</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">ensure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Directory for durable data.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_ensure</span><span class="p">(</span><span class="n">_base_dir</span><span class="p">(</span><span class="s2">&quot;ILLUSTRATION_DATA_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;XDG_DATA_HOME&quot;</span><span class="p">,</span> <span class="s2">&quot;.local/share&quot;</span><span class="p">),</span> <span class="n">ensure</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_ensure</span><span class="p">(</span>
+        <span class="n">_base_dir</span><span class="p">(</span><span class="s2">&quot;ILLUSTRATION_DATA_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;XDG_DATA_HOME&quot;</span><span class="p">,</span> <span class="s2">&quot;.local/share&quot;</span><span class="p">),</span> <span class="n">ensure</span>
+    <span class="p">)</span></div>
 
 
 
@@ -200,7 +202,9 @@
 <a class="viewcode-back" href="../../module_docs/illustration/config.html#illustration.cache_dir">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">cache_dir</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">ensure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Directory for regenerable caches (the default search-result store).&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_ensure</span><span class="p">(</span><span class="n">_base_dir</span><span class="p">(</span><span class="s2">&quot;ILLUSTRATION_CACHE_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;XDG_CACHE_HOME&quot;</span><span class="p">,</span> <span class="s2">&quot;.cache&quot;</span><span class="p">),</span> <span class="n">ensure</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_ensure</span><span class="p">(</span>
+        <span class="n">_base_dir</span><span class="p">(</span><span class="s2">&quot;ILLUSTRATION_CACHE_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;XDG_CACHE_HOME&quot;</span><span class="p">,</span> <span class="s2">&quot;.cache&quot;</span><span class="p">),</span> <span class="n">ensure</span>
+    <span class="p">)</span></div>
 
 
 

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.expansion &mdash; illustration 0.0.2 documentation</title>
+  <title>illustration.expansion &mdash; illustration 0.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -228,7 +228,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">expander</span><span class="p">(</span><span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">aix</span>  <span class="c1"># lazy: Layer-2 dependency only</span>
 
-        <span class="n">fn</span> <span class="o">=</span> <span class="n">aix</span><span class="o">.</span><span class="n">prompt_func</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">egress</span><span class="o">=</span><span class="n">_parse_lines</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;expand_query&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">aix</span><span class="o">.</span><span class="n">prompt_func</span><span class="p">(</span>
+            <span class="n">prompt</span><span class="p">,</span> <span class="n">egress</span><span class="o">=</span><span class="n">_parse_lines</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;expand_query&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">beat</span><span class="o">=</span><span class="n">beat</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">expander</span></div>
@@ -245,7 +247,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">refiner</span><span class="p">(</span><span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">critique</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">aix</span>  <span class="c1"># lazy</span>
 
-        <span class="n">fn</span> <span class="o">=</span> <span class="n">aix</span><span class="o">.</span><span class="n">prompt_func</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">egress</span><span class="o">=</span><span class="n">_first_line</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;refine_query&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">aix</span><span class="o">.</span><span class="n">prompt_func</span><span class="p">(</span>
+            <span class="n">prompt</span><span class="p">,</span> <span class="n">egress</span><span class="o">=</span><span class="n">_first_line</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;refine_query&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="n">beat</span><span class="o">=</span><span class="n">beat</span><span class="p">,</span> <span class="n">critique</span><span class="o">=</span><span class="n">critique</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">refiner</span></div>

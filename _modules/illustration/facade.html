@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.facade &mdash; illustration 0.0.2 documentation</title>
+  <title>illustration.facade &mdash; illustration 0.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=47de8214"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -154,7 +154,14 @@
 <span class="c1">#: The formal canonical filter parameters (everything else is escape-hatch).</span>
 <span class="c1">#: A param joins this set once ≥2 providers support it (promotion rule);</span>
 <span class="c1">#: ``safe`` and ``license_type`` are first-class exceptions.</span>
-<span class="n">_CANONICAL_PARAMS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;orientation&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="s2">&quot;license_type&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;content_type&quot;</span><span class="p">)</span>
+<span class="n">_CANONICAL_PARAMS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;orientation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;size&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;safe&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;license_type&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;color&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;content_type&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="search">
@@ -248,8 +255,12 @@
             <span class="p">)</span>
 
     <span class="n">_values</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span> <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="n">safe</span><span class="p">,</span>
-        <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="n">license_type</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;content_type&quot;</span><span class="p">:</span> <span class="n">content_type</span><span class="p">,</span>
+        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span>
+        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span>
+        <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="n">safe</span><span class="p">,</span>
+        <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="n">license_type</span><span class="p">,</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span>
+        <span class="s2">&quot;content_type&quot;</span><span class="p">:</span> <span class="n">content_type</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">canonical</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">_values</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_CANONICAL_PARAMS</span><span class="p">}</span>
 
