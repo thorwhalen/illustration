@@ -43,6 +43,7 @@ __all__ = [
     "rerank",
     "make_siglip_scorer",
     "default_scorer",
+    "embed_images",
     "check_rerank_requirements",
     "Scorer",
     "SiglipScorer",
@@ -94,6 +95,23 @@ def rerank(
 def default_scorer(model: str = DFLT_RERANK_MODEL) -> "Scorer":
     """The default (cached) SigLIP scorer for ``model`` — built once per model."""
     return make_siglip_scorer(model=model)
+
+
+def embed_images(
+    results: Sequence[ImageResult], *, model: str = DFLT_RERANK_MODEL
+) -> "list":
+    """L2-normalized SigLIP image embeddings for ``results`` (``None`` per unfetchable).
+
+    Reuses the same content-addressed embedding cache the reranker populates, so
+    embedding candidates a second time (e.g. for Layer-2 sequence coherence) is
+    cheap. Needs the ``[rerank]`` extra; raises :class:`RerankDependencyError` if
+    it's missing. The returned list is aligned 1:1 with ``results``.
+    """
+    items = list(results)
+    if not items:
+        return []
+    scorer = default_scorer(model)
+    return scorer.image_embeddings(items)
 
 
 def make_siglip_scorer(
@@ -153,6 +171,16 @@ class SiglipScorer:
             img_vec = self._image_embedding(r, model, processor)
             scores.append(float(np.dot(text_vec, img_vec)) if img_vec is not None else -1.0)
         return scores
+
+    def image_embeddings(self, results: Sequence[ImageResult]) -> list:
+        """L2-normalized image embeddings (cached) for ``results``; ``None`` per failure.
+
+        The image half of :meth:`__call__`, exposed so Layer-2 sequence selection
+        can reuse the cached embeddings for cross-shot coherence/redundancy
+        without re-fetching or re-embedding.
+        """
+        model, processor = self._model_and_processor()
+        return [self._image_embedding(r, model, processor) for r in results]
 
     # -- internals -----------------------------------------------------------
 

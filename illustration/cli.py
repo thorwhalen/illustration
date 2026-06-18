@@ -15,7 +15,7 @@ import json as _json
 
 import illustration
 
-__all__ = ["search", "curate", "sources", "info", "COMMANDS"]
+__all__ = ["search", "curate", "curate_sequence", "sources", "info", "COMMANDS"]
 
 
 def search(
@@ -99,6 +99,41 @@ def curate(
     return "\n".join(lines)
 
 
+def curate_sequence(
+    *beats: str,
+    source: "str | None" = None,
+    n: int = 12,
+    json: bool = False,
+):
+    """Choose the best image per narration BEAT across a sequence (cross-shot).
+
+    Pass one quoted beat per argument. Optimizes relevance + cross-shot coherence
+    − redundancy with near-duplicate suppression (the M4 selection layer); needs
+    the [curate]/[rerank] extras for the full signal. Prints the chosen image per
+    beat, or the full result with --json.
+    """
+    from illustration.sequence import curate_sequence as _cs
+
+    if not beats:
+        return "(no beats given; pass one quoted beat per argument)"
+    result = _cs(list(beats), sources=source, n=n)
+    if json:
+        return _json.dumps(result.model_dump(), indent=2, default=str)
+    lines = []
+    for bs in result.selection.selections:
+        if bs.chosen is None:
+            lines.append(f"[beat {bs.beat_index}] (no image)")
+            continue
+        dup = " [forced-dup]" if bs.forced_duplicate else ""
+        lines.append(
+            f"[beat {bs.beat_index}] {bs.chosen.url}  "
+            f"(rel={bs.relevance:.3f} coh={bs.coherence:.2f} red={bs.redundancy:.2f}){dup}"
+        )
+    if result.selection.notes:
+        lines.append("notes: " + "; ".join(result.selection.notes))
+    return "\n".join(lines)
+
+
 def sources():
     """List the registered image sources."""
     return "\n".join(illustration.list_sources())
@@ -111,4 +146,4 @@ def info(name: str):
 
 
 #: Commands exposed by the CLI (consumed by ``illustration/__main__.py``).
-COMMANDS = [search, curate, sources, info]
+COMMANDS = [search, curate, curate_sequence, sources, info]

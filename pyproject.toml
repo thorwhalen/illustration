@@ -59,6 +59,28 @@ curate = [
     "pillow>=10",
     "numpy>=1.24",
 ]
+# Layer 2 — M4 narration→Ken-Burns video hook. burns renders the pan/zoom film
+# (pure substrate; the same renderer walkthru uses — illustration deliberately
+# does NOT route through walkthru's reelee target, to avoid an illustration↔reelee
+# cycle). walkthru powers the pure-data to_walkthru_document() adapter. Build the
+# narration audio with mixing (or walkthru[synth]).
+video = [
+    "burns",
+    "walkthru",
+]
+# Layer 2 — M4 persistence hook. Persist curation/selection decisions as lacing
+# standoff annotations (PROV-O provenance + append-only director overrides). Add
+# lacing[otio] for export_otio().
+persist = [
+    "lacing",
+]
+# Optional sequence-selection upgrades (injectable seams; the in-house numpy
+# MMR + DCT pHash core needs none of these): apricot-select for submodular
+# shortlisting, imagededup for CNN-based near-duplicate detection (pulls
+# TensorFlow — heavy; left out of the defaults on purpose).
+sequence = [
+    "apricot-select",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",

@@ -324,6 +324,9 @@ illustration/
   expansion.py     # M3: query expansion/refinement (expand_query/refine_query; aix seam)
   inspection.py    # M3: classical-CV pre-filters + VLM caption/judge (aix seam)
   curation.py      # M3: the bounded CRAG loop (curate; Budget; ir.fuse_hits/ir.select)
+  sequence.py      # M4: cross-shot sequence selection (select_sequence/curate_sequence; in-house MMR+pHash)
+  persistence.py   # M4: persist selections as lacing standoff annotations ([persist] extra)
+  video.py         # M4: narration→Ken-Burns hook — burns render + walkthru adapter ([video] extra)
   cli.py           # thin argh wrappers (ir idiom)
   __main__.py      # argh dispatch; [project.scripts] illustration = …
 ```
@@ -334,14 +337,18 @@ not `sources/`; `inspect.py` would also shadow the stdlib). Layer 2 (**M3,
 shipped**) adds `expansion.py` (query formulation via `aix`), `inspection.py`
 (classical-CV pre-filters + VLM caption/judge via `aix`), and `curation.py` (the
 bounded CRAG loop + `ir.fuse_hits` / `ir.select`); `_imageio.py` is the shared
-fetch path. **M4 (later)** adds `sequence.py` (MMR / submodular / pHash
-sequence-level selection) and the narration-pipeline integration hook. Layer-2
-AI calls go through `aix`; image→text was **added to `aix`** in M3 (the studied
-gap — `aix.describe_image`), following `aix`'s conventions. The M2b SigLIP image
-embedder lives in `illustration` for now (behind the `Scorer` seam) and can be
+fetch path. **M4 (shipped)** adds `sequence.py` (the cross-shot selection — the
+one novel piece) plus two thin, opt-in ecosystem hooks: `persistence.py`
+(selections → `lacing` standoff annotations, `[persist]` extra) and `video.py`
+(narration → Ken-Burns via `burns` directly + a pure-data `walkthru` document
+adapter, `[video]` extra). Layer-2 AI calls go through `aix`; image→text was
+**added to `aix`** in M3 (the studied gap — `aix.describe_image`), following
+`aix`'s conventions. The M2b SigLIP image embedder lives in `illustration` for
+now (behind the `Scorer` seam, reused by M4 for cross-shot coherence) and can be
 promoted to `ef` (the embedding façade) when another consumer needs it. The new
-Layer-2 deps (`aix`, `ir`) ride an **optional `[curate]` extra**, mirroring the
-`[rerank]` precedent so Layer-1 search stays dependency-light.
+Layer-2 deps ride **optional extras** (`[curate]` = aix + ir; `[video]` = burns +
+walkthru; `[persist]` = lacing), mirroring the `[rerank]` precedent so Layer-1
+search stays dependency-light.
 
 ---
 
@@ -379,10 +386,24 @@ Layer-2 deps (`aix`, `ir`) ride an **optional `[curate]` extra**, mirroring the
   **`aix` image→text gate** shipped as `aix.describe_image` (LiteLLM multimodal,
   provider-neutral) + `aix.to_image_content`. `[curate]` extra (`aix`, `ir`,
   pillow, numpy); the NSFW gate + SigLIP rerank additionally want `[rerank]`.
-- **M4 — Sequence selection & integration.** MMR / submodular (apricot) / pHash
-  (imagededup) / NR-IQA sequence-level selection (license-safe libs only); the
-  multi-beat plan-and-execute orchestration; an integration hook for the
-  narration→TTS→Ken-Burns pipeline.
+- **M4 — Sequence selection & integration.** ✅ The cross-shot **sequence
+  selection** (R2 §5) — the one piece the ecosystem didn't already own — plus thin
+  hooks into the packages that do. Shipped: `sequence.py` (`select_sequence` — a
+  greedy MMR-style pass maximizing relevance + α·coherence − β·redundancy with a
+  perceptual-hash near-duplicate hard constraint; `curate_sequence` — multi-beat
+  orchestration over per-beat pools). Deliberately **dependency-light** (the
+  no-bloat directive): in-house NumPy MMR + DCT perceptual hash, coherence reusing
+  the **M2b cached SigLIP embeddings**; `apricot` (submodular) / `imagededup`
+  (CNN dedup) are optional injectable seams; NR-IQA omitted (`pyiqa` is
+  non-commercial). `persistence.py` persists selections as **`lacing`** standoff
+  annotations (PROV-O provenance, append-only director overrides, OTIO export;
+  beats on an ordinal index timeline — `[persist]` extra). `video.py` is the
+  narration→Ken-Burns hook: `render_sequence_video` via **`burns`** directly (not
+  walkthru's reelee target — avoids an illustration↔reelee cycle) + a pure-data
+  `to_walkthru_document` adapter so **`walkthru`**-using consumers (reelee) render
+  it their way (`[video]` extra). The multi-beat *project-folder* orchestration
+  and full app pipeline stay in `nw`/`reelee`, which consume this selection layer.
+  Tracking: issue #8.
 
 ---
 
