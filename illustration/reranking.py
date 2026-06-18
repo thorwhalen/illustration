@@ -202,7 +202,9 @@ class SiglipScorer:
     def _embed_image_url(self, url: str, model, processor):
         import torch
 
-        image = _fetch_image(url)
+        from illustration._imageio import fetch_image
+
+        image = fetch_image(url)
         if image is None:
             return None
         inputs = processor(images=[image], return_tensors="pt")
@@ -253,23 +255,6 @@ def _l2_normalize(vec):
     arr = np.asarray(vec, dtype="float32")
     norm = float(np.linalg.norm(arr))
     return arr / norm if norm else arr
-
-
-def _fetch_image(url: str):
-    """Download an image URL into a PIL image; ``None`` on any failure."""
-    import io
-
-    import requests
-    from PIL import Image
-
-    from illustration.config import HTTP_TIMEOUT, user_agent
-
-    try:
-        resp = requests.get(url, headers={"User-Agent": user_agent()}, timeout=HTTP_TIMEOUT)
-        resp.raise_for_status()
-        return Image.open(io.BytesIO(resp.content)).convert("RGB")
-    except Exception:  # network / decode failure -> skip this candidate
-        return None
 
 
 def _importable(module: str) -> bool:

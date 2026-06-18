@@ -48,6 +48,17 @@ rerank = [
     "pillow>=10",
     "numpy>=1.24",
 ]
+# Layer 2 — agentic curation (the bounded CRAG loop). aix is the multi-provider
+# AI facade (query expansion + VLM caption/judge); ir is the retrieval substrate
+# (fuse_hits + select). pillow/numpy power the classical-CV pre-filters. The
+# NSFW gate and SigLIP rerank additionally need the [rerank] extra — install
+# illustration[rerank,curate] for the full precision pipeline.
+curate = [
+    "aix",
+    "ir",
+    "pillow>=10",
+    "numpy>=1.24",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",

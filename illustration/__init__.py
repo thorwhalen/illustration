@@ -43,6 +43,7 @@ from illustration.credentials import (
     using_credentials,
 )
 from illustration.errors import (
+    CurateDependencyError,
     IllustrationError,
     MissingCredentialError,
     ProviderError,
@@ -56,6 +57,33 @@ from illustration.reranking import (
     check_rerank_requirements,
     make_siglip_scorer,
     rerank,
+)
+
+# Layer 2 — agentic curation (the bounded CRAG loop). AI calls go through the
+# optional [curate] extra (aix + ir); these imports are light (no aix/ir at
+# import time — those are imported lazily inside the functions that need them).
+from illustration.expansion import expand_query, refine_query
+from illustration.inspection import (
+    DEFAULT_CHECKS,
+    InspectReport,
+    PrefilterReport,
+    PrefilterResult,
+    RubricScore,
+    blur_check,
+    brightness_check,
+    inspect_candidate,
+    judge_candidate,
+    nsfw_check,
+    prefilter,
+)
+from illustration.curation import (
+    Budget,
+    Candidate,
+    CurationResult,
+    Grade,
+    IterationRecord,
+    curate,
+    score_grade,
 )
 from illustration.registry import (
     SourcesView,
@@ -114,6 +142,27 @@ __all__ = [
     "make_siglip_scorer",
     "check_rerank_requirements",
     "DFLT_RERANK_MODEL",
+    # Layer 2 — agentic curation (the [curate] extra: aix + ir)
+    "curate",
+    "CurationResult",
+    "Candidate",
+    "Budget",
+    "Grade",
+    "IterationRecord",
+    "score_grade",
+    "expand_query",
+    "refine_query",
+    "prefilter",
+    "PrefilterResult",
+    "PrefilterReport",
+    "DEFAULT_CHECKS",
+    "blur_check",
+    "brightness_check",
+    "nsfw_check",
+    "inspect_candidate",
+    "judge_candidate",
+    "InspectReport",
+    "RubricScore",
     # errors
     "IllustrationError",
     "UnknownSourceError",
@@ -121,6 +170,7 @@ __all__ = [
     "ProviderError",
     "RateLimitError",
     "RerankDependencyError",
+    "CurateDependencyError",
 ]
 
 __version__ = "0.0.2"
