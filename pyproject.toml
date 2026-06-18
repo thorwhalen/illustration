@@ -81,6 +81,25 @@ persist = [
 sequence = [
     "apricot-select",
 ]
+# Everything the OFFLINE test suite needs so CI can run it (not skip it). This
+# is the single extra CI installs (with [dev]) for maximum coverage. Deliberately
+# EXCLUDES the heavy / cost-or-slow deps, none of which any offline test needs:
+#   - torch / transformers ([rerank]): only the env-gated live SigLIP test uses
+#     them (downloads a model); the rerank + NSFW logic is covered via stubs.
+#   - aix ([curate]): every LLM/VLM call in the tests is an injected stub —
+#     nothing imports aix at test time.
+#   - apricot-select ([sequence]): no test exercises that optional seam (pulls
+#     numba — slow to install).
+# So CI stays fast and spends no money, while running the whole suite.
+test = [
+    "ir",              # curation loop: ir.fuse_hits / ir.select (test_curation)
+    "lacing",          # persistence: standoff annotations (test_persistence)
+    "opentimelineio",  # persistence: OTIO export round-trip (test_persistence)
+    "burns",           # video: Ken-Burns render hook (test_video)
+    "walkthru",        # video: to_walkthru_document adapter (test_video)
+    "numpy>=1.24",     # sequence coherence/pHash, inspection CV, rerank cache
+    "pillow>=10",      # image-based CV / pHash / fetch tests
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
@@ -143,6 +162,13 @@ doctest_optionflags = [
 
 [tool.wads.ci]
 project_name = ""
+
+# Install these extras in CI (consumed by wads' install-deps action) so the
+# offline test suite actually runs in CI instead of skipping the Layer-2 tests
+# whose deps live in extras. [test] carries the test-only deps; [dev] carries
+# pytest/ruff. See the [test] extra above for what's deliberately left out.
+[tool.wads.ci.install]
+extras = "dev,test"
 
 [tool.wads.ci.commands]
 pre_test = []
