@@ -157,6 +157,28 @@ def test_invalid_image_field_rejected_at_construction():
         SiglipScorer(model="m", cache={}, image_field="not_a_field")
 
 
+def test_image_embeddings_aligned_and_none_for_unfetchable():
+    # M4 reuse path: SiglipScorer.image_embeddings returns one vector per result,
+    # None where the image can't be embedded — exercised with a stub (no torch).
+    np = pytest.importorskip("numpy")
+
+    class _StubScorer(SiglipScorer):
+        def _model_and_processor(self):
+            return (None, None)
+
+        def _image_embedding(self, result, model, processor):
+            return None if not result.url else np.array([1.0, 0.0], dtype="float32")
+
+    scorer = _StubScorer(model="m", cache={})
+    rs = [
+        ImageResult(provider="p", id="1", url="u1"),
+        ImageResult.model_construct(provider="p", id="2", url=None),
+    ]
+    embs = scorer.image_embeddings(rs)
+    assert len(embs) == 2
+    assert embs[0] is not None and embs[1] is None
+
+
 def test_l2_normalize_zero_and_unit():
     np = pytest.importorskip("numpy")
     from illustration.reranking import _l2_normalize
