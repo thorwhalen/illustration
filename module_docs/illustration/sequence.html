@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.sequence &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.translation" href="translation.html" />
+    <link rel="prev" title="illustration.schema" href="schema.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.sequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.BeatSelection"><code class="docutils literal notranslate"><span class="pre">BeatSelection</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.sequence.BeatSelection.model_config"><code class="docutils literal notranslate"><span class="pre">BeatSelection.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.DFLT_ALPHA"><code class="docutils literal notranslate"><span class="pre">DFLT_ALPHA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.DFLT_BETA"><code class="docutils literal notranslate"><span class="pre">DFLT_BETA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.DFLT_PHASH_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DFLT_PHASH_THRESHOLD</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.DFLT_SEQUENCE_N"><code class="docutils literal notranslate"><span class="pre">DFLT_SEQUENCE_N</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.SequenceResult"><code class="docutils literal notranslate"><span class="pre">SequenceResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.sequence.SequenceResult.model_config"><code class="docutils literal notranslate"><span class="pre">SequenceResult.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.SequenceSelection"><code class="docutils literal notranslate"><span class="pre">SequenceSelection</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.sequence.SequenceSelection.chosen"><code class="docutils literal notranslate"><span class="pre">SequenceSelection.chosen</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.sequence.SequenceSelection.model_config"><code class="docutils literal notranslate"><span class="pre">SequenceSelection.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.phash"><code class="docutils literal notranslate"><span class="pre">phash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.sequence.select_sequence"><code class="docutils literal notranslate"><span class="pre">select_sequence()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="video.html">illustration.video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.sequence</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/sequence.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.sequence">
+<span id="illustration-sequence"></span><h1>illustration.sequence<a class="headerlink" href="#module-illustration.sequence" title="Link to this heading"></a></h1>
+<p>Sequence-level selection — the M4 domain core (research report R2 §5).</p>
+<p>M3’s <a class="reference internal" href="../illustration.html#illustration.curate" title="illustration.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.curate()</span></code></a> picks the best image for <em>one</em> beat in isolation.
+A storyboard is a <em>sequence</em>, so the right image for beat <em>i</em> depends on its
+neighbours: consecutive shots should cohere visually, the set should stay
+diverse, and no two beats should land on near-duplicate images. This module adds
+that cross-shot layer — the one piece of M4 the ecosystem doesn’t already own
+(<code class="docutils literal notranslate"><span class="pre">burns</span></code> renders, <code class="docutils literal notranslate"><span class="pre">walkthru</span></code> orchestrates time + narration, <code class="docutils literal notranslate"><span class="pre">lacing</span></code>
+persists; none of them <em>choose</em> images).</p>
+<p>The objective, greedily optimized left-to-right (an MMR-style pass, R2 §5):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>J(s) = Σ_i  rel(s_i)                          # per-beat relevance
+     + α Σ_i  coherence(s_i, s_{i-1})         # consecutive-shot visual coherence
+     − β Σ_i  redundancy(s_i, {s_j : j&lt;i})    # diversity / anti-repetition
+  subject to  phash_distance(s_i, s_j) ≥ τ    # hard near-duplicate constraint
+</pre></div>
+</div>
+<p>Everything heavy is an <strong>injectable seam</strong>, and the defaults stay dependency-light
+on purpose (the no-bloat directive): relevance defaults to the candidate’s
+existing rerank <code class="docutils literal notranslate"><span class="pre">.score</span></code>; coherence/redundancy reuse the <strong>SigLIP image
+embeddings illustration already caches in M2b</strong> (via
+<a class="reference internal" href="reranking.html#illustration.reranking.embed_images" title="illustration.reranking.embed_images"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.reranking.embed_images()</span></code></a>, behind the <code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> extra);
+near-duplicate detection is an <strong>in-house NumPy DCT perceptual hash</strong> (no new
+dep). When the embedding deps are absent the loop degrades gracefully to
+relevance + dedup. Optional upgrades — <code class="docutils literal notranslate"><span class="pre">apricot</span></code> (submodular shortlisting) and
+<code class="docutils literal notranslate"><span class="pre">imagededup</span></code> (CNN dedup) — plug in through the <code class="docutils literal notranslate"><span class="pre">shortlist</span></code> / <code class="docutils literal notranslate"><span class="pre">hasher</span></code> seams,
+exactly like M3’s <code class="docutils literal notranslate"><span class="pre">Scorer</span></code> seam.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline: pure relevance, no embeddings, no dedup -&gt; highest score per beat</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beats</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;ua&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.9</span><span class="p">),</span>
+<span class="gp">... </span>     <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;ub&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;uc&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+<span class="gp">... </span>     <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;ud&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)],</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel</span> <span class="o">=</span> <span class="n">select_sequence</span><span class="p">(</span><span class="n">beats</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="k">lambda</span> <span class="n">rs</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rs</span><span class="p">),</span> <span class="n">hasher</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">bs</span> <span class="ow">in</span> <span class="n">sel</span><span class="o">.</span><span class="n">selections</span><span class="p">]</span>
+<span class="go">[&#39;a&#39;, &#39;d&#39;]</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.sequence.BeatSelection">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">BeatSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">beat_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chosen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relevance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coherence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redundancy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_duplicate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/sequence.html#BeatSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.BeatSelection" title="Link to this definition"></a></dt>
+<dd><p>The chosen image (and why) for one beat in a sequence.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.sequence.BeatSelection.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.sequence.BeatSelection.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.sequence.DFLT_ALPHA">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">DFLT_ALPHA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.3</span></span><a class="headerlink" href="#illustration.sequence.DFLT_ALPHA" title="Link to this definition"></a></dt>
+<dd><p>Coherence reward weight (α) — how much consecutive-shot similarity is favored.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.sequence.DFLT_BETA">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">DFLT_BETA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></span><a class="headerlink" href="#illustration.sequence.DFLT_BETA" title="Link to this definition"></a></dt>
+<dd><p>Redundancy penalty weight (β) — how much repetition across the set is punished.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.sequence.DFLT_PHASH_THRESHOLD">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">DFLT_PHASH_THRESHOLD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#illustration.sequence.DFLT_PHASH_THRESHOLD" title="Link to this definition"></a></dt>
+<dd><p>Perceptual-hash Hamming distance below which two images are “near-duplicate”.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.sequence.DFLT_SEQUENCE_N">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">DFLT_SEQUENCE_N</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></span><a class="headerlink" href="#illustration.sequence.DFLT_SEQUENCE_N" title="Link to this definition"></a></dt>
+<dd><p>Default candidate-pool width requested per beat by <a class="reference internal" href="#illustration.sequence.curate_sequence" title="illustration.sequence.curate_sequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.sequence.SequenceResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">SequenceResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">beats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#illustration.sequence.SequenceSelection" title="illustration.sequence.SequenceSelection"><span class="pre">SequenceSelection</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/sequence.html#SequenceResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.SequenceResult" title="Link to this definition"></a></dt>
+<dd><p>The result of curating a whole sequence of beats.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.sequence.SequenceResult.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.sequence.SequenceResult.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.sequence.SequenceSelection">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">SequenceSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.sequence.BeatSelection" title="illustration.sequence.BeatSelection"><span class="pre">BeatSelection</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/sequence.html#SequenceSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.SequenceSelection" title="Link to this definition"></a></dt>
+<dd><p>One image chosen per beat, optimized for the cross-shot objective.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="illustration.sequence.SequenceSelection.chosen">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">chosen</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#illustration.sequence.SequenceSelection.chosen" title="Link to this definition"></a></dt>
+<dd><p>The chosen image per beat, in order (<code class="docutils literal notranslate"><span class="pre">None</span></code> where a beat was empty).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.sequence.SequenceSelection.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.sequence.SequenceSelection.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.sequence.curate_sequence">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">curate_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">select_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.sequence.SequenceResult" title="illustration.sequence.SequenceResult"><span class="pre">SequenceResult</span></a></span></span><a class="reference internal" href="../../_modules/illustration/sequence.html#curate_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.curate_sequence" title="Link to this definition"></a></dt>
+<dd><p>Curate a whole sequence: gather a candidate pool per beat, then select.</p>
+<p><code class="docutils literal notranslate"><span class="pre">per_beat</span></code> produces the candidate pool for one beat (default: a recall +
+SigLIP rerank via <a class="reference internal" href="../illustration.html#illustration.search" title="illustration.search"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.search()</span></code></a>, so pools carry relevance
+<code class="docutils literal notranslate"><span class="pre">.score</span></code>). Inject <code class="docutils literal notranslate"><span class="pre">per_beat=lambda</span> <span class="pre">b:</span> <span class="pre">illustration.curate(b).candidates</span></code>
+for the full per-beat CRAG loop, or any other pool source. Remaining keyword
+args pass through to <a class="reference internal" href="#illustration.sequence.select_sequence" title="illustration.sequence.select_sequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">select_sequence()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.sequence.hamming_distance">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">hamming_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/illustration/sequence.html#hamming_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.hamming_distance" title="Link to this definition"></a></dt>
+<dd><p>Number of differing bits between two perceptual hashes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.sequence.make_phash_hasher">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">make_phash_hasher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'thumbnail_url'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/sequence.html#make_phash_hasher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.make_phash_hasher" title="Link to this definition"></a></dt>
+<dd><p>A pHash hasher that fetches each result’s image once (cached for the pass).</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">result</span> <span class="pre">-&gt;</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code> (None when the image can’t be fetched or
+Pillow/NumPy aren’t installed), suitable as <a class="reference internal" href="#illustration.sequence.select_sequence" title="illustration.sequence.select_sequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">select_sequence()</span></code></a>’s
+<code class="docutils literal notranslate"><span class="pre">hasher</span></code> seam. The fetch is content-deduped within the pass.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.sequence.phash">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">phash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highfreq_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/illustration/sequence.html#phash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.phash" title="Link to this definition"></a></dt>
+<dd><p>A DCT perceptual hash of a PIL image, as a <code class="docutils literal notranslate"><span class="pre">hash_size**2</span></code>-bit integer.</p>
+<p>The standard pHash: resize to grayscale, take the low-frequency DCT block,
+threshold against its median (excluding the DC term), pack into bits.
+Implemented with a NumPy DCT matrix so it needs only Pillow + NumPy.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.sequence.select_sequence">
+<span class="sig-prename descclassname"><span class="pre">illustration.sequence.</span></span><span class="sig-name descname"><span class="pre">select_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">per_beat_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">relevance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hasher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shortlist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phash_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#illustration.sequence.SequenceSelection" title="illustration.sequence.SequenceSelection"><span class="pre">SequenceSelection</span></a></span></span><a class="reference internal" href="../../_modules/illustration/sequence.html#select_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.sequence.select_sequence" title="Link to this definition"></a></dt>
+<dd><p>Choose one image per beat optimizing relevance + coherence − redundancy.</p>
+<p>A greedy left-to-right pass: at each beat, pick the candidate maximizing
+<code class="docutils literal notranslate"><span class="pre">rel</span> <span class="pre">+</span> <span class="pre">α·coherence(prev)</span> <span class="pre">−</span> <span class="pre">β·max_redundancy(chosen)</span></code>, excluding any
+near-duplicate (pHash Hamming &lt; <code class="docutils literal notranslate"><span class="pre">phash_threshold</span></code>) of an already-chosen
+image. If <em>every</em> candidate for a beat is a near-duplicate, the constraint is
+relaxed for that beat and the choice is flagged <code class="docutils literal notranslate"><span class="pre">forced_duplicate</span></code>.</p>
+<p>Seams (all default to the lean in-house / M2b path, injectable for tests or
+upgrades): <code class="docutils literal notranslate"><span class="pre">relevance</span></code> (default: candidate <code class="docutils literal notranslate"><span class="pre">.score</span></code> or 0), <code class="docutils literal notranslate"><span class="pre">embed</span></code>
+(default: cached SigLIP embeddings via <code class="docutils literal notranslate"><span class="pre">[rerank]</span></code>; coherence/redundancy are
+skipped when unavailable), <code class="docutils literal notranslate"><span class="pre">hasher</span></code> (default: in-house DCT pHash; dedup is
+skipped when Pillow/NumPy are unavailable), <code class="docutils literal notranslate"><span class="pre">shortlist</span></code> (optional per-beat
+pre-filter, e.g. an <code class="docutils literal notranslate"><span class="pre">apricot</span></code> submodular representative set).</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="schema.html" class="btn btn-neutral float-left" title="illustration.schema" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="translation.html" class="btn btn-neutral float-right" title="illustration.translation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

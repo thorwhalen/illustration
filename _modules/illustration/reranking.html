@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
@@ -67,7 +68,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/sequence.html">illustration.sequence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/video.html">illustration.video</a></li>
 </ul>
 
         </div>
@@ -140,6 +143,7 @@
     <span class="s2">&quot;rerank&quot;</span><span class="p">,</span>
     <span class="s2">&quot;make_siglip_scorer&quot;</span><span class="p">,</span>
     <span class="s2">&quot;default_scorer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;embed_images&quot;</span><span class="p">,</span>
     <span class="s2">&quot;check_rerank_requirements&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Scorer&quot;</span><span class="p">,</span>
     <span class="s2">&quot;SiglipScorer&quot;</span><span class="p">,</span>
@@ -196,6 +200,26 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">default_scorer</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_RERANK_MODEL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Scorer&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The default (cached) SigLIP scorer for ``model`` — built once per model.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">make_siglip_scorer</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="embed_images">
+<a class="viewcode-back" href="../../module_docs/illustration/reranking.html#illustration.embed_images">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">embed_images</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_RERANK_MODEL</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;list&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;L2-normalized SigLIP image embeddings for ``results`` (``None`` per unfetchable).</span>
+
+<span class="sd">    Reuses the same content-addressed embedding cache the reranker populates, so</span>
+<span class="sd">    embedding candidates a second time (e.g. for Layer-2 sequence coherence) is</span>
+<span class="sd">    cheap. Needs the ``[rerank]`` extra; raises :class:`RerankDependencyError` if</span>
+<span class="sd">    it&#39;s missing. The returned list is aligned 1:1 with ``results``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">scorer</span> <span class="o">=</span> <span class="n">default_scorer</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">scorer</span><span class="o">.</span><span class="n">image_embeddings</span><span class="p">(</span><span class="n">items</span><span class="p">)</span></div>
 
 
 
@@ -264,6 +288,19 @@
             <span class="n">img_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image_embedding</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">)</span>
             <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">text_vec</span><span class="p">,</span> <span class="n">img_vec</span><span class="p">))</span> <span class="k">if</span> <span class="n">img_vec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">scores</span>
+
+<div class="viewcode-block" id="SiglipScorer.image_embeddings">
+<a class="viewcode-back" href="../../module_docs/illustration/reranking.html#illustration.SiglipScorer.image_embeddings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">image_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;L2-normalized image embeddings (cached) for ``results``; ``None`` per failure.</span>
+
+<span class="sd">        The image half of :meth:`__call__`, exposed so Layer-2 sequence selection</span>
+<span class="sd">        can reuse the cached embeddings for cross-shot coherence/redundancy</span>
+<span class="sd">        without re-fetching or re-embedding.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">processor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_and_processor</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_image_embedding</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span></div>
+
 
     <span class="c1"># -- internals -----------------------------------------------------------</span>
 

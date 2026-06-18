@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
@@ -67,7 +68,9 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/sequence.html">illustration.sequence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/video.html">illustration.video</a></li>
 </ul>
 
         </div>
@@ -139,20 +142,26 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration.html#illustration.BeatSelection">BeatSelection (class in illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.BeatSelection">(class in illustration.sequence)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration.html#illustration.blur_check">blur_check() (in module illustration)</a>
 
       <ul>
         <li><a href="module_docs/illustration/inspection.html#illustration.inspection.blur_check">(in module illustration.inspection)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration.html#illustration.brightness_check">brightness_check() (in module illustration)</a>
 
       <ul>
         <li><a href="module_docs/illustration/inspection.html#illustration.inspection.brightness_check">(in module illustration.inspection)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration.html#illustration.Budget">Budget (class in illustration)</a>
 
       <ul>
@@ -193,6 +202,12 @@
       </ul></li>
       <li><a href="module_docs/illustration/inspection.html#illustration.inspection.CheckOutcome">CheckOutcome (class in illustration.inspection)</a>
 </li>
+      <li><a href="module_docs/illustration/sequence.html#illustration.sequence.SequenceSelection.chosen">chosen (illustration.sequence.SequenceSelection property)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration.html#illustration.SequenceSelection.chosen">(illustration.SequenceSelection property)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/cli.html#illustration.cli.COMMANDS">COMMANDS (in module illustration.cli)</a>
 </li>
       <li><a href="module_docs/illustration/config.html#illustration.config.config_dir">config_dir() (in module illustration.config)</a>
@@ -219,6 +234,14 @@
         <li><a href="module_docs/illustration/cli.html#illustration.cli.curate">(in module illustration.cli)</a>
 </li>
         <li><a href="module_docs/illustration/curation.html#illustration.curation.curate">(in module illustration.curation)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.curate_sequence">curate_sequence() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/cli.html#illustration.cli.curate_sequence">(in module illustration.cli)</a>
+</li>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.curate_sequence">(in module illustration.sequence)</a>
 </li>
       </ul></li>
       <li><a href="module_docs/illustration.html#illustration.CurateDependencyError">CurateDependencyError</a>, <a href="module_docs/illustration/errors.html#illustration.errors.CurateDependencyError">[1]</a>
@@ -259,11 +282,17 @@
       </ul></li>
       <li><a href="module_docs/illustration/inspection.html#illustration.inspection.Describe">Describe (in module illustration.inspection)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_ALPHA">DFLT_ALPHA (in module illustration.sequence)</a>
+</li>
+      <li><a href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_BETA">DFLT_BETA (in module illustration.sequence)</a>
+</li>
       <li><a href="module_docs/illustration/inspection.html#illustration.inspection.DFLT_CAPTION_MAX_TOKENS">DFLT_CAPTION_MAX_TOKENS (in module illustration.inspection)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/curation.html#illustration.curation.DFLT_CURATE_N">DFLT_CURATE_N (in module illustration.curation)</a>
+</li>
+      <li><a href="module_docs/illustration/video.html#illustration.video.DFLT_FPS">DFLT_FPS (in module illustration.video)</a>
 </li>
       <li><a href="module_docs/illustration/_imageio.html#illustration._imageio.DFLT_IMAGE_FIELD">DFLT_IMAGE_FIELD (in module illustration._imageio)</a>
 </li>
@@ -273,7 +302,13 @@
 </li>
       <li><a href="module_docs/illustration/expansion.html#illustration.expansion.DFLT_N_EXPANSIONS">DFLT_N_EXPANSIONS (in module illustration.expansion)</a>
 </li>
+      <li><a href="module_docs/illustration/video.html#illustration.video.DFLT_PANEL_DURATION_S">DFLT_PANEL_DURATION_S (in module illustration.video)</a>
+</li>
+      <li><a href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_PHASH_THRESHOLD">DFLT_PHASH_THRESHOLD (in module illustration.sequence)</a>
+</li>
       <li><a href="module_docs/illustration/reranking.html#illustration.reranking.DFLT_RERANK_MODEL">DFLT_RERANK_MODEL (in module illustration.reranking)</a>
+</li>
+      <li><a href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_SEQUENCE_N">DFLT_SEQUENCE_N (in module illustration.sequence)</a>
 </li>
       <li><a href="module_docs/illustration/config.html#illustration.config.DFLT_SOURCES">DFLT_SOURCES (in module illustration.config)</a>
 </li>
@@ -289,6 +324,8 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration/reranking.html#illustration.reranking.embed_images">embed_images() (in module illustration.reranking)</a>
+</li>
       <li><a href="module_docs/illustration/base.html#illustration.base.RetrievalSource.endpoint">endpoint (illustration.base.RetrievalSource attribute)</a>
 
       <ul>
@@ -321,6 +358,12 @@
       </ul></li>
       <li><a href="module_docs/illustration/expansion.html#illustration.expansion.Expander">Expander (in module illustration.expansion)</a>
 </li>
+      <li><a href="module_docs/illustration.html#illustration.export_otio">export_otio() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/persistence.html#illustration.persistence.export_otio">(in module illustration.persistence)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -374,6 +417,14 @@
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration.html#illustration.hamming_distance">hamming_distance() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.hamming_distance">(in module illustration.sequence)</a>
+</li>
+      </ul></li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/config.html#illustration.config.HTTP_TIMEOUT">HTTP_TIMEOUT (in module illustration.config)</a>
 </li>
@@ -475,6 +526,13 @@
 </li>
       </ul></li>
       <li>
+    illustration.persistence
+
+      <ul>
+        <li><a href="module_docs/illustration/persistence.html#module-illustration.persistence">module</a>
+</li>
+      </ul></li>
+      <li>
     illustration.providers
 
       <ul>
@@ -495,8 +553,6 @@
         <li><a href="module_docs/illustration/providers/pexels.html#module-illustration.providers.pexels">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     illustration.providers.pixabay
 
@@ -504,6 +560,8 @@
         <li><a href="module_docs/illustration/providers/pixabay.html#module-illustration.providers.pixabay">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     illustration.providers.wikimedia
 
@@ -533,13 +591,29 @@
 </li>
       </ul></li>
       <li>
+    illustration.sequence
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#module-illustration.sequence">module</a>
+</li>
+      </ul></li>
+      <li>
     illustration.translation
 
       <ul>
         <li><a href="module_docs/illustration/translation.html#module-illustration.translation">module</a>
 </li>
       </ul></li>
+      <li>
+    illustration.video
+
+      <ul>
+        <li><a href="module_docs/illustration/video.html#module-illustration.video">module</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration.html#illustration.IllustrationError">IllustrationError</a>, <a href="module_docs/illustration/errors.html#illustration.errors.IllustrationError">[1]</a>
+</li>
+      <li><a href="module_docs/illustration/reranking.html#illustration.reranking.SiglipScorer.image_embeddings">image_embeddings() (illustration.reranking.SiglipScorer method)</a>
 </li>
       <li><a href="module_docs/illustration/_imageio.html#illustration._imageio.image_for_result">image_for_result() (in module illustration._imageio)</a>
 </li>
@@ -637,6 +711,12 @@
         <li><a href="module_docs/illustration/translation.html#illustration.translation.make_param_translator">(in module illustration.translation)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.make_phash_hasher">make_phash_hasher() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.make_phash_hasher">(in module illustration.sequence)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/expansion.html#illustration.expansion.make_query_expander">make_query_expander() (in module illustration.expansion)</a>
 </li>
       <li><a href="module_docs/illustration/expansion.html#illustration.expansion.make_query_refiner">make_query_refiner() (in module illustration.expansion)</a>
@@ -693,9 +773,11 @@
       </ul></li>
       <li><a href="module_docs/illustration.html#illustration.MissingCredentialError">MissingCredentialError</a>, <a href="module_docs/illustration/errors.html#illustration.errors.MissingCredentialError">[1]</a>
 </li>
-      <li><a href="module_docs/illustration.html#illustration.Candidate.model_config">model_config (illustration.Candidate attribute)</a>
+      <li><a href="module_docs/illustration.html#illustration.BeatSelection.model_config">model_config (illustration.BeatSelection attribute)</a>
 
       <ul>
+        <li><a href="module_docs/illustration.html#illustration.Candidate.model_config">(illustration.Candidate attribute)</a>
+</li>
         <li><a href="module_docs/illustration/curation.html#illustration.curation.Candidate.model_config">(illustration.curation.Candidate attribute)</a>
 </li>
         <li><a href="module_docs/illustration/curation.html#illustration.curation.CurationResult.model_config">(illustration.curation.CurationResult attribute)</a>
@@ -716,11 +798,25 @@
 </li>
         <li><a href="module_docs/illustration.html#illustration.IterationRecord.model_config">(illustration.IterationRecord attribute)</a>
 </li>
+        <li><a href="module_docs/illustration/persistence.html#illustration.persistence.SelectionBody.model_config">(illustration.persistence.SelectionBody attribute)</a>
+</li>
         <li><a href="module_docs/illustration.html#illustration.PrefilterReport.model_config">(illustration.PrefilterReport attribute)</a>
 </li>
         <li><a href="module_docs/illustration.html#illustration.RubricScore.model_config">(illustration.RubricScore attribute)</a>
 </li>
         <li><a href="module_docs/illustration/schema.html#illustration.schema.ImageResult.model_config">(illustration.schema.ImageResult attribute)</a>
+</li>
+        <li><a href="module_docs/illustration.html#illustration.SelectionBody.model_config">(illustration.SelectionBody attribute)</a>
+</li>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.BeatSelection.model_config">(illustration.sequence.BeatSelection attribute)</a>
+</li>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.SequenceResult.model_config">(illustration.sequence.SequenceResult attribute)</a>
+</li>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.SequenceSelection.model_config">(illustration.sequence.SequenceSelection attribute)</a>
+</li>
+        <li><a href="module_docs/illustration.html#illustration.SequenceResult.model_config">(illustration.SequenceResult attribute)</a>
+</li>
+        <li><a href="module_docs/illustration.html#illustration.SequenceSelection.model_config">(illustration.SequenceSelection attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -755,6 +851,8 @@
 </li>
         <li><a href="module_docs/illustration/inspection.html#module-illustration.inspection">illustration.inspection</a>
 </li>
+        <li><a href="module_docs/illustration/persistence.html#module-illustration.persistence">illustration.persistence</a>
+</li>
         <li><a href="module_docs/illustration/providers.html#module-illustration.providers">illustration.providers</a>
 </li>
         <li><a href="module_docs/illustration/providers/openverse.html#module-illustration.providers.openverse">illustration.providers.openverse</a>
@@ -771,7 +869,11 @@
 </li>
         <li><a href="module_docs/illustration/schema.html#module-illustration.schema">illustration.schema</a>
 </li>
+        <li><a href="module_docs/illustration/sequence.html#module-illustration.sequence">illustration.sequence</a>
+</li>
         <li><a href="module_docs/illustration/translation.html#module-illustration.translation">illustration.translation</a>
+</li>
+        <li><a href="module_docs/illustration/video.html#module-illustration.video">illustration.video</a>
 </li>
       </ul></li>
   </ul></td>
@@ -888,10 +990,22 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration.html#illustration.persist_sequence">persist_sequence() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/persistence.html#illustration.persistence.persist_sequence">(in module illustration.persistence)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/providers.html#illustration.providers.PexelsSource">PexelsSource (class in illustration.providers)</a>
 
       <ul>
         <li><a href="module_docs/illustration/providers/pexels.html#illustration.providers.pexels.PexelsSource">(class in illustration.providers.pexels)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.phash">phash() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.phash">(in module illustration.sequence)</a>
 </li>
       </ul></li>
       <li><a href="module_docs/illustration/providers.html#illustration.providers.PixabaySource">PixabaySource (class in illustration.providers)</a>
@@ -984,6 +1098,12 @@
         <li><a href="module_docs/illustration.html#illustration.RubricScore.recompute_overall">(illustration.RubricScore method)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.record_override">record_override() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/persistence.html#illustration.persistence.record_override">(in module illustration.persistence)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration.html#illustration.refine_query">refine_query() (in module illustration)</a>
 
       <ul>
@@ -996,6 +1116,12 @@
 
       <ul>
         <li><a href="module_docs/illustration/registry.html#illustration.registry.register_source">(in module illustration.registry)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.render_sequence_video">render_sequence_video() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/video.html#illustration.video.render_sequence_video">(in module illustration.video)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1018,6 +1144,18 @@
 
       <ul>
         <li><a href="module_docs/illustration/credentials.html#illustration.credentials.resolve_api_key">(in module illustration.credentials)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.resolve_selection">resolve_selection() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/persistence.html#illustration.persistence.resolve_selection">(in module illustration.persistence)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.resolved_selections">resolved_selections() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/persistence.html#illustration.persistence.resolved_selections">(in module illustration.persistence)</a>
 </li>
       </ul></li>
       <li><a href="module_docs/illustration.html#illustration.RetrievalSource">RetrievalSource (class in illustration)</a>
@@ -1066,8 +1204,6 @@
         <li><a href="module_docs/illustration/caching.html#illustration.caching.search_cache_key">(in module illustration.caching)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/config.html#illustration.config.SEARCH_CACHE_SCHEMA">SEARCH_CACHE_SCHEMA (in module illustration.config)</a>
 </li>
       <li><a href="module_docs/illustration.html#illustration.SearchCache">SearchCache (class in illustration)</a>
@@ -1080,6 +1216,36 @@
 
       <ul>
         <li><a href="module_docs/illustration/curation.html#illustration.curation.Budget.select_max_k">(illustration.curation.Budget attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration.html#illustration.select_sequence">select_sequence() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.select_sequence">(in module illustration.sequence)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration/persistence.html#illustration.persistence.SELECTION_SCHEMA_URI">SELECTION_SCHEMA_URI (in module illustration.persistence)</a>
+</li>
+      <li><a href="module_docs/illustration.html#illustration.SelectionBody">SelectionBody (class in illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/persistence.html#illustration.persistence.SelectionBody">(class in illustration.persistence)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration/persistence.html#illustration.persistence.SELECTIONS_TIER">SELECTIONS_TIER (in module illustration.persistence)</a>
+</li>
+      <li><a href="module_docs/illustration.html#illustration.SequenceResult">SequenceResult (class in illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.SequenceResult">(class in illustration.sequence)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.SequenceSelection">SequenceSelection (class in illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/sequence.html#illustration.sequence.SequenceSelection">(class in illustration.sequence)</a>
 </li>
       </ul></li>
       <li><a href="module_docs/illustration/reranking.html#illustration.reranking.SiglipScorer">SiglipScorer (class in illustration.reranking)</a>
@@ -1114,6 +1280,14 @@
         <li><a href="module_docs/illustration.html#illustration.to_search_hit">(in module illustration)</a>
 </li>
         <li><a href="module_docs/illustration/schema.html#illustration.schema.to_search_hit">(in module illustration.schema)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/illustration.html#illustration.to_walkthru_document">to_walkthru_document() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/video.html#illustration.video.to_walkthru_document">(in module illustration.video)</a>
 </li>
       </ul></li>
   </ul></td>

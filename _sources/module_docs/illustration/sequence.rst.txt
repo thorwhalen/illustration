@@ -1,0 +1,4 @@
+illustration.sequence
+=====================
+.. automodule:: illustration.sequence
+   :members:

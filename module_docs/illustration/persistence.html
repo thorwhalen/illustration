@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.persistence &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="illustration.providers" href="providers.html" />
+    <link rel="prev" title="illustration.inspection" href="inspection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.persistence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.SELECTIONS_TIER"><code class="docutils literal notranslate"><span class="pre">SELECTIONS_TIER</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.SELECTION_SCHEMA_URI"><code class="docutils literal notranslate"><span class="pre">SELECTION_SCHEMA_URI</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.SelectionBody"><code class="docutils literal notranslate"><span class="pre">SelectionBody</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.persistence.SelectionBody.model_config"><code class="docutils literal notranslate"><span class="pre">SelectionBody.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.export_otio"><code class="docutils literal notranslate"><span class="pre">export_otio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.record_override"><code class="docutils literal notranslate"><span class="pre">record_override()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.resolve_selection"><code class="docutils literal notranslate"><span class="pre">resolve_selection()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.resolved_selections"><code class="docutils literal notranslate"><span class="pre">resolved_selections()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequence.html">illustration.sequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="video.html">illustration.video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.persistence</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/persistence.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.persistence">
+<span id="illustration-persistence"></span><h1>illustration.persistence<a class="headerlink" href="#module-illustration.persistence" title="Link to this heading"></a></h1>
+<p>Persist curation/selection decisions as <code class="docutils literal notranslate"><span class="pre">lacing</span></code> standoff annotations (R2 §6).</p>
+<p>Per R2 §6, a director’s curation decisions should be <strong>standoff annotations</strong>, not
+destructive edits: a beat → its chosen image, layered so a human override is a
+<em>new</em> annotation that supersedes (never overwrites) the machine’s choice, with
+full provenance. The ecosystem already has exactly this — <code class="docutils literal notranslate"><span class="pre">lacing</span></code> (the
+standoff annotation system: typed <code class="docutils literal notranslate"><span class="pre">Annotation</span></code> envelope, W3C PROV-O provenance,
+append-only, OTIO export). This module is the thin adapter that maps an
+illustration <a class="reference internal" href="sequence.html#illustration.sequence.SequenceResult" title="illustration.sequence.SequenceResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceResult</span></code></a> onto lacing — it does
+<strong>not</strong> reinvent an annotation store.</p>
+<p>One deliberate modeling choice: a “best image for beat <em>i</em>” selection is a <em>graph</em>
+relation (beat → candidate), not inherently time-keyed — but <code class="docutils literal notranslate"><span class="pre">lacing</span></code> is
+interval-keyed, and at selection time the storyboard has no rendered timeline
+yet. So selections are keyed on an <strong>ordinal beat-index timeline</strong>
+(<code class="docutils literal notranslate"><span class="pre">RationalTime(i,</span> <span class="pre">rate=1)</span></code> = “beat <em>i</em>”), which is honest (a storyboard <em>is</em> an
+ordered sequence) and lets the real render timeline stay a separate concern. If a
+general “selection track” facade proves worth sharing, it belongs upstream in
+<code class="docutils literal notranslate"><span class="pre">lacing</span></code>; this stays a domain-specific adapter.</p>
+<p>Behind the optional <code class="docutils literal notranslate"><span class="pre">[persist]</span></code> extra (<code class="docutils literal notranslate"><span class="pre">lacing</span></code>); imported lazily so base
+<code class="docutils literal notranslate"><span class="pre">illustration</span></code> never requires it.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline doctest needs lacing; skipped if the extra isn&#39;t installed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;lacing&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">SequenceResult</span><span class="p">,</span> <span class="n">SequenceSelection</span><span class="p">,</span> <span class="n">BeatSelection</span>
+<span class="gp">... </span>    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+<span class="gp">... </span>    <span class="n">r</span> <span class="o">=</span> <span class="n">SequenceResult</span><span class="p">(</span><span class="n">beats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dawn harbour&quot;</span><span class="p">],</span> <span class="n">selection</span><span class="o">=</span><span class="n">SequenceSelection</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">selections</span><span class="o">=</span><span class="p">[</span><span class="n">BeatSelection</span><span class="p">(</span><span class="n">beat_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">chosen</span><span class="o">=</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))]))</span>
+<span class="gp">... </span>    <span class="n">store</span> <span class="o">=</span> <span class="n">persist_sequence</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">resolve_selection</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="s2">&quot;selected&quot;</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.persistence.SELECTIONS_TIER">
+<span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">SELECTIONS_TIER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'selections'</span></span><a class="headerlink" href="#illustration.persistence.SELECTIONS_TIER" title="Link to this definition"></a></dt>
+<dd><p>The lacing tier selections live on.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.persistence.SELECTION_SCHEMA_URI">
+<span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">SELECTION_SCHEMA_URI</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'annot://schema/illustration-selection/v1'</span></span><a class="headerlink" href="#illustration.persistence.SELECTION_SCHEMA_URI" title="Link to this definition"></a></dt>
+<dd><p>The lacing body-schema URI for an illustration selection annotation.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.persistence.SelectionBody">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">SelectionBody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beat_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_CandidateRef</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">_CandidateRef</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_duplicate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/persistence.html#SelectionBody"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.persistence.SelectionBody" title="Link to this definition"></a></dt>
+<dd><p>The typed body of an illustration selection annotation (lacing body schema).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.persistence.SelectionBody.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra':</span> <span class="pre">'forbid'}</span></span><a class="headerlink" href="#illustration.persistence.SelectionBody.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.persistence.export_otio">
+<span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">export_otio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/illustration/persistence.html#export_otio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.persistence.export_otio" title="Link to this definition"></a></dt>
+<dd><p>Export the annotation store to OpenTimelineIO (needs <code class="docutils literal notranslate"><span class="pre">lacing[otio]</span></code>).</p>
+<p>Thin passthrough to lacing’s OTIO adapter, so selections can flow into video
+tools. Returns the bytes when <code class="docutils literal notranslate"><span class="pre">target</span></code> is None, else writes the file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.persistence.persist_sequence">
+<span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">persist_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'agent:illustration-curate'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'infer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">at_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/illustration/persistence.html#persist_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.persistence.persist_sequence" title="Link to this definition"></a></dt>
+<dd><p>Persist a <a class="reference internal" href="sequence.html#illustration.sequence.SequenceResult" title="illustration.sequence.SequenceResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceResult</span></code></a> as lacing annotations.</p>
+<p>One <code class="docutils literal notranslate"><span class="pre">selections</span></code>-tier annotation per beat (machine choices), keyed on the
+ordinal beat timeline. Returns the store (a fresh <code class="docutils literal notranslate"><span class="pre">lacing.MemoryStore</span></code> when
+<code class="docutils literal notranslate"><span class="pre">store</span></code> is None). <code class="docutils literal notranslate"><span class="pre">at_time</span></code> (a <code class="docutils literal notranslate"><span class="pre">lacing.RationalTime</span></code>) overrides the
+provenance timestamp — pass it for deterministic ordering in tests; defaults
+to wall-clock <code class="docutils literal notranslate"><span class="pre">RationalTime.now()</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.persistence.record_override">
+<span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">record_override</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beat_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chosen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">beat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'user:director'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">at_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/illustration/persistence.html#record_override"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.persistence.record_override" title="Link to this definition"></a></dt>
+<dd><p>Append a director override for <code class="docutils literal notranslate"><span class="pre">beat_index</span></code> (a new, superseding annotation).</p>
+<p>Never mutates the machine’s annotation — the override is a fresh annotation on
+the same beat, with <code class="docutils literal notranslate"><span class="pre">provenance.was_derived_from</span></code> pointing at the most-recent
+prior selection (STAM-style append-only layering). Returns the new annotation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.persistence.resolve_selection">
+<span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">resolve_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beat_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/illustration/persistence.html#resolve_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.persistence.resolve_selection" title="Link to this definition"></a></dt>
+<dd><p>The <em>active</em> selection body for a beat — the latest annotation wins.</p>
+<p>Resolves machine choice vs. director override by provenance timestamp, so a
+later override supersedes the machine’s choice without deleting it.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.persistence.resolved_selections">
+<span class="sig-prename descclassname"><span class="pre">illustration.persistence.</span></span><span class="sig-name descname"><span class="pre">resolved_selections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/persistence.html#resolved_selections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.persistence.resolved_selections" title="Link to this definition"></a></dt>
+<dd><p>The active selection body per beat index (resolved over all overrides).</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="inspection.html" class="btn btn-neutral float-left" title="illustration.inspection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="providers.html" class="btn btn-neutral float-right" title="illustration.providers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

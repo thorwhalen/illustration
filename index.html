@@ -61,6 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
@@ -69,7 +70,9 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/sequence.html">illustration.sequence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/video.html">illustration.video</a></li>
 </ul>
 
         </div>
@@ -102,6 +105,7 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration.html">illustration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.BeatSelection"><code class="docutils literal notranslate"><span class="pre">BeatSelection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.Budget"><code class="docutils literal notranslate"><span class="pre">Budget</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.Candidate"><code class="docutils literal notranslate"><span class="pre">Candidate</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.CurateDependencyError"><code class="docutils literal notranslate"><span class="pre">CurateDependencyError</span></code></a></li>
@@ -120,6 +124,9 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RetrievalSource"><code class="docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RubricScore"><code class="docutils literal notranslate"><span class="pre">RubricScore</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SearchCache"><code class="docutils literal notranslate"><span class="pre">SearchCache</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SelectionBody"><code class="docutils literal notranslate"><span class="pre">SelectionBody</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SequenceResult"><code class="docutils literal notranslate"><span class="pre">SequenceResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SequenceSelection"><code class="docutils literal notranslate"><span class="pre">SequenceSelection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SourceInfo"><code class="docutils literal notranslate"><span class="pre">SourceInfo</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SourcesView"><code class="docutils literal notranslate"><span class="pre">SourcesView</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.UnknownSourceError"><code class="docutils literal notranslate"><span class="pre">UnknownSourceError</span></code></a></li>
@@ -129,27 +136,39 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.check_requirements"><code class="docutils literal notranslate"><span class="pre">check_requirements()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_search_store"><code class="docutils literal notranslate"><span class="pre">default_search_store()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_sources"><code class="docutils literal notranslate"><span class="pre">default_sources()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.expand_query"><code class="docutils literal notranslate"><span class="pre">expand_query()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.export_otio"><code class="docutils literal notranslate"><span class="pre">export_otio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.get_source"><code class="docutils literal notranslate"><span class="pre">get_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.inspect_candidate"><code class="docutils literal notranslate"><span class="pre">inspect_candidate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.judge_candidate"><code class="docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.list_sources"><code class="docutils literal notranslate"><span class="pre">list_sources()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.nsfw_check"><code class="docutils literal notranslate"><span class="pre">nsfw_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.phash"><code class="docutils literal notranslate"><span class="pre">phash()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.record_override"><code class="docutils literal notranslate"><span class="pre">record_override()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.refine_query"><code class="docutils literal notranslate"><span class="pre">refine_query()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.register_source"><code class="docutils literal notranslate"><span class="pre">register_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.render_sequence_video"><code class="docutils literal notranslate"><span class="pre">render_sequence_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.requires_credentials"><code class="docutils literal notranslate"><span class="pre">requires_credentials()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.resolve_api_key"><code class="docutils literal notranslate"><span class="pre">resolve_api_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.resolve_selection"><code class="docutils literal notranslate"><span class="pre">resolve_selection()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.resolved_selections"><code class="docutils literal notranslate"><span class="pre">resolved_selections()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.score_grade"><code class="docutils literal notranslate"><span class="pre">score_grade()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search_cache_key"><code class="docutils literal notranslate"><span class="pre">search_cache_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.select_sequence"><code class="docutils literal notranslate"><span class="pre">select_sequence()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.to_walkthru_document"><code class="docutils literal notranslate"><span class="pre">to_walkthru_document()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.unregister_source"><code class="docutils literal notranslate"><span class="pre">unregister_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.using_credentials"><code class="docutils literal notranslate"><span class="pre">using_credentials()</span></code></a></li>
 </ul>
@@ -179,6 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/cli.html">illustration.cli</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.COMMANDS"><code class="docutils literal notranslate"><span class="pre">COMMANDS</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.info"><code class="docutils literal notranslate"><span class="pre">info()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.sources"><code class="docutils literal notranslate"><span class="pre">sources()</span></code></a></li>
@@ -267,6 +287,17 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/persistence.html">illustration.persistence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SELECTIONS_TIER"><code class="docutils literal notranslate"><span class="pre">SELECTIONS_TIER</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SELECTION_SCHEMA_URI"><code class="docutils literal notranslate"><span class="pre">SELECTION_SCHEMA_URI</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SelectionBody"><code class="docutils literal notranslate"><span class="pre">SelectionBody</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.export_otio"><code class="docutils literal notranslate"><span class="pre">export_otio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.record_override"><code class="docutils literal notranslate"><span class="pre">record_override()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.resolve_selection"><code class="docutils literal notranslate"><span class="pre">resolve_selection()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.resolved_selections"><code class="docutils literal notranslate"><span class="pre">resolved_selections()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers.html">illustration.providers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers.html#illustration.providers.OpenverseSource"><code class="docutils literal notranslate"><span class="pre">OpenverseSource</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers.html#illustration.providers.PexelsSource"><code class="docutils literal notranslate"><span class="pre">PexelsSource</span></code></a></li>
@@ -306,6 +337,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.SiglipScorer"><code class="docutils literal notranslate"><span class="pre">SiglipScorer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.default_scorer"><code class="docutils literal notranslate"><span class="pre">default_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.embed_images"><code class="docutils literal notranslate"><span class="pre">embed_images()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
 </ul>
@@ -316,9 +348,31 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/sequence.html">illustration.sequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.BeatSelection"><code class="docutils literal notranslate"><span class="pre">BeatSelection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_ALPHA"><code class="docutils literal notranslate"><span class="pre">DFLT_ALPHA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_BETA"><code class="docutils literal notranslate"><span class="pre">DFLT_BETA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_PHASH_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DFLT_PHASH_THRESHOLD</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_SEQUENCE_N"><code class="docutils literal notranslate"><span class="pre">DFLT_SEQUENCE_N</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.SequenceResult"><code class="docutils literal notranslate"><span class="pre">SequenceResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.SequenceSelection"><code class="docutils literal notranslate"><span class="pre">SequenceSelection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.phash"><code class="docutils literal notranslate"><span class="pre">phash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.select_sequence"><code class="docutils literal notranslate"><span class="pre">select_sequence()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/translation.html">illustration.translation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/translation.html#illustration.translation.ParamTranslator"><code class="docutils literal notranslate"><span class="pre">ParamTranslator</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/translation.html#illustration.translation.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/video.html">illustration.video</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.DFLT_FPS"><code class="docutils literal notranslate"><span class="pre">DFLT_FPS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.DFLT_PANEL_DURATION_S"><code class="docutils literal notranslate"><span class="pre">DFLT_PANEL_DURATION_S</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.render_sequence_video"><code class="docutils literal notranslate"><span class="pre">render_sequence_video()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.to_walkthru_document"><code class="docutils literal notranslate"><span class="pre">to_walkthru_document()</span></code></a></li>
 </ul>
 </li>
 </ul>

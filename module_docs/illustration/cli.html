@@ -57,6 +57,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.cli</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.cli.COMMANDS"><code class="docutils literal notranslate"><span class="pre">COMMANDS</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.cli.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.cli.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.cli.info"><code class="docutils literal notranslate"><span class="pre">info()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.cli.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.cli.sources"><code class="docutils literal notranslate"><span class="pre">sources()</span></code></a></li>
@@ -69,6 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
@@ -77,7 +79,9 @@
 <li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequence.html">illustration.sequence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="video.html">illustration.video</a></li>
 </ul>
 
         </div>
@@ -117,7 +121,7 @@ and format output — the dispatch-to-interface pattern. Examples:</p>
 </div>
 <dl class="py data">
 <dt class="sig sig-object py" id="illustration.cli.COMMANDS">
-<span class="sig-prename descclassname"><span class="pre">illustration.cli.</span></span><span class="sig-name descname"><span class="pre">COMMANDS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">search&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">curate&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">sources&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">info&gt;]</span></span><a class="headerlink" href="#illustration.cli.COMMANDS" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">illustration.cli.</span></span><span class="sig-name descname"><span class="pre">COMMANDS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">search&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">curate&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">curate_sequence&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">sources&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">info&gt;]</span></span><a class="headerlink" href="#illustration.cli.COMMANDS" title="Link to this definition"></a></dt>
 <dd><p>Commands exposed by the CLI (consumed by <code class="docutils literal notranslate"><span class="pre">illustration/__main__.py</span></code>).</p>
 </dd></dl>
 
@@ -128,6 +132,16 @@ and format output — the dispatch-to-interface pattern. Examples:</p>
 <p>Needs the optional <code class="docutils literal notranslate"><span class="pre">[curate]</span></code> extra (aix + ir) and provider/LLM API keys;
 see the agentic-curation docs. Prints the accepted candidate (or the
 best-so-far) and a one-line spend summary, or the full result with <code class="docutils literal notranslate"><span class="pre">--json</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.cli.curate_sequence">
+<span class="sig-prename descclassname"><span class="pre">illustration.cli.</span></span><span class="sig-name descname"><span class="pre">curate_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">beats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/cli.html#curate_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.cli.curate_sequence" title="Link to this definition"></a></dt>
+<dd><p>Choose the best image per narration BEAT across a sequence (cross-shot).</p>
+<p>Pass one quoted beat per argument. Optimizes relevance + cross-shot coherence
+− redundancy with near-duplicate suppression (the M4 selection layer); needs
+the [curate]/[rerank] extras for the full signal. Prints the chosen image per
+beat, or the full result with –json.</p>
 </dd></dl>
 
 <dl class="py function">

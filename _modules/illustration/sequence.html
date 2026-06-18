@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.sequence &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/sequence.html">illustration.sequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/video.html">illustration.video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.sequence</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.sequence</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Sequence-level selection — the M4 domain core (research report R2 §5).</span>
+
+<span class="sd">M3&#39;s :func:`illustration.curate` picks the best image for *one* beat in isolation.</span>
+<span class="sd">A storyboard is a *sequence*, so the right image for beat *i* depends on its</span>
+<span class="sd">neighbours: consecutive shots should cohere visually, the set should stay</span>
+<span class="sd">diverse, and no two beats should land on near-duplicate images. This module adds</span>
+<span class="sd">that cross-shot layer — the one piece of M4 the ecosystem doesn&#39;t already own</span>
+<span class="sd">(``burns`` renders, ``walkthru`` orchestrates time + narration, ``lacing``</span>
+<span class="sd">persists; none of them *choose* images).</span>
+
+<span class="sd">The objective, greedily optimized left-to-right (an MMR-style pass, R2 §5)::</span>
+
+<span class="sd">    J(s) = Σ_i  rel(s_i)                          # per-beat relevance</span>
+<span class="sd">         + α Σ_i  coherence(s_i, s_{i-1})         # consecutive-shot visual coherence</span>
+<span class="sd">         − β Σ_i  redundancy(s_i, {s_j : j&lt;i})    # diversity / anti-repetition</span>
+<span class="sd">      subject to  phash_distance(s_i, s_j) ≥ τ    # hard near-duplicate constraint</span>
+
+<span class="sd">Everything heavy is an **injectable seam**, and the defaults stay dependency-light</span>
+<span class="sd">on purpose (the no-bloat directive): relevance defaults to the candidate&#39;s</span>
+<span class="sd">existing rerank ``.score``; coherence/redundancy reuse the **SigLIP image</span>
+<span class="sd">embeddings illustration already caches in M2b** (via</span>
+<span class="sd">:func:`illustration.reranking.embed_images`, behind the ``[rerank]`` extra);</span>
+<span class="sd">near-duplicate detection is an **in-house NumPy DCT perceptual hash** (no new</span>
+<span class="sd">dep). When the embedding deps are absent the loop degrades gracefully to</span>
+<span class="sd">relevance + dedup. Optional upgrades — ``apricot`` (submodular shortlisting) and</span>
+<span class="sd">``imagededup`` (CNN dedup) — plug in through the ``shortlist`` / ``hasher`` seams,</span>
+<span class="sd">exactly like M3&#39;s ``Scorer`` seam.</span>
+
+<span class="sd">&gt;&gt;&gt; # offline: pure relevance, no embeddings, no dedup -&gt; highest score per beat</span>
+<span class="sd">&gt;&gt;&gt; from illustration.schema import ImageResult</span>
+<span class="sd">&gt;&gt;&gt; beats = [</span>
+<span class="sd">...     [ImageResult(provider=&quot;p&quot;, id=&quot;a&quot;, url=&quot;ua&quot;, score=0.9),</span>
+<span class="sd">...      ImageResult(provider=&quot;p&quot;, id=&quot;b&quot;, url=&quot;ub&quot;, score=0.3)],</span>
+<span class="sd">...     [ImageResult(provider=&quot;p&quot;, id=&quot;c&quot;, url=&quot;uc&quot;, score=0.2),</span>
+<span class="sd">...      ImageResult(provider=&quot;p&quot;, id=&quot;d&quot;, url=&quot;ud&quot;, score=0.8)],</span>
+<span class="sd">... ]</span>
+<span class="sd">&gt;&gt;&gt; sel = select_sequence(beats, embed=lambda rs: [None] * len(rs), hasher=lambda r: None)</span>
+<span class="sd">&gt;&gt;&gt; [bs.chosen.id for bs in sel.selections]</span>
+<span class="sd">[&#39;a&#39;, &#39;d&#39;]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;select_sequence&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;curate_sequence&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SequenceSelection&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BeatSelection&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SequenceResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;phash&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hamming_distance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_phash_hasher&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_ALPHA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_BETA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_PHASH_THRESHOLD&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DFLT_SEQUENCE_N&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: Coherence reward weight (α) — how much consecutive-shot similarity is favored.</span>
+<span class="n">DFLT_ALPHA</span> <span class="o">=</span> <span class="mf">0.30</span>
+<span class="c1">#: Redundancy penalty weight (β) — how much repetition across the set is punished.</span>
+<span class="n">DFLT_BETA</span> <span class="o">=</span> <span class="mf">0.50</span>
+<span class="c1">#: Perceptual-hash Hamming distance below which two images are &quot;near-duplicate&quot;.</span>
+<span class="n">DFLT_PHASH_THRESHOLD</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="c1">#: Default candidate-pool width requested per beat by :func:`curate_sequence`.</span>
+<span class="n">DFLT_SEQUENCE_N</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="c1">#: An embed seam maps a list of results to aligned L2-normalized vectors (or None).</span>
+<span class="n">Embed</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
+<span class="c1">#: A hasher seam maps one result to a perceptual hash int (or None if unhashable).</span>
+<span class="n">Hasher</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="s2">&quot;int | None&quot;</span><span class="p">]</span>
+<span class="c1">#: A relevance seam maps one result to a scalar score.</span>
+<span class="n">Relevance</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="BeatSelection">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.BeatSelection">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BeatSelection</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The chosen image (and why) for one beat in a sequence.&quot;&quot;&quot;</span>
+
+    <span class="n">beat_index</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">chosen</span><span class="p">:</span> <span class="s2">&quot;ImageResult | None&quot;</span>
+    <span class="n">relevance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">coherence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">redundancy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">forced_duplicate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># True if the pHash constraint had to be relaxed</span>
+    <span class="n">n_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+
+<div class="viewcode-block" id="SequenceSelection">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.SequenceSelection">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SequenceSelection</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;One image chosen per beat, optimized for the cross-shot objective.&quot;&quot;&quot;</span>
+
+    <span class="n">selections</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BeatSelection</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">objective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">notes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">chosen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;list[ImageResult | None]&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The chosen image per beat, in order (``None`` where a beat was empty).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">chosen</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selections</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="SequenceResult">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.SequenceResult">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SequenceResult</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The result of curating a whole sequence of beats.&quot;&quot;&quot;</span>
+
+    <span class="n">beats</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">selection</span><span class="p">:</span> <span class="n">SequenceSelection</span></div>
+
+
+
+<div class="viewcode-block" id="select_sequence">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.select_sequence">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_sequence</span><span class="p">(</span>
+    <span class="n">per_beat_candidates</span><span class="p">:</span> <span class="s2">&quot;Sequence[Sequence[ImageResult]]&quot;</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">relevance</span><span class="p">:</span> <span class="s2">&quot;Relevance | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">embed</span><span class="p">:</span> <span class="s2">&quot;Embed | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">hasher</span><span class="p">:</span> <span class="s2">&quot;Hasher | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shortlist</span><span class="p">:</span> <span class="s2">&quot;Callable[[Sequence[ImageResult]], Sequence[ImageResult]] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DFLT_ALPHA</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DFLT_BETA</span><span class="p">,</span>
+    <span class="n">phash_threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DFLT_PHASH_THRESHOLD</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SequenceSelection</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Choose one image per beat optimizing relevance + coherence − redundancy.</span>
+
+<span class="sd">    A greedy left-to-right pass: at each beat, pick the candidate maximizing</span>
+<span class="sd">    ``rel + α·coherence(prev) − β·max_redundancy(chosen)``, excluding any</span>
+<span class="sd">    near-duplicate (pHash Hamming &lt; ``phash_threshold``) of an already-chosen</span>
+<span class="sd">    image. If *every* candidate for a beat is a near-duplicate, the constraint is</span>
+<span class="sd">    relaxed for that beat and the choice is flagged ``forced_duplicate``.</span>
+
+<span class="sd">    Seams (all default to the lean in-house / M2b path, injectable for tests or</span>
+<span class="sd">    upgrades): ``relevance`` (default: candidate ``.score`` or 0), ``embed``</span>
+<span class="sd">    (default: cached SigLIP embeddings via ``[rerank]``; coherence/redundancy are</span>
+<span class="sd">    skipped when unavailable), ``hasher`` (default: in-house DCT pHash; dedup is</span>
+<span class="sd">    skipped when Pillow/NumPy are unavailable), ``shortlist`` (optional per-beat</span>
+<span class="sd">    pre-filter, e.g. an ``apricot`` submodular representative set).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rel_fn</span> <span class="o">=</span> <span class="n">relevance</span> <span class="k">if</span> <span class="n">relevance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_relevance</span>
+    <span class="n">embed_fn</span> <span class="o">=</span> <span class="n">embed</span> <span class="k">if</span> <span class="n">embed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_embed</span>
+    <span class="n">hash_fn</span> <span class="o">=</span> <span class="n">hasher</span> <span class="k">if</span> <span class="n">hasher</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">make_phash_hasher</span><span class="p">()</span>
+
+    <span class="n">selections</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BeatSelection</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">notes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">chosen_embs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">chosen_hashes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">raw</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">per_beat_candidates</span><span class="p">):</span>
+        <span class="n">cands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shortlist</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cands</span><span class="p">:</span>
+            <span class="n">cands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">shortlist</span><span class="p">(</span><span class="n">cands</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cands</span><span class="p">:</span>
+            <span class="n">selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BeatSelection</span><span class="p">(</span><span class="n">beat_index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">chosen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_candidates</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">notes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;beat </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: no candidates&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">embs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">embed_fn</span><span class="p">(</span><span class="n">cands</span><span class="p">))</span>
+        <span class="n">hashes</span> <span class="o">=</span> <span class="p">[</span><span class="n">hash_fn</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cands</span><span class="p">]</span>
+        <span class="n">prev_emb</span> <span class="o">=</span> <span class="n">chosen_embs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">chosen_embs</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="n">scored</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cands</span><span class="p">,</span> <span class="n">embs</span><span class="p">,</span> <span class="n">hashes</span><span class="p">):</span>
+            <span class="n">near_dup</span> <span class="o">=</span> <span class="n">h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="n">ch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">hamming_distance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">phash_threshold</span>
+                <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">chosen_hashes</span>
+            <span class="p">)</span>
+            <span class="n">coh</span> <span class="o">=</span> <span class="n">_cosine</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">prev_emb</span><span class="p">)</span>
+            <span class="n">red</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">_cosine</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">ce</span><span class="p">)</span> <span class="k">for</span> <span class="n">ce</span> <span class="ow">in</span> <span class="n">chosen_embs</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">rel_fn</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">coh</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">red</span>
+            <span class="n">scored</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;j&quot;</span><span class="p">:</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;near_dup&quot;</span><span class="p">:</span> <span class="n">near_dup</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">:</span> <span class="n">e</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s2">&quot;coh&quot;</span><span class="p">:</span> <span class="n">coh</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">:</span> <span class="n">red</span><span class="p">})</span>
+
+        <span class="n">valid</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scored</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;near_dup&quot;</span><span class="p">]]</span>
+        <span class="n">pool</span> <span class="o">=</span> <span class="n">valid</span> <span class="k">if</span> <span class="n">valid</span> <span class="k">else</span> <span class="n">scored</span>
+        <span class="n">forced</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">valid</span>
+        <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;j&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">forced</span><span class="p">:</span>
+            <span class="n">notes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;beat </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: every candidate near-duplicates an earlier beat; &quot;</span>
+                <span class="s2">&quot;relaxed the constraint and kept the best by objective&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">BeatSelection</span><span class="p">(</span>
+                <span class="n">beat_index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">chosen</span><span class="o">=</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">relevance</span><span class="o">=</span><span class="n">rel_fn</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]),</span>
+                <span class="n">coherence</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;coh&quot;</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="n">redundancy</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span>
+                <span class="n">forced_duplicate</span><span class="o">=</span><span class="n">forced</span><span class="p">,</span> <span class="n">n_candidates</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">cands</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">chosen_embs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">])</span>
+        <span class="n">chosen_hashes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">])</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">best</span><span class="p">[</span><span class="s2">&quot;j&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">SequenceSelection</span><span class="p">(</span><span class="n">selections</span><span class="o">=</span><span class="n">selections</span><span class="p">,</span> <span class="n">objective</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">notes</span><span class="o">=</span><span class="n">notes</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="curate_sequence">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.curate_sequence">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">curate_sequence</span><span class="p">(</span>
+    <span class="n">beats</span><span class="p">:</span> <span class="s2">&quot;Sequence[str]&quot;</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">sources</span><span class="p">:</span> <span class="s2">&quot;str | list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DFLT_SEQUENCE_N</span><span class="p">,</span>
+    <span class="n">per_beat</span><span class="p">:</span> <span class="s2">&quot;Callable[[str], Sequence[ImageResult]] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">select_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SequenceResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curate a whole sequence: gather a candidate pool per beat, then select.</span>
+
+<span class="sd">    ``per_beat`` produces the candidate pool for one beat (default: a recall +</span>
+<span class="sd">    SigLIP rerank via :func:`illustration.search`, so pools carry relevance</span>
+<span class="sd">    ``.score``). Inject ``per_beat=lambda b: illustration.curate(b).candidates``</span>
+<span class="sd">    for the full per-beat CRAG loop, or any other pool source. Remaining keyword</span>
+<span class="sd">    args pass through to :func:`select_sequence`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">per_beat</span> <span class="k">if</span> <span class="n">per_beat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_per_beat</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">pools</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">beat</span><span class="p">))</span> <span class="k">for</span> <span class="n">beat</span> <span class="ow">in</span> <span class="n">beats</span><span class="p">]</span>
+    <span class="n">selection</span> <span class="o">=</span> <span class="n">select_sequence</span><span class="p">(</span><span class="n">pools</span><span class="p">,</span> <span class="o">**</span><span class="n">select_kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">SequenceResult</span><span class="p">(</span><span class="n">beats</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">beats</span><span class="p">),</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># --- perceptual hash (in-house, NumPy-only — no new dependency) --------------</span>
+
+
+<div class="viewcode-block" id="phash">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.phash">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">phash</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">hash_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">highfreq_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A DCT perceptual hash of a PIL image, as a ``hash_size**2``-bit integer.</span>
+
+<span class="sd">    The standard pHash: resize to grayscale, take the low-frequency DCT block,</span>
+<span class="sd">    threshold against its median (excluding the DC term), pack into bits.</span>
+<span class="sd">    Implemented with a NumPy DCT matrix so it needs only Pillow + NumPy.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">img_size</span> <span class="o">=</span> <span class="n">hash_size</span> <span class="o">*</span> <span class="n">highfreq_factor</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">img_size</span><span class="p">,</span> <span class="n">img_size</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
+    <span class="n">coefs</span> <span class="o">=</span> <span class="n">_dct2</span><span class="p">(</span><span class="n">gray</span><span class="p">)[:</span><span class="n">hash_size</span><span class="p">,</span> <span class="p">:</span><span class="n">hash_size</span><span class="p">]</span>
+    <span class="n">flat</span> <span class="o">=</span> <span class="n">coefs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>  <span class="c1"># exclude the DC coefficient</span>
+    <span class="n">bits</span> <span class="o">=</span> <span class="n">flat</span> <span class="o">&gt;</span> <span class="n">med</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">bits</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">bit</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+
+<div class="viewcode-block" id="hamming_distance">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.hamming_distance">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">hamming_distance</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Number of differing bits between two perceptual hashes.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">bin</span><span class="p">(</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="make_phash_hasher">
+<a class="viewcode-back" href="../../module_docs/illustration/sequence.html#illustration.make_phash_hasher">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_phash_hasher</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;thumbnail_url&quot;</span><span class="p">,</span> <span class="n">fetch</span><span class="p">:</span> <span class="s2">&quot;Callable | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Hasher</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A pHash hasher that fetches each result&#39;s image once (cached for the pass).</span>
+
+<span class="sd">    Returns ``result -&gt; int | None`` (None when the image can&#39;t be fetched or</span>
+<span class="sd">    Pillow/NumPy aren&#39;t installed), suitable as :func:`select_sequence`&#39;s</span>
+<span class="sd">    ``hasher`` seam. The fetch is content-deduped within the pass.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration._imageio</span><span class="w"> </span><span class="kn">import</span> <span class="n">memoized_image_loader</span>
+
+    <span class="n">load</span> <span class="o">=</span> <span class="n">memoized_image_loader</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="n">fetch</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">hasher</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;int | None&quot;</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">phash</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># pragma: no cover - decode/transform failure</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">hasher</span></div>
+
+
+
+<span class="c1"># --- internals --------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_relevance</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">score</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_embed</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Default coherence/redundancy embeddings: cached SigLIP, else all-None.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.reranking</span><span class="w"> </span><span class="kn">import</span> <span class="n">embed_images</span>
+
+        <span class="k">return</span> <span class="n">embed_images</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="c1"># rerank deps missing (or a transient embed failure) -&gt; coherence off</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_per_beat</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[[str], list[ImageResult]]&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">per_beat</span><span class="p">(</span><span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">illustration</span>  <span class="c1"># lazy: avoid an import cycle at module load</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.reranking</span><span class="w"> </span><span class="kn">import</span> <span class="n">_importable</span>
+
+        <span class="n">use_rerank</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">_importable</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;torch&quot;</span><span class="p">,</span> <span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="s2">&quot;PIL&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">beat</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">rerank</span><span class="o">=</span><span class="n">use_rerank</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">per_beat</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_cosine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">b</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">av</span><span class="p">,</span> <span class="n">bv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
+    <span class="n">na</span><span class="p">,</span> <span class="n">nb</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">av</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">bv</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">na</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">nb</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">bv</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">na</span> <span class="o">*</span> <span class="n">nb</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_dct2</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;2-D DCT-II of a square matrix via a NumPy basis matrix (no SciPy).&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="c1"># D[freq, sample] = cos(pi/n * (sample + 0.5) * freq): frequency is the ROW</span>
+    <span class="c1"># index so the [:hash_size, :hash_size] slice in phash() is the true</span>
+    <span class="c1"># low-frequency block (a transpose here silently destroys discrimination).</span>
+    <span class="n">basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">basis</span> <span class="o">@</span> <span class="n">matrix</span> <span class="o">@</span> <span class="n">basis</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

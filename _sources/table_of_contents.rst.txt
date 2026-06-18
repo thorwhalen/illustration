@@ -15,6 +15,7 @@
    module_docs/illustration/expansion
    module_docs/illustration/facade
    module_docs/illustration/inspection
+   module_docs/illustration/persistence
    module_docs/illustration/providers
    module_docs/illustration/providers/openverse
    module_docs/illustration/providers/pexels
@@ -23,4 +24,6 @@
    module_docs/illustration/registry
    module_docs/illustration/reranking
    module_docs/illustration/schema
+   module_docs/illustration/sequence
    module_docs/illustration/translation
+   module_docs/illustration/video

@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.video &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="illustration.translation" href="translation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequence.html">illustration.sequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.video</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.video.DFLT_FPS"><code class="docutils literal notranslate"><span class="pre">DFLT_FPS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.video.DFLT_PANEL_DURATION_S"><code class="docutils literal notranslate"><span class="pre">DFLT_PANEL_DURATION_S</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.video.render_sequence_video"><code class="docutils literal notranslate"><span class="pre">render_sequence_video()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.video.to_walkthru_document"><code class="docutils literal notranslate"><span class="pre">to_walkthru_document()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">illustration.video</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/illustration/video.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-illustration.video">
+<span id="illustration-video"></span><h1>illustration.video<a class="headerlink" href="#module-illustration.video" title="Link to this heading"></a></h1>
+<p>Narration → Ken-Burns video hook — the M4 integration seam.</p>
+<p>illustration’s job ends at <em>choosing</em> the images (see <a class="reference internal" href="sequence.html#module-illustration.sequence" title="illustration.sequence"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.sequence</span></code></a>);
+turning an ordered set of stills + narration into a pan/zoom video is the
+ecosystem’s job. This module is the thin hook into it, in two flavours (both
+opt-in, behind the <code class="docutils literal notranslate"><span class="pre">[video]</span></code> extra, both lazy-imported):</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#illustration.video.render_sequence_video" title="illustration.video.render_sequence_video"><code class="xref py py-func docutils literal notranslate"><span class="pre">render_sequence_video()</span></code></a> — the <strong>direct convenience</strong>: selections →
+<code class="docutils literal notranslate"><span class="pre">[(image,</span> <span class="pre">ken_burns_path,</span> <span class="pre">duration)]</span></code> → <code class="docutils literal notranslate"><span class="pre">burns.ken_burns_film</span></code>. Uses
+<code class="docutils literal notranslate"><span class="pre">burns</span></code> directly (pure substrate, the same renderer <code class="docutils literal notranslate"><span class="pre">walkthru</span></code> uses) — it
+deliberately does <strong>not</strong> route through <code class="docutils literal notranslate"><span class="pre">walkthru</span></code>’s reelee render target,
+which would risk an <code class="docutils literal notranslate"><span class="pre">illustration</span> <span class="pre">→</span> <span class="pre">reelee</span> <span class="pre">→</span> <span class="pre">illustration</span></code> cycle. Narration
+audio is supplied pre-built (e.g. from <code class="docutils literal notranslate"><span class="pre">mixing</span></code> or <code class="docutils literal notranslate"><span class="pre">walkthru</span></code>).</p></li>
+<li><p><a class="reference internal" href="#illustration.video.to_walkthru_document" title="illustration.video.to_walkthru_document"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_walkthru_document()</span></code></a> — the <strong>pure-data adapter</strong>: build a
+<code class="docutils literal notranslate"><span class="pre">walkthru.DemoDocument</span></code> (one b-roll beat per chosen image, poster slots
+filled, narration track populated) that a <code class="docutils literal notranslate"><span class="pre">walkthru</span></code>-using consumer (reelee)
+can pace, TTS, caption, and render its own way. No rendering happens here.</p></li>
+</ol>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># the data adapter is pure (needs walkthru); the render hook needs burns+ffmpeg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">bool</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;walkthru&quot;</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.video.DFLT_FPS">
+<span class="sig-prename descclassname"><span class="pre">illustration.video.</span></span><span class="sig-name descname"><span class="pre">DFLT_FPS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></span><a class="headerlink" href="#illustration.video.DFLT_FPS" title="Link to this definition"></a></dt>
+<dd><p>Default frame rate for the rendered film.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.video.DFLT_PANEL_DURATION_S">
+<span class="sig-prename descclassname"><span class="pre">illustration.video.</span></span><span class="sig-name descname"><span class="pre">DFLT_PANEL_DURATION_S</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4.0</span></span><a class="headerlink" href="#illustration.video.DFLT_PANEL_DURATION_S" title="Link to this definition"></a></dt>
+<dd><p>Default per-beat on-screen duration (seconds) when none is supplied.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.video.render_sequence_video">
+<span class="sig-prename descclassname"><span class="pre">illustration.video.</span></span><span class="sig-name descname"><span class="pre">render_sequence_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">durations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">narration_audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'push'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_aspect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_loader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/illustration/video.html#render_sequence_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.video.render_sequence_video" title="Link to this definition"></a></dt>
+<dd><p>Render chosen images into a single Ken-Burns film via <code class="docutils literal notranslate"><span class="pre">burns</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">selections</span></code> may be a <a class="reference internal" href="sequence.html#illustration.sequence.SequenceResult" title="illustration.sequence.SequenceResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceResult</span></code></a>, a
+<a class="reference internal" href="sequence.html#illustration.sequence.SequenceSelection" title="illustration.sequence.SequenceSelection"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceSelection</span></code></a>, or a plain list of
+<a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>. Each image gets an auto motion
+path (<code class="docutils literal notranslate"><span class="pre">burns.ken_burns_path</span></code>, alternating push/pull for rhythm) and its
+<code class="docutils literal notranslate"><span class="pre">durations</span></code> slice; <code class="docutils literal notranslate"><span class="pre">narration_audio</span></code> (a pre-built track) is muxed in.
+Beats with no chosen image are skipped.</p>
+<p>Seams: <code class="docutils literal notranslate"><span class="pre">image_loader</span></code> fetches an image to a PIL image (default: the shared
+cached fetch — <code class="docutils literal notranslate"><span class="pre">burns</span></code> decodes PIL, not URLs); <code class="docutils literal notranslate"><span class="pre">render</span></code> is the renderer
+(default: <code class="docutils literal notranslate"><span class="pre">burns.ken_burns_film</span></code>) — inject a stub to test without ffmpeg.
+Returns whatever <code class="docutils literal notranslate"><span class="pre">render</span></code> returns (the output path for the default).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.video.to_walkthru_document">
+<span class="sig-prename descclassname"><span class="pre">illustration.video.</span></span><span class="sig-name descname"><span class="pre">to_walkthru_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">narration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">durations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'illustration-storyboard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/illustration/video.html#to_walkthru_document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.video.to_walkthru_document" title="Link to this definition"></a></dt>
+<dd><p>Build a <code class="docutils literal notranslate"><span class="pre">walkthru.DemoDocument</span></code> from the selections (pure data, no render).</p>
+<p>Emits one b-roll beat per chosen image (<code class="docutils literal notranslate"><span class="pre">poster</span></code> = the image URL,
+<code class="docutils literal notranslate"><span class="pre">timing</span></code> from <code class="docutils literal notranslate"><span class="pre">durations</span></code>) and, if <code class="docutils literal notranslate"><span class="pre">narration</span></code> is given (one string per
+beat), a narration track anchored to each beat. The consumer then runs
+<code class="docutils literal notranslate"><span class="pre">walkthru.realize_narration</span></code> / <code class="docutils literal notranslate"><span class="pre">pace_steps_to_narration</span></code> / its renderer.
+Beats with no chosen image are skipped. Needs the <code class="docutils literal notranslate"><span class="pre">[video]</span></code> extra.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="translation.html" class="btn btn-neutral float-left" title="illustration.translation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

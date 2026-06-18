@@ -62,6 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/pexels.html">illustration.providers.pexels</a></li>
@@ -71,15 +72,21 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.reranking</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.DFLT_RERANK_MODEL"><code class="docutils literal notranslate"><span class="pre">DFLT_RERANK_MODEL</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.SiglipScorer"><code class="docutils literal notranslate"><span class="pre">SiglipScorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.SiglipScorer"><code class="docutils literal notranslate"><span class="pre">SiglipScorer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.reranking.SiglipScorer.image_embeddings"><code class="docutils literal notranslate"><span class="pre">SiglipScorer.image_embeddings()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.default_scorer"><code class="docutils literal notranslate"><span class="pre">default_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.embed_images"><code class="docutils literal notranslate"><span class="pre">embed_images()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.reranking.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequence.html">illustration.sequence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="video.html">illustration.video</a></li>
 </ul>
 
         </div>
@@ -162,6 +169,15 @@ larger model (e.g. <code class="docutils literal notranslate"><span class="pre">
 addressed (keyed by model + image URL) in an injectable <code class="docutils literal notranslate"><span class="pre">dol</span></code> store, so a
 re-rank of overlapping candidates is cheap. A candidate whose image can’t be
 fetched/embedded scores <code class="docutils literal notranslate"><span class="pre">-1.0</span></code> (sorted to the bottom) rather than failing.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="illustration.reranking.SiglipScorer.image_embeddings">
+<span class="sig-name descname"><span class="pre">image_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../../_modules/illustration/reranking.html#SiglipScorer.image_embeddings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.SiglipScorer.image_embeddings" title="Link to this definition"></a></dt>
+<dd><p>L2-normalized image embeddings (cached) for <code class="docutils literal notranslate"><span class="pre">results</span></code>; <code class="docutils literal notranslate"><span class="pre">None</span></code> per failure.</p>
+<p>The image half of <code class="xref py py-meth docutils literal notranslate"><span class="pre">__call__()</span></code>, exposed so Layer-2 sequence selection
+can reuse the cached embeddings for cross-shot coherence/redundancy
+without re-fetching or re-embedding.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -174,6 +190,16 @@ fetched/embedded scores <code class="docutils literal notranslate"><span class="
 <dt class="sig sig-object py" id="illustration.reranking.default_scorer">
 <span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">default_scorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'google/siglip2-base-patch16-224'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/reranking.html#default_scorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.default_scorer" title="Link to this definition"></a></dt>
 <dd><p>The default (cached) SigLIP scorer for <code class="docutils literal notranslate"><span class="pre">model</span></code> — built once per model.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.reranking.embed_images">
+<span class="sig-prename descclassname"><span class="pre">illustration.reranking.</span></span><span class="sig-name descname"><span class="pre">embed_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'google/siglip2-base-patch16-224'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../../_modules/illustration/reranking.html#embed_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.reranking.embed_images" title="Link to this definition"></a></dt>
+<dd><p>L2-normalized SigLIP image embeddings for <code class="docutils literal notranslate"><span class="pre">results</span></code> (<code class="docutils literal notranslate"><span class="pre">None</span></code> per unfetchable).</p>
+<p>Reuses the same content-addressed embedding cache the reranker populates, so
+embedding candidates a second time (e.g. for Layer-2 sequence coherence) is
+cheap. Needs the <code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> extra; raises <code class="xref py py-class docutils literal notranslate"><span class="pre">RerankDependencyError</span></code> if
+it’s missing. The returned list is aligned 1:1 with <code class="docutils literal notranslate"><span class="pre">results</span></code>.</p>
 </dd></dl>
 
 <dl class="py function">

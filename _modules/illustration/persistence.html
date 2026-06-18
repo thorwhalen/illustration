@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.persistence &mdash; illustration 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/sequence.html">illustration.sequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/video.html">illustration.video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.persistence</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.persistence</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Persist curation/selection decisions as ``lacing`` standoff annotations (R2 §6).</span>
+
+<span class="sd">Per R2 §6, a director&#39;s curation decisions should be **standoff annotations**, not</span>
+<span class="sd">destructive edits: a beat → its chosen image, layered so a human override is a</span>
+<span class="sd">*new* annotation that supersedes (never overwrites) the machine&#39;s choice, with</span>
+<span class="sd">full provenance. The ecosystem already has exactly this — ``lacing`` (the</span>
+<span class="sd">standoff annotation system: typed ``Annotation`` envelope, W3C PROV-O provenance,</span>
+<span class="sd">append-only, OTIO export). This module is the thin adapter that maps an</span>
+<span class="sd">illustration :class:`~illustration.sequence.SequenceResult` onto lacing — it does</span>
+<span class="sd">**not** reinvent an annotation store.</span>
+
+<span class="sd">One deliberate modeling choice: a &quot;best image for beat *i*&quot; selection is a *graph*</span>
+<span class="sd">relation (beat → candidate), not inherently time-keyed — but ``lacing`` is</span>
+<span class="sd">interval-keyed, and at selection time the storyboard has no rendered timeline</span>
+<span class="sd">yet. So selections are keyed on an **ordinal beat-index timeline**</span>
+<span class="sd">(``RationalTime(i, rate=1)`` = &quot;beat *i*&quot;), which is honest (a storyboard *is* an</span>
+<span class="sd">ordered sequence) and lets the real render timeline stay a separate concern. If a</span>
+<span class="sd">general &quot;selection track&quot; facade proves worth sharing, it belongs upstream in</span>
+<span class="sd">``lacing``; this stays a domain-specific adapter.</span>
+
+<span class="sd">Behind the optional ``[persist]`` extra (``lacing``); imported lazily so base</span>
+<span class="sd">``illustration`` never requires it.</span>
+
+<span class="sd">&gt;&gt;&gt; # offline doctest needs lacing; skipped if the extra isn&#39;t installed</span>
+<span class="sd">&gt;&gt;&gt; import importlib.util</span>
+<span class="sd">&gt;&gt;&gt; if importlib.util.find_spec(&quot;lacing&quot;):                       # doctest: +SKIP</span>
+<span class="sd">...     from illustration.sequence import SequenceResult, SequenceSelection, BeatSelection</span>
+<span class="sd">...     from illustration.schema import ImageResult</span>
+<span class="sd">...     r = SequenceResult(beats=[&quot;dawn harbour&quot;], selection=SequenceSelection(</span>
+<span class="sd">...         selections=[BeatSelection(beat_index=0,</span>
+<span class="sd">...             chosen=ImageResult(provider=&quot;p&quot;, id=&quot;x&quot;, url=&quot;u&quot;, score=0.9))]))</span>
+<span class="sd">...     store = persist_sequence(r)</span>
+<span class="sd">...     resolve_selection(store, 0)[&quot;selected&quot;][&quot;id&quot;]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;persist_sequence&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;record_override&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resolve_selection&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resolved_selections&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;export_otio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SelectionBody&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SELECTION_SCHEMA_URI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SELECTIONS_TIER&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: The lacing body-schema URI for an illustration selection annotation.</span>
+<span class="n">SELECTION_SCHEMA_URI</span> <span class="o">=</span> <span class="s2">&quot;annot://schema/illustration-selection/v1&quot;</span>
+
+<span class="c1">#: The lacing tier selections live on.</span>
+<span class="n">SELECTIONS_TIER</span> <span class="o">=</span> <span class="s2">&quot;selections&quot;</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_CandidateRef</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A compact candidate reference stored inside a selection body.&quot;&quot;&quot;</span>
+
+    <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">score</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="SelectionBody">
+<a class="viewcode-back" href="../../module_docs/illustration/persistence.html#illustration.SelectionBody">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SelectionBody</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The typed body of an illustration selection annotation (lacing body schema).&quot;&quot;&quot;</span>
+
+    <span class="n">model_config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;extra&quot;</span><span class="p">:</span> <span class="s2">&quot;forbid&quot;</span><span class="p">}</span>
+
+    <span class="n">beat</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">beat_index</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># &quot;machine&quot; | &quot;director&quot;</span>
+    <span class="n">selected</span><span class="p">:</span> <span class="s2">&quot;_CandidateRef | None&quot;</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">candidates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">_CandidateRef</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">forced_duplicate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">reason</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="persist_sequence">
+<a class="viewcode-back" href="../../module_docs/illustration/persistence.html#illustration.persist_sequence">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">persist_sequence</span><span class="p">(</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">actor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;agent:illustration-curate&quot;</span><span class="p">,</span>
+    <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;infer&quot;</span><span class="p">,</span>
+    <span class="n">at_time</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Persist a :class:`~illustration.sequence.SequenceResult` as lacing annotations.</span>
+
+<span class="sd">    One ``selections``-tier annotation per beat (machine choices), keyed on the</span>
+<span class="sd">    ordinal beat timeline. Returns the store (a fresh ``lacing.MemoryStore`` when</span>
+<span class="sd">    ``store`` is None). ``at_time`` (a ``lacing.RationalTime``) overrides the</span>
+<span class="sd">    provenance timestamp — pass it for deterministic ordering in tests; defaults</span>
+<span class="sd">    to wall-clock ``RationalTime.now()``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">store</span> <span class="o">=</span> <span class="n">_ensure_store</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">bs</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">selections</span><span class="p">:</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">SelectionBody</span><span class="p">(</span>
+            <span class="n">beat</span><span class="o">=</span><span class="n">_beat_text</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="p">),</span>
+            <span class="n">beat_index</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="s2">&quot;machine&quot;</span><span class="p">,</span>
+            <span class="n">selected</span><span class="o">=</span><span class="n">_candidate_ref</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="p">),</span>
+            <span class="n">candidates</span><span class="o">=</span><span class="p">[</span><span class="n">_candidate_ref</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="p">)]</span> <span class="k">if</span> <span class="n">bs</span><span class="o">.</span><span class="n">chosen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[],</span>
+            <span class="n">forced_duplicate</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="s2">&quot;forced_duplicate&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)),</span>
+        <span class="p">)</span>
+        <span class="n">_add_selection</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span> <span class="n">activity</span><span class="o">=</span><span class="n">activity</span><span class="p">,</span> <span class="n">at_time</span><span class="o">=</span><span class="n">at_time</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">store</span></div>
+
+
+
+<div class="viewcode-block" id="record_override">
+<a class="viewcode-back" href="../../module_docs/illustration/persistence.html#illustration.record_override">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">record_override</span><span class="p">(</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">beat_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">chosen</span><span class="p">:</span> <span class="s2">&quot;ImageResult | None&quot;</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">beat</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">actor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;user:director&quot;</span><span class="p">,</span>
+    <span class="n">reason</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">at_time</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Append a director override for ``beat_index`` (a new, superseding annotation).</span>
+
+<span class="sd">    Never mutates the machine&#39;s annotation — the override is a fresh annotation on</span>
+<span class="sd">    the same beat, with ``provenance.was_derived_from`` pointing at the most-recent</span>
+<span class="sd">    prior selection (STAM-style append-only layering). Returns the new annotation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">_latest_annotation</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">)</span>
+    <span class="n">derived</span> <span class="o">=</span> <span class="p">[</span><span class="n">prior</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="k">if</span> <span class="n">prior</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">beat_text</span> <span class="o">=</span> <span class="n">beat</span> <span class="k">if</span> <span class="n">beat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">prior</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;beat&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">prior</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">SelectionBody</span><span class="p">(</span>
+        <span class="n">beat</span><span class="o">=</span><span class="n">beat_text</span><span class="p">,</span> <span class="n">beat_index</span><span class="o">=</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;director&quot;</span><span class="p">,</span>
+        <span class="n">selected</span><span class="o">=</span><span class="n">_candidate_ref</span><span class="p">(</span><span class="n">chosen</span><span class="p">),</span>
+        <span class="n">candidates</span><span class="o">=</span><span class="p">[</span><span class="n">_candidate_ref</span><span class="p">(</span><span class="n">chosen</span><span class="p">)]</span> <span class="k">if</span> <span class="n">chosen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[],</span>
+        <span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_add_selection</span><span class="p">(</span>
+        <span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span> <span class="n">activity</span><span class="o">=</span><span class="s2">&quot;derive&quot;</span><span class="p">,</span>
+        <span class="n">was_derived_from</span><span class="o">=</span><span class="n">derived</span><span class="p">,</span> <span class="n">at_time</span><span class="o">=</span><span class="n">at_time</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="resolve_selection">
+<a class="viewcode-back" href="../../module_docs/illustration/persistence.html#illustration.resolve_selection">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_selection</span><span class="p">(</span><span class="n">store</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;dict | None&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The *active* selection body for a beat — the latest annotation wins.</span>
+
+<span class="sd">    Resolves machine choice vs. director override by provenance timestamp, so a</span>
+<span class="sd">    later override supersedes the machine&#39;s choice without deleting it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ann</span> <span class="o">=</span> <span class="n">_latest_annotation</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">body</span><span class="p">)</span> <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="resolved_selections">
+<a class="viewcode-back" href="../../module_docs/illustration/persistence.html#illustration.resolved_selections">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">resolved_selections</span><span class="p">(</span><span class="n">store</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;dict[int, dict]&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The active selection body per beat index (resolved over all overrides).&quot;&quot;&quot;</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">store</span><span class="o">.</span><span class="n">by_tier</span><span class="p">(</span><span class="n">SELECTIONS_TIER</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;beat_index&quot;</span><span class="p">))</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cur</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">_gen_seconds</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">cur</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_gen_seconds</span><span class="p">(</span><span class="n">ann</span><span class="p">),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">body</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">idx</span><span class="p">:</span> <span class="n">body</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span> <span class="ow">in</span> <span class="n">out</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
+
+
+
+<div class="viewcode-block" id="export_otio">
+<a class="viewcode-back" href="../../module_docs/illustration/persistence.html#illustration.export_otio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_otio</span><span class="p">(</span><span class="n">store</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;bytes | None&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Export the annotation store to OpenTimelineIO (needs ``lacing[otio]``).</span>
+
+<span class="sd">    Thin passthrough to lacing&#39;s OTIO adapter, so selections can flow into video</span>
+<span class="sd">    tools. Returns the bytes when ``target`` is None, else writes the file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">lacing.adapters.otio</span>  <span class="c1"># noqa: F401 - self-registers the &quot;otio&quot; adapter</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">lacing.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">dump</span>
+
+    <span class="k">return</span> <span class="n">dump</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;otio&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># --- internals --------------------------------------------------------------</span>
+
+<span class="n">_REGISTERED</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_registered</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">global</span> <span class="n">_REGISTERED</span>
+    <span class="k">if</span> <span class="n">_REGISTERED</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">lacing</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_body_schema</span>
+
+    <span class="c1"># register_body_schema overwrites idempotently; the _REGISTERED guard keeps</span>
+    <span class="c1"># this a once-per-process call, and a real error (bad URI/type) surfaces.</span>
+    <span class="n">register_body_schema</span><span class="p">(</span><span class="n">SELECTION_SCHEMA_URI</span><span class="p">,</span> <span class="n">SelectionBody</span><span class="p">)</span>
+    <span class="n">_REGISTERED</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_store</span><span class="p">(</span><span class="n">store</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="n">_ensure_registered</span><span class="p">()</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">lacing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MemoryStore</span><span class="p">,</span> <span class="n">Tier</span>
+
+    <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">store</span> <span class="o">=</span> <span class="n">MemoryStore</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">store</span><span class="o">.</span><span class="n">get_tier</span><span class="p">(</span><span class="n">SELECTIONS_TIER</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">store</span><span class="o">.</span><span class="n">add_tier</span><span class="p">(</span><span class="n">Tier</span><span class="p">(</span><span class="n">SELECTIONS_TIER</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">store</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_add_selection</span><span class="p">(</span>
+    <span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">SelectionBody</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">was_derived_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">at_time</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">lacing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotation</span><span class="p">,</span> <span class="n">NodeRef</span><span class="p">,</span> <span class="n">Provenance</span><span class="p">,</span> <span class="n">RationalTime</span><span class="p">,</span> <span class="n">TimeInterval</span>
+
+    <span class="n">when</span> <span class="o">=</span> <span class="n">at_time</span> <span class="k">if</span> <span class="n">at_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">RationalTime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">TimeInterval</span><span class="p">(</span><span class="n">RationalTime</span><span class="p">(</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">RationalTime</span><span class="p">(</span><span class="n">beat_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">ann</span> <span class="o">=</span> <span class="n">Annotation</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">uuid4</span><span class="p">(),</span>
+        <span class="n">tier</span><span class="o">=</span><span class="n">SELECTIONS_TIER</span><span class="p">,</span>
+        <span class="n">reference</span><span class="o">=</span><span class="n">NodeRef</span><span class="p">(</span><span class="n">scene_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;beat/</span><span class="si">{</span><span class="n">beat_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="n">interval</span><span class="p">),</span>
+        <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+        <span class="n">body_schema_uri</span><span class="o">=</span><span class="n">SELECTION_SCHEMA_URI</span><span class="p">,</span>
+        <span class="n">provenance</span><span class="o">=</span><span class="n">Provenance</span><span class="p">(</span>
+            <span class="n">was_generated_by</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span>
+            <span class="n">was_attributed_to</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span>
+            <span class="n">was_derived_from</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">was_derived_from</span> <span class="ow">or</span> <span class="p">[]),</span>
+            <span class="n">generated_at_time</span><span class="o">=</span><span class="n">when</span><span class="p">,</span>
+            <span class="n">activity</span><span class="o">=</span><span class="n">activity</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">store</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ann</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_latest_annotation</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="c1"># by_tier yields in append (insertion) order; tie-break a timestamp draw</span>
+    <span class="c1"># toward the later-inserted annotation, so resolve_selection and</span>
+    <span class="c1"># resolved_selections agree on &quot;the latest override wins&quot;.</span>
+    <span class="n">anns</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">store</span><span class="o">.</span><span class="n">by_tier</span><span class="p">(</span><span class="n">SELECTIONS_TIER</span><span class="p">)</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;beat_index&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">beat_index</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">anns</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">anns</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="n">_gen_seconds</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_gen_seconds</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">provenance</span><span class="o">.</span><span class="n">generated_at_time</span><span class="o">.</span><span class="n">to_seconds</span><span class="p">())</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_candidate_ref</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="s2">&quot;ImageResult | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_CandidateRef | None&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">_CandidateRef</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">score</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_beat_text</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">beat_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">beats</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s2">&quot;beats&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">beats</span><span class="p">[</span><span class="n">beat_index</span><span class="p">]</span> <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">beat_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">beats</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
