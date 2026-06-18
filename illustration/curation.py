@@ -29,7 +29,7 @@ runs end-to-end **offline** with stubs and never spends on a paid API in a test.
 >>> from illustration.schema import ImageResult
 >>> cands = [ImageResult(provider="p", id=str(i), url=f"u{i}", width=900, height=600)
 ...          for i in range(3)]
->>> res = curate(
+>>> res = curate(                                       # doctest: +SKIP
 ...     "a stormy harbour at dusk",
 ...     expander=lambda beat: [],                       # no expansion
 ...     search_fn=lambda q, **kw: cands,                # canned recall
@@ -37,8 +37,13 @@ runs end-to-end **offline** with stubs and never spends on a paid API in a test.
 ...     scorer=lambda beat, rs: [0.9, 0.4, 0.2],        # canned relevance
 ...     describe=lambda image, prompt: "a harbour",     # canned VLM (no API)
 ... )
->>> res.accepted, res.best.result.id, res.grade
+>>> res.accepted, res.best.result.id, res.grade         # doctest: +SKIP
 (True, '0', 'correct')
+
+The example is ``+SKIP``-ed under ``--doctest-modules`` because it exercises the
+``ir`` fan-in, which ships in the optional ``[curate]`` extra (absent in the
+base / CI install). ``tests/test_curation.py`` covers this path in full under
+``importorskip("ir")``.
 """
 
 from __future__ import annotations
