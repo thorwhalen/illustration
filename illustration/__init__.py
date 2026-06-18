@@ -85,6 +85,30 @@ from illustration.curation import (
     curate,
     score_grade,
 )
+
+# M4 — sequence-level selection (the cross-shot domain core) + thin, opt-in
+# ecosystem hooks. These modules import only pydantic + illustration.schema at
+# load time; the heavy/optional deps (lacing, burns, walkthru) are imported
+# lazily inside the functions that use them.
+from illustration.sequence import (
+    BeatSelection,
+    SequenceResult,
+    SequenceSelection,
+    curate_sequence,
+    hamming_distance,
+    make_phash_hasher,
+    phash,
+    select_sequence,
+)
+from illustration.persistence import (
+    SelectionBody,
+    export_otio,
+    persist_sequence,
+    record_override,
+    resolve_selection,
+    resolved_selections,
+)
+from illustration.video import render_sequence_video, to_walkthru_document
 from illustration.registry import (
     SourcesView,
     default_sources,
@@ -163,6 +187,25 @@ __all__ = [
     "judge_candidate",
     "InspectReport",
     "RubricScore",
+    # M4 — sequence selection (domain core)
+    "select_sequence",
+    "curate_sequence",
+    "SequenceSelection",
+    "SequenceResult",
+    "BeatSelection",
+    "phash",
+    "hamming_distance",
+    "make_phash_hasher",
+    # M4 — persistence hook (lacing; [persist] extra)
+    "persist_sequence",
+    "record_override",
+    "resolve_selection",
+    "resolved_selections",
+    "export_otio",
+    "SelectionBody",
+    # M4 — video hook (burns / walkthru; [video] extra)
+    "render_sequence_video",
+    "to_walkthru_document",
     # errors
     "IllustrationError",
     "UnknownSourceError",

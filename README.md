@@ -38,10 +38,12 @@ That's the whole common case. Everything below is optional depth.
    image-search backends (Openverse, Pexels, …), normalizing every result into
    one schema with license/attribution/cacheability first-class.
 2. **An agentic curation layer** — query expansion, multi-provider search,
-   classical-CV + vision-LM inspection, reranking, and a bounded corrective loop
-   that returns one vetted image per beat (`illustration.curate`, see below),
-   built on the `aix` AI façade and `ir` retrieval substrate. Sequence-level
-   selection across a whole storyboard is the next milestone.
+   classical-CV + vision-LM inspection, reranking, a bounded corrective loop that
+   returns one vetted image per beat (`illustration.curate`), and **sequence-level
+   selection** across a whole storyboard with cross-shot coherence + near-duplicate
+   suppression (`illustration.curate_sequence`). Built on the `aix` AI façade and
+   `ir` retrieval substrate; the narrated-video and persistence hooks reuse the
+   `burns` / `walkthru` / `lacing` ecosystem packages rather than reinventing them.
 
 The design — provider comparison, canonical parameter mapping, escape-hatch
 design, result schema, and roadmap — is in
@@ -183,6 +185,62 @@ swap a model, add a test double, or run the loop entirely offline.
 The image→text capability the judge/caption uses lives in `aix`
 (`aix.describe_image`, provider-neutral over LiteLLM), so any vision-capable
 model (Claude, GPT-4o, Gemini, …) works by model id alone.
+
+## Sequence (storyboard selection)
+
+`curate` picks the best image for *one* beat; `curate_sequence` picks one image
+per beat across a whole storyboard, optimizing **cross-shot coherence** and
+**diversity** with a perceptual-hash **near-duplicate** hard constraint — so
+consecutive shots cohere and no two beats land on the same picture:
+
+```python
+from illustration import curate_sequence
+
+result = curate_sequence([
+    "a stormy harbour at dawn",
+    "fishermen hauling nets",
+    "the catch unloaded at the quay",
+])
+for bs in result.selection.selections:
+    print(bs.beat_index, bs.chosen.url, bs.coherence, bs.forced_duplicate)
+```
+
+```bash
+illustration curate-sequence "dawn harbour" "hauling nets" "the quay"
+```
+
+The selection math is **in-house and dependency-light** (NumPy MMR + a DCT
+perceptual hash; coherence reuses the SigLIP embeddings the reranker already
+caches) — `select_sequence(per_beat_candidates, *, relevance, embed, hasher,
+shortlist, alpha, beta, phash_threshold)` exposes every part as an injectable
+seam. `apricot` (submodular shortlisting) and `imagededup` (CNN dedup) are
+optional upgrades you plug into the `shortlist` / `hasher` seams.
+
+## Persist & render (ecosystem hooks)
+
+The narrated-video and persistence steps are owned by other ecosystem packages;
+illustration provides thin, opt-in hooks rather than reinventing them.
+
+```python
+# Render the selected stills into a Ken-Burns film (burns + your narration audio):
+from illustration import render_sequence_video
+render_sequence_video(result, saveas="film.mp4", narration_audio="narration.mp3")
+
+# Or hand a walkthru DemoDocument to a walkthru/reelee consumer to render its way:
+from illustration import to_walkthru_document
+doc = to_walkthru_document(result, narration=["dawn…", "nets…", "quay…"])
+
+# Persist selections (and director overrides) as lacing standoff annotations:
+from illustration import persist_sequence, record_override, resolve_selection
+store = persist_sequence(result)
+record_override(store, 1, my_preferred_image, reason="better composition")
+resolve_selection(store, 1)   # the director's choice now supersedes the machine's
+```
+
+These need the opt-in extras: `illustration[video]` (`burns` + `walkthru`) and
+`illustration[persist]` (`lacing`; add `lacing[otio]` for `export_otio`). The
+render hook uses `burns` directly — the same renderer `walkthru` uses — so it
+never pulls the app layer.
 
 ## The escape hatch
 
