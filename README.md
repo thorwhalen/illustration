@@ -122,7 +122,11 @@ second call is free:
 illustration.search("harbour")                 # hits the network
 illustration.search("harbour")                 # served from cache
 illustration.search("harbour", refresh=True)   # force a re-fetch
-illustration.search("harbour", cache=my_store) # inject any MutableMapping
+illustration.search("harbour", cache=False)    # bypass the cache
+
+# to inject your own store, wrap it — `cache=` takes True/False or a SearchCache
+from illustration import SearchCache
+illustration.search("harbour", cache=SearchCache(my_mutable_mapping))
 ```
 
 ## Rerank (precision)
@@ -257,10 +261,11 @@ illustration.search("q", source="pexels")
 # 2. canonical filters (translated per provider)
 illustration.search("q", orientation="portrait", size="large")
 
-# 3. native passthrough — flat for one source, namespaced for many
-illustration.search("q", source="pexels", color="blue")
-illustration.search("q", source=["openverse", "pexels"],
-                    provider_params={"pexels": {"color": "blue"}})
+# 3. native passthrough — anything the façade doesn't name; flat for one
+#    source, namespaced for many (flat raises on a multi-source fan-out)
+illustration.search("q", source="pixabay", image_type="photo")
+illustration.search("q", source=["openverse", "pixabay"],
+                    provider_params={"pixabay": {"image_type": "photo"}})
 
 # 4. the raw provider client
 illustration.sources["openverse"].raw_search(q="q", page_size=2)   # raw JSON
