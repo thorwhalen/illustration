@@ -124,6 +124,15 @@ There are doctests and tests that depend on this; keep them green.
 test count — don't pin a number in a doc, it only drifts). `conftest.py`
 provides `FakeSession` / `FakeResponse` plus a canned payload fixture per
 provider; **no test ever hits the network and no test ever spends money.**
+
+That first half is *enforced*, not merely promised: `conftest.py`'s autouse
+`_no_outbound_network` refuses (and records) any non-local `connect` or DNS
+lookup, and fails the test at teardown naming the host — because this package
+degrades a failed fetch to `None` or to a shorter result list on purpose, so an
+accidentally-networked test would otherwise stay green. Reach for the fakes, or
+mark a deliberately-live test `@pytest.mark.live` (the opt-in SigLIP inference
+test is the only one). `tests/test_offline_guard.py` keeps the guard armed.
+
 Every paid step in Layer 2 is an injectable seam (`search_fn`, `expander`,
 `refiner`, `scorer`, `describe`, `grader`, `checks`, `fetch`, `per_beat`,
 `embed`, `hasher`, `relevance`, `shortlist`) precisely so the suite can run the
