@@ -33,6 +33,7 @@ from illustration.config import (
     DFLT_N,
     DFLT_SOURCES,
     cache_dir,
+    package_version,
 )
 from illustration.credentials import (
     PROVIDER_CONSOLE_URLS,
@@ -161,6 +162,7 @@ __all__ = [
     "DFLT_SOURCES",
     "DFLT_LICENSE_ALLOWLIST",
     "cache_dir",
+    "package_version",
     # rerank (precision stage; default scorer needs the [rerank] extra)
     "rerank",
     "make_siglip_scorer",
@@ -216,4 +218,8 @@ __all__ = [
     "CurateDependencyError",
 ]
 
-__version__ = "0.0.2"
+# Read from the installed distribution metadata, whose SSOT is pyproject.toml
+# (bumped by the wads release job). A hand-edited literal here silently drifts
+# on every release; an uninstalled source checkout gets a '0+unknown' sentinel
+# rather than an import-time error.
+__version__ = package_version()

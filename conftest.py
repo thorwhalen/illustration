@@ -1,6 +1,18 @@
-"""Pytest fixtures and offline HTTP fakes (no test ever hits the network)."""
+"""Pytest fixtures and offline HTTP fakes (no test ever hits the network).
 
+Two halves. ``FakeSession`` / ``FakeResponse`` plus a canned payload fixture per
+provider are how a test *gets* a provider response without leaving the machine.
+:func:`_no_outbound_network` is what makes the parenthesis above true rather
+than aspirational: it is autouse, so a test that starts reaching out fails on
+the spot, naming the host it tried to reach.
+
+A test that genuinely must talk to the real world marks itself
+``@pytest.mark.live`` (the opt-in SigLIP inference test is the only one).
+"""
+
+import ipaddress
 import os
+import socket
 import sys
 
 import pytest
@@ -8,6 +20,124 @@ import pytest
 # Make the in-repo package importable without an editable install (and prefer
 # the local source when one is installed).
 sys.path.insert(0, os.path.dirname(__file__))
+
+
+# --- the offline network guard ----------------------------------------------
+
+
+class OutboundNetworkAttempt(BaseException):
+    """An offline test tried to talk to a non-local host.
+
+    Derived from :class:`BaseException`, not :class:`Exception`, on purpose:
+    this package is deliberately fail-soft about transport errors —
+    ``_imageio.fetch_image`` returns ``None`` for *any* exception and
+    ``RetrievalSource`` translates request failures into an
+    ``IllustrationError`` — so anything catchable would be caught and the
+    attempt would vanish silently.
+    """
+
+
+#: Hostnames that mean "this machine" without going through DNS.
+LOCAL_HOSTNAMES = frozenset(
+    {"", "localhost", "localhost.localdomain", "ip6-localhost", "ip6-loopback"}
+)
+
+
+def _is_local_address(address):
+    """True when ``address`` is loopback, unspecified, or not an IP endpoint.
+
+    Non-tuple addresses (``AF_UNIX`` paths, ``AF_NETLINK`` ints) are local by
+    construction. A bare hostname that is not a known loopback alias counts as
+    outbound: resolving it is itself a network round-trip.
+    """
+    if not isinstance(address, (tuple, list)) or not address:
+        return True
+    host = address[0]
+    if host is None:
+        return True
+    host = str(host)
+    if host in LOCAL_HOSTNAMES:
+        return True
+    try:
+        ip = ipaddress.ip_address(host.split("%", 1)[0])
+    except ValueError:
+        return False  # an unresolved name -> looking it up is already outbound
+    return ip.is_loopback or ip.is_unspecified
+
+
+def install_network_guard(monkeypatch):
+    """Refuse and record every non-local socket use; return the record.
+
+    Split out of the fixture so both halves of the guard are reachable from a
+    test — see ``tests/test_offline_guard.py``.
+    """
+    attempts = []
+    real_connect = socket.socket.connect
+    real_connect_ex = socket.socket.connect_ex
+    real_getaddrinfo = socket.getaddrinfo
+
+    def refuse(what, target):
+        attempts.append(f"{what} {target}")
+        raise OutboundNetworkAttempt(
+            f"Offline test attempted {what} to {target!r}. The suite is "
+            "hermetic: inject a fake transport (the `make_session` fixture) or "
+            "stub the seam that fetches, and mark the test `live` only if it "
+            "really must reach the real world."
+        )
+
+    def connect(self, address, *args, **kwargs):
+        if not _is_local_address(address):
+            refuse("connect", str(address))
+        return real_connect(self, address, *args, **kwargs)
+
+    def connect_ex(self, address, *args, **kwargs):
+        if not _is_local_address(address):
+            refuse("connect", str(address))
+        return real_connect_ex(self, address, *args, **kwargs)
+
+    def getaddrinfo(host, port, *args, **kwargs):
+        if not _is_local_address((host, port)):
+            refuse("DNS lookup", str(host))
+        return real_getaddrinfo(host, port, *args, **kwargs)
+
+    monkeypatch.setattr(socket.socket, "connect", connect)
+    monkeypatch.setattr(socket.socket, "connect_ex", connect_ex)
+    monkeypatch.setattr(socket, "getaddrinfo", getaddrinfo)
+    return attempts
+
+
+def fail_on_outbound_attempts(attempts):
+    """Fail the test if the guard recorded anything. The swallow-proof half.
+
+    Refusing the connection is not the same as reporting it: the fail-soft
+    paths above turn a refused fetch into ``None`` or a degraded result and the
+    test would stay green. Asserting the *record* at teardown is what makes the
+    attempt impossible to hide.
+    """
+    if attempts:
+        pytest.fail(
+            "Offline test performed outbound network I/O: "
+            + "; ".join(sorted(set(attempts)))
+        )
+
+
+@pytest.fixture(autouse=True)
+def _no_outbound_network(request, monkeypatch):
+    """Fail the test if it tries to reach a non-local host.
+
+    Declared before every other fixture in this module so it is set up first
+    and torn down last — it therefore covers fixture setup as well as the test
+    body. Tests marked ``live`` opt out.
+    """
+    if request.node.get_closest_marker("live") is not None:
+        yield []
+        return
+    attempts = install_network_guard(monkeypatch)
+    yield attempts
+    fail_on_outbound_attempts(attempts)
+
+
+# --- offline HTTP fakes ------------------------------------------------------
 
 
 def _page_index(params):

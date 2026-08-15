@@ -224,6 +224,7 @@ def test_fetch_image_happy_and_failure(monkeypatch):
 _LIVE = os.environ.get("ILLUSTRATION_LIVE_RERANK") == "1"
 
 
+@pytest.mark.live  # the one test that reaches the real world (model + Openverse)
 @pytest.mark.skipif(not _LIVE, reason="set ILLUSTRATION_LIVE_RERANK=1 to run (downloads a model)")
 def test_live_siglip_rerank():
     pytest.importorskip("torch")

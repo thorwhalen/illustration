@@ -159,6 +159,9 @@ doctest_optionflags = [
     "NORMALIZE_WHITESPACE",
     "ELLIPSIS",
 ]
+markers = [
+    "live: reaches the real network on purpose (opts out of the offline guard in conftest.py); env-var opt-in, never run in CI",
+]
 
 [tool.wads.ci]
 project_name = ""
