@@ -48,6 +48,9 @@ That's the whole common case. Everything below is optional depth.
 The design — provider comparison, canonical parameter mapping, escape-hatch
 design, result schema, and roadmap — is in
 [`misc/docs/design/illustration_design.md`](misc/docs/design/illustration_design.md).
+AI agents: [`.claude/skills/illustration/SKILL.md`](.claude/skills/illustration/SKILL.md)
+is the condensed usage guide (including the licence/attribution obligations);
+[`.claude/CLAUDE.md`](.claude/CLAUDE.md) is the contributor's map of the package.
 
 ## Install
 
@@ -302,7 +305,7 @@ when it matters — either inline on `search()` or with the standalone helper:
 
 ```python
 # inline gate (R3): keep only commercial-safe licenses
-illustration.search("harbour", source="wikimedia", license_allow=True)
+illustration.search("harbour", source="openverse", license_allow=True)
 illustration.search("harbour", license_allow={"cc0", "pdm"})   # public-domain only
 
 # or filter an existing result list
@@ -310,6 +313,14 @@ from illustration import license_allowlist
 safe = license_allowlist(hits)                          # CC0/PD/BY/BY-SA default
 safe = license_allowlist(hits, allow={"cc0", "pdm"})    # public-domain only
 ```
+
+The gate matches the license **code string exactly** (case-insensitively)
+against `DFLT_LICENSE_ALLOWLIST` (`cc0`, `pdm`, `by`, `by-sa`, `pexels
+license`), and license vocabularies differ per provider — Wikimedia emits
+`cc-by-sa-4.0` and Pixabay emits `Pixabay License`, neither of which is in that
+default set. So for those sources pass an explicit `allow=` covering the codes
+they actually emit, and check the gated list isn't empty before concluding
+nothing is license-safe.
 
 ## License
 

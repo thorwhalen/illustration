@@ -221,11 +221,12 @@ def curate_sequence(
 ) -> SequenceResult:
     """Curate a whole sequence: gather a candidate pool per beat, then select.
 
-    ``per_beat`` produces the candidate pool for one beat (default: a recall +
-    SigLIP rerank via :func:`illustration.search`, so pools carry relevance
-    ``.score``). Inject ``per_beat=lambda b: illustration.curate(b).candidates``
-    for the full per-beat CRAG loop, or any other pool source. Remaining keyword
-    args pass through to :func:`select_sequence`.
+    ``per_beat`` produces the candidate pool for one beat — a sequence of
+    :class:`~illustration.schema.ImageResult` (default: a recall + SigLIP rerank
+    via :func:`illustration.search`, so pools carry relevance ``.score``). For
+    the full per-beat CRAG loop, unwrap the loop's ``Candidate`` envelopes:
+    ``per_beat=lambda b: [c.result for c in illustration.curate(b).candidates]``.
+    Remaining keyword args pass through to :func:`select_sequence`.
     """
     fn = per_beat if per_beat is not None else _default_per_beat(sources, n)
     pools = [list(fn(beat)) for beat in beats]
