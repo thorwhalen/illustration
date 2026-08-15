@@ -11,10 +11,10 @@ import illustration
 hits = illustration.search("a stormy harbour at dusk", n=10)
 
 hit = hits[0]
-hit.url            # full-resolution image URL
-hit.license        # e.g. 'by-sa'  (license carried through from day one)
-hit.attribution    # ready-to-render attribution sentence
-hit.cacheable      # may you download/cache the bytes?
+hit.url  # full-resolution image URL
+hit.license  # e.g. 'by-sa'  (license carried through from day one)
+hit.attribution  # ready-to-render attribution sentence
+hit.cacheable  # may you download/cache the bytes?
 ```
 
 From the shell:
@@ -89,8 +89,12 @@ truth shared with the agentic layer):
 Pick a source (or several), and filter:
 
 ```python
-illustration.search("harbour", source="openverse", orientation="landscape", size="large")
-illustration.search("harbour", source=["openverse", "wikimedia"], n=5)   # per-source, no key
+illustration.search(
+    "harbour", source="openverse", orientation="landscape", size="large"
+)
+illustration.search(
+    "harbour", source=["openverse", "wikimedia"], n=5
+)  # per-source, no key
 ```
 
 Canonical filters (`orientation`, `size`, `safe`, `license_type`, `color`,
@@ -103,7 +107,9 @@ Pexels and Pixabay need a key (Openverse and Wikimedia do not). Provide it
 however suits you:
 
 ```python
-import os; os.environ["PEXELS_API_KEY"] = "..."      # env var
+import os
+
+os.environ["PEXELS_API_KEY"] = "..."  # env var
 # or per-request (the bring-your-own-key seam, e.g. a web backend):
 with illustration.using_credentials(pexels="...", pixabay="..."):
     illustration.search("harbour", source=["pexels", "pixabay"])
@@ -119,13 +125,14 @@ store (default: JSON files under `~/.cache/illustration/`), so an identical
 second call is free:
 
 ```python
-illustration.search("harbour")                 # hits the network
-illustration.search("harbour")                 # served from cache
-illustration.search("harbour", refresh=True)   # force a re-fetch
-illustration.search("harbour", cache=False)    # bypass the cache
+illustration.search("harbour")  # hits the network
+illustration.search("harbour")  # served from cache
+illustration.search("harbour", refresh=True)  # force a re-fetch
+illustration.search("harbour", cache=False)  # bypass the cache
 
 # to inject your own store, wrap it — `cache=` takes True/False or a SearchCache
 from illustration import SearchCache
+
 illustration.search("harbour", cache=SearchCache(my_mutable_mapping))
 ```
 
@@ -136,10 +143,10 @@ rerank the candidates by true cross-modal (text↔image) similarity with a local
 SigLIP-2 model — the recall→rerank pattern:
 
 ```python
-hits = illustration.search("a stormy harbour at dusk", n=50)   # recall
-top  = illustration.rerank("a stormy harbour at dusk", hits)[:10]  # precision
+hits = illustration.search("a stormy harbour at dusk", n=50)  # recall
+top = illustration.rerank("a stormy harbour at dusk", hits)[:10]  # precision
 # or the one-liner:
-top  = illustration.search("a stormy harbour at dusk", n=50, rerank=True)[:10]
+top = illustration.search("a stormy harbour at dusk", n=50, rerank=True)[:10]
 ```
 
 `rerank` populates each result's `.score` and sorts by it. The default SigLIP-2
@@ -171,10 +178,10 @@ result = curate(
     sources=["openverse", "pexels"],
     budget=Budget(max_iter=3, max_judge_calls=8, accept_threshold=0.62),
 )
-result.best.result.url        # the chosen image
-result.best.rubric.overall    # its VLM rubric score (when judged)
+result.best.result.url  # the chosen image
+result.best.rubric.overall  # its VLM rubric score (when judged)
 result.accepted, result.reason
-for step in result.trace:     # per-iteration run-log (queries, grade, action, spend)
+for step in result.trace:  # per-iteration run-log (queries, grade, action, spend)
     print(step.iteration, step.grade, step.action)
 ```
 
@@ -203,11 +210,13 @@ consecutive shots cohere and no two beats land on the same picture:
 ```python
 from illustration import curate_sequence
 
-result = curate_sequence([
-    "a stormy harbour at dawn",
-    "fishermen hauling nets",
-    "the catch unloaded at the quay",
-])
+result = curate_sequence(
+    [
+        "a stormy harbour at dawn",
+        "fishermen hauling nets",
+        "the catch unloaded at the quay",
+    ]
+)
 for bs in result.selection.selections:
     print(bs.beat_index, bs.chosen.url, bs.coherence, bs.forced_duplicate)
 ```
@@ -231,17 +240,20 @@ illustration provides thin, opt-in hooks rather than reinventing them.
 ```python
 # Render the selected stills into a Ken-Burns film (burns + your narration audio):
 from illustration import render_sequence_video
+
 render_sequence_video(result, saveas="film.mp4", narration_audio="narration.mp3")
 
 # Or hand a walkthru DemoDocument to a walkthru/reelee consumer to render its way:
 from illustration import to_walkthru_document
+
 doc = to_walkthru_document(result, narration=["dawn…", "nets…", "quay…"])
 
 # Persist selections (and director overrides) as lacing standoff annotations:
 from illustration import persist_sequence, record_override, resolve_selection
+
 store = persist_sequence(result)
 record_override(store, 1, my_preferred_image, reason="better composition")
-resolve_selection(store, 1)   # the director's choice now supersedes the machine's
+resolve_selection(store, 1)  # the director's choice now supersedes the machine's
 ```
 
 These need the opt-in extras: `illustration[video]` (`burns` + `walkthru`) and
@@ -264,12 +276,15 @@ illustration.search("q", orientation="portrait", size="large")
 # 3. native passthrough — anything the façade doesn't name; flat for one
 #    source, namespaced for many (flat raises on a multi-source fan-out)
 illustration.search("q", source="pixabay", image_type="photo")
-illustration.search("q", source=["openverse", "pixabay"],
-                    provider_params={"pixabay": {"image_type": "photo"}})
+illustration.search(
+    "q",
+    source=["openverse", "pixabay"],
+    provider_params={"pixabay": {"image_type": "photo"}},
+)
 
 # 4. the raw provider client
-illustration.sources["openverse"].raw_search(q="q", page_size=2)   # raw JSON
-hits[0].raw                                                        # raw item
+illustration.sources["openverse"].raw_search(q="q", page_size=2)  # raw JSON
+hits[0].raw  # raw item
 ```
 
 A parameter is promoted from the escape hatch to a canonical façade argument
@@ -283,6 +298,7 @@ untouched:
 ```python
 from illustration import RetrievalSource, ImageResult, register_source
 
+
 class MySource(RetrievalSource):
     name = "mysource"
     endpoint = "https://api.example.com/search"
@@ -295,8 +311,10 @@ class MySource(RetrievalSource):
         return response.get("results", [])
 
     def _normalize(self, item, *, query):
-        return ImageResult(provider=self.name, id=str(item["id"]),
-                           url=item["image_url"], query=query)
+        return ImageResult(
+            provider=self.name, id=str(item["id"]), url=item["image_url"], query=query
+        )
+
 
 register_source(MySource())
 ```
@@ -311,12 +329,13 @@ when it matters — either inline on `search()` or with the standalone helper:
 ```python
 # inline gate (R3): keep only commercial-safe licenses
 illustration.search("harbour", source="openverse", license_allow=True)
-illustration.search("harbour", license_allow={"cc0", "pdm"})   # public-domain only
+illustration.search("harbour", license_allow={"cc0", "pdm"})  # public-domain only
 
 # or filter an existing result list
 from illustration import license_allowlist
-safe = license_allowlist(hits)                          # CC0/PD/BY/BY-SA default
-safe = license_allowlist(hits, allow={"cc0", "pdm"})    # public-domain only
+
+safe = license_allowlist(hits)  # CC0/PD/BY/BY-SA default
+safe = license_allowlist(hits, allow={"cc0", "pdm"})  # public-domain only
 ```
 
 The gate matches the license **code string exactly** (case-insensitively)

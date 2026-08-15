@@ -144,27 +144,29 @@ though `falaw`/`aix`/`denote`/`ir` use dataclasses internally.
 
 ```python
 class ImageResult(BaseModel):
-    provider: str            # source name, e.g. "openverse"
-    id: str                  # provider-native id
-    url: str                 # full-resolution image URL
+    provider: str  # source name, e.g. "openverse"
+    id: str  # provider-native id
+    url: str  # full-resolution image URL
     thumbnail_url: str | None
     width: int | None
     height: int | None
-    title: str | None        # short title
+    title: str | None  # short title
     description: str | None  # alt text / longer description
-    tags: list[str]          # normalized to [] when absent
-    license: str | None      # license code or name (e.g. "by-sa"); None = unknown (excluded by the allowlist gate)
+    tags: list[str]  # normalized to [] when absent
+    license: (
+        str | None
+    )  # license code or name (e.g. "by-sa"); None = unknown (excluded by the allowlist gate)
     license_url: str | None
     attribution: str | None  # ready-to-render attribution sentence
     source_page_url: str | None
     author: str | None
     author_url: str | None
-    cacheable: bool          # may bytes be downloaded/cached to our server?
-    avg_color: str | None    # dominant-color hint where available (Pexels avg_color)
+    cacheable: bool  # may bytes be downloaded/cached to our server?
+    avg_color: str | None  # dominant-color hint where available (Pexels avg_color)
     # provenance / escape hatch
-    query: str | None        # the canonical query that produced this hit
-    score: float | None      # reserved for Layer-2 rerank; None at Layer 1
-    raw: dict                # untranslated provider payload (denote's .raw convention)
+    query: str | None  # the canonical query that produced this hit
+    score: float | None  # reserved for Layer-2 rerank; None at Layer 1
+    raw: dict  # untranslated provider payload (denote's .raw convention)
 ```
 
 `license`, `attribution`, `source_page_url`, `author`, and `cacheable` are
@@ -243,9 +245,14 @@ licensing are promoted regardless of count.
 ```python
 key = hashlib.sha256(
     json.dumps(
-        {"source": source_id, "query": q, "params": normalized_params,
-         "schema": SEARCH_CACHE_SCHEMA},      # version token, bumped on schema change
-        sort_keys=True, default=str,
+        {
+            "source": source_id,
+            "query": q,
+            "params": normalized_params,
+            "schema": SEARCH_CACHE_SCHEMA,
+        },  # version token, bumped on schema change
+        sort_keys=True,
+        default=str,
     ).encode()
 ).hexdigest()
 ```
