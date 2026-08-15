@@ -50,7 +50,7 @@ design, result schema, and roadmap — is in
 [`misc/docs/design/illustration_design.md`](misc/docs/design/illustration_design.md).
 AI agents: [`.claude/skills/illustration/SKILL.md`](.claude/skills/illustration/SKILL.md)
 is the condensed usage guide (including the licence/attribution obligations);
-[`.claude/CLAUDE.md`](.claude/CLAUDE.md) is the contributor's map of the package.
+[`CLAUDE.md`](CLAUDE.md) is the contributor's map of the package.
 
 ## Install
 

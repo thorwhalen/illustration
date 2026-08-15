@@ -95,11 +95,14 @@ Key arguments:
 - `rerank=False` — `True` runs SigLIP-2 over the assembled results.
 - `cache=True` — SHA-256 content-addressed JSON files under
   `~/.cache/illustration/`; `refresh=True` forces a re-fetch;
-  `cache=my_mutable_mapping` injects any `dol`-style store; `cache=False` bypasses.
-- `api_key=...` and flat native params (`color="blue"`) are **single-source
-  only** — they raise on a multi-source fan-out. Use
-  `provider_params={"pexels": {"color": "blue"}}` and `using_credentials(...)`
-  instead.
+  `cache=False` bypasses. To inject your own `dol`-style store, wrap it:
+  `cache=SearchCache(my_mutable_mapping)` (`from illustration import
+  SearchCache`) — a bare mapping is *not* accepted and raises.
+- `api_key=...` and flat native params (anything `search()` doesn't name — e.g.
+  Pixabay's native `image_type="photo"`) are **single-source only**: they raise
+  on a multi-source fan-out. Use
+  `provider_params={"pixabay": {"image_type": "photo"}}` and
+  `using_credentials(...)` instead.
 
 ## Sources
 
@@ -124,7 +127,7 @@ with illustration.using_credentials(pexels="...", pixabay="..."):
     illustration.search("harbour", source=["pexels", "pixabay"])
 ```
 
-## `rerank(query, results, *, scorer=None)` — precision
+## `rerank(query, results, *, scorer=None, descending=True)` — precision
 
 Provider search is cheap **recall** over tags/lexical text. For **precision**,
 rerank with true text↔image similarity (SigLIP-2, local, no API cost). Use the
@@ -259,6 +262,7 @@ illustration info openverse
   an explicit `source=` plus a key.
 - **`search()` results are cached by default** — an identical repeat call never
   hits the network. Pass `refresh=True` when you actually want fresh results.
+  Empty result sets are deliberately not cached, so a zero-hit query re-fetches.
 - **Not every provider supports every filter.** Wikimedia supports *none* of the
   canonical filters; unsupported ones are dropped silently rather than erroring.
 - **`.score` is `None` until something reranks.** Don't sort on it blindly.

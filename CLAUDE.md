@@ -8,12 +8,12 @@ assumes the image already exists and someone else owns it.
 
 ## Start here
 
-- **[`.claude/skills/illustration`](skills/illustration/SKILL.md)** — the
+- **[`.claude/skills/illustration`](.claude/skills/illustration/SKILL.md)** — the
   consumer-facing skill: how to *use* the package to find images for beats, and
   the licence/attribution obligations that come with them. Read that first if
   you are a caller rather than a contributor.
-- **[`README.md`](../README.md)** — the human-facing tour (same material, longer).
-- **[`misc/docs/design/illustration_design.md`](../misc/docs/design/illustration_design.md)**
+- **[`README.md`](README.md)** — the human-facing tour (same material, longer).
+- **[`misc/docs/design/illustration_design.md`](misc/docs/design/illustration_design.md)**
   — provider comparison, canonical parameter mapping, escape-hatch design,
   result schema, roadmap. The rationale for most of what follows.
 
