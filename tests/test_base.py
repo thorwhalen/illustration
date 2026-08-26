@@ -22,7 +22,9 @@ class _FakeSource(RetrievalSource):
     def _normalize(self, item, *, query):
         if item.get("bad"):
             raise ValueError("malformed item")
-        return ImageResult(provider="fake", id=str(item["id"]), url=item["u"], query=query)
+        return ImageResult(
+            provider="fake", id=str(item["id"]), url=item["u"], query=query
+        )
 
 
 def _page(ids):
@@ -130,7 +132,9 @@ def test_max_pages_cap(make_session):
 
     # every page is FULL (== max_per_page=2), so the short-page stop never fires;
     # the loop must be bounded by MAX_PAGES, not by the (huge) n
-    sess = make_session(response={"items": [{"id": 1, "u": "u1"}, {"id": 2, "u": "u2"}]})
+    sess = make_session(
+        response={"items": [{"id": 1, "u": "u1"}, {"id": 2, "u": "u2"}]}
+    )
     results = _FakeSource(session=sess).search("q", n=10_000)
     assert len(sess.calls) == MAX_PAGES
     assert len(results) == MAX_PAGES * 2
@@ -165,3 +169,23 @@ def test_raw_search_includes_fixed_params(make_session):
     sent = sess.calls[0]["params"]
     assert sent["mode"] == "json"  # fixed_params present even in raw_search
     assert sent["q"] == "x"
+
+
+def test_default_min_per_page_leaves_small_n_alone(make_session):
+    """The floor is opt-in: a provider that does not set it is unaffected."""
+
+    class _Src(RetrievalSource):
+        name = "floorless"
+        endpoint = "https://example.invalid/s"
+
+        def _items(self, response):
+            return response.get("results") or []
+
+        def _normalize(self, item, *, query):
+            return ImageResult(provider=self.name, id=item["id"], url=item["url"])
+
+    sess = make_session({1: {"results": [{"id": "1", "url": "u"}]}})
+    src = _Src(session=sess)
+    assert src.min_per_page == 1
+    src.search("x", n=1)
+    assert sess.calls[0]["params"]["page_size"] == 1

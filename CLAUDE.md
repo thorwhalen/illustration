@@ -45,7 +45,8 @@ storyboard.
 
 | Module | Owns | Heavy deps |
 |---|---|---|
-| `schema` | `ImageResult` (Pydantic v2, the SSOT), `license_allowlist`, `to_search_hit` | pure |
+| `schema` | `ImageResult` (Pydantic v2, the SSOT), `RIGHTS_FIELDS`, `license_allowlist`, `to_search_hit` | pure |
+| `licensing` | `normalize_license` — one canonical code from four provider vocabularies | pure |
 | `base` | `RetrievalSource` ABC + `SourceInfo`; paging, HTTP, error translation | `requests` (lazy) |
 | `providers/` | `openverse`, `wikimedia`, `pexels`, `pixabay` adapters | — |
 | `registry` | `register_source` / `get_source` / `sources` (the open-closed seam) | pure |
@@ -79,16 +80,32 @@ its defining constraint, not a footnote.
   the caller's: `license_allow=` on `search()`, or `license_allowlist(hits)`.
   It is **opt-in and off by default** — do not quietly make it default-on
   either; a silent filter is worse than an explicit one.
-- `license_allowlist` matches the licence **code string exactly**
-  (case-insensitively) against `DFLT_LICENSE_ALLOWLIST`. Provider licence
-  vocabularies differ (`by-sa` from Openverse, `cc-by-sa-4.0` from Commons,
-  `Pixabay License` from Pixabay), so the default set does not cover them all —
-  see the skill's gotchas before writing a doc claim about it.
+- `license_allowlist` normalises **both sides** through
+  `licensing.normalize_license` before comparing, so the four provider dialects
+  (`by-sa` from Openverse, `cc-by-sa-4.0` / `CC BY-SA 4.0` from Commons,
+  `Pixabay License`, `Pexels License`) all reach the same canonical code. Before
+  #13 the comparison was exact and Wikimedia + Pixabay silently gated to `[]`.
+  **The normaliser's invariant is that it may never drop a restriction token**
+  — it removes only a `cc-` prefix and a trailing version, and every other
+  spelling is a hand-written entry in `LICENSE_ALIASES`. An unrecognised code
+  survives unchanged and therefore fails the gate: unknown is not allowed.
+  `tests/test_licensing.py` asserts both directions and is mutation-tested;
+  widening the alias table is a decision, never a convenience.
+- **The rights record survives persistence.** `RIGHTS_FIELDS` (in `schema`) is
+  the SSOT for the seven fields that answer "may we ship this, and whom must we
+  credit?", and `persistence._CandidateRef` declares every one of them under the
+  *same names* so no consumer needs a rename table. They are optional with
+  defaults, which is what makes the addition additive (no lacing migration);
+  `cacheable` is `bool | None` so "not recorded" stays distinguishable from
+  "recorded as False". Adding a field to `RIGHTS_FIELDS` without adding it to
+  `_CandidateRef` turns `tests/test_persistence.py` red — pydantic would
+  otherwise ignore the undeclared key and lose it silently.
 
 ## Adding a provider (open-closed)
 
 Subclass `RetrievalSource`, declare `endpoint` / `query_param` /
-`per_page_param` / `max_per_page` / `param_map` / `info`, implement `_items` and
+`per_page_param` / `max_per_page` (and `min_per_page` if the API rejects a small
+page — Pixabay's documented minimum is 3) / `param_map` / `info`, implement `_items` and
 `_normalize`, then `register_source(MySource())`. The façade is untouched.
 Auth goes in `_auth_headers` (header key) or `_auth_params` (query-param key);
 non-standard pagination in `_page_params`; mandatory constants in

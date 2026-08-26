@@ -4,7 +4,7 @@ import pytest
 
 from illustration.credentials import using_credentials
 from illustration.errors import MissingCredentialError
-from illustration.providers.pixabay import PixabaySource
+from illustration.providers.pixabay import _PIXABAY_MIN_PER_PAGE, PixabaySource
 
 
 def test_normalize(make_session, pixabay_payload):
@@ -36,8 +36,12 @@ def test_key_is_query_param_not_header(make_session, pixabay_payload):
 def test_param_translation(make_session, pixabay_payload):
     sess = make_session({1: pixabay_payload})
     PixabaySource(session=sess).search(
-        "x", n=1, api_key="k",
-        orientation="landscape", safe=True, content_type="illustration",
+        "x",
+        n=1,
+        api_key="k",
+        orientation="landscape",
+        safe=True,
+        content_type="illustration",
         native_params={"colors": "blue"},
     )
     sent = sess.calls[0]["params"]
@@ -72,7 +76,39 @@ def test_raw_search_carries_key(make_session, pixabay_payload):
 
 def test_invalid_size_or_orientation_dropped(make_session, pixabay_payload):
     sess = make_session({1: pixabay_payload})
-    PixabaySource(session=sess).search("x", n=1, api_key="k", size="huge", orientation="sideways")
+    PixabaySource(session=sess).search(
+        "x", n=1, api_key="k", size="huge", orientation="sideways"
+    )
     sent = sess.calls[0]["params"]
-    assert "min_width" not in sent  # invalid size dropped (choices guard), not min_width=0
+    assert (
+        "min_width" not in sent
+    )  # invalid size dropped (choices guard), not min_width=0
     assert "orientation" not in sent  # invalid orientation dropped
+
+
+def test_small_n_still_requests_pixabays_minimum_per_page(
+    make_session, pixabay_payload
+):
+    """Pixabay documents per_page as 3-200 and rejects a smaller page.
+
+    Asserts the *request*, not the response: the fakes never validate params, so
+    the only way this bug is visible offline is by reading what was sent.
+    """
+    sess = make_session({1: pixabay_payload})
+    PixabaySource(session=sess).search("x", n=1, api_key="k")
+    assert sess.calls[0]["params"]["per_page"] == _PIXABAY_MIN_PER_PAGE
+
+
+def test_min_per_page_never_raises_the_ceiling(make_session, pixabay_payload):
+    sess = make_session({1: pixabay_payload})
+    src = PixabaySource(session=sess)
+    src.search("x", n=500, api_key="k")
+    assert sess.calls[0]["params"]["per_page"] == src.max_per_page
+
+
+def test_small_n_still_returns_exactly_n(make_session, pixabay_payload):
+    # The floor asks for more rows than requested; the `n` slice trims them.
+    hits = PixabaySource(session=make_session({1: pixabay_payload})).search(
+        "x", n=1, api_key="k"
+    )
+    assert len(hits) == 1

@@ -50,7 +50,12 @@ DFLT_SOURCES = ("openverse",)
 #: Conservative default license allowlist for the (opt-in) license gate.
 #: CC0 / public-domain / CC-BY / CC-BY-SA are commercial-safe (BY-SA imposes
 #: share-alike — flagged, not rejected). NC/ND and unknowns are excluded.
-DFLT_LICENSE_ALLOWLIST = frozenset({"cc0", "pdm", "by", "by-sa", "pexels license"})
+#: Entries are compared *after* :func:`illustration.licensing.normalize_license`
+#: runs over both sides, so a provider's own spelling (``cc-by-sa-4.0``,
+#: ``Pixabay License``) matches the canonical code written here.
+DFLT_LICENSE_ALLOWLIST = frozenset(
+    {"cc0", "pdm", "by", "by-sa", "pexels-license", "pixabay-license"}
+)
 
 #: HTTP request timeout, seconds.
 HTTP_TIMEOUT = 30

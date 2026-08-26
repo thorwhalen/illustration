@@ -37,7 +37,12 @@ __all__ = ["WikimediaSource"]
 _TAG_RE = re.compile(r"<[^>]+>")
 _HREF_RE = re.compile(r'href=["\']([^"\']+)["\']', re.IGNORECASE)
 _THUMB_WIDTH = "320"  # px width requested for the generated thumbnail URL
-_ANON_SEARCH_LIMIT = 50  # anonymous search-generator per-page cap
+# What actually caps a page at 50 here is `iiurlwidth`: requesting scaled
+# thumbnails limits a response to "no more than 50 scaled images". The search
+# generator itself (`gsrlimit`) is documented as 1-500 with no anonymous
+# distinction — so raising this cap means dropping `iiurlwidth` (and the
+# thumbnail URLs it produces), not asking the search API for more.
+_SCALED_IMAGE_LIMIT = 50
 
 
 def _strip_html(value: "str | None") -> "str | None":
@@ -64,7 +69,7 @@ class WikimediaSource(RetrievalSource):
     name = "wikimedia"
     endpoint = "https://commons.wikimedia.org/w/api.php"
     query_param = "gsrsearch"
-    max_per_page = _ANON_SEARCH_LIMIT
+    max_per_page = _SCALED_IMAGE_LIMIT
     fixed_params = {
         "action": "query",
         "format": "json",

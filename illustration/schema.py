@@ -25,8 +25,26 @@ from typing import Any, Iterable, Mapping
 from pydantic import BaseModel, Field
 
 from illustration.config import DFLT_LICENSE_ALLOWLIST
+from illustration.licensing import normalize_license
 
-__all__ = ["ImageResult", "license_allowlist", "to_search_hit"]
+__all__ = ["ImageResult", "license_allowlist", "to_search_hit", "RIGHTS_FIELDS"]
+
+#: The **rights record**: the fields that answer "may we ship this, and whom
+#: must we credit?". This tuple is the SSOT for that question — anything that
+#: persists, forwards or re-materialises an :class:`ImageResult` copies exactly
+#: these, by these names, so no rename table is ever needed downstream. It is
+#: the one field set that cannot be reconstructed later: a dead URL, a
+#: re-keyed provider or a re-tagged aggregator all leave a stored selection
+#: unable to answer it.
+RIGHTS_FIELDS = (
+    "license",
+    "license_url",
+    "attribution",
+    "source_page_url",
+    "author",
+    "author_url",
+    "cacheable",
+)
 
 
 class ImageResult(BaseModel):
@@ -120,8 +138,12 @@ def license_allowlist(
 
     The mandatory per-file license-verification gate for commercial-adjacent
     use: aggregators disclaim license accuracy, so callers should gate on a
-    known-good set. Matching is case-insensitive on the license code/name.
-    Results with no ``license`` are dropped (unknown == not allowed).
+    known-good set. Both sides are run through
+    :func:`illustration.licensing.normalize_license` first, so a provider's own
+    spelling (``cc-by-sa-4.0`` from Commons, ``Pixabay License``) matches the
+    canonical code without the allowlist having to enumerate every dialect —
+    and without ever dropping an ``nc``/``nd`` restriction. Results with no
+    ``license`` are dropped (unknown == not allowed).
 
     >>> a = ImageResult(provider="p", id="1", url="u", license="cc0")
     >>> b = ImageResult(provider="p", id="2", url="u", license="by-nc")
@@ -130,11 +152,21 @@ def license_allowlist(
     ['1']
     >>> [r.id for r in license_allowlist([a, b, c], allow={"by-nc"})]
     ['2']
+
+    Provider dialects pass the same gate:
+
+    >>> w = ImageResult(provider="wikimedia", id="4", url="u", license="cc-by-sa-4.0")
+    >>> p = ImageResult(provider="pixabay", id="5", url="u", license="Pixabay License")
+    >>> nd = ImageResult(provider="wikimedia", id="6", url="u", license="cc-by-nd-4.0")
+    >>> [r.id for r in license_allowlist([w, p, nd])]
+    ['4', '5']
     """
     allowed = {
-        s.lower() for s in (allow if allow is not None else DFLT_LICENSE_ALLOWLIST)
+        normalize_license(s)
+        for s in (allow if allow is not None else DFLT_LICENSE_ALLOWLIST)
     }
-    return [r for r in results if r.license and r.license.lower() in allowed]
+    allowed.discard(None)
+    return [r for r in results if normalize_license(r.license) in allowed]
 
 
 def _coerce_results(items: Iterable[Mapping[str, Any]]) -> list[ImageResult]:
