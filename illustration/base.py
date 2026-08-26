@@ -8,7 +8,8 @@ Adding a provider touches only a new subclass + one registration — never the
 façade (open-closed).
 
 A subclass declares class attributes (``name``, ``endpoint``, ``query_param``,
-``page_param``, ``per_page_param``, ``max_per_page``, ``param_map``, ``info``)
+``page_param``, ``per_page_param``, ``max_per_page``, ``min_per_page``,
+``param_map``, ``info``)
 and implements three hooks: :meth:`_items`, :meth:`_normalize`, and
 (if the provider needs a key) :meth:`_auth_headers`.
 
@@ -74,6 +75,11 @@ class RetrievalSource(ABC):
     per_page_param: str = "page_size"
     #: Hard cap on results per page this provider allows.
     max_per_page: int = 20
+    #: Floor on results per page this provider allows. Default 1 (no floor);
+    #: raise it for a provider that *rejects* a small page (Pixabay's documented
+    #: minimum is 3), so ``search(q, n=1)`` asks for a page the API accepts and
+    #: the extra rows are trimmed by the ``n`` slice rather than 400-ing.
+    min_per_page: int = 1
     #: Constant native params sent on every request (e.g. an API mode/format).
     fixed_params: Mapping[str, Any] = MappingProxyType({})
     #: Canonical→native parameter spec (see :mod:`illustration.translation`).
@@ -120,7 +126,7 @@ class RetrievalSource(ABC):
             native.update(native_params)
 
         results: list[ImageResult] = []
-        per_page = max(1, min(n, self.max_per_page))
+        per_page = max(self.min_per_page, min(n, self.max_per_page))
         page = 1
         while len(results) < n and page <= MAX_PAGES:
             params = {**self.fixed_params, **native}

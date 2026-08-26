@@ -9,6 +9,15 @@ append-only, OTIO export). This module is the thin adapter that maps an
 illustration :class:`~illustration.sequence.SequenceResult` onto lacing — it does
 **not** reinvent an annotation store.
 
+A stored selection carries the **rights record** — ``license``, ``license_url``,
+``attribution``, ``source_page_url``, ``author``, ``author_url``, ``cacheable``
+(:data:`illustration.schema.RIGHTS_FIELDS`) — alongside the candidate's identity,
+under the same field names :class:`~illustration.schema.ImageResult` uses. The
+annotation is the durable artifact; a URL alone stops being able to answer "may
+we ship this, and whom must we credit?" the moment the link rots or the
+aggregator re-tags the file, and that is the one field set no later step can
+reconstruct.
+
 One deliberate modeling choice: a "best image for beat *i*" selection is a *graph*
 relation (beat → candidate), not inherently time-keyed — but ``lacing`` is
 interval-keyed, and at selection time the storyboard has no rendered timeline
@@ -39,7 +48,7 @@ from typing import Any, Sequence
 
 from pydantic import BaseModel, Field
 
-from illustration.schema import ImageResult
+from illustration.schema import RIGHTS_FIELDS, ImageResult
 
 __all__ = [
     "persist_sequence",
@@ -60,12 +69,34 @@ SELECTIONS_TIER = "selections"
 
 
 class _CandidateRef(BaseModel):
-    """A compact candidate reference stored inside a selection body."""
+    """A candidate reference stored inside a selection body — identity + rights.
+
+    The rights half (:data:`~illustration.schema.RIGHTS_FIELDS`) is carried here
+    deliberately and under **the same field names as**
+    :class:`~illustration.schema.ImageResult`, so no consumer needs a rename
+    table. A persisted annotation is the durable artifact a renderer actually
+    reads; a URL alone cannot answer "may we ship this, and whom must we
+    credit?" once the link rots or the aggregator re-tags the file.
+
+    Every rights field is optional so that an annotation written before they
+    existed still validates against ``annot://schema/illustration-selection/v1``
+    — the addition is additive and needs no lacing migration. ``cacheable`` is
+    ``bool | None`` rather than ``bool`` for the same reason: ``None`` means
+    *not recorded*, which is not the same claim as ``False``.
+    """
 
     provider: str
     id: str
     url: str
     score: "float | None" = None
+    # --- the rights record (names pinned to ImageResult) ---
+    license: "str | None" = None
+    license_url: "str | None" = None
+    attribution: "str | None" = None
+    source_page_url: "str | None" = None
+    author: "str | None" = None
+    author_url: "str | None" = None
+    cacheable: "bool | None" = None
 
 
 class SelectionBody(BaseModel):
@@ -270,10 +301,20 @@ def _gen_seconds(ann) -> float:
 
 
 def _candidate_ref(result: "ImageResult | None") -> "_CandidateRef | None":
+    """Project an :class:`ImageResult` onto the stored reference — identity + rights.
+
+    The rights fields are copied by iterating ``RIGHTS_FIELDS`` rather than being
+    listed again here, so the projection cannot fall behind the SSOT silently;
+    ``tests/test_persistence.py`` asserts the model declares every one of them.
+    """
     if result is None:
         return None
     return _CandidateRef(
-        provider=result.provider, id=result.id, url=result.url, score=result.score
+        provider=result.provider,
+        id=result.id,
+        url=result.url,
+        score=result.score,
+        **{field: getattr(result, field) for field in RIGHTS_FIELDS},
     )
 
 

@@ -254,6 +254,10 @@ from illustration import persist_sequence, record_override, resolve_selection
 store = persist_sequence(result)
 record_override(store, 1, my_preferred_image, reason="better composition")
 resolve_selection(store, 1)  # the director's choice now supersedes the machine's
+
+# The stored body keeps the whole rights record (illustration.RIGHTS_FIELDS),
+# under ImageResult's own field names — attribution survives the round trip:
+resolve_selection(store, 1)["selected"]["attribution"]
 ```
 
 These need the opt-in extras: `illustration[video]` (`burns` + `walkthru`) and
@@ -338,13 +342,21 @@ safe = license_allowlist(hits)  # CC0/PD/BY/BY-SA default
 safe = license_allowlist(hits, allow={"cc0", "pdm"})  # public-domain only
 ```
 
-The gate matches the license **code string exactly** (case-insensitively)
-against `DFLT_LICENSE_ALLOWLIST` (`cc0`, `pdm`, `by`, `by-sa`, `pexels
-license`), and license vocabularies differ per provider — Wikimedia emits
-`cc-by-sa-4.0` and Pixabay emits `Pixabay License`, neither of which is in that
-default set. So for those sources pass an explicit `allow=` covering the codes
-they actually emit, and check the gated list isn't empty before concluding
-nothing is license-safe.
+The gate normalizes both sides with `illustration.normalize_license` before
+comparing, so every provider's own spelling reaches the same canonical code —
+Wikimedia's `cc-by-sa-4.0` and Pixabay's `Pixabay License` both match the
+default `DFLT_LICENSE_ALLOWLIST` (`cc0`, `pdm`, `by`, `by-sa`,
+`pexels-license`, `pixabay-license`). Mechanically, normalization only ever
+strips a `cc-` prefix and a trailing version number: restrictions survive
+(`cc-by-nc-nd-4.0` → `by-nc-nd`, dropped), and an unrecognized code is left
+as-is and therefore dropped too — unknown is not allowed. On top of that,
+`illustration.LICENSE_ALIASES` is a short hand-written table folding ten further
+public-domain spellings onto `cc0`/`pdm` — so `pd` (what Wikimedia Commons
+actually emits for many files), `public domain`, `publicdomain`,
+`public-domain-mark`, `cc-zero`, `cc-0`, `zero`, `cc-pdm`, `cc-publicdomain` and
+`pdm-owner` all **pass** the default gate. Read that table, not just the
+prefix/version rule, when auditing what `license_allow=True` will keep. Name
+anything else you want explicitly in `allow={...}`.
 
 ## License
 

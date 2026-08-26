@@ -45,7 +45,8 @@ storyboard.
 
 | Module | Owns | Heavy deps |
 |---|---|---|
-| `schema` | `ImageResult` (Pydantic v2, the SSOT), `license_allowlist`, `to_search_hit` | pure |
+| `schema` | `ImageResult` (Pydantic v2, the SSOT), `RIGHTS_FIELDS`, `license_allowlist`, `to_search_hit` | pure |
+| `licensing` | `normalize_license` — one canonical code from four provider vocabularies | pure |
 | `base` | `RetrievalSource` ABC + `SourceInfo`; paging, HTTP, error translation | `requests` (lazy) |
 | `providers/` | `openverse`, `wikimedia`, `pexels`, `pixabay` adapters | — |
 | `registry` | `register_source` / `get_source` / `sources` (the open-closed seam) | pure |
@@ -79,16 +80,46 @@ its defining constraint, not a footnote.
   the caller's: `license_allow=` on `search()`, or `license_allowlist(hits)`.
   It is **opt-in and off by default** — do not quietly make it default-on
   either; a silent filter is worse than an explicit one.
-- `license_allowlist` matches the licence **code string exactly**
-  (case-insensitively) against `DFLT_LICENSE_ALLOWLIST`. Provider licence
-  vocabularies differ (`by-sa` from Openverse, `cc-by-sa-4.0` from Commons,
-  `Pixabay License` from Pixabay), so the default set does not cover them all —
-  see the skill's gotchas before writing a doc claim about it.
+- `license_allowlist` normalises **both sides** through
+  `licensing.normalize_license` before comparing, so the four provider dialects
+  (`by-sa` from Openverse, `cc-by-sa-4.0` / `CC BY-SA 4.0` from Commons,
+  `Pixabay License`, `Pexels License`) all reach the same canonical code. Before
+  #13 the comparison was exact and Wikimedia + Pixabay silently gated to `[]`.
+  **The normaliser's invariant is that it may never drop a restriction token**
+  — it removes only a `cc-` prefix and a trailing version, and every other
+  spelling is a hand-written entry in `LICENSE_ALIASES`. An unrecognised code
+  survives unchanged and therefore fails the gate: unknown is not allowed.
+  `tests/test_licensing.py` asserts both directions and is mutation-tested;
+  widening the alias table is a decision, never a convenience. Every alias key
+  must also stay **reachable**: the version strip runs before the lookup, so
+  `"cc-0"` was dead code for a release (it became `cc`, and CC0 images spelled
+  that way were dropped by the default gate) — `test_every_alias_key_is_reachable`
+  pins that, because the failure direction is invisible (fewer hits, no error).
+- **The rights record survives persistence.** `RIGHTS_FIELDS` (in `schema`) is
+  the SSOT for the seven fields that answer "may we ship this, and whom must we
+  credit?", and `persistence._CandidateRef` declares every one of them under the
+  *same names* so no consumer needs a rename table. They are optional with
+  defaults, which is what makes the addition additive (no lacing migration);
+  `cacheable` is `bool | None` so "not recorded" stays distinguishable from
+  "recorded as False". **Three hops, three guards, all in
+  `tests/test_persistence.py` and all mutation-tested** — the first draft of
+  this guard was parameterised by `RIGHTS_FIELDS`, i.e. by the very list it was
+  meant to protect, so trimming `source_page_url` out of the tuple silently
+  stopped persisting it with the whole suite green:
+  `ImageResult` → `RIGHTS_FIELDS` is a **literal pin on every `ImageResult`
+  field**, so a new field forces a human to classify it as rights-bearing or
+  not (nothing structural distinguishes the two, so this hop cannot be derived
+  — it is a recorded decision); `RIGHTS_FIELDS` itself is a literal pin, so a
+  trim is a deliberate two-place edit; and `RIGHTS_FIELDS` → `_CandidateRef` is
+  the subset check, which matters because `_CandidateRef` deliberately does
+  *not* set `extra="forbid"` (that is what lets an old build read a newer body)
+  and so would **ignore** an undeclared key rather than raise.
 
 ## Adding a provider (open-closed)
 
 Subclass `RetrievalSource`, declare `endpoint` / `query_param` /
-`per_page_param` / `max_per_page` / `param_map` / `info`, implement `_items` and
+`per_page_param` / `max_per_page` (and `min_per_page` if the API rejects a small
+page — Pixabay's documented minimum is 3) / `param_map` / `info`, implement `_items` and
 `_normalize`, then `register_source(MySource())`. The façade is untouched.
 Auth goes in `_auth_headers` (header key) or `_auth_params` (query-param key);
 non-standard pagination in `_page_params`; mandatory constants in

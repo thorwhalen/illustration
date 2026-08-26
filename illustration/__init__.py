@@ -119,7 +119,13 @@ from illustration.registry import (
     sources,
     unregister_source,
 )
-from illustration.schema import ImageResult, license_allowlist, to_search_hit
+from illustration.licensing import normalize_license
+from illustration.schema import (
+    RIGHTS_FIELDS,
+    ImageResult,
+    license_allowlist,
+    to_search_hit,
+)
 from illustration.translation import make_param_translator
 
 # Importing the providers subpackage registers the built-in sources as a side
@@ -132,7 +138,9 @@ __all__ = [
     "search",
     # schema + helpers
     "ImageResult",
+    "RIGHTS_FIELDS",
     "license_allowlist",
+    "normalize_license",
     "to_search_hit",
     # registry / sources
     "RetrievalSource",

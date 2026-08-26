@@ -26,7 +26,10 @@ everything you need on every hit; using it is your job.
 
 Every `ImageResult` carries: `license`, `license_url`, `attribution` (a
 ready-to-render sentence), `source_page_url`, `author`, `author_url`, and
-`cacheable`.
+`cacheable`. That set is `illustration.RIGHTS_FIELDS` — use it when you need to
+copy the rights record onto your own model, and keep the field names, so nobody
+downstream needs a rename table. `persist_sequence` stores all seven on the
+lacing annotation, so a selection read back later can still be attributed.
 
 **The obligations, per source:**
 
@@ -236,6 +239,16 @@ argument accepts a stub so you can test without either. `persist_sequence`
 returns a fresh in-memory `lacing` store when you don't pass one; overrides are
 append-only, never destructive.
 
+The stored body keeps the rights record, so attribution survives the round trip:
+
+```python
+selected = resolve_selection(store, 1)["selected"]
+selected["attribution"], selected["license"], selected["source_page_url"]
+```
+
+A body written before v0.0.6 has those keys absent/`None` — `cacheable is None`
+means *not recorded*, which is not the same as "not cacheable".
+
 ## CLI
 
 ```bash
@@ -249,13 +262,17 @@ illustration info openverse
 
 ## Gotchas
 
-- **`license_allow=True` matches licence codes EXACTLY** (case-insensitively)
-  against `{cc0, pdm, by, by-sa, "pexels license"}`. Provider vocabularies
-  differ, so this silently returns `[]` for sources whose codes are spelled
-  differently — Wikimedia emits `cc-by-sa-4.0`, Pixabay emits `Pixabay License`,
-  neither of which is in the default set. Pass an explicit
-  `allow={...}` covering the codes your chosen sources actually emit, and check
-  the result is non-empty before concluding "nothing is licence-safe".
+- **`license_allow=True` normalises before comparing, so all four providers'
+  own spellings work.** The default set is
+  `{cc0, pdm, by, by-sa, pexels-license, pixabay-license}` and both sides go
+  through `normalize_license` first, so Wikimedia's `cc-by-sa-4.0` /
+  `CC BY-SA 4.0` and Pixabay's `Pixabay License` all match. (Before v0.0.6 the
+  match was exact and those two sources silently gated to `[]` — if you are
+  reading older notes saying to pass an explicit `allow=`, that is stale.)
+  What normalisation does **not** do is soften a restriction: `by-nc`,
+  `by-nd`, `cc-by-nc-nd-4.0` are dropped, and an unrecognised code
+  (`PD-US-expired`, bespoke museum terms) is dropped too — unknown is not
+  allowed. If you need one of those, name it yourself in `allow={...}`.
 - **`n` is per source, and multi-source results are concatenated, not fused.**
   Rerank (or `curate`) if you want one merged ranking.
 - **The default source set is Openverse alone.** Widening to keyed providers is

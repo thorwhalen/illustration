@@ -27,6 +27,8 @@ __all__ = ["PixabaySource"]
 
 _PIXABAY_LICENSE = "Pixabay License"
 _PIXABAY_LICENSE_URL = "https://pixabay.com/service/license-summary/"
+# Pixabay's documented per_page range is 3-200; a smaller page is rejected.
+_PIXABAY_MIN_PER_PAGE = 3
 # canonical orientation → Pixabay's orientation vocabulary (no 'square' → 'all')
 _ORIENTATION = {"landscape": "horizontal", "portrait": "vertical", "square": "all"}
 # canonical size → Pixabay min_width (no size tier; approximate with a width floor)
@@ -42,6 +44,9 @@ class PixabaySource(RetrievalSource):
     page_param = "page"
     per_page_param = "per_page"
     max_per_page = 200
+    # Pixabay documents per_page as 3-200 and rejects anything below 3, so
+    # search(q, n=1) must still ask for 3 and let the `n` slice do the trimming.
+    min_per_page = _PIXABAY_MIN_PER_PAGE
     param_map = {
         # choices guards drop an unrecognized value (matching sibling providers)
         # rather than silently neutralizing it via the coerce default.
