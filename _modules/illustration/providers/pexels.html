@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.providers.pexels &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.providers.pexels &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
@@ -98,9 +99,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for illustration.providers.pexels</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Pexels source — high-quality stock photos, **API key required**.</span>
+<span></span><span class="sd">"""Pexels source — high-quality stock photos, **API key required**.</span>
 
-<span class="sd">Pexels (``https://api.pexels.com/v1/search``) is the package&#39;s reference *keyed*</span>
+<span class="sd">Pexels (``https://api.pexels.com/v1/search``) is the package's reference *keyed*</span>
 <span class="sd">provider: it proves the registry is a true drop-in and exercises the credentials</span>
 <span class="sd">/ ``check_requirements`` path. The key is sent as the **raw** value of the</span>
 <span class="sd">``Authorization`` header (no ``Bearer`` prefix — a prefix yields 401).</span>
@@ -108,7 +109,7 @@
 <span class="sd">Quirks handled here (from the live-API survey): ``photos[].url`` is the Pexels</span>
 <span class="sd">web *page*, not the image (the image is under ``photos[].src.*``); there are no</span>
 <span class="sd">tags and no per-result license (all content is the single Pexels License).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -117,81 +118,81 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetrievalSource</span><span class="p">,</span> <span class="n">SourceInfo</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PexelsSource&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"PexelsSource"</span><span class="p">]</span>
 
-<span class="n">_PEXELS_LICENSE</span> <span class="o">=</span> <span class="s2">&quot;Pexels License&quot;</span>
-<span class="n">_PEXELS_LICENSE_URL</span> <span class="o">=</span> <span class="s2">&quot;https://www.pexels.com/license/&quot;</span>
+<span class="n">_PEXELS_LICENSE</span> <span class="o">=</span> <span class="s2">"Pexels License"</span>
+<span class="n">_PEXELS_LICENSE_URL</span> <span class="o">=</span> <span class="s2">"https://www.pexels.com/license/"</span>
 
 
 <div class="viewcode-block" id="PexelsSource">
 <a class="viewcode-back" href="../../../module_docs/illustration/providers/pexels.html#illustration.providers.PexelsSource">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PexelsSource</span><span class="p">(</span><span class="n">RetrievalSource</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pure-search adapter for the Pexels photo API.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Pure-search adapter for the Pexels photo API."""</span>
 
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pexels&quot;</span>
-    <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://api.pexels.com/v1/search&quot;</span>
-    <span class="n">query_param</span> <span class="o">=</span> <span class="s2">&quot;query&quot;</span>
-    <span class="n">page_param</span> <span class="o">=</span> <span class="s2">&quot;page&quot;</span>
-    <span class="n">per_page_param</span> <span class="o">=</span> <span class="s2">&quot;per_page&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">"pexels"</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">"https://api.pexels.com/v1/search"</span>
+    <span class="n">query_param</span> <span class="o">=</span> <span class="s2">"query"</span>
+    <span class="n">page_param</span> <span class="o">=</span> <span class="s2">"page"</span>
+    <span class="n">per_page_param</span> <span class="o">=</span> <span class="s2">"per_page"</span>
     <span class="n">max_per_page</span> <span class="o">=</span> <span class="mi">80</span>
     <span class="n">param_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;orientation&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;landscape&quot;</span><span class="p">,</span> <span class="s2">&quot;portrait&quot;</span><span class="p">,</span> <span class="s2">&quot;square&quot;</span><span class="p">},</span>
+        <span class="s2">"orientation"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"orientation"</span><span class="p">,</span>
+            <span class="s2">"choices"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"landscape"</span><span class="p">,</span> <span class="s2">"portrait"</span><span class="p">,</span> <span class="s2">"square"</span><span class="p">},</span>
         <span class="p">},</span>
-        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;large&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="s2">&quot;small&quot;</span><span class="p">}},</span>
+        <span class="s2">"size"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"size"</span><span class="p">,</span> <span class="s2">"choices"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"large"</span><span class="p">,</span> <span class="s2">"medium"</span><span class="p">,</span> <span class="s2">"small"</span><span class="p">}},</span>
         <span class="c1"># `safe` is a no-op (the Pexels corpus is curated); `license_type` has no</span>
         <span class="c1"># equivalent (single license). Both are explicitly unsupported -&gt; degrade.</span>
-        <span class="s2">&quot;safe&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span>  <span class="c1"># Pexels supports a named or #hex color</span>
-        <span class="s2">&quot;content_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Pexels is photos only</span>
+        <span class="s2">"safe"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"license_type"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"color"</span><span class="p">,</span>  <span class="c1"># Pexels supports a named or #hex color</span>
+        <span class="s2">"content_type"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Pexels is photos only</span>
     <span class="p">}</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pexels&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Curated high-quality stock photos under the Pexels License.&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">"pexels"</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Curated high-quality stock photos under the Pexels License."</span><span class="p">,</span>
         <span class="n">requires_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">homepage</span><span class="o">=</span><span class="s2">&quot;https://www.pexels.com&quot;</span><span class="p">,</span>
+        <span class="n">homepage</span><span class="o">=</span><span class="s2">"https://www.pexels.com"</span><span class="p">,</span>
         <span class="n">default_cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">license_note</span><span class="o">=</span><span class="s2">&quot;Single Pexels License (commercial OK); credit photographer + backlink.&quot;</span><span class="p">,</span>
-        <span class="n">rate_limit</span><span class="o">=</span><span class="s2">&quot;200/hour, 20,000/month&quot;</span><span class="p">,</span>
-        <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;stock&quot;</span><span class="p">,</span> <span class="s2">&quot;photos&quot;</span><span class="p">,</span> <span class="s2">&quot;keyed&quot;</span><span class="p">),</span>
+        <span class="n">license_note</span><span class="o">=</span><span class="s2">"Single Pexels License (commercial OK); credit photographer + backlink."</span><span class="p">,</span>
+        <span class="n">rate_limit</span><span class="o">=</span><span class="s2">"200/hour, 20,000/month"</span><span class="p">,</span>
+        <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">"stock"</span><span class="p">,</span> <span class="s2">"photos"</span><span class="p">,</span> <span class="s2">"keyed"</span><span class="p">),</span>
     <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="c1"># Raw key, no &quot;Bearer &quot; prefix. check_requirements has already ensured</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="c1"># Raw key, no "Bearer " prefix. check_requirements has already ensured</span>
         <span class="c1"># a key is present before we get here.</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">}</span> <span class="k">if</span> <span class="n">api_key</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"Authorization"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">}</span> <span class="k">if</span> <span class="n">api_key</span> <span class="k">else</span> <span class="p">{}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;photos&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"photos"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="n">photographer</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;photographer&quot;</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"src"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">photographer</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"photographer"</span><span class="p">)</span>
         <span class="n">attribution</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Photo by </span><span class="si">{</span><span class="n">photographer</span><span class="si">}</span><span class="s2"> on Pexels&quot;</span>
+            <span class="sa">f</span><span class="s2">"Photo by </span><span class="si">{</span><span class="n">photographer</span><span class="si">}</span><span class="s2"> on Pexels"</span>
             <span class="k">if</span> <span class="n">photographer</span>
-            <span class="k">else</span> <span class="s2">&quot;Photo from Pexels&quot;</span>
+            <span class="k">else</span> <span class="s2">"Photo from Pexels"</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
             <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),</span>
-            <span class="n">url</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;original&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;large2x&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;large&quot;</span><span class="p">),</span>
-            <span class="n">thumbnail_url</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tiny&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">),</span>
-            <span class="n">width</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">),</span>
-            <span class="n">height</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">),</span>
+            <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]),</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"original"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"large2x"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"large"</span><span class="p">),</span>
+            <span class="n">thumbnail_url</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tiny"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">src</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"medium"</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"width"</span><span class="p">),</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"height"</span><span class="p">),</span>
             <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">description</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;alt&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"alt"</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">tags</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># Pexels returns no tags</span>
             <span class="n">license</span><span class="o">=</span><span class="n">_PEXELS_LICENSE</span><span class="p">,</span>
             <span class="n">license_url</span><span class="o">=</span><span class="n">_PEXELS_LICENSE_URL</span><span class="p">,</span>
             <span class="n">attribution</span><span class="o">=</span><span class="n">attribution</span><span class="p">,</span>
-            <span class="n">source_page_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">),</span>  <span class="c1"># the Pexels web page</span>
+            <span class="n">source_page_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"url"</span><span class="p">),</span>  <span class="c1"># the Pexels web page</span>
             <span class="n">author</span><span class="o">=</span><span class="n">photographer</span><span class="p">,</span>
-            <span class="n">author_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;photographer_url&quot;</span><span class="p">),</span>
+            <span class="n">author_url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"photographer_url"</span><span class="p">),</span>
             <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Pexels License permits caching for display</span>
-            <span class="n">avg_color</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;avg_color&quot;</span><span class="p">),</span>
+            <span class="n">avg_color</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"avg_color"</span><span class="p">),</span>
             <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
             <span class="n">raw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
         <span class="p">)</span></div>

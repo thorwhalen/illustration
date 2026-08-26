@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; illustration 0.0.4 documentation</title>
+  <title>&lt;no title&gt; &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="_static/documentation_options.js?v=282f96c0"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -60,6 +60,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
@@ -147,6 +148,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.normalize_license"><code class="docutils literal notranslate"><span class="pre">normalize_license()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.nsfw_check"><code class="docutils literal notranslate"><span class="pre">nsfw_check()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.package_version"><code class="docutils literal notranslate"><span class="pre">package_version()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
@@ -285,6 +287,12 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/licensing.html">illustration.licensing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/licensing.html#illustration.licensing.LICENSE_ALIASES"><code class="docutils literal notranslate"><span class="pre">LICENSE_ALIASES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/licensing.html#illustration.licensing.RESTRICTION_TOKENS"><code class="docutils literal notranslate"><span class="pre">RESTRICTION_TOKENS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/licensing.html#illustration.licensing.normalize_license"><code class="docutils literal notranslate"><span class="pre">normalize_license()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/persistence.html">illustration.persistence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SELECTIONS_TIER"><code class="docutils literal notranslate"><span class="pre">SELECTIONS_TIER</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SELECTION_SCHEMA_URI"><code class="docutils literal notranslate"><span class="pre">SELECTION_SCHEMA_URI</span></code></a></li>
@@ -342,6 +350,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.ImageResult"><code class="docutils literal notranslate"><span class="pre">ImageResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.RIGHTS_FIELDS"><code class="docutils literal notranslate"><span class="pre">RIGHTS_FIELDS</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
 </ul>

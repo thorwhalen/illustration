@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.persistence &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.persistence &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="illustration.providers" href="providers.html" />
-    <link rel="prev" title="illustration.inspection" href="inspection.html" /> 
+    <link rel="prev" title="illustration.licensing" href="licensing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,6 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.persistence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.SELECTIONS_TIER"><code class="docutils literal notranslate"><span class="pre">SELECTIONS_TIER</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.persistence.SELECTION_SCHEMA_URI"><code class="docutils literal notranslate"><span class="pre">SELECTION_SCHEMA_URI</span></code></a></li>
@@ -124,6 +125,14 @@ standoff annotation system: typed <code class="docutils literal notranslate"><sp
 append-only, OTIO export). This module is the thin adapter that maps an
 illustration <a class="reference internal" href="sequence.html#illustration.sequence.SequenceResult" title="illustration.sequence.SequenceResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceResult</span></code></a> onto lacing — it does
 <strong>not</strong> reinvent an annotation store.</p>
+<p>A stored selection carries the <strong>rights record</strong> — <code class="docutils literal notranslate"><span class="pre">license</span></code>, <code class="docutils literal notranslate"><span class="pre">license_url</span></code>,
+<code class="docutils literal notranslate"><span class="pre">attribution</span></code>, <code class="docutils literal notranslate"><span class="pre">source_page_url</span></code>, <code class="docutils literal notranslate"><span class="pre">author</span></code>, <code class="docutils literal notranslate"><span class="pre">author_url</span></code>, <code class="docutils literal notranslate"><span class="pre">cacheable</span></code>
+(<a class="reference internal" href="schema.html#illustration.schema.RIGHTS_FIELDS" title="illustration.schema.RIGHTS_FIELDS"><code class="xref py py-data docutils literal notranslate"><span class="pre">illustration.schema.RIGHTS_FIELDS</span></code></a>) — alongside the candidate’s identity,
+under the same field names <a class="reference internal" href="schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> uses. The
+annotation is the durable artifact; a URL alone stops being able to answer “may
+we ship this, and whom must we credit?” the moment the link rots or the
+aggregator re-tags the file, and that is the one field set no later step can
+reconstruct.</p>
 <p>One deliberate modeling choice: a “best image for beat <em>i</em>” selection is a <em>graph</em>
 relation (beat → candidate), not inherently time-keyed — but <code class="docutils literal notranslate"><span class="pre">lacing</span></code> is
 interval-keyed, and at selection time the storyboard has no rendered timeline
@@ -134,16 +143,16 @@ general “selection track” facade proves worth sharing, it belongs upstream i
 <code class="docutils literal notranslate"><span class="pre">lacing</span></code>; this stays a domain-specific adapter.</p>
 <p>Behind the optional <code class="docutils literal notranslate"><span class="pre">[persist]</span></code> extra (<code class="docutils literal notranslate"><span class="pre">lacing</span></code>); imported lazily so base
 <code class="docutils literal notranslate"><span class="pre">illustration</span></code> never requires it.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline doctest needs lacing; skipped if the extra isn&#39;t installed</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline doctest needs lacing; skipped if the extra isn't installed</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;lacing&quot;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">"lacing"</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">SequenceResult</span><span class="p">,</span> <span class="n">SequenceSelection</span><span class="p">,</span> <span class="n">BeatSelection</span>
 <span class="gp">... </span>    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
-<span class="gp">... </span>    <span class="n">r</span> <span class="o">=</span> <span class="n">SequenceResult</span><span class="p">(</span><span class="n">beats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dawn harbour&quot;</span><span class="p">],</span> <span class="n">selection</span><span class="o">=</span><span class="n">SequenceSelection</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">r</span> <span class="o">=</span> <span class="n">SequenceResult</span><span class="p">(</span><span class="n">beats</span><span class="o">=</span><span class="p">[</span><span class="s2">"dawn harbour"</span><span class="p">],</span> <span class="n">selection</span><span class="o">=</span><span class="n">SequenceSelection</span><span class="p">(</span>
 <span class="gp">... </span>        <span class="n">selections</span><span class="o">=</span><span class="p">[</span><span class="n">BeatSelection</span><span class="p">(</span><span class="n">beat_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="gp">... </span>            <span class="n">chosen</span><span class="o">=</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))]))</span>
+<span class="gp">... </span>            <span class="n">chosen</span><span class="o">=</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))]))</span>
 <span class="gp">... </span>    <span class="n">store</span> <span class="o">=</span> <span class="n">persist_sequence</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">resolve_selection</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="s2">&quot;selected&quot;</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">resolve_selection</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="s2">"selected"</span><span class="p">][</span><span class="s2">"id"</span><span class="p">]</span>
 </pre></div>
 </div>
 <dl class="py data">
@@ -218,7 +227,7 @@ later override supersedes the machine’s choice without deleting it.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="inspection.html" class="btn btn-neutral float-left" title="illustration.inspection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="licensing.html" class="btn btn-neutral float-left" title="illustration.licensing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="providers.html" class="btn btn-neutral float-right" title="illustration.providers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

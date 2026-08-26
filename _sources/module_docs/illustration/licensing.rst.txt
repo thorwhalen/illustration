@@ -1,0 +1,4 @@
+illustration.licensing
+======================
+.. automodule:: illustration.licensing
+   :members:

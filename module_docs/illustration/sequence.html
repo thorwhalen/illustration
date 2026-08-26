@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.sequence &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.sequence &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -62,6 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -154,14 +155,14 @@ exactly like M3’s <code class="docutils literal notranslate"><span class="pre"
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline: pure relevance, no embeddings, no dedup -&gt; highest score per beat</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">beats</span> <span class="o">=</span> <span class="p">[</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;ua&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.9</span><span class="p">),</span>
-<span class="gp">... </span>     <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;ub&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)],</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;uc&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
-<span class="gp">... </span>     <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;ud&quot;</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"ua"</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.9</span><span class="p">),</span>
+<span class="gp">... </span>     <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"ub"</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"c"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"uc"</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+<span class="gp">... </span>     <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"d"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"ud"</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sel</span> <span class="o">=</span> <span class="n">select_sequence</span><span class="p">(</span><span class="n">beats</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="k">lambda</span> <span class="n">rs</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rs</span><span class="p">),</span> <span class="n">hasher</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">bs</span> <span class="ow">in</span> <span class="n">sel</span><span class="o">.</span><span class="n">selections</span><span class="p">]</span>
-<span class="go">[&#39;a&#39;, &#39;d&#39;]</span>
+<span class="go">['a', 'd']</span>
 </pre></div>
 </div>
 <dl class="py class">

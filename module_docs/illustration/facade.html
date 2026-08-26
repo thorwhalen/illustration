@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.facade &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.facade &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -65,6 +65,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -130,19 +131,19 @@ pass native params straight through;</p></li>
 <span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_payload</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">_Sess</span><span class="p">:</span>  <span class="c1"># a minimal stand-in for requests.Session</span>
 <span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">return</span> <span class="n">_Resp</span><span class="p">({</span><span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;pp&quot;</span><span class="p">])]})</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">_Resp</span><span class="p">({</span><span class="s2">"items"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"id"</span><span class="p">:</span> <span class="n">i</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">"pp"</span><span class="p">])]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">_Stub</span><span class="p">(</span><span class="n">RetrievalSource</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;stub&quot;</span>
-<span class="gp">... </span>    <span class="n">per_page_param</span> <span class="o">=</span> <span class="s2">&quot;pp&quot;</span>
+<span class="gp">... </span>    <span class="n">name</span> <span class="o">=</span> <span class="s2">"stub"</span>
+<span class="gp">... </span>    <span class="n">per_page_param</span> <span class="o">=</span> <span class="s2">"pp"</span>
 <span class="gp">... </span>    <span class="n">max_per_page</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span> <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span> <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">"items"</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),</span>
-<span class="gp">... </span>                           <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;u</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"stub"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]),</span>
+<span class="gp">... </span>                           <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">"u</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">register_source</span><span class="p">(</span><span class="n">_Stub</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">_Sess</span><span class="p">()))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">search</span><span class="p">(</span><span class="s2">&quot;a stormy harbour at dusk&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
-<span class="go">[&#39;0&#39;, &#39;1&#39;, &#39;2&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">registry</span><span class="o">.</span><span class="n">unregister_source</span><span class="p">(</span><span class="s2">&quot;stub&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">search</span><span class="p">(</span><span class="s2">"a stormy harbour at dusk"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"stub"</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="go">['0', '1', '2']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">registry</span><span class="o">.</span><span class="n">unregister_source</span><span class="p">(</span><span class="s2">"stub"</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="py function">

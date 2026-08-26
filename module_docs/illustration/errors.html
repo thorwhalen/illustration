@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.errors &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.errors &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -71,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -115,8 +116,8 @@
 <p>Errors are informative by design: a <a class="reference internal" href="#illustration.errors.MissingCredentialError" title="illustration.errors.MissingCredentialError"><code class="xref py py-class docutils literal notranslate"><span class="pre">MissingCredentialError</span></code></a> names <em>which</em>
 key is missing, <em>how</em> to provide it, and <em>where</em> to obtain it — and never logs
 the key value itself.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">raise</span> <span class="n">MissingCredentialError</span><span class="p">(</span><span class="s2">&quot;pexels&quot;</span><span class="p">,</span> <span class="n">env_var</span><span class="o">=</span><span class="s2">&quot;PEXELS_API_KEY&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">console_url</span><span class="o">=</span><span class="s2">&quot;https://www.pexels.com/api/new/&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">raise</span> <span class="n">MissingCredentialError</span><span class="p">(</span><span class="s2">"pexels"</span><span class="p">,</span> <span class="n">env_var</span><span class="o">=</span><span class="s2">"PEXELS_API_KEY"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">console_url</span><span class="o">=</span><span class="s2">"https://www.pexels.com/api/new/"</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="gr">illustration.errors.MissingCredentialError</span>: <span class="n">...</span>
 </pre></div>

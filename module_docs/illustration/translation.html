@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.translation &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.translation &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -62,6 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -122,18 +123,18 @@ validates it;</p></li>
 <li><p><em>(a canonical key absent from the map is also treated as unsupported)</em>.</p></li>
 </ul>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pmap</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>    <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;aspect_ratio&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                    <span class="s2">&quot;coerce&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;landscape&quot;</span><span class="p">:</span> <span class="s2">&quot;wide&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">o</span><span class="p">)},</span>
-<span class="gp">... </span>    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">"orientation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"aspect_ratio"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">"coerce"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="p">{</span><span class="s2">"landscape"</span><span class="p">:</span> <span class="s2">"wide"</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">o</span><span class="p">)},</span>
+<span class="gp">... </span>    <span class="s2">"size"</span><span class="p">:</span> <span class="s2">"size"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">"license_type"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">translate</span> <span class="o">=</span> <span class="n">make_param_translator</span><span class="p">(</span><span class="n">pmap</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">native</span><span class="p">,</span> <span class="n">dropped</span> <span class="o">=</span> <span class="n">translate</span><span class="p">({</span><span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="s2">&quot;landscape&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;large&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                             <span class="s2">&quot;license_type&quot;</span><span class="p">:</span> <span class="s2">&quot;commercial&quot;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">native</span><span class="p">,</span> <span class="n">dropped</span> <span class="o">=</span> <span class="n">translate</span><span class="p">({</span><span class="s2">"orientation"</span><span class="p">:</span> <span class="s2">"landscape"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">:</span> <span class="s2">"large"</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="s2">"license_type"</span><span class="p">:</span> <span class="s2">"commercial"</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">native</span>
-<span class="go">{&#39;aspect_ratio&#39;: &#39;wide&#39;, &#39;size&#39;: &#39;large&#39;}</span>
+<span class="go">{'aspect_ratio': 'wide', 'size': 'large'}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dropped</span>
-<span class="go">[&#39;license_type&#39;]</span>
+<span class="go">['license_type']</span>
 </pre></div>
 </div>
 <dl class="py data">

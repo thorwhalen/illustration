@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.video &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.video &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
@@ -98,17 +99,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for illustration.video</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Narration → Ken-Burns video hook — the M4 integration seam.</span>
+<span></span><span class="sd">"""Narration → Ken-Burns video hook — the M4 integration seam.</span>
 
-<span class="sd">illustration&#39;s job ends at *choosing* the images (see :mod:`illustration.sequence`);</span>
+<span class="sd">illustration's job ends at *choosing* the images (see :mod:`illustration.sequence`);</span>
 <span class="sd">turning an ordered set of stills + narration into a pan/zoom video is the</span>
-<span class="sd">ecosystem&#39;s job. This module is the thin hook into it, in two flavours (both</span>
+<span class="sd">ecosystem's job. This module is the thin hook into it, in two flavours (both</span>
 <span class="sd">opt-in, behind the ``[video]`` extra, both lazy-imported):</span>
 
 <span class="sd">1. :func:`render_sequence_video` — the **direct convenience**: selections →</span>
 <span class="sd">   ``[(image, ken_burns_path, duration)]`` → ``burns.ken_burns_film``. Uses</span>
 <span class="sd">   ``burns`` directly (pure substrate, the same renderer ``walkthru`` uses) — it</span>
-<span class="sd">   deliberately does **not** route through ``walkthru``&#39;s reelee render target,</span>
+<span class="sd">   deliberately does **not** route through ``walkthru``'s reelee render target,</span>
 <span class="sd">   which would risk an ``illustration → reelee → illustration`` cycle. Narration</span>
 <span class="sd">   audio is supplied pre-built (e.g. from ``mixing`` or ``walkthru``).</span>
 
@@ -119,9 +120,9 @@
 
 <span class="sd">&gt;&gt;&gt; # the data adapter is pure (needs walkthru); the render hook needs burns+ffmpeg</span>
 <span class="sd">&gt;&gt;&gt; import importlib.util</span>
-<span class="sd">&gt;&gt;&gt; bool(importlib.util.find_spec(&quot;walkthru&quot;))                    # doctest: +SKIP</span>
+<span class="sd">&gt;&gt;&gt; bool(importlib.util.find_spec("walkthru"))                    # doctest: +SKIP</span>
 <span class="sd">True</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -130,10 +131,10 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;render_sequence_video&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;to_walkthru_document&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;DFLT_PANEL_DURATION_S&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;DFLT_FPS&quot;</span><span class="p">,</span>
+    <span class="s2">"render_sequence_video"</span><span class="p">,</span>
+    <span class="s2">"to_walkthru_document"</span><span class="p">,</span>
+    <span class="s2">"DFLT_PANEL_DURATION_S"</span><span class="p">,</span>
+    <span class="s2">"DFLT_FPS"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="c1">#: Default per-beat on-screen duration (seconds) when none is supplied.</span>
@@ -148,15 +149,15 @@
     <span class="n">selections</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">saveas</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">durations</span><span class="p">:</span> <span class="s2">&quot;float | Sequence[float]&quot;</span> <span class="o">=</span> <span class="n">DFLT_PANEL_DURATION_S</span><span class="p">,</span>
-    <span class="n">narration_audio</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">durations</span><span class="p">:</span> <span class="s2">"float | Sequence[float]"</span> <span class="o">=</span> <span class="n">DFLT_PANEL_DURATION_S</span><span class="p">,</span>
+    <span class="n">narration_audio</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DFLT_FPS</span><span class="p">,</span>
-    <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;push&quot;</span><span class="p">,</span>
-    <span class="n">output_aspect</span><span class="p">:</span> <span class="s2">&quot;float | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">image_loader</span><span class="p">:</span> <span class="s2">&quot;Callable[[ImageResult], Any] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">render</span><span class="p">:</span> <span class="s2">&quot;Callable[..., Any] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"push"</span><span class="p">,</span>
+    <span class="n">output_aspect</span><span class="p">:</span> <span class="s2">"float | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">image_loader</span><span class="p">:</span> <span class="s2">"Callable[[ImageResult], Any] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">render</span><span class="p">:</span> <span class="s2">"Callable[..., Any] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render chosen images into a single Ken-Burns film via ``burns``.</span>
+<span class="w">    </span><span class="sd">"""Render chosen images into a single Ken-Burns film via ``burns``.</span>
 
 <span class="sd">    ``selections`` may be a :class:`~illustration.sequence.SequenceResult`, a</span>
 <span class="sd">    :class:`~illustration.sequence.SequenceSelection`, or a plain list of</span>
@@ -169,10 +170,10 @@
 <span class="sd">    cached fetch — ``burns`` decodes PIL, not URLs); ``render`` is the renderer</span>
 <span class="sd">    (default: ``burns.ken_burns_film``) — inject a stub to test without ffmpeg.</span>
 <span class="sd">    Returns whatever ``render`` returns (the output path for the default).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">images</span> <span class="o">=</span> <span class="n">_chosen_images</span><span class="p">(</span><span class="n">selections</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">images</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;no chosen images to render (every beat was empty)&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"no chosen images to render (every beat was empty)"</span><span class="p">)</span>
     <span class="n">durs</span> <span class="o">=</span> <span class="n">_durations</span><span class="p">(</span><span class="n">durations</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">))</span>
     <span class="n">load</span> <span class="o">=</span> <span class="n">image_loader</span> <span class="k">if</span> <span class="n">image_loader</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_image_loader</span><span class="p">()</span>
     <span class="n">render_fn</span> <span class="o">=</span> <span class="n">render</span> <span class="k">if</span> <span class="n">render</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_render</span><span class="p">()</span>
@@ -187,11 +188,11 @@
         <span class="n">loaded</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">loaded</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">panel_index</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 1-based position drives ken_burns_path&#39;s motion rhythm</span>
+        <span class="n">panel_index</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 1-based position drives ken_burns_path's motion rhythm</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">ken_burns_path</span><span class="p">(</span><span class="n">panel_index</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">output_aspect</span><span class="o">=</span><span class="n">output_aspect</span><span class="p">)</span>
         <span class="n">panels</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loaded</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">dur</span><span class="p">)))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">panels</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;none of the chosen images could be loaded for rendering&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"none of the chosen images could be loaded for rendering"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">render_fn</span><span class="p">(</span><span class="n">panels</span><span class="p">,</span> <span class="n">saveas</span><span class="o">=</span><span class="n">saveas</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">audio_path</span><span class="o">=</span><span class="n">narration_audio</span><span class="p">)</span></div>
 
 
@@ -201,19 +202,19 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">to_walkthru_document</span><span class="p">(</span>
     <span class="n">selections</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">narration</span><span class="p">:</span> <span class="s2">&quot;Sequence[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">durations</span><span class="p">:</span> <span class="s2">&quot;float | Sequence[float]&quot;</span> <span class="o">=</span> <span class="n">DFLT_PANEL_DURATION_S</span><span class="p">,</span>
-    <span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;illustration-storyboard&quot;</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">narration</span><span class="p">:</span> <span class="s2">"Sequence[str] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">durations</span><span class="p">:</span> <span class="s2">"float | Sequence[float]"</span> <span class="o">=</span> <span class="n">DFLT_PANEL_DURATION_S</span><span class="p">,</span>
+    <span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"illustration-storyboard"</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a ``walkthru.DemoDocument`` from the selections (pure data, no render).</span>
+<span class="w">    </span><span class="sd">"""Build a ``walkthru.DemoDocument`` from the selections (pure data, no render).</span>
 
 <span class="sd">    Emits one b-roll beat per chosen image (``poster`` = the image URL,</span>
 <span class="sd">    ``timing`` from ``durations``) and, if ``narration`` is given (one string per</span>
 <span class="sd">    beat), a narration track anchored to each beat. The consumer then runs</span>
 <span class="sd">    ``walkthru.realize_narration`` / ``pace_steps_to_narration`` / its renderer.</span>
 <span class="sd">    Beats with no chosen image are skipped. Needs the ``[video]`` extra.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">walkthru</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
         <span class="n">AssetRef</span><span class="p">,</span>
         <span class="n">Beat</span><span class="p">,</span>
@@ -235,12 +236,12 @@
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">dur_ms</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">durs_ms</span><span class="p">)):</span>
         <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">beat_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;beat-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">beat_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"beat-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">beats_text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">beats_text</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">Beat</span><span class="p">(</span>
                 <span class="nb">id</span><span class="o">=</span><span class="n">beat_id</span><span class="p">,</span>
-                <span class="n">beat_kind</span><span class="o">=</span><span class="s2">&quot;broll&quot;</span><span class="p">,</span>
+                <span class="n">beat_kind</span><span class="o">=</span><span class="s2">"broll"</span><span class="p">,</span>
                 <span class="n">timing</span><span class="o">=</span><span class="n">Timing</span><span class="p">(</span><span class="n">duration_ms</span><span class="o">=</span><span class="n">dur_ms</span><span class="p">),</span>
                 <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
                 <span class="n">poster</span><span class="o">=</span><span class="n">AssetRef</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="n">img</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">mime</span><span class="o">=</span><span class="n">_guess_mime</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">url</span><span class="p">)),</span>
@@ -249,7 +250,7 @@
         <span class="k">if</span> <span class="n">narration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">narration</span><span class="p">)</span> <span class="ow">and</span> <span class="n">narration</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
             <span class="n">narration_segs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">NarrationSegment</span><span class="p">(</span>
-                    <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;narr-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s2">"narr-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                     <span class="n">text</span><span class="o">=</span><span class="n">narration</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
                     <span class="n">anchor</span><span class="o">=</span><span class="n">NarrationAnchor</span><span class="p">(</span><span class="n">step_id</span><span class="o">=</span><span class="n">beat_id</span><span class="p">,</span> <span class="n">duration_ms</span><span class="o">=</span><span class="n">dur_ms</span><span class="p">),</span>
                 <span class="p">)</span>
@@ -257,8 +258,8 @@
 
     <span class="k">return</span> <span class="n">DemoDocument</span><span class="p">(</span>
         <span class="nb">id</span><span class="o">=</span><span class="n">doc_id</span><span class="p">,</span>
-        <span class="n">meta</span><span class="o">=</span><span class="n">Meta</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">&quot;Illustrated storyboard&quot;</span><span class="p">),</span>
-        <span class="n">sections</span><span class="o">=</span><span class="p">[</span><span class="n">Section</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)],</span>
+        <span class="n">meta</span><span class="o">=</span><span class="n">Meta</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">"Illustrated storyboard"</span><span class="p">),</span>
+        <span class="n">sections</span><span class="o">=</span><span class="p">[</span><span class="n">Section</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"main"</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)],</span>
         <span class="n">tracks</span><span class="o">=</span><span class="n">Tracks</span><span class="p">(</span><span class="n">narration</span><span class="o">=</span><span class="n">narration_segs</span><span class="p">),</span>
     <span class="p">)</span></div>
 
@@ -267,28 +268,28 @@
 <span class="c1"># --- internals --------------------------------------------------------------</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_chosen_images</span><span class="p">(</span><span class="n">selections</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;list[ImageResult | None]&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Coerce the supported input shapes to an ordered list of chosen images.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_chosen_images</span><span class="p">(</span><span class="n">selections</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"list[ImageResult | None]"</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Coerce the supported input shapes to an ordered list of chosen images."""</span>
     <span class="c1"># SequenceResult -&gt; .selection.chosen ; SequenceSelection -&gt; .chosen</span>
-    <span class="n">sel</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="s2">&quot;selection&quot;</span><span class="p">,</span> <span class="n">selections</span><span class="p">)</span>
-    <span class="n">chosen</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sel</span><span class="p">,</span> <span class="s2">&quot;chosen&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="s2">"selection"</span><span class="p">,</span> <span class="n">selections</span><span class="p">)</span>
+    <span class="n">chosen</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sel</span><span class="p">,</span> <span class="s2">"chosen"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">chosen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">chosen</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">_as_image</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">selections</span><span class="p">]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_beats_text</span><span class="p">(</span><span class="n">selections</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="n">beats</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="s2">&quot;beats&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">beats</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="s2">"beats"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">beats</span><span class="p">)</span> <span class="k">if</span> <span class="n">beats</span> <span class="k">else</span> <span class="p">[]</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_as_image</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ImageResult | None&quot;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_as_image</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ImageResult | None"</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ImageResult</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span>
-    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;chosen&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># a BeatSelection</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">"chosen"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># a BeatSelection</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_durations</span><span class="p">(</span><span class="n">durations</span><span class="p">:</span> <span class="s2">&quot;float | Sequence[float]&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_durations</span><span class="p">(</span><span class="n">durations</span><span class="p">:</span> <span class="s2">"float | Sequence[float]"</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">durations</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
         <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">durations</span><span class="p">)]</span> <span class="o">*</span> <span class="n">n</span>
     <span class="n">durs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">durations</span><span class="p">)</span>
@@ -297,29 +298,29 @@
     <span class="k">return</span> <span class="n">durs</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_default_image_loader</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[[ImageResult], Any]&quot;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_image_loader</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">"Callable[[ImageResult], Any]"</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">illustration._imageio</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_image</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="s2">&quot;ImageResult | None&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="s2">"ImageResult | None"</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">fetch_image</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">url</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+        <span class="k">return</span> <span class="n">fetch_image</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">url</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="n">fetch_image</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">thumbnail_url</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">thumbnail_url</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">load</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_default_render</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., Any]&quot;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_render</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">"Callable[..., Any]"</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">burns</span><span class="w"> </span><span class="kn">import</span> <span class="n">ken_burns_film</span>
 
     <span class="k">return</span> <span class="n">ken_burns_film</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_guess_mime</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;str | None&quot;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_guess_mime</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">mimetypes</span>
 
-    <span class="k">return</span> <span class="n">mimetypes</span><span class="o">.</span><span class="n">guess_type</span><span class="p">(</span><span class="n">url</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">mimetypes</span><span class="o">.</span><span class="n">guess_type</span><span class="p">(</span><span class="n">url</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
            </div>

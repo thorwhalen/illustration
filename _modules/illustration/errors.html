@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.errors &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.errors &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
@@ -98,49 +99,49 @@
            <div itemprop="articleBody">
              
   <h1>Source code for illustration.errors</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;The package exception hierarchy.</span>
+<span></span><span class="sd">"""The package exception hierarchy.</span>
 
 <span class="sd">Errors are informative by design: a :class:`MissingCredentialError` names *which*</span>
 <span class="sd">key is missing, *how* to provide it, and *where* to obtain it — and never logs</span>
 <span class="sd">the key value itself.</span>
 
-<span class="sd">&gt;&gt;&gt; raise MissingCredentialError(&quot;pexels&quot;, env_var=&quot;PEXELS_API_KEY&quot;,</span>
-<span class="sd">...     console_url=&quot;https://www.pexels.com/api/new/&quot;)   # doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="sd">&gt;&gt;&gt; raise MissingCredentialError("pexels", env_var="PEXELS_API_KEY",</span>
+<span class="sd">...     console_url="https://www.pexels.com/api/new/")   # doctest: +IGNORE_EXCEPTION_DETAIL</span>
 <span class="sd">Traceback (most recent call last):</span>
 <span class="sd">illustration.errors.MissingCredentialError: ...</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;IllustrationError&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;UnknownSourceError&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MissingCredentialError&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ProviderError&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;RateLimitError&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;RerankDependencyError&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;CurateDependencyError&quot;</span><span class="p">,</span>
+    <span class="s2">"IllustrationError"</span><span class="p">,</span>
+    <span class="s2">"UnknownSourceError"</span><span class="p">,</span>
+    <span class="s2">"MissingCredentialError"</span><span class="p">,</span>
+    <span class="s2">"ProviderError"</span><span class="p">,</span>
+    <span class="s2">"RateLimitError"</span><span class="p">,</span>
+    <span class="s2">"RerankDependencyError"</span><span class="p">,</span>
+    <span class="s2">"CurateDependencyError"</span><span class="p">,</span>
 <span class="p">]</span>
 
 
 <div class="viewcode-block" id="IllustrationError">
 <a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.IllustrationError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">IllustrationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for every error raised by :mod:`illustration`.&quot;&quot;&quot;</span></div>
+<span class="w">    </span><span class="sd">"""Base class for every error raised by :mod:`illustration`."""</span></div>
 
 
 
 <div class="viewcode-block" id="UnknownSourceError">
 <a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.UnknownSourceError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">UnknownSourceError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A source name was requested that is not in the registry.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A source name was requested that is not in the registry."""</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">known</span><span class="p">:</span> <span class="s2">&quot;list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">known</span><span class="p">:</span> <span class="s2">"list[str] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">known</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">known</span> <span class="ow">or</span> <span class="p">[])</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unknown source </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">.&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Unknown source </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">."</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">known</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; Registered sources: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">known</span><span class="p">))</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" Registered sources: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">known</span><span class="p">))</span><span class="si">}</span><span class="s2">."</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 
@@ -148,50 +149,50 @@
 <div class="viewcode-block" id="MissingCredentialError">
 <a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.MissingCredentialError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MissingCredentialError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A source needs an API key that could not be resolved.</span>
+<span class="w">    </span><span class="sd">"""A source needs an API key that could not be resolved.</span>
 
 <span class="sd">    The message tells the user exactly what to do; key values are never logged.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">env_var</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">console_url</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">env_var</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">console_url</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">provider</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">env_var</span> <span class="o">=</span> <span class="n">env_var</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console_url</span> <span class="o">=</span> <span class="n">console_url</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;No API key found for source </span><span class="si">{</span><span class="n">provider</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">]</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"No API key found for source </span><span class="si">{</span><span class="n">provider</span><span class="si">!r}</span><span class="s2">."</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">env_var</span><span class="p">:</span>
             <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Set it via the </span><span class="si">{</span><span class="n">env_var</span><span class="si">}</span><span class="s2"> environment variable, a config2py &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;config entry keyed </span><span class="si">{</span><span class="n">env_var</span><span class="si">!r}</span><span class="s2">, or pass api_key=... / &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;illustration.using_credentials(</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2">=&#39;...&#39;).&quot;</span>
+                <span class="sa">f</span><span class="s2">"Set it via the </span><span class="si">{</span><span class="n">env_var</span><span class="si">}</span><span class="s2"> environment variable, a config2py "</span>
+                <span class="sa">f</span><span class="s2">"config entry keyed </span><span class="si">{</span><span class="n">env_var</span><span class="si">!r}</span><span class="s2">, or pass api_key=... / "</span>
+                <span class="sa">f</span><span class="s2">"illustration.using_credentials(</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2">='...')."</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">console_url</span><span class="p">:</span>
-            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get a key at: </span><span class="si">{</span><span class="n">console_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span></div>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Get a key at: </span><span class="si">{</span><span class="n">console_url</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span></div>
 
 
 
 <div class="viewcode-block" id="RerankDependencyError">
 <a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.RerankDependencyError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RerankDependencyError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The optional local-rerank dependencies are not installed.</span>
+<span class="w">    </span><span class="sd">"""The optional local-rerank dependencies are not installed.</span>
 
 <span class="sd">    The message names the missing packages and the extra that provides them.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">missing</span><span class="p">:</span> <span class="s2">&quot;list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">missing</span><span class="p">:</span> <span class="s2">"list[str] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">missing</span> <span class="ow">or</span> <span class="p">[])</span>
         <span class="n">names</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">missing</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="k">else</span> <span class="s2">&quot;transformers, torch, pillow&quot;</span>
+            <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">missing</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="k">else</span> <span class="s2">"transformers, torch, pillow"</span>
         <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Local rerank needs the optional dependencies (</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">). &quot;</span>
-            <span class="s2">&quot;Install them with: pip install &#39;illustration[rerank]&#39;.&quot;</span>
+            <span class="sa">f</span><span class="s2">"Local rerank needs the optional dependencies (</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">). "</span>
+            <span class="s2">"Install them with: pip install 'illustration[rerank]'."</span>
         <span class="p">)</span></div>
 
 
@@ -199,25 +200,25 @@
 <div class="viewcode-block" id="CurateDependencyError">
 <a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.CurateDependencyError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CurateDependencyError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An optional Layer-2 (agentic curation) dependency is not installed.</span>
+<span class="w">    </span><span class="sd">"""An optional Layer-2 (agentic curation) dependency is not installed.</span>
 
 <span class="sd">    The message names the missing packages and the extra that provides them,</span>
-<span class="sd">    so the failure is actionable (e.g. ``pip install &#39;illustration[curate]&#39;``).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    so the failure is actionable (e.g. ``pip install 'illustration[curate]'``).</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">missing</span><span class="p">:</span> <span class="s2">&quot;list[str] | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">missing</span><span class="p">:</span> <span class="s2">"list[str] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;curate&quot;</span><span class="p">,</span>
-        <span class="n">purpose</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;agentic curation&quot;</span><span class="p">,</span>
+        <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"curate"</span><span class="p">,</span>
+        <span class="n">purpose</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"agentic curation"</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">missing</span> <span class="ow">or</span> <span class="p">[])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">extra</span>
-        <span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">missing</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="k">else</span> <span class="s2">&quot;aix, ir&quot;</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">missing</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing</span> <span class="k">else</span> <span class="s2">"aix, ir"</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Layer-2 </span><span class="si">{</span><span class="n">purpose</span><span class="si">}</span><span class="s2"> needs the optional dependencies (</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">). &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;Install them with: pip install &#39;illustration[</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">]&#39;.&quot;</span>
+            <span class="sa">f</span><span class="s2">"Layer-2 </span><span class="si">{</span><span class="n">purpose</span><span class="si">}</span><span class="s2"> needs the optional dependencies (</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">). "</span>
+            <span class="sa">f</span><span class="s2">"Install them with: pip install 'illustration[</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">]'."</span>
         <span class="p">)</span></div>
 
 
@@ -225,22 +226,22 @@
 <div class="viewcode-block" id="ProviderError">
 <a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.ProviderError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ProviderError</span><span class="p">(</span><span class="n">IllustrationError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A provider&#39;s HTTP API returned an error or an unusable response.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A provider's HTTP API returned an error or an unusable response."""</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="s2">&quot;int | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="s2">"int | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">provider</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
-        <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2">]"</span>
         <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">prefix</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; HTTP </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="n">prefix</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" HTTP </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">"</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="RateLimitError">
 <a class="viewcode-back" href="../../module_docs/illustration/errors.html#illustration.RateLimitError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RateLimitError</span><span class="p">(</span><span class="n">ProviderError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A provider returned HTTP 429 (rate limit exceeded).&quot;&quot;&quot;</span></div>
+<span class="w">    </span><span class="sd">"""A provider returned HTTP 429 (rate limit exceeded)."""</span></div>
 
 </pre></div>
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.config &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.config &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -75,6 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -144,15 +145,18 @@ idiom:</p>
 </table>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">cache_dir</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">name</span>
-<span class="go">&#39;illustration&#39;</span>
+<span class="go">'illustration'</span>
 </pre></div>
 </div>
 <dl class="py data">
 <dt class="sig sig-object py" id="illustration.config.DFLT_LICENSE_ALLOWLIST">
-<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'by',</span> <span class="pre">'by-sa',</span> <span class="pre">'cc0',</span> <span class="pre">'pdm',</span> <span class="pre">'pexels</span> <span class="pre">license'})</span></span><a class="headerlink" href="#illustration.config.DFLT_LICENSE_ALLOWLIST" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'by',</span> <span class="pre">'by-sa',</span> <span class="pre">'cc0',</span> <span class="pre">'pdm',</span> <span class="pre">'pexels-license',</span> <span class="pre">'pixabay-license'})</span></span><a class="headerlink" href="#illustration.config.DFLT_LICENSE_ALLOWLIST" title="Link to this definition"></a></dt>
 <dd><p>Conservative default license allowlist for the (opt-in) license gate.
 CC0 / public-domain / CC-BY / CC-BY-SA are commercial-safe (BY-SA imposes
-share-alike — flagged, not rejected). NC/ND and unknowns are excluded.</p>
+share-alike — flagged, not rejected). NC/ND and unknowns are excluded.
+Entries are compared <em>after</em> <a class="reference internal" href="licensing.html#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.normalize_license()</span></code></a>
+runs over both sides, so a provider’s own spelling (<code class="docutils literal notranslate"><span class="pre">cc-by-sa-4.0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Pixabay</span> <span class="pre">License</span></code>) matches the canonical code written here.</p>
 </dd></dl>
 
 <dl class="py data">
@@ -220,7 +224,7 @@ invalidates the cache <em>structurally</em> (a new key) rather than by deletion.
 <dt class="sig sig-object py" id="illustration.config.user_agent">
 <span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">user_agent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/illustration/config.html#user_agent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.user_agent" title="Link to this definition"></a></dt>
 <dd><p>A descriptive User-Agent string (some providers throttle default UAs).</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">user_agent</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;illustration/&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">user_agent</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'illustration/'</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>

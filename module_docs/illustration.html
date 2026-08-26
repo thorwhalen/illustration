@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -106,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#illustration.RetrievalSource.fixed_params"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.fixed_params</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.RetrievalSource.info"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.info</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.RetrievalSource.max_per_page"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.max_per_page</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.RetrievalSource.min_per_page"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.min_per_page</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.RetrievalSource.name"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.name</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.RetrievalSource.page_param"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.page_param</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.RetrievalSource.param_map"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.param_map</span></code></a></li>
@@ -161,6 +162,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#illustration.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.normalize_license"><code class="docutils literal notranslate"><span class="pre">normalize_license()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.nsfw_check"><code class="docutils literal notranslate"><span class="pre">nsfw_check()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.package_version"><code class="docutils literal notranslate"><span class="pre">package_version()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
@@ -197,6 +199,7 @@
 <li class="toctree-l1"><a class="reference internal" href="illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="illustration/licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="illustration/providers/openverse.html">illustration.providers.openverse</a></li>
@@ -243,9 +246,9 @@ given narration text, retrieve fitting images from stock / open-media corpora.
 It is <em>not</em> an image generator.</p>
 <p>Quick start (no API key needed — Openverse is the default source):</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">illustration</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">hits</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;a stormy harbour at dusk&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hits</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"a stormy harbour at dusk"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">license</span><span class="p">,</span> <span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cacheable</span>
-<span class="go">(&#39;https://...&#39;, &#39;by-sa&#39;, True)</span>
+<span class="go">('https://...', 'by-sa', True)</span>
 </pre></div>
 </div>
 <p>The first argument is the query; everything else is keyword. <code class="docutils literal notranslate"><span class="pre">search</span></code> returns
@@ -511,6 +514,15 @@ template, so a provider can never silently lose those guarantees.</p>
 <dt class="sig sig-object py" id="illustration.RetrievalSource.max_per_page">
 <span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#illustration.RetrievalSource.max_per_page" title="Link to this definition"></a></dt>
 <dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.RetrievalSource.min_per_page">
+<span class="sig-name descname"><span class="pre">min_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#illustration.RetrievalSource.min_per_page" title="Link to this definition"></a></dt>
+<dd><p>Floor on results per page this provider allows. Default 1 (no floor);
+raise it for a provider that <em>rejects</em> a small page (Pixabay’s documented
+minimum is 3), so <code class="docutils literal notranslate"><span class="pre">search(q,</span> <span class="pre">n=1)</span></code> asks for a page the API accepts and
+the extra rows are trimmed by the <code class="docutils literal notranslate"><span class="pre">n</span></code> slice rather than 400-ing.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -818,15 +830,27 @@ can treat it as ambiguous rather than wrongly accept or reject.</p>
 <dd><p>Keep only results whose license is on the allowlist (R3’s license gate).</p>
 <p>The mandatory per-file license-verification gate for commercial-adjacent
 use: aggregators disclaim license accuracy, so callers should gate on a
-known-good set. Matching is case-insensitive on the license code/name.
-Results with no <code class="docutils literal notranslate"><span class="pre">license</span></code> are dropped (unknown == not allowed).</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">&quot;cc0&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">&quot;by-nc&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+known-good set. Both sides are run through
+<a class="reference internal" href="illustration/licensing.html#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.normalize_license()</span></code></a> first, so a provider’s own
+spelling (<code class="docutils literal notranslate"><span class="pre">cc-by-sa-4.0</span></code> from Commons, <code class="docutils literal notranslate"><span class="pre">Pixabay</span> <span class="pre">License</span></code>) matches the
+canonical code without the allowlist having to enumerate every dialect —
+and without ever dropping an <code class="docutils literal notranslate"><span class="pre">nc</span></code>/<code class="docutils literal notranslate"><span class="pre">nd</span></code> restriction. Results with no
+<code class="docutils literal notranslate"><span class="pre">license</span></code> are dropped (unknown == not allowed).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"cc0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"2"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"by-nc"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"3"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])]</span>
-<span class="go">[&#39;1&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">allow</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;by-nc&quot;</span><span class="p">})]</span>
-<span class="go">[&#39;2&#39;]</span>
+<span class="go">['1']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">allow</span><span class="o">=</span><span class="p">{</span><span class="s2">"by-nc"</span><span class="p">})]</span>
+<span class="go">['2']</span>
+</pre></div>
+</div>
+<p>Provider dialects pass the same gate:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"4"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"cc-by-sa-4.0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"pixabay"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"Pixabay License"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nd</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"6"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"cc-by-nd-4.0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">w</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">nd</span><span class="p">])]</span>
+<span class="go">['4', '5']</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -860,6 +884,27 @@ Pillow/NumPy aren’t installed), suitable as <a class="reference internal" href
 <dt class="sig sig-object py" id="illustration.make_siglip_scorer">
 <span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">make_siglip_scorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'google/siglip2-base-patch16-224'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'thumbnail_url'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="illustration/reranking.html#illustration.reranking.SiglipScorer" title="illustration.reranking.SiglipScorer"><span class="pre">SiglipScorer</span></a></span></span><a class="reference internal" href="../_modules/illustration/reranking.html#make_siglip_scorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.make_siglip_scorer" title="Link to this definition"></a></dt>
 <dd><p>Build a SigLIP <code class="xref py py-class docutils literal notranslate"><span class="pre">SiglipScorer</span></code> (raises if the extra is missing).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.normalize_license">
+<span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">normalize_license</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/illustration/licensing.html#normalize_license"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.normalize_license" title="Link to this definition"></a></dt>
+<dd><p>Fold a provider’s licence spelling onto one canonical, comparable code.</p>
+<p>Lower-cases, unifies separators to <code class="docutils literal notranslate"><span class="pre">-</span></code>, strips a trailing version and a
+leading <code class="docutils literal notranslate"><span class="pre">cc-</span></code>, then applies <code class="xref py py-data docutils literal notranslate"><span class="pre">LICENSE_ALIASES</span></code>. Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> for
+<code class="docutils literal notranslate"><span class="pre">None</span></code>/blank — an absent licence is never a code.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_license</span><span class="p">(</span><span class="s2">"by-sa"</span><span class="p">),</span> <span class="n">normalize_license</span><span class="p">(</span><span class="s2">"cc0"</span><span class="p">),</span> <span class="n">normalize_license</span><span class="p">(</span><span class="s2">"CC0 1.0"</span><span class="p">)</span>
+<span class="go">('by-sa', 'cc0', 'cc0')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_license</span><span class="p">(</span><span class="s2">"Pexels License"</span><span class="p">),</span> <span class="n">normalize_license</span><span class="p">(</span><span class="s2">"  BY  "</span><span class="p">)</span>
+<span class="go">('pexels-license', 'by')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_license</span><span class="p">(</span><span class="s2">"public domain"</span><span class="p">),</span> <span class="n">normalize_license</span><span class="p">(</span><span class="s2">"cc-by-3.0"</span><span class="p">)</span>
+<span class="go">('pdm', 'by')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_license</span><span class="p">(</span><span class="s2">"cc-0"</span><span class="p">)</span>  <span class="c1"># the version strip would otherwise eat "-0"</span>
+<span class="go">'cc0'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_license</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>  <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -965,11 +1010,11 @@ Returns whatever <code class="docutils literal notranslate"><span class="pre">re
 body, so the function never inlines key handling. (The built-in sources call
 <a class="reference internal" href="#illustration.check_requirements" title="illustration.check_requirements"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_requirements()</span></code></a> directly; this decorator is the functional-style
 equivalent for Layer-2 helpers.)</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@requires_credentials</span><span class="p">(</span><span class="s2">&quot;pexels&quot;</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">():</span> <span class="k">return</span> <span class="s2">&quot;ok&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">using_credentials</span><span class="p">(</span><span class="n">pexels</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@requires_credentials</span><span class="p">(</span><span class="s2">"pexels"</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">():</span> <span class="k">return</span> <span class="s2">"ok"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">using_credentials</span><span class="p">(</span><span class="n">pexels</span><span class="o">=</span><span class="s2">"k"</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">fetch</span><span class="p">()</span>
-<span class="go">&#39;ok&#39;</span>
+<span class="go">'ok'</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1141,12 +1186,12 @@ Beats with no chosen image are skipped. Needs the <code class="docutils literal 
 <dd><p>Bind per-request provider API keys for the duration of the <code class="docutils literal notranslate"><span class="pre">with</span></code> block.</p>
 <p>Falsy values are ignored (so an optional request header passes straight
 through). Bindings nest: an inner block overlays the outer.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">using_credentials</span><span class="p">(</span><span class="n">pexels</span><span class="o">=</span><span class="s2">&quot;k1&quot;</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">with</span> <span class="n">using_credentials</span><span class="p">(</span><span class="n">pexels</span><span class="o">=</span><span class="s2">&quot;k2&quot;</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="n">inner</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="s2">&quot;pexels&quot;</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">outer</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="s2">&quot;pexels&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">using_credentials</span><span class="p">(</span><span class="n">pexels</span><span class="o">=</span><span class="s2">"k1"</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">using_credentials</span><span class="p">(</span><span class="n">pexels</span><span class="o">=</span><span class="s2">"k2"</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">inner</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="s2">"pexels"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">outer</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="s2">"pexels"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inner</span><span class="p">,</span> <span class="n">outer</span>
-<span class="go">(&#39;k2&#39;, &#39;k1&#39;)</span>
+<span class="go">('k2', 'k1')</span>
 </pre></div>
 </div>
 </dd></dl>

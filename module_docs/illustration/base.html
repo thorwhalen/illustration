@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.base &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.base &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -58,6 +58,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#illustration.base.RetrievalSource.fixed_params"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.fixed_params</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.base.RetrievalSource.info"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.info</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.base.RetrievalSource.max_per_page"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.max_per_page</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#illustration.base.RetrievalSource.min_per_page"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.min_per_page</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.base.RetrievalSource.name"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.name</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.base.RetrievalSource.page_param"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.page_param</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#illustration.base.RetrievalSource.param_map"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.param_map</span></code></a></li>
@@ -79,6 +80,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -127,7 +129,8 @@ checking, per-item normalization that never lets one bad item fail the search).
 Adding a provider touches only a new subclass + one registration — never the
 façade (open-closed).</p>
 <p>A subclass declares class attributes (<code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">endpoint</span></code>, <code class="docutils literal notranslate"><span class="pre">query_param</span></code>,
-<code class="docutils literal notranslate"><span class="pre">page_param</span></code>, <code class="docutils literal notranslate"><span class="pre">per_page_param</span></code>, <code class="docutils literal notranslate"><span class="pre">max_per_page</span></code>, <code class="docutils literal notranslate"><span class="pre">param_map</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>)
+<code class="docutils literal notranslate"><span class="pre">page_param</span></code>, <code class="docutils literal notranslate"><span class="pre">per_page_param</span></code>, <code class="docutils literal notranslate"><span class="pre">max_per_page</span></code>, <code class="docutils literal notranslate"><span class="pre">min_per_page</span></code>,
+<code class="docutils literal notranslate"><span class="pre">param_map</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>)
 and implements three hooks: <code class="xref py py-meth docutils literal notranslate"><span class="pre">_items()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">_normalize()</span></code>, and
 (if the provider needs a key) <code class="xref py py-meth docutils literal notranslate"><span class="pre">_auth_headers()</span></code>.</p>
 <p>See <code class="docutils literal notranslate"><span class="pre">illustration/providers/openverse.py</span></code> for the canonical example.</p>
@@ -164,6 +167,15 @@ template, so a provider can never silently lose those guarantees.</p>
 <dt class="sig sig-object py" id="illustration.base.RetrievalSource.max_per_page">
 <span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.max_per_page" title="Link to this definition"></a></dt>
 <dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.min_per_page">
+<span class="sig-name descname"><span class="pre">min_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.min_per_page" title="Link to this definition"></a></dt>
+<dd><p>Floor on results per page this provider allows. Default 1 (no floor);
+raise it for a provider that <em>rejects</em> a small page (Pixabay’s documented
+minimum is 3), so <code class="docutils literal notranslate"><span class="pre">search(q,</span> <span class="pre">n=1)</span></code> asks for a page the API accepts and
+the extra rows are trimmed by the <code class="docutils literal notranslate"><span class="pre">n</span></code> slice rather than 400-ing.</p>
 </dd></dl>
 
 <dl class="py attribute">

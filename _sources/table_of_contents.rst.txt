@@ -15,6 +15,7 @@
    module_docs/illustration/expansion
    module_docs/illustration/facade
    module_docs/illustration/inspection
+   module_docs/illustration/licensing
    module_docs/illustration/persistence
    module_docs/illustration/providers
    module_docs/illustration/providers/openverse

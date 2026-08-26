@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.schema &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.schema &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -62,6 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -76,6 +77,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#illustration.schema.ImageResult.to_search_hit"><code class="docutils literal notranslate"><span class="pre">ImageResult.to_search_hit()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.schema.RIGHTS_FIELDS"><code class="docutils literal notranslate"><span class="pre">RIGHTS_FIELDS</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.schema.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.schema.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
 </ul>
@@ -117,12 +119,12 @@ and that the (future) agentic curation layer consumes. License, attribution,
 <code class="docutils literal notranslate"><span class="pre">source_page_url</span></code> and <code class="docutils literal notranslate"><span class="pre">cacheable</span></code> are first-class and populated from day one,
 because licensing/cacheability is a primary concern for commercial-adjacent
 video (see <code class="docutils literal notranslate"><span class="pre">misc/docs/design/illustration_design.md</span></code> §3).</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;abc&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://x/img.jpg&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                 <span class="n">license</span><span class="o">=</span><span class="s2">&quot;by-sa&quot;</span><span class="p">,</span> <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"abc"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"https://x/img.jpg"</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="n">license</span><span class="o">=</span><span class="s2">"by-sa"</span><span class="p">,</span> <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">cacheable</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">tags</span>
-<span class="go">(&#39;openverse&#39;, True, [])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()[</span><span class="s2">&quot;license&quot;</span><span class="p">]</span>
-<span class="go">&#39;by-sa&#39;</span>
+<span class="go">('openverse', True, [])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()[</span><span class="s2">"license"</span><span class="p">]</span>
+<span class="go">'by-sa'</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">raw</span></code> field carries the untranslated provider payload (the escape-hatch
@@ -149,21 +151,50 @@ design guarantees; the rest are populated when a provider supplies them.</p>
 
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.schema.RIGHTS_FIELDS">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema.</span></span><span class="sig-name descname"><span class="pre">RIGHTS_FIELDS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('license',</span> <span class="pre">'license_url',</span> <span class="pre">'attribution',</span> <span class="pre">'source_page_url',</span> <span class="pre">'author',</span> <span class="pre">'author_url',</span> <span class="pre">'cacheable')</span></span><a class="headerlink" href="#illustration.schema.RIGHTS_FIELDS" title="Link to this definition"></a></dt>
+<dd><p>the fields that answer “may we ship this, and whom
+must we credit?”. This tuple is the SSOT for that question — anything that
+persists, forwards or re-materialises an <a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> copies exactly
+these, by these names, so no rename table is ever needed downstream. It is
+the one field set that cannot be reconstructed later: a dead URL, a
+re-keyed provider or a re-tagged aggregator all leave a stored selection
+unable to answer it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <strong>rights record</strong></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="illustration.schema.license_allowlist">
 <span class="sig-prename descclassname"><span class="pre">illustration.schema.</span></span><span class="sig-name descname"><span class="pre">license_allowlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><span class="pre">ImageResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/illustration/schema.html#license_allowlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.schema.license_allowlist" title="Link to this definition"></a></dt>
 <dd><p>Keep only results whose license is on the allowlist (R3’s license gate).</p>
 <p>The mandatory per-file license-verification gate for commercial-adjacent
 use: aggregators disclaim license accuracy, so callers should gate on a
-known-good set. Matching is case-insensitive on the license code/name.
-Results with no <code class="docutils literal notranslate"><span class="pre">license</span></code> are dropped (unknown == not allowed).</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">&quot;cc0&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">&quot;by-nc&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+known-good set. Both sides are run through
+<a class="reference internal" href="licensing.html#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.normalize_license()</span></code></a> first, so a provider’s own
+spelling (<code class="docutils literal notranslate"><span class="pre">cc-by-sa-4.0</span></code> from Commons, <code class="docutils literal notranslate"><span class="pre">Pixabay</span> <span class="pre">License</span></code>) matches the
+canonical code without the allowlist having to enumerate every dialect —
+and without ever dropping an <code class="docutils literal notranslate"><span class="pre">nc</span></code>/<code class="docutils literal notranslate"><span class="pre">nd</span></code> restriction. Results with no
+<code class="docutils literal notranslate"><span class="pre">license</span></code> are dropped (unknown == not allowed).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"cc0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"2"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"by-nc"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"3"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])]</span>
-<span class="go">[&#39;1&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">allow</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;by-nc&quot;</span><span class="p">})]</span>
-<span class="go">[&#39;2&#39;]</span>
+<span class="go">['1']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">allow</span><span class="o">=</span><span class="p">{</span><span class="s2">"by-nc"</span><span class="p">})]</span>
+<span class="go">['2']</span>
+</pre></div>
+</div>
+<p>Provider dialects pass the same gate:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"4"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"cc-by-sa-4.0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"pixabay"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"Pixabay License"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nd</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"6"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"cc-by-nd-4.0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">license_allowlist</span><span class="p">([</span><span class="n">w</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">nd</span><span class="p">])]</span>
+<span class="go">['4', '5']</span>
 </pre></div>
 </div>
 </dd></dl>

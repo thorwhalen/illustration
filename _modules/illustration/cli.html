@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.cli &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.cli &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
@@ -98,16 +99,16 @@
            <div itemprop="articleBody">
              
   <h1>Source code for illustration.cli</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Command-line surface (thin ``argh`` wrappers over the library functions).</span>
+<span></span><span class="sd">"""Command-line surface (thin ``argh`` wrappers over the library functions).</span>
 
 <span class="sd">Business logic lives in the library; these functions only adapt it to the shell</span>
 <span class="sd">and format output — the dispatch-to-interface pattern. Examples::</span>
 
-<span class="sd">    illustration search &quot;a stormy harbour at dusk&quot; --n 10</span>
-<span class="sd">    illustration search &quot;rusty bicycle&quot; --source openverse --size large --json</span>
+<span class="sd">    illustration search "a stormy harbour at dusk" --n 10</span>
+<span class="sd">    illustration search "rusty bicycle" --source openverse --size large --json</span>
 <span class="sd">    illustration sources</span>
 <span class="sd">    illustration info openverse</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -115,7 +116,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">illustration</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="s2">&quot;curate&quot;</span><span class="p">,</span> <span class="s2">&quot;curate_sequence&quot;</span><span class="p">,</span> <span class="s2">&quot;sources&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;COMMANDS&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"search"</span><span class="p">,</span> <span class="s2">"curate"</span><span class="p">,</span> <span class="s2">"curate_sequence"</span><span class="p">,</span> <span class="s2">"sources"</span><span class="p">,</span> <span class="s2">"info"</span><span class="p">,</span> <span class="s2">"COMMANDS"</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="search">
@@ -124,14 +125,14 @@
     <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="n">source</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">orientation</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">size</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">safe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">license_type</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">license_type</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search for images and print the results (one per line, or ``--json``).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Search for images and print the results (one per line, or ``--json``)."""</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
         <span class="n">query</span><span class="p">,</span>
         <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
@@ -144,15 +145,15 @@
     <span class="k">if</span> <span class="n">json</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;(no results)&quot;</span>
+        <span class="k">return</span> <span class="s2">"(no results)"</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="n">r</span><span class="o">.</span><span class="n">description</span> <span class="ow">or</span> <span class="s2">&quot;(untitled)&quot;</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">60</span> <span class="k">else</span> <span class="n">label</span><span class="p">[:</span><span class="mi">57</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="n">r</span><span class="o">.</span><span class="n">description</span> <span class="ow">or</span> <span class="s2">"(untitled)"</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">60</span> <span class="k">else</span> <span class="n">label</span><span class="p">[:</span><span class="mi">57</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"..."</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="se">\n</span><span class="s2">    </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">license</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;unknown license&#39;</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">provider</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="se">\n</span><span class="s2">    </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">license</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">'unknown license'</span><span class="si">}</span><span class="s2">)"</span>
         <span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
 
 
 
@@ -161,18 +162,18 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">curate</span><span class="p">(</span>
     <span class="n">beat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">source</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curate the best image for a narration BEAT via the bounded CRAG loop.</span>
+<span class="w">    </span><span class="sd">"""Curate the best image for a narration BEAT via the bounded CRAG loop.</span>
 
 <span class="sd">    Needs the optional ``[curate]`` extra (aix + ir) and provider/LLM API keys;</span>
 <span class="sd">    see the agentic-curation docs. Prints the accepted candidate (or the</span>
 <span class="sd">    best-so-far) and a one-line spend summary, or the full result with ``--json``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.curation</span><span class="w"> </span><span class="kn">import</span> <span class="n">Budget</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">curate</span><span class="p">(</span>
@@ -186,24 +187,24 @@
         <span class="k">return</span> <span class="n">_json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
     <span class="n">best</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">best</span>
     <span class="n">head</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;ACCEPTED&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">accepted</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;BEST-SO-FAR&#39;</span><span class="si">}</span><span class="s2"> &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;(grade=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">grade</span><span class="si">}</span><span class="s2">, reason=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'ACCEPTED'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">accepted</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'BEST-SO-FAR'</span><span class="si">}</span><span class="s2"> "</span>
+        <span class="sa">f</span><span class="s2">"(grade=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">grade</span><span class="si">}</span><span class="s2">, reason=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s2">)"</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">head</span><span class="si">}</span><span class="se">\n</span><span class="s2">(no candidate found)</span><span class="se">\n</span><span class="s2">spend: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">spend</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">head</span><span class="si">}</span><span class="se">\n</span><span class="s2">(no candidate found)</span><span class="se">\n</span><span class="s2">spend: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">spend</span><span class="si">}</span><span class="s2">"</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">head</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;  license: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">license</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;unknown&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  rubric: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">overall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">rubric</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  score: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">score</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"  [</span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">"  license: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">license</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">'unknown'</span><span class="si">}</span><span class="s2">"</span>
+        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"  rubric: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">overall</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">rubric</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"  score: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">score</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span><span class="p">),</span>
     <span class="p">]</span>
     <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">caption</span><span class="p">:</span>
-        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  caption: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">caption</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  caption: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">caption</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">best</span><span class="o">.</span><span class="n">rationale</span><span class="p">:</span>
-        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  rationale: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">rationale</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  spend: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">spend</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  rationale: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">rationale</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  spend: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">spend</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
 
 
 
@@ -211,52 +212,52 @@
 <a class="viewcode-back" href="../../module_docs/illustration/cli.html#illustration.cli.curate_sequence">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">curate_sequence</span><span class="p">(</span>
     <span class="o">*</span><span class="n">beats</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">source</span><span class="p">:</span> <span class="s2">&quot;str | None&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
     <span class="n">json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Choose the best image per narration BEAT across a sequence (cross-shot).</span>
+<span class="w">    </span><span class="sd">"""Choose the best image per narration BEAT across a sequence (cross-shot).</span>
 
 <span class="sd">    Pass one quoted beat per argument. Optimizes relevance + cross-shot coherence</span>
 <span class="sd">    − redundancy with near-duplicate suppression (the M4 selection layer); needs</span>
 <span class="sd">    the [curate]/[rerank] extras for the full signal. Prints the chosen image per</span>
 <span class="sd">    beat, or the full result with --json.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">curate_sequence</span> <span class="k">as</span> <span class="n">_cs</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">beats</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;(no beats given; pass one quoted beat per argument)&quot;</span>
+        <span class="k">return</span> <span class="s2">"(no beats given; pass one quoted beat per argument)"</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">_cs</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">beats</span><span class="p">),</span> <span class="n">sources</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">json</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">bs</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">selections</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">bs</span><span class="o">.</span><span class="n">chosen</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[beat </span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="si">}</span><span class="s2">] (no image)&quot;</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[beat </span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="si">}</span><span class="s2">] (no image)"</span><span class="p">)</span>
             <span class="k">continue</span>
-        <span class="n">dup</span> <span class="o">=</span> <span class="s2">&quot; [forced-dup]&quot;</span> <span class="k">if</span> <span class="n">bs</span><span class="o">.</span><span class="n">forced_duplicate</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">dup</span> <span class="o">=</span> <span class="s2">" [forced-dup]"</span> <span class="k">if</span> <span class="n">bs</span><span class="o">.</span><span class="n">forced_duplicate</span> <span class="k">else</span> <span class="s2">""</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;[beat </span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">  &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;(rel=</span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">relevance</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> coh=</span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">coherence</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> red=</span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">redundancy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)</span><span class="si">{</span><span class="n">dup</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">"[beat </span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">  "</span>
+            <span class="sa">f</span><span class="s2">"(rel=</span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">relevance</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> coh=</span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">coherence</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> red=</span><span class="si">{</span><span class="n">bs</span><span class="o">.</span><span class="n">redundancy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)</span><span class="si">{</span><span class="n">dup</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
-        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;notes: &quot;</span> <span class="o">+</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">notes</span><span class="p">))</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"notes: "</span> <span class="o">+</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">notes</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="sources">
 <a class="viewcode-back" href="../../module_docs/illustration/cli.html#illustration.cli.sources">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sources</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List the registered image sources.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">illustration</span><span class="o">.</span><span class="n">list_sources</span><span class="p">())</span></div>
+<span class="w">    </span><span class="sd">"""List the registered image sources."""</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">illustration</span><span class="o">.</span><span class="n">list_sources</span><span class="p">())</span></div>
 
 
 
 <div class="viewcode-block" id="info">
 <a class="viewcode-back" href="../../module_docs/illustration/cli.html#illustration.cli.info">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Show metadata for one source.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Show metadata for one source."""</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">get_source</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span></div>
 

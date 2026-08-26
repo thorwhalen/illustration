@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.caching &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.caching &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -71,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -123,16 +124,16 @@ invalidation <em>structural</em> — bump it and every old key is simply never h
 touching call sites.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">store</span> <span class="o">=</span> <span class="p">{}</span>                              <span class="c1"># any MutableMapping works</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cache</span> <span class="o">=</span> <span class="n">SearchCache</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">k1</span> <span class="o">=</span> <span class="n">search_cache_key</span><span class="p">(</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="s2">&quot;dusk harbour&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;large&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">k2</span> <span class="o">=</span> <span class="n">search_cache_key</span><span class="p">(</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="s2">&quot;dusk harbour&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;large&quot;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k1</span> <span class="o">=</span> <span class="n">search_cache_key</span><span class="p">(</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"dusk harbour"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"size"</span><span class="p">:</span> <span class="s2">"large"</span><span class="p">,</span> <span class="s2">"n"</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k2</span> <span class="o">=</span> <span class="n">search_cache_key</span><span class="p">(</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"dusk harbour"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">:</span> <span class="s2">"large"</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">k1</span> <span class="o">==</span> <span class="n">k2</span>                                <span class="c1"># dict order does not matter</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="s2">&quot;dusk harbour&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
-<span class="gp">... </span>              <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">)])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="s2">&quot;dusk harbour&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})]</span>
-<span class="go">[&#39;1&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;openverse&quot;</span><span class="p">,</span> <span class="s2">&quot;other&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"dusk harbour"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"dusk harbour"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">10</span><span class="p">})]</span>
+<span class="go">['1']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"other"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span>
 <span class="go">True</span>
 </pre></div>
 </div>

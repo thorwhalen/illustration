@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.expansion &mdash; illustration 0.0.4 documentation</title>
+  <title>illustration.expansion &mdash; illustration 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -71,6 +71,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licensing.html">illustration.licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistence.html">illustration.persistence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers.html">illustration.providers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="providers/openverse.html">illustration.providers.openverse</a></li>
@@ -124,10 +125,10 @@ LLM facade) and is imported <strong>lazily</strong>, so <code class="docutils li
 fully testable offline with a stub — the same string-or-callable + lazy-LLM
 idiom <code class="docutils literal notranslate"><span class="pre">ir</span></code> uses for its formulators.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline: inject a stub expander (no LLM, no network)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_query</span><span class="p">(</span><span class="s2">&quot;a stormy harbour&quot;</span><span class="p">,</span> <span class="n">expander</span><span class="o">=</span><span class="k">lambda</span> <span class="n">beat</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;harbour storm&quot;</span><span class="p">,</span> <span class="s2">&quot;rough sea&quot;</span><span class="p">])</span>
-<span class="go">[&#39;a stormy harbour&#39;, &#39;harbour storm&#39;, &#39;rough sea&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">refine_query</span><span class="p">(</span><span class="s2">&quot;a stormy harbour&quot;</span><span class="p">,</span> <span class="s2">&quot;too generic&quot;</span><span class="p">,</span> <span class="n">refiner</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="s2">&quot;harbour at dusk in a gale&quot;</span><span class="p">)</span>
-<span class="go">&#39;harbour at dusk in a gale&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_query</span><span class="p">(</span><span class="s2">"a stormy harbour"</span><span class="p">,</span> <span class="n">expander</span><span class="o">=</span><span class="k">lambda</span> <span class="n">beat</span><span class="p">:</span> <span class="p">[</span><span class="s2">"harbour storm"</span><span class="p">,</span> <span class="s2">"rough sea"</span><span class="p">])</span>
+<span class="go">['a stormy harbour', 'harbour storm', 'rough sea']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">refine_query</span><span class="p">(</span><span class="s2">"a stormy harbour"</span><span class="p">,</span> <span class="s2">"too generic"</span><span class="p">,</span> <span class="n">refiner</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="s2">"harbour at dusk in a gale"</span><span class="p">)</span>
+<span class="go">'harbour at dusk in a gale'</span>
 </pre></div>
 </div>
 <dl class="py data">
