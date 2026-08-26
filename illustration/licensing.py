@@ -36,7 +36,10 @@ __all__ = ["normalize_license", "LICENSE_ALIASES", "RESTRICTION_TOKENS"]
 
 #: Whole-code spellings that no mechanical rule can fold, mapped by hand. Kept
 #: deliberately short: every entry is a judgement that two strings name the same
-#: permissions, and a wrong entry silently widens the gate.
+#: permissions, and a wrong entry silently widens the gate. Every key must stay
+#: *reachable* — ``"cc-0"`` was dead for a release because the version strip ran
+#: first and turned it into ``"cc"``, so a CC0 image spelled that way was dropped
+#: by the default gate; ``test_every_alias_key_is_reachable`` now pins that.
 LICENSE_ALIASES = {
     "cc-zero": "cc0",
     "cc-0": "cc0",
@@ -75,12 +78,16 @@ def normalize_license(value: "str | None") -> "str | None":
     ('pexels-license', 'by')
     >>> normalize_license("public domain"), normalize_license("cc-by-3.0")
     ('pdm', 'by')
+    >>> normalize_license("cc-0")  # the version strip would otherwise eat "-0"
+    'cc0'
     >>> normalize_license("")  is None
     True
     """
     if not value or not value.strip():
         return None
     code = _SEPARATORS_RE.sub("-", value.strip().lower())
+    if code in LICENSE_ALIASES:  # before the version strip, which eats "cc-0"'s "-0"
+        return LICENSE_ALIASES[code]
     code = _VERSION_SUFFIX_RE.sub("", code)
     if code in LICENSE_ALIASES:  # alias before de-prefixing (e.g. "cc-pdm")
         return LICENSE_ALIASES[code]

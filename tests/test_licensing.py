@@ -131,3 +131,23 @@ def test_default_allowlist_entries_are_written_in_canonical_form():
     # work — but it would read as a second dialect in the SSOT.
     for entry in DFLT_LICENSE_ALLOWLIST:
         assert normalize_license(entry) == entry
+
+
+def test_every_alias_key_is_reachable():
+    """No alias entry may be dead code — a dead one is a silently-dropped licence.
+
+    ``"cc-0": "cc0"`` was unreachable: the trailing-version strip ran before the
+    alias lookup and turned ``cc-0`` into ``cc``, so a CC0 image spelled that way
+    failed the default gate. The table is where a human records "these two
+    strings name the same permissions"; an entry that never fires records
+    nothing, and the failure direction is invisible (fewer hits, no error).
+    """
+    unreachable = {
+        key: (target, normalize_license(key))
+        for key, target in LICENSE_ALIASES.items()
+        if normalize_license(key) != target
+    }
+    assert not unreachable, (
+        "alias key(s) never fire — {key: (intended, actual)}: "
+        f"{unreachable}. Check the transform's step order in normalize_license."
+    )

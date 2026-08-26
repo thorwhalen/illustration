@@ -90,16 +90,30 @@ its defining constraint, not a footnote.
   spelling is a hand-written entry in `LICENSE_ALIASES`. An unrecognised code
   survives unchanged and therefore fails the gate: unknown is not allowed.
   `tests/test_licensing.py` asserts both directions and is mutation-tested;
-  widening the alias table is a decision, never a convenience.
+  widening the alias table is a decision, never a convenience. Every alias key
+  must also stay **reachable**: the version strip runs before the lookup, so
+  `"cc-0"` was dead code for a release (it became `cc`, and CC0 images spelled
+  that way were dropped by the default gate) — `test_every_alias_key_is_reachable`
+  pins that, because the failure direction is invisible (fewer hits, no error).
 - **The rights record survives persistence.** `RIGHTS_FIELDS` (in `schema`) is
   the SSOT for the seven fields that answer "may we ship this, and whom must we
   credit?", and `persistence._CandidateRef` declares every one of them under the
   *same names* so no consumer needs a rename table. They are optional with
   defaults, which is what makes the addition additive (no lacing migration);
   `cacheable` is `bool | None` so "not recorded" stays distinguishable from
-  "recorded as False". Adding a field to `RIGHTS_FIELDS` without adding it to
-  `_CandidateRef` turns `tests/test_persistence.py` red — pydantic would
-  otherwise ignore the undeclared key and lose it silently.
+  "recorded as False". **Three hops, three guards, all in
+  `tests/test_persistence.py` and all mutation-tested** — the first draft of
+  this guard was parameterised by `RIGHTS_FIELDS`, i.e. by the very list it was
+  meant to protect, so trimming `source_page_url` out of the tuple silently
+  stopped persisting it with the whole suite green:
+  `ImageResult` → `RIGHTS_FIELDS` is a **literal pin on every `ImageResult`
+  field**, so a new field forces a human to classify it as rights-bearing or
+  not (nothing structural distinguishes the two, so this hop cannot be derived
+  — it is a recorded decision); `RIGHTS_FIELDS` itself is a literal pin, so a
+  trim is a deliberate two-place edit; and `RIGHTS_FIELDS` → `_CandidateRef` is
+  the subset check, which matters because `_CandidateRef` deliberately does
+  *not* set `extra="forbid"` (that is what lets an old build read a newer body)
+  and so would **ignore** an undeclared key rather than raise.
 
 ## Adding a provider (open-closed)
 

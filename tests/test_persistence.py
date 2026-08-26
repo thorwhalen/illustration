@@ -131,16 +131,115 @@ def _licensed_sequence():
     )
 
 
-def test_candidate_ref_declares_every_rights_field():
-    """A field added to the rights record cannot silently fail to reach storage.
+#: The rights record, spelled out. Pinned as a **literal** rather than derived
+#: from ``RIGHTS_FIELDS``, because a guard parameterised by the thing it guards
+#: guards nothing: trimming ``"source_page_url"`` out of the SSOT tuple used to
+#: leave the whole suite green while every subsequently persisted selection lost
+#: its link to the licence page. With the pin, a trim (or an addition) is a
+#: deliberate two-place edit and shows up in review.
+EXPECTED_RIGHTS_FIELDS = {
+    "license",
+    "license_url",
+    "attribution",
+    "source_page_url",
+    "author",
+    "author_url",
+    "cacheable",
+}
 
-    The projection in ``_candidate_ref`` iterates ``RIGHTS_FIELDS``, so a new
-    field would be *passed* to a model that does not declare it — and pydantic's
-    default is to ignore an undeclared key, i.e. to lose it silently. This is
-    what makes that impossible.
+#: Every field :class:`ImageResult` declares, pinned for the same reason from
+#: the other side. ``RIGHTS_FIELDS`` cannot be *derived* from this model — no
+#: structural property says which fields answer "may we ship this?" — so the
+#: only way a rights field added upstream cannot silently fail to be persisted
+#: is to make **any** addition to the contract model a decision someone records
+#: here, classifying it as rights-bearing or not.
+EXPECTED_IMAGE_RESULT_FIELDS = {
+    # identity / payload
+    "provider",
+    "id",
+    "url",
+    "thumbnail_url",
+    "width",
+    "height",
+    "title",
+    "description",
+    "tags",
+    "avg_color",
+    # rights record (must equal EXPECTED_RIGHTS_FIELDS)
+    "license",
+    "license_url",
+    "attribution",
+    "source_page_url",
+    "author",
+    "author_url",
+    "cacheable",
+    # provenance / forward-compatibility
+    "query",
+    "score",
+    "raw",
+}
+
+
+def test_rights_fields_tuple_matches_its_literal_pin():
+    """Trimming the SSOT tuple must be a deliberate edit, not a silent loss.
+
+    ``_candidate_ref`` copies exactly ``RIGHTS_FIELDS``, so a field removed from
+    the tuple simply stops being persisted — with every other test in this file
+    (which all iterate the same tuple) still green.
+    """
+    assert set(RIGHTS_FIELDS) == EXPECTED_RIGHTS_FIELDS, (
+        "RIGHTS_FIELDS changed. If that is intended, update "
+        "EXPECTED_RIGHTS_FIELDS here too — and check whether the new shape "
+        "needs a lacing migration for annot://schema/illustration-selection/v1."
+    )
+    assert len(RIGHTS_FIELDS) == len(set(RIGHTS_FIELDS))  # no duplicates
+
+
+def test_image_result_gained_no_unclassified_field():
+    """A field added to the contract model must be classified, not ignored.
+
+    ``RIGHTS_FIELDS`` is hand-written twenty lines above ``ImageResult`` and is
+    easy to miss; a new rights-bearing field left out of it is never copied by
+    ``_candidate_ref``, so every persisted selection loses it. Nothing about a
+    pydantic field says whether it answers "may we ship this, and whom must we
+    credit?" — so the classification is made here, by a human, once per field.
+    """
+    actual = set(ImageResult.model_fields)
+    added = actual - EXPECTED_IMAGE_RESULT_FIELDS
+    removed = EXPECTED_IMAGE_RESULT_FIELDS - actual
+    assert not added, (
+        f"ImageResult gained {sorted(added)}. Decide, for each: does it answer "
+        '"may we ship this, and whom must we credit?" If yes, add it to '
+        "illustration.schema.RIGHTS_FIELDS *and* persistence._CandidateRef "
+        "*and* EXPECTED_RIGHTS_FIELDS. Either way, record it in "
+        "EXPECTED_IMAGE_RESULT_FIELDS."
+    )
+    assert not removed, (
+        f"ImageResult lost {sorted(removed)} — a contract removal. Update the "
+        "pin, and if a rights field went, migrate stored selection bodies."
+    )
+
+
+def test_every_rights_field_exists_on_image_result():
+    """The tuple names fields that are really there — ``getattr`` in
+    ``_candidate_ref`` would otherwise raise at persist time, at runtime.
+    """
+    missing = [f for f in RIGHTS_FIELDS if f not in ImageResult.model_fields]
+    assert not missing, f"RIGHTS_FIELDS names non-existent ImageResult field(s): {missing}"
+
+
+def test_candidate_ref_declares_every_rights_field():
+    """A field in the rights record cannot silently fail to reach storage.
+
+    The projection in ``_candidate_ref`` iterates ``RIGHTS_FIELDS`` and splats
+    the result into ``_CandidateRef``, which does **not** set
+    ``extra="forbid"`` (deliberately — that is what lets an old build read a
+    newer body). So an undeclared key is *ignored*, i.e. lost silently, rather
+    than raising. This is what makes that impossible.
     """
     missing = [f for f in RIGHTS_FIELDS if f not in _CandidateRef.model_fields]
     assert not missing, f"_CandidateRef drops rights field(s): {missing}"
+
 
 
 def test_persisted_selection_carries_the_whole_rights_record():

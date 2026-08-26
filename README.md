@@ -346,11 +346,17 @@ The gate normalizes both sides with `illustration.normalize_license` before
 comparing, so every provider's own spelling reaches the same canonical code —
 Wikimedia's `cc-by-sa-4.0` and Pixabay's `Pixabay License` both match the
 default `DFLT_LICENSE_ALLOWLIST` (`cc0`, `pdm`, `by`, `by-sa`,
-`pexels-license`, `pixabay-license`). Normalization only ever strips a `cc-`
-prefix and a trailing version number: restrictions survive (`cc-by-nc-nd-4.0`
-→ `by-nc-nd`, dropped), and an unrecognized code is left as-is and therefore
-dropped too — unknown is not allowed. Name anything else you want explicitly in
-`allow={...}`.
+`pexels-license`, `pixabay-license`). Mechanically, normalization only ever
+strips a `cc-` prefix and a trailing version number: restrictions survive
+(`cc-by-nc-nd-4.0` → `by-nc-nd`, dropped), and an unrecognized code is left
+as-is and therefore dropped too — unknown is not allowed. On top of that,
+`illustration.LICENSE_ALIASES` is a short hand-written table folding ten further
+public-domain spellings onto `cc0`/`pdm` — so `pd` (what Wikimedia Commons
+actually emits for many files), `public domain`, `publicdomain`,
+`public-domain-mark`, `cc-zero`, `cc-0`, `zero`, `cc-pdm`, `cc-publicdomain` and
+`pdm-owner` all **pass** the default gate. Read that table, not just the
+prefix/version rule, when auditing what `license_allow=True` will keep. Name
+anything else you want explicitly in `allow={...}`.
 
 ## License
 
