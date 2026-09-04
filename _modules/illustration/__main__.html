@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.__main__ &mdash; illustration 0.0.5 documentation</title>
+  <title>illustration.__main__ &mdash; illustration 0.0.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
+      <script src="../../_static/documentation_options.js?v=1fd71caa"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -101,9 +101,24 @@
   <h1>Source code for illustration.__main__</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""CLI entry point: ``python -m illustration`` / the ``illustration`` script.</span>
 
-<span class="sd">Builds an ``argh`` dispatcher over :data:`illustration.cli.COMMANDS`. Keyword-only</span>
-<span class="sd">parameters become ``--options`` (``NameMappingPolicy.BY_NAME_IF_KWONLY``), matching</span>
-<span class="sd">the ecosystem's ``ir`` CLI idiom.</span>
+<span class="sd">Builds a ``cw`` dispatcher over :data:`illustration.cli.COMMANDS`. Each command's</span>
+<span class="sd">signature *is* its grammar: the leading positional stays positional, and every</span>
+<span class="sd">keyword-only parameter becomes an ``--option`` whose default is shown in ``--help``.</span>
+
+<span class="sd">Two notes for anyone changing this file:</span>
+
+<span class="sd">* ``cw.dispatch`` **returns** the exit code rather than raising it, which is why</span>
+<span class="sd">  :func:`main` returns and the ``__main__`` guard below raises. Keeping ``main``</span>
+<span class="sd">  non-raising is also what lets the tests call it in-process.</span>
+<span class="sd">* the convention is ``cw``'s default (``cw.ARGH``, i.e. argh's own</span>
+<span class="sd">  ``BY_NAME_IF_HAS_DEFAULT``). The pre-migration code *tried* to select</span>
+<span class="sd">  ``BY_NAME_IF_KWONLY``, but guarded the attempt with</span>
+<span class="sd">  ``getattr(argh, "NameMappingPolicy", None)`` — a name argh does not export at its</span>
+<span class="sd">  top level — so the guard always returned ``None`` and the CLI has only ever run on</span>
+<span class="sd">  the default. Every current command has a bare positional and keyword-only options,</span>
+<span class="sd">  a shape on which the two policies produce identical grammar; the default is kept</span>
+<span class="sd">  because it is what shipped. Adding a parameter that is positional *and* has a</span>
+<span class="sd">  default is where the two would diverge — see ``tests/test_cli.py``.</span>
 <span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -111,28 +126,18 @@
 
 <div class="viewcode-block" id="main">
 <a class="viewcode-back" href="../../module_docs/illustration/__main__.html#illustration.__main__.main">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Dispatch a CLI command (see :mod:`illustration.cli`)."""</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">argh</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Dispatch a CLI command (see :mod:`illustration.cli`) and return its exit code."""</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">cw</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.cli</span><span class="w"> </span><span class="kn">import</span> <span class="n">COMMANDS</span>
 
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">argh</span><span class="o">.</span><span class="n">ArghParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">"illustration"</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">parser</span><span class="o">.</span><span class="n">set_default_command</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># pragma: no cover - argh version differences</span>
-        <span class="k">pass</span>
-    <span class="n">add_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">policy</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">argh</span><span class="p">,</span> <span class="s2">"NameMappingPolicy"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">policy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">add_kwargs</span><span class="p">[</span><span class="s2">"name_mapping_policy"</span><span class="p">]</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">BY_NAME_IF_KWONLY</span>
-    <span class="n">argh</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">COMMANDS</span><span class="p">,</span> <span class="o">**</span><span class="n">add_kwargs</span><span class="p">)</span>
-    <span class="n">argh</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">cw</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">COMMANDS</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s2">"illustration"</span><span class="p">)</span></div>
 
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+    <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </pre></div>
 
            </div>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.__main__ &mdash; illustration 0.0.5 documentation</title>
+  <title>illustration.__main__ &mdash; illustration 0.0.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
+      <script src="../../_static/documentation_options.js?v=1fd71caa"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,13 +107,28 @@
   <section id="module-illustration.__main__">
 <span id="illustration-main"></span><h1>illustration.__main__<a class="headerlink" href="#module-illustration.__main__" title="Link to this heading"></a></h1>
 <p>CLI entry point: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">illustration</span></code> / the <code class="docutils literal notranslate"><span class="pre">illustration</span></code> script.</p>
-<p>Builds an <code class="docutils literal notranslate"><span class="pre">argh</span></code> dispatcher over <a class="reference internal" href="cli.html#illustration.cli.COMMANDS" title="illustration.cli.COMMANDS"><code class="xref py py-data docutils literal notranslate"><span class="pre">illustration.cli.COMMANDS</span></code></a>. Keyword-only
-parameters become <code class="docutils literal notranslate"><span class="pre">--options</span></code> (<code class="docutils literal notranslate"><span class="pre">NameMappingPolicy.BY_NAME_IF_KWONLY</span></code>), matching
-the ecosystem’s <code class="docutils literal notranslate"><span class="pre">ir</span></code> CLI idiom.</p>
+<p>Builds a <code class="docutils literal notranslate"><span class="pre">cw</span></code> dispatcher over <a class="reference internal" href="cli.html#illustration.cli.COMMANDS" title="illustration.cli.COMMANDS"><code class="xref py py-data docutils literal notranslate"><span class="pre">illustration.cli.COMMANDS</span></code></a>. Each command’s
+signature <em>is</em> its grammar: the leading positional stays positional, and every
+keyword-only parameter becomes an <code class="docutils literal notranslate"><span class="pre">--option</span></code> whose default is shown in <code class="docutils literal notranslate"><span class="pre">--help</span></code>.</p>
+<p>Two notes for anyone changing this file:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cw.dispatch</span></code> <strong>returns</strong> the exit code rather than raising it, which is why
+<a class="reference internal" href="#illustration.__main__.main" title="illustration.__main__.main"><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> returns and the <code class="docutils literal notranslate"><span class="pre">__main__</span></code> guard below raises. Keeping <code class="docutils literal notranslate"><span class="pre">main</span></code>
+non-raising is also what lets the tests call it in-process.</p></li>
+<li><p>the convention is <code class="docutils literal notranslate"><span class="pre">cw</span></code>’s default (<code class="docutils literal notranslate"><span class="pre">cw.ARGH</span></code>, i.e. argh’s own
+<code class="docutils literal notranslate"><span class="pre">BY_NAME_IF_HAS_DEFAULT</span></code>). The pre-migration code <em>tried</em> to select
+<code class="docutils literal notranslate"><span class="pre">BY_NAME_IF_KWONLY</span></code>, but guarded the attempt with
+<code class="docutils literal notranslate"><span class="pre">getattr(argh,</span> <span class="pre">&quot;NameMappingPolicy&quot;,</span> <span class="pre">None)</span></code> — a name argh does not export at its
+top level — so the guard always returned <code class="docutils literal notranslate"><span class="pre">None</span></code> and the CLI has only ever run on
+the default. Every current command has a bare positional and keyword-only options,
+a shape on which the two policies produce identical grammar; the default is kept
+because it is what shipped. Adding a parameter that is positional <em>and</em> has a
+default is where the two would diverge — see <code class="docutils literal notranslate"><span class="pre">tests/test_cli.py</span></code>.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="illustration.__main__.main">
-<span class="sig-prename descclassname"><span class="pre">illustration.__main__.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/illustration/__main__.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.__main__.main" title="Link to this definition"></a></dt>
-<dd><p>Dispatch a CLI command (see <a class="reference internal" href="cli.html#module-illustration.cli" title="illustration.cli"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.cli</span></code></a>).</p>
+<span class="sig-prename descclassname"><span class="pre">illustration.__main__.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/illustration/__main__.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.__main__.main" title="Link to this definition"></a></dt>
+<dd><p>Dispatch a CLI command (see <a class="reference internal" href="cli.html#module-illustration.cli" title="illustration.cli"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.cli</span></code></a>) and return its exit code.</p>
 </dd></dl>
 
 </section>
