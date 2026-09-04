@@ -33,7 +33,7 @@ Before writing feature code:
 
 1. **Read all three research reports** in `misc/docs/research/` and take structured notes into the repo (e.g., `docs/notes/` or a design doc). Distill the decisions they imply; cite them in your design doc rather than re-deriving.
 2. **Read and follow the `github-memory` skill** for how to use GitHub in this project (repo setup, issues, PRs, commit/decision memory). Use it as the system of record for the plan, decisions, and progress throughout.
-3. **Apply Thor's coding skills**: `python-coding-standards` (modularity, docstrings + doctests, informative errors, `check_requirements`, Mapping/MutableMapping store patterns, progressive disclosure) and `python-package-architecture` (project file layout, `pyproject.toml`, `argh` CLI dispatch, the dispatch-to-interface pattern). Match the ecosystem's idioms.
+3. **Apply Thor's coding skills**: `python-coding-standards` (modularity, docstrings + doctests, informative errors, `check_requirements`, Mapping/MutableMapping store patterns, progressive disclosure) and `python-package-architecture` (project file layout, `pyproject.toml`, `cw` CLI dispatch, the dispatch-to-interface pattern). Match the ecosystem's idioms.
 4. **Study the ecosystem façade packages** before designing the façade — `aix` (most important), `falaw`, and `denote` all solve "one clean interface over heterogeneous backends, with an escape hatch." Adopt their established idiom rather than inventing a new pattern. Locate them via the installed environment (`pip show <pkg>`) and/or GitHub. For the agentic layer, study **`ir`** for agentic design patterns.
 5. **Survey the providers' actual APIs** (read their docs; light web fetching is fine). Produce the comparison tables described below.
 6. **Write a short design doc** capturing: the provider comparison, the canonical-parameter mapping, the chosen escape-hatch design (with rejected alternatives and why), the result schema, and the milestone plan. Commit it. Then start building.
@@ -72,7 +72,7 @@ State the rule for *when* a parameter is promoted from "provider-specific escape
 - **Caching** mirroring `falaw`: a SHA-256 key over `(provider, normalized_query, normalized_params)` → results, stored behind an injectable `MutableMapping` (`dol`). Default to a local store; make it swappable via dependency injection.
 - **Config/secrets**: API keys from env/config, never hardcoded; fail with an informative error (`check_requirements`-style) when a provider's key is missing.
 - **Respect each provider's TOS**: rate limits, and the hotlink-vs-cache rule reflected in the `cacheable` flag.
-- **CLI** via `argh` per the package-architecture skill, so `illustration search "..."` works from the shell.
+- **CLI** via `cw` per the package-architecture skill, so `illustration search "..."` works from the shell.
 
 ## Layer 2 — agentic curation (after Layer 1 is solid)
 
@@ -89,7 +89,7 @@ A genuinely working vertical slice using **one free provider** (recommend **Open
 
 - `illustration.search("a stormy harbour at dusk", n=10)` returns a list of normalized result objects (the shared schema), with license/attribution/`cacheable` populated.
 - SHA-256-keyed caching works (second identical call hits the cache).
-- Works from the CLI (`argh`).
+- Works from the CLI (`cw`).
 - Has doctests/tests and informative errors for missing keys.
 - The provider registry + façade are structured so a second provider is a drop-in addition.
 - Design doc, decision log, and repo memory are committed via the `github-memory` workflow.
