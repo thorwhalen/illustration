@@ -63,7 +63,7 @@ storyboard.
 | `sequence` | `select_sequence` / `curate_sequence`, in-house MMR + DCT pHash | `numpy` |
 | `persistence` | selections as `lacing` standoff annotations, OTIO export | `[persist]` |
 | `video` | `render_sequence_video` (burns), `to_walkthru_document` | `[video]` |
-| `cli` / `__main__` | thin `argh` wrappers; no business logic | `argh` |
+| `cli` / `__main__` | thin `cw` wrappers; no business logic | `cw` |
 | `_imageio` | the single image fetch/decode path (fail-soft) | `requests`/`Pillow` |
 
 ## The licence/attribution invariant
@@ -134,7 +134,7 @@ escape hatch (`provider_params=` / flat `**provider_kwargs`). `safe` and
 ## Optional extras
 
 `pip install illustration[<extra>]` — the base install is `pydantic`,
-`requests`, `dol`, `config2py`, `argh` only.
+`requests`, `dol`, `config2py`, `cw` only.
 
 | extra | pulls | for |
 |---|---|---|

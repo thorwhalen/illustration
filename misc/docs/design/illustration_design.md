@@ -334,8 +334,8 @@ illustration/
   sequence.py      # M4: cross-shot sequence selection (select_sequence/curate_sequence; in-house MMR+pHash)
   persistence.py   # M4: persist selections as lacing standoff annotations ([persist] extra)
   video.py         # M4: narration→Ken-Burns hook — burns render + walkthru adapter ([video] extra)
-  cli.py           # thin argh wrappers (ir idiom)
-  __main__.py      # argh dispatch; [project.scripts] illustration = …
+  cli.py           # thin cw wrappers (ir idiom)
+  __main__.py      # cw dispatch; [project.scripts] illustration = …
 ```
 
 `reranking.py` / `inspection.py` / `curation.py` / `expansion.py` are named to
@@ -366,7 +366,7 @@ search stays dependency-light.
 - **M1 — One provider end-to-end.** ✅ (PR #2) Openverse end-to-end
   (no key → works out of the box) + Pexels as the drop-in proof: `ImageResult`
   schema, `RetrievalSource` + registry, SHA-256 `dol` cache, `search()` façade,
-  `argh` CLI, credentials/`check_requirements`, doctests + offline tests.
+  `cw` CLI, credentials/`check_requirements`, doctests + offline tests.
 - **M2 — Multi-provider façade.** *M2a ✅* — added **Wikimedia** (no key) +
   **Pixabay** (keyed) via new base hooks (`fixed_params`, `_page_params`,
   `_auth_params`); promoted `color` + `content_type` to canonical (≥2 rule);

@@ -1,4 +1,4 @@
-"""Command-line surface (thin ``argh`` wrappers over the library functions).
+"""Command-line surface (thin ``cw`` wrappers over the library functions).
 
 Business logic lives in the library; these functions only adapt it to the shell
 and format output — the dispatch-to-interface pattern. Examples::
