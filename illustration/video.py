@@ -27,7 +27,7 @@ from __future__ import annotations
 
 from typing import Any, Callable, Sequence
 
-from illustration.schema import ImageResult
+from illustration.schema import RIGHTS_FIELDS, ImageResult
 
 __all__ = [
     "render_sequence_video",
@@ -138,7 +138,11 @@ def to_walkthru_document(
                 beat_kind="broll",
                 timing=Timing(duration_ms=dur_ms),
                 text=text,
-                poster=AssetRef(uri=img.url, mime=_guess_mime(img.url)),
+                poster=AssetRef(
+                    uri=img.url,
+                    mime=_guess_mime(img.url),
+                    rights=_asset_rights(img),
+                ),
             )
         )
         if narration is not None and i < len(narration) and narration[i]:
@@ -180,6 +184,19 @@ def _as_image(x: Any) -> "ImageResult | None":
     if x is None or isinstance(x, ImageResult):
         return x
     return getattr(x, "chosen", None)  # a BeatSelection
+
+
+def _asset_rights(img: ImageResult) -> Any:
+    """Project an :class:`ImageResult` onto ``walkthru.AssetRights`` — identical field names.
+
+    Iterates :data:`~illustration.schema.RIGHTS_FIELDS` rather than listing them again here, so
+    this projection cannot fall behind the SSOT silently — mirrors
+    :func:`illustration.persistence._candidate_ref`, the same guard shape as ``tests/test_video.py``
+    asserts for this hop.
+    """
+    from walkthru import AssetRights
+
+    return AssetRights(**{field: getattr(img, field) for field in RIGHTS_FIELDS})
 
 
 def _durations(durations: "float | Sequence[float]", n: int) -> list[float]:
