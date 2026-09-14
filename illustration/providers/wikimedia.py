@@ -45,6 +45,31 @@ _THUMB_WIDTH = "320"  # px width requested for the generated thumbnail URL
 _SCALED_IMAGE_LIMIT = 50
 
 
+_CATEGORY_PREFIX = "category:"
+
+
+def _is_category(query: str) -> bool:
+    """Whether ``query`` names a Commons category rather than free text.
+
+    >>> _is_category("Category:Elizabeth Schuyler Hamilton")
+    True
+    >>> _is_category("category:trinity church")   # MediaWiki is case-insensitive here
+    True
+    >>> _is_category("Elizabeth Schuyler Hamilton")
+    False
+    """
+    return query.strip().lower().startswith(_CATEGORY_PREFIX)
+
+
+def _category_title(query: str) -> str:
+    """Normalise to the canonical ``Category:Name`` title.
+
+    >>> _category_title("category:  Trinity Church (Manhattan) ")
+    'Category:Trinity Church (Manhattan)'
+    """
+    return "Category:" + query.strip()[len(_CATEGORY_PREFIX) :].strip()
+
+
 def _strip_html(value: "str | None") -> "str | None":
     """Strip tags + unescape entities from an extmetadata HTML value."""
     if not value:
@@ -95,9 +120,35 @@ class WikimediaSource(RetrievalSource):
         # offset-based pagination, not page-number based
         return {"gsrlimit": per_page, "gsroffset": (page - 1) * per_page}
 
+    def _query_params(self, query: str, *, page: int, per_page: int) -> dict:
+        """Route a ``Category:…`` query to the category-members generator.
+
+        A Commons **category** is a curated list — maintained by people who
+        looked at the pictures — where free-text search is a guess at the
+        filename and description. The difference is not marginal: searching
+        "Hamilton Grange" returns a branch library of that name, while
+        ``Category:Hamilton Grange National Memorial`` returns the house. For a
+        subject with a category, this is the better door.
+
+        Detected from the query's own namespace prefix rather than a new
+        parameter, because that is MediaWiki's own spelling for it and it
+        therefore survives the façade, the cache key and the CLI unchanged.
+        """
+        if not _is_category(query):
+            return super()._query_params(query, page=page, per_page=per_page)
+        return {
+            "generator": "categorymembers",
+            "gcmtitle": _category_title(query),
+            "gcmtype": "file",
+            # Category members have no relevance order to page through, and the
+            # 50-scaled-image cap already bounds a page; ask once and stop.
+            "gcmlimit": per_page,
+        }
+
     def _items(self, response: Mapping[str, Any]) -> Iterable[Mapping[str, Any]]:
         pages = (response.get("query") or {}).get("pages") or {}
-        # `pages` is a dict keyed by pageid; sort by search index for relevance order
+        # `pages` is a dict keyed by pageid; sort by search index for relevance
+        # order. Category members carry no `index`, so they keep API order.
         return sorted(pages.values(), key=lambda p: p.get("index", 0))
 
     def _normalize(self, item: Mapping[str, Any], *, query: str) -> ImageResult:

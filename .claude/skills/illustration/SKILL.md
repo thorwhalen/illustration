@@ -13,10 +13,36 @@ pip install illustration                      # base: no API key needed
 pip install 'illustration[rerank]'            # + SigLIP-2 cross-modal rerank
 pip install 'illustration[curate]'            # + the agentic per-beat loop (aix + ir)
 pip install 'illustration[video,persist]'     # + burns/walkthru render, lacing persist
+pip install 'illustration[dedupe]'            # + DINOv2 same-subject duplicate grouping
 ```
 
 Everything public is imported from the top level:
-`from illustration import search, rerank, curate, curate_sequence, license_allowlist, ImageResult, using_credentials`.
+`from illustration import search, rerank, curate, curate_sequence, dedupe, group_duplicates, license_allowlist, ImageResult, using_credentials`.
+
+## Two things that bit a real film — read before picking images
+
+**Same subject, different file.** A search for one person returns a painting,
+three engravings after it, and a re-scan of an engraving: four ids, four
+byte-streams, one picture. Use them all and the film looks like it ran out of
+pictures — which is exactly what shipped once.
+
+```python
+keep = illustration.dedupe(hits)                  # best of each subject
+groups = illustration.group_duplicates(hits)      # or choose yourself
+```
+
+The perceptual-hash suppression in `select_sequence` does **not** cover this —
+pHash finds the same raster, not the same subject (`Signature.subject_level` is
+`False` and says so). On a measured 43-image set pHash caught 1 duplicate pair;
+DINOv2 caught all four engravings of the sitter while keeping her sister apart.
+`search()` defaults to `dedupe="auto"` — on when the call already fetches images
+(reranking), off for a bare metadata search, because telling subjects apart
+needs pixels. `select_sequence(signature=...)` applies it across beats.
+
+**Browse a category, don't guess a filename.** For Wikimedia, a category is
+curated by people who looked at the pictures; search matches filenames and
+descriptions. `search("Hamilton Grange")` returns a branch *library* of that
+name; `search("Category:Hamilton Grange National Memorial")` returns the house.
 
 ## Licence & attribution — read this before you ship anything
 

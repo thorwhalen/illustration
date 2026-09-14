@@ -42,6 +42,17 @@ Repository = "https://github.com/thorwhalen/illustration"
 Documentation = "https://thorwhalen.github.io/illustration"
 
 [project.optional-dependencies]
+# Same-subject duplicate grouping. DINOv2 is a self-supervised descriptor, which
+# beats caption-aligned encoders at deciding whether two pictures are OF the same
+# thing — a CLIP-family space pulls "any portrait of a woman in period dress"
+# together whether or not it is the same woman. Same wheels as [rerank]; listed
+# separately so a caller can dedupe without buying into the reranker.
+dedupe = [
+    "transformers>=4.45",
+    "torch>=2.0",
+    "pillow>=10",
+    "numpy>=1.24",
+]
 rerank = [
     "transformers>=4.45",
     "torch>=2.0",
