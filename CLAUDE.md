@@ -61,6 +61,7 @@ storyboard.
 | `inspection` | CV pre-filters, NSFW gate, VLM caption/judge rubric | `[curate]`/`[rerank]` |
 | `curation` | `curate()` — the bounded CRAG loop, `Budget` | `[curate]` |
 | `sequence` | `select_sequence` / `curate_sequence`, in-house MMR + DCT pHash | `numpy` |
+| `duplicates` | same-**subject** grouping + best-of-group (`dedupe`, `group_duplicates`) | `numpy`; DINOv2 via `[dedupe]` |
 | `persistence` | selections as `lacing` standoff annotations, OTIO export | `[persist]` |
 | `video` | `render_sequence_video` (burns), `to_walkthru_document` | `[video]` |
 | `cli` / `__main__` | thin `cw` wrappers; no business logic | `cw` |

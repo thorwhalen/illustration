@@ -45,7 +45,7 @@ from __future__ import annotations
 from typing import Any, Callable, Iterable, Mapping
 
 from illustration.caching import SearchCache
-from illustration.config import DFLT_N
+from illustration.config import DFLT_DEDUPE, DFLT_DEDUPE_STRATEGY, DFLT_N
 from illustration.registry import default_sources, get_source
 from illustration.schema import ImageResult, license_allowlist
 
@@ -77,6 +77,7 @@ def search(
     content_type: "str | None" = None,
     license_allow: "bool | Iterable[str]" = False,
     rerank: "bool | Callable" = False,
+    dedupe: "bool | str | Callable" = DFLT_DEDUPE,
     provider_params: "Mapping[str, Mapping[str, Any]] | None" = None,
     api_key: "str | None" = None,
     cache: "bool | SearchCache" = True,
@@ -101,6 +102,14 @@ def search(
             = keep only commercial-safe licenses (CC0/PD/BY/BY-SA + Pexels);
             an iterable of license codes = keep only those. Aggregators disclaim
             license accuracy, so gate when commercial use matters.
+        dedupe: Collapse same-subject duplicates (R4), keeping the best image
+            of each subject. ``"auto"`` (default) dedupes only when the call
+            already fetches images — i.e. when ``rerank`` is on — so a bare
+            metadata search stays offline. ``True`` forces it and accepts a
+            thumbnail fetch per result; ``False`` switches it off; a strategy
+            name (``"best"`` | ``"all"`` | ``"first"``) or a
+            ``DuplicateGroup -> [ImageResult]`` callable chooses what to keep.
+            See :mod:`illustration.duplicates`.
         rerank: Local cross-modal precision rerank (R1). ``False`` (default) =
             off; ``True`` = SigLIP-2 (needs the ``illustration[rerank]`` extra);
             a ``(query, results) -> scores`` callable = a custom scorer. Applied
@@ -200,6 +209,22 @@ def search(
 
         scorer = None if rerank is True else rerank
         all_results = _rerank(query, all_results, scorer=scorer)
+
+    # same-subject dedup (R4) — last, so it chooses among the ranked candidates
+    # and the survivor keeps its rank position. "auto" only fires when the call
+    # already fetched images (rerank), so a bare metadata search stays offline.
+    # Only the built-in SigLIP rerank (rerank=True) actually fetches and embeds
+    # images; a caller-supplied scorer may do neither, so it does not license a
+    # fetch the caller did not ask for.
+    if dedupe == "auto":
+        dedupe = rerank is True
+    if dedupe:
+        from illustration.duplicates import dedupe as _dedupe, shared_signature
+
+        strategy = DFLT_DEDUPE_STRATEGY if dedupe is True else dedupe
+        all_results = _dedupe(
+            all_results, strategy=strategy, signature=shared_signature()
+        )
     return all_results
 
 

@@ -129,9 +129,11 @@ class RetrievalSource(ABC):
         per_page = max(self.min_per_page, min(n, self.max_per_page))
         page = 1
         while len(results) < n and page <= MAX_PAGES:
-            params = {**self.fixed_params, **native}
-            params[self.query_param] = query
-            params.update(self._page_params(page=page, per_page=per_page))
+            params = {
+                **self.fixed_params,
+                **native,
+                **self._query_params(query, page=page, per_page=per_page),
+            }
             response = self._get(params, api_key=key)
             items = self._items(response)
             if not items:
@@ -173,6 +175,24 @@ class RetrievalSource(ABC):
         """Native pagination params for a 1-based ``page``. Override for offset
         models (e.g. Wikimedia's ``gsroffset``). Default is page-number based."""
         return {self.page_param: page, self.per_page_param: per_page}
+
+    def _query_params(self, query: str, *, page: int, per_page: int) -> dict:
+        """Every param that depends on the *query* — the query itself and paging.
+
+        The default puts ``query`` under :attr:`query_param` and delegates paging
+        to :meth:`_page_params`, which is what every simple provider wants.
+
+        It exists as one hook because some APIs change **shape** with the query
+        rather than just its value: Wikimedia answers a plain phrase with a
+        search generator and a ``Category:…`` with a category-members generator,
+        which changes the query param, the paging param and the limit param
+        together. Splitting that across two hooks would leave a provider setting
+        one half from state left by the other.
+        """
+        return {
+            self.query_param: query,
+            **self._page_params(page=page, per_page=per_page),
+        }
 
     def _auth_headers(self, api_key: "str | None") -> dict:
         """HTTP auth headers for this provider (default: none)."""

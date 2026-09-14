@@ -77,6 +77,53 @@ truth shared with the agentic layer):
 | `cacheable` | may the bytes be downloaded/cached to your server? |
 | `raw` | the untranslated provider payload (nothing is lost) |
 
+## Same-subject duplicates
+
+A search for one person returns several *reproductions of the same portrait* —
+a painting, engravings after it, a library's re-scan of an engraving. Different
+ids, different bytes, different rasters; one picture, as far as a viewer is
+concerned. A film that uses four of them looks like it ran out of pictures.
+
+```python
+illustration.dedupe(hits)                    # best of each subject, order kept
+illustration.dedupe(hits, strategy="all")    # group, but keep everything
+illustration.group_duplicates(hits)          # inspect the grouping yourself
+```
+
+"Best" is the largest reproduction, then the most permissive licence, then the
+one with a recorded author — all replaceable via `quality=`.
+
+This is a different question from the near-duplicate suppression in `sequence`,
+which uses a perceptual hash. **pHash finds the same raster; it cannot tell that
+two engravings after one painting are one subject.** Measured on a real
+43-image set, pHash found 1 duplicate pair and DINOv2 found all four engravings
+of the sitter, three portraits of her husband, and two near-identical genre
+paintings — while keeping her *sister* correctly separate.
+
+Three tiers, strongest first, chosen automatically by what is installed:
+`dinov2_signature` (`pip install 'illustration[dedupe]'`), `siglip_signature`
+(reuses the reranker's cached embeddings), `phash_signature` (always available,
+and honest about it — `Signature.subject_level` is `False`).
+
+Telling subjects apart needs the pixels, so `search()` defaults to
+`dedupe="auto"`: it dedupes when the call already fetches images (i.e. when
+reranking) and leaves a bare metadata search offline. Pass `dedupe=True` to
+force it. `select_sequence(signature=...)` applies the same test across beats,
+so one subject cannot win four of them.
+
+## Browsing a Wikimedia category
+
+A Commons **category** is a curated list; free-text search is a guess at the
+filename. Searching `"Hamilton Grange"` returns a branch library of that name —
+`"Category:Hamilton Grange National Memorial"` returns the house.
+
+```python
+illustration.search("Category:Elizabeth Schuyler Hamilton", source="wikimedia")
+```
+
+Detected from MediaWiki's own namespace prefix, so it works through the façade,
+the cache and the CLI with no new parameter.
+
 ## Sources (providers)
 
 | source | key needed? | notes |

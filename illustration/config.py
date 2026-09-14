@@ -30,6 +30,8 @@ __all__ = [
     "cache_dir",
     "package_version",
     "user_agent",
+    "DFLT_DEDUPE",
+    "DFLT_DEDUPE_STRATEGY",
     "DFLT_N",
     "DFLT_SOURCES",
     "DFLT_LICENSE_ALLOWLIST",
@@ -42,6 +44,23 @@ __all__ = [
 
 #: Default number of results requested *per source*.
 DFLT_N = 10
+
+#: Collapse same-subject duplicates in ``search()``. A search for one person
+#: routinely returns several reproductions of the same portrait, and a consumer
+#: asking for N images wants N *subjects*, not N files.
+#:
+#: The default is ``"auto"``, not ``True``, and the distinction is the whole
+#: design: telling two engravings of one sitter apart requires *looking at the
+#: pixels*, which a bare ``search()`` deliberately never does — it is a metadata
+#: call with an offline contract. So dedup rides along with image work already
+#: being paid for: ``"auto"`` means "dedupe when this call fetches images anyway"
+#: (i.e. when reranking). Pass ``dedupe=True`` to force it and accept the
+#: fetches, or ``False`` to switch it off. The curation layer, which always
+#: fetches, dedupes unconditionally.
+DFLT_DEDUPE = "auto"
+
+#: What to keep from each duplicate group: the largest reproduction.
+DFLT_DEDUPE_STRATEGY = "best"
 
 #: Default source set used when ``search(..., source=None)``. Openverse first
 #: because it needs no API key (works out of the box).

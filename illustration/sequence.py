@@ -121,6 +121,7 @@ def select_sequence(
     alpha: float = DFLT_ALPHA,
     beta: float = DFLT_BETA,
     phash_threshold: int = DFLT_PHASH_THRESHOLD,
+    signature: "Any | None" = None,
 ) -> SequenceSelection:
     """Choose one image per beat optimizing relevance + coherence − redundancy.
 
@@ -136,6 +137,12 @@ def select_sequence(
     skipped when unavailable), ``hasher`` (default: in-house DCT pHash; dedup is
     skipped when Pillow/NumPy are unavailable), ``shortlist`` (optional per-beat
     pre-filter, e.g. an ``apricot`` submodular representative set).
+
+    ``signature`` upgrades the duplicate constraint from *same raster* to *same
+    subject* (:mod:`illustration.duplicates`). pHash cannot tell that four
+    nineteenth-century engravings after one portrait are one picture, and a
+    sequence that spends four beats on them is the failure this guards. When
+    given, it replaces the pHash test entirely — it strictly subsumes it.
     """
     rel_fn = relevance if relevance is not None else _default_relevance
     embed_fn = embed if embed is not None else _default_embed
@@ -145,7 +152,28 @@ def select_sequence(
     notes: list[str] = []
     chosen_embs: list[Any] = []
     chosen_hashes: list[Any] = []
+    chosen_signatures: list[Any] = []
     total = 0.0
+
+    def is_repeat(sig_vec, hash_value) -> bool:
+        """Has this picture already been used earlier in the sequence?
+
+        With a ``signature`` that is a *subject* question — four engravings
+        after one portrait are one picture, and using a second of them is the
+        repetition a viewer actually notices. Without one it falls back to the
+        pHash raster test, which only catches a re-encode of the same file.
+        """
+        if signature is not None:
+            if sig_vec is None:
+                return False
+            return any(
+                float(sig_vec @ chosen) >= signature.threshold
+                for chosen in chosen_signatures
+            )
+        return hash_value is not None and any(
+            ch is not None and hamming_distance(hash_value, ch) < phash_threshold
+            for ch in chosen_hashes
+        )
 
     for i, raw in enumerate(per_beat_candidates):
         cands = list(raw)
@@ -157,15 +185,13 @@ def select_sequence(
             continue
 
         embs = list(embed_fn(cands))
-        hashes = [hash_fn(c) for c in cands]
+        hashes = [None] * len(cands) if signature is not None else [hash_fn(c) for c in cands]
+        sig_vecs = list(signature.embed(cands)) if signature is not None else [None] * len(cands)
         prev_emb = chosen_embs[-1] if chosen_embs else None
 
         scored = []
-        for c, e, h in zip(cands, embs, hashes):
-            near_dup = h is not None and any(
-                ch is not None and hamming_distance(h, ch) < phash_threshold
-                for ch in chosen_hashes
-            )
+        for c, e, h, sv in zip(cands, embs, hashes, sig_vecs):
+            near_dup = is_repeat(sv, h)
             coh = _cosine(e, prev_emb)
             red = max((_cosine(e, ce) for ce in chosen_embs), default=0.0)
             j = rel_fn(c) + alpha * coh - beta * red
@@ -176,6 +202,7 @@ def select_sequence(
                     "c": c,
                     "e": e,
                     "h": h,
+                    "sv": sv,
                     "coh": coh,
                     "red": red,
                 }
@@ -204,6 +231,8 @@ def select_sequence(
         )
         chosen_embs.append(best["e"])
         chosen_hashes.append(best["h"])
+        if best.get("sv") is not None:
+            chosen_signatures.append(best["sv"])
         total += best["j"]
 
     return SequenceSelection(

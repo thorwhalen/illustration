@@ -101,6 +101,16 @@ from illustration.sequence import (
     phash,
     select_sequence,
 )
+from illustration.duplicates import (
+    DuplicateGroup,
+    Signature as DuplicateSignature,
+    dedupe,
+    default_signature,
+    dinov2_signature,
+    group_duplicates,
+    phash_signature,
+    siglip_signature,
+)
 from illustration.persistence import (
     SelectionBody,
     export_otio,
@@ -204,6 +214,14 @@ __all__ = [
     "SequenceResult",
     "BeatSelection",
     "phash",
+    "dedupe",
+    "group_duplicates",
+    "DuplicateGroup",
+    "DuplicateSignature",
+    "default_signature",
+    "dinov2_signature",
+    "siglip_signature",
+    "phash_signature",
     "hamming_distance",
     "make_phash_hasher",
     # M4 — persistence hook (lacing; [persist] extra)
