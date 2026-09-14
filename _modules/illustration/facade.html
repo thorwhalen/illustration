@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.facade &mdash; illustration 0.0.6 documentation</title>
+  <title>illustration.facade &mdash; illustration 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="../../_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -55,6 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
@@ -146,7 +147,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.caching</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchCache</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_N</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_DEDUPE</span><span class="p">,</span> <span class="n">DFLT_DEDUPE_STRATEGY</span><span class="p">,</span> <span class="n">DFLT_N</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_sources</span><span class="p">,</span> <span class="n">get_source</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">license_allowlist</span>
 
@@ -180,6 +181,7 @@
     <span class="n">content_type</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">license_allow</span><span class="p">:</span> <span class="s2">"bool | Iterable[str]"</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">rerank</span><span class="p">:</span> <span class="s2">"bool | Callable"</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dedupe</span><span class="p">:</span> <span class="s2">"bool | str | Callable"</span> <span class="o">=</span> <span class="n">DFLT_DEDUPE</span><span class="p">,</span>
     <span class="n">provider_params</span><span class="p">:</span> <span class="s2">"Mapping[str, Mapping[str, Any]] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cache</span><span class="p">:</span> <span class="s2">"bool | SearchCache"</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -204,6 +206,14 @@
 <span class="sd">            = keep only commercial-safe licenses (CC0/PD/BY/BY-SA + Pexels);</span>
 <span class="sd">            an iterable of license codes = keep only those. Aggregators disclaim</span>
 <span class="sd">            license accuracy, so gate when commercial use matters.</span>
+<span class="sd">        dedupe: Collapse same-subject duplicates (R4), keeping the best image</span>
+<span class="sd">            of each subject. ``"auto"`` (default) dedupes only when the call</span>
+<span class="sd">            already fetches images — i.e. when ``rerank`` is on — so a bare</span>
+<span class="sd">            metadata search stays offline. ``True`` forces it and accepts a</span>
+<span class="sd">            thumbnail fetch per result; ``False`` switches it off; a strategy</span>
+<span class="sd">            name (``"best"`` | ``"all"`` | ``"first"``) or a</span>
+<span class="sd">            ``DuplicateGroup -&gt; [ImageResult]`` callable chooses what to keep.</span>
+<span class="sd">            See :mod:`illustration.duplicates`.</span>
 <span class="sd">        rerank: Local cross-modal precision rerank (R1). ``False`` (default) =</span>
 <span class="sd">            off; ``True`` = SigLIP-2 (needs the ``illustration[rerank]`` extra);</span>
 <span class="sd">            a ``(query, results) -&gt; scores`` callable = a custom scorer. Applied</span>
@@ -303,6 +313,22 @@
 
         <span class="n">scorer</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">rerank</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">rerank</span>
         <span class="n">all_results</span> <span class="o">=</span> <span class="n">_rerank</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">all_results</span><span class="p">,</span> <span class="n">scorer</span><span class="o">=</span><span class="n">scorer</span><span class="p">)</span>
+
+    <span class="c1"># same-subject dedup (R4) — last, so it chooses among the ranked candidates</span>
+    <span class="c1"># and the survivor keeps its rank position. "auto" only fires when the call</span>
+    <span class="c1"># already fetched images (rerank), so a bare metadata search stays offline.</span>
+    <span class="c1"># Only the built-in SigLIP rerank (rerank=True) actually fetches and embeds</span>
+    <span class="c1"># images; a caller-supplied scorer may do neither, so it does not license a</span>
+    <span class="c1"># fetch the caller did not ask for.</span>
+    <span class="k">if</span> <span class="n">dedupe</span> <span class="o">==</span> <span class="s2">"auto"</span><span class="p">:</span>
+        <span class="n">dedupe</span> <span class="o">=</span> <span class="n">rerank</span> <span class="ow">is</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">dedupe</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.duplicates</span><span class="w"> </span><span class="kn">import</span> <span class="n">dedupe</span> <span class="k">as</span> <span class="n">_dedupe</span><span class="p">,</span> <span class="n">shared_signature</span>
+
+        <span class="n">strategy</span> <span class="o">=</span> <span class="n">DFLT_DEDUPE_STRATEGY</span> <span class="k">if</span> <span class="n">dedupe</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">dedupe</span>
+        <span class="n">all_results</span> <span class="o">=</span> <span class="n">_dedupe</span><span class="p">(</span>
+            <span class="n">all_results</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="n">shared_signature</span><span class="p">()</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">all_results</span></div>
 
 

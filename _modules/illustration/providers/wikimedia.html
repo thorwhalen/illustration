@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.providers.wikimedia &mdash; illustration 0.0.6 documentation</title>
+  <title>illustration.providers.wikimedia &mdash; illustration 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="../../../_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -55,6 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/config.html">illustration.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/errors.html">illustration.errors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/illustration/facade.html">illustration.facade</a></li>
@@ -146,6 +147,31 @@
 <span class="n">_SCALED_IMAGE_LIMIT</span> <span class="o">=</span> <span class="mi">50</span>
 
 
+<span class="n">_CATEGORY_PREFIX</span> <span class="o">=</span> <span class="s2">"category:"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_category</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Whether ``query`` names a Commons category rather than free text.</span>
+
+<span class="sd">    &gt;&gt;&gt; _is_category("Category:Elizabeth Schuyler Hamilton")</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; _is_category("category:trinity church")   # MediaWiki is case-insensitive here</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; _is_category("Elizabeth Schuyler Hamilton")</span>
+<span class="sd">    False</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">_CATEGORY_PREFIX</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_category_title</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Normalise to the canonical ``Category:Name`` title.</span>
+
+<span class="sd">    &gt;&gt;&gt; _category_title("category:  Trinity Church (Manhattan) ")</span>
+<span class="sd">    'Category:Trinity Church (Manhattan)'</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="s2">"Category:"</span> <span class="o">+</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="nb">len</span><span class="p">(</span><span class="n">_CATEGORY_PREFIX</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_strip_html</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Strip tags + unescape entities from an extmetadata HTML value."""</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
@@ -198,9 +224,35 @@
         <span class="c1"># offset-based pagination, not page-number based</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">"gsrlimit"</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span> <span class="s2">"gsroffset"</span><span class="p">:</span> <span class="p">(</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">per_page</span><span class="p">}</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_query_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Route a ``Category:…`` query to the category-members generator.</span>
+
+<span class="sd">        A Commons **category** is a curated list — maintained by people who</span>
+<span class="sd">        looked at the pictures — where free-text search is a guess at the</span>
+<span class="sd">        filename and description. The difference is not marginal: searching</span>
+<span class="sd">        "Hamilton Grange" returns a branch library of that name, while</span>
+<span class="sd">        ``Category:Hamilton Grange National Memorial`` returns the house. For a</span>
+<span class="sd">        subject with a category, this is the better door.</span>
+
+<span class="sd">        Detected from the query's own namespace prefix rather than a new</span>
+<span class="sd">        parameter, because that is MediaWiki's own spelling for it and it</span>
+<span class="sd">        therefore survives the façade, the cache key and the CLI unchanged.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_category</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_query_params</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"generator"</span><span class="p">:</span> <span class="s2">"categorymembers"</span><span class="p">,</span>
+            <span class="s2">"gcmtitle"</span><span class="p">:</span> <span class="n">_category_title</span><span class="p">(</span><span class="n">query</span><span class="p">),</span>
+            <span class="s2">"gcmtype"</span><span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
+            <span class="c1"># Category members have no relevance order to page through, and the</span>
+            <span class="c1"># 50-scaled-image cap already bounds a page; ask once and stop.</span>
+            <span class="s2">"gcmlimit"</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+        <span class="p">}</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
         <span class="n">pages</span> <span class="o">=</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"query"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pages"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="c1"># `pages` is a dict keyed by pageid; sort by search index for relevance order</span>
+        <span class="c1"># `pages` is a dict keyed by pageid; sort by search index for relevance</span>
+        <span class="c1"># order. Category members carry no `index`, so they keep API order.</span>
         <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pages</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"index"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>

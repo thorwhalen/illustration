@@ -11,6 +11,7 @@
    module_docs/illustration/config
    module_docs/illustration/credentials
    module_docs/illustration/curation
+   module_docs/illustration/duplicates
    module_docs/illustration/errors
    module_docs/illustration/expansion
    module_docs/illustration/facade

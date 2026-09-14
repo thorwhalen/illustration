@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; illustration 0.0.6 documentation</title>
+  <title>Index &mdash; illustration 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -55,6 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/config.html">illustration.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/credentials.html">illustration.credentials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/errors.html">illustration.errors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/facade.html">illustration.facade</a></li>
@@ -147,6 +148,12 @@
 
       <ul>
         <li><a href="module_docs/illustration/sequence.html#illustration.sequence.BeatSelection">(class in illustration.sequence)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.DuplicateGroup.best">best (illustration.DuplicateGroup property)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.DuplicateGroup.best">(illustration.duplicates.DuplicateGroup property)</a>
 </li>
       </ul></li>
       <li><a href="module_docs/illustration.html#illustration.blur_check">blur_check() (in module illustration)</a>
@@ -263,6 +270,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/config.html#illustration.config.data_dir">data_dir() (in module illustration.config)</a>
 </li>
+      <li><a href="module_docs/illustration.html#illustration.dedupe">dedupe() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.dedupe">(in module illustration.duplicates)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/inspection.html#illustration.inspection.DEFAULT_CHECKS">DEFAULT_CHECKS (in module illustration.inspection)</a>
 </li>
       <li><a href="module_docs/illustration/inspection.html#illustration.inspection.default_checks">default_checks() (in module illustration.inspection)</a>
@@ -273,6 +286,12 @@
 
       <ul>
         <li><a href="module_docs/illustration/caching.html#illustration.caching.default_search_store">(in module illustration.caching)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.default_signature">default_signature() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.default_signature">(in module illustration.duplicates)</a>
 </li>
       </ul></li>
       <li><a href="module_docs/illustration.html#illustration.default_sources">default_sources() (in module illustration)</a>
@@ -289,10 +308,14 @@
 </li>
       <li><a href="module_docs/illustration/inspection.html#illustration.inspection.DFLT_CAPTION_MAX_TOKENS">DFLT_CAPTION_MAX_TOKENS (in module illustration.inspection)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/curation.html#illustration.curation.DFLT_CURATE_N">DFLT_CURATE_N (in module illustration.curation)</a>
 </li>
+      <li><a href="module_docs/illustration/config.html#illustration.config.DFLT_DEDUPE">DFLT_DEDUPE (in module illustration.config)</a>
+</li>
+      <li><a href="module_docs/illustration/config.html#illustration.config.DFLT_DEDUPE_STRATEGY">DFLT_DEDUPE_STRATEGY (in module illustration.config)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/video.html#illustration.video.DFLT_FPS">DFLT_FPS (in module illustration.video)</a>
 </li>
       <li><a href="module_docs/illustration/_imageio.html#illustration._imageio.DFLT_IMAGE_FIELD">DFLT_IMAGE_FIELD (in module illustration._imageio)</a>
@@ -313,12 +336,30 @@
 </li>
       <li><a href="module_docs/illustration/config.html#illustration.config.DFLT_SOURCES">DFLT_SOURCES (in module illustration.config)</a>
 </li>
+      <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.DFLT_STRATEGY">DFLT_STRATEGY (in module illustration.duplicates)</a>
+</li>
+      <li><a href="module_docs/illustration.html#illustration.dinov2_signature">dinov2_signature() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.dinov2_signature">(in module illustration.duplicates)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/inspection.html#illustration.inspection.PrefilterResult.dropped">dropped (illustration.inspection.PrefilterResult property)</a>
 
       <ul>
         <li><a href="module_docs/illustration.html#illustration.PrefilterResult.dropped">(illustration.PrefilterResult property)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.DUPLICATE_STRATEGIES">DUPLICATE_STRATEGIES (in module illustration.duplicates)</a>
+</li>
+      <li><a href="module_docs/illustration.html#illustration.DuplicateGroup">DuplicateGroup (class in illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.DuplicateGroup">(class in illustration.duplicates)</a>
+</li>
+      </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.DuplicateSignature">DuplicateSignature (in module illustration)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -413,6 +454,12 @@
       </ul></li>
       <li><a href="module_docs/illustration/curation.html#illustration.curation.Grader">Grader (in module illustration.curation)</a>
 </li>
+      <li><a href="module_docs/illustration.html#illustration.group_duplicates">group_duplicates() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.group_duplicates">(in module illustration.duplicates)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -499,6 +546,13 @@
 </li>
       </ul></li>
       <li>
+    illustration.duplicates
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#module-illustration.duplicates">module</a>
+</li>
+      </ul></li>
+      <li>
     illustration.errors
 
       <ul>
@@ -561,6 +615,8 @@
         <li><a href="module_docs/illustration/providers/pexels.html#module-illustration.providers.pexels">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     illustration.providers.pixabay
 
@@ -568,8 +624,6 @@
         <li><a href="module_docs/illustration/providers/pixabay.html#module-illustration.providers.pixabay">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     illustration.providers.wikimedia
 
@@ -863,6 +917,8 @@
 </li>
         <li><a href="module_docs/illustration/curation.html#module-illustration.curation">illustration.curation</a>
 </li>
+        <li><a href="module_docs/illustration/duplicates.html#module-illustration.duplicates">illustration.duplicates</a>
+</li>
         <li><a href="module_docs/illustration/errors.html#module-illustration.errors">illustration.errors</a>
 </li>
         <li><a href="module_docs/illustration/expansion.html#module-illustration.expansion">illustration.expansion</a>
@@ -1040,6 +1096,12 @@
         <li><a href="module_docs/illustration/sequence.html#illustration.sequence.phash">(in module illustration.sequence)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration.html#illustration.phash_signature">phash_signature() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.phash_signature">(in module illustration.duplicates)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/providers.html#illustration.providers.PixabaySource">PixabaySource (class in illustration.providers)</a>
 
       <ul>
@@ -1088,6 +1150,8 @@
         <li><a href="module_docs/illustration/curation.html#illustration.curation.Candidate.quality">(illustration.curation.Candidate property)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.quality_key">quality_key() (in module illustration.duplicates)</a>
+</li>
       <li><a href="module_docs/illustration/base.html#illustration.base.RetrievalSource.query_param">query_param (illustration.base.RetrievalSource attribute)</a>
 
       <ul>
@@ -1254,14 +1318,14 @@
         <li><a href="module_docs/illustration/curation.html#illustration.curation.Budget.select_max_k">(illustration.curation.Budget attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration.html#illustration.select_sequence">select_sequence() (in module illustration)</a>
 
       <ul>
         <li><a href="module_docs/illustration/sequence.html#illustration.sequence.select_sequence">(in module illustration.sequence)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/illustration/persistence.html#illustration.persistence.SELECTION_SCHEMA_URI">SELECTION_SCHEMA_URI (in module illustration.persistence)</a>
 </li>
       <li><a href="module_docs/illustration.html#illustration.SelectionBody">SelectionBody (class in illustration)</a>
@@ -1284,7 +1348,17 @@
         <li><a href="module_docs/illustration/sequence.html#illustration.sequence.SequenceSelection">(class in illustration.sequence)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.shared_signature">shared_signature() (in module illustration.duplicates)</a>
+</li>
+      <li><a href="module_docs/illustration.html#illustration.siglip_signature">siglip_signature() (in module illustration)</a>
+
+      <ul>
+        <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.siglip_signature">(in module illustration.duplicates)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/illustration/reranking.html#illustration.reranking.SiglipScorer">SiglipScorer (class in illustration.reranking)</a>
+</li>
+      <li><a href="module_docs/illustration/duplicates.html#illustration.duplicates.Signature">Signature (class in illustration.duplicates)</a>
 </li>
       <li><a href="module_docs/illustration.html#illustration.SourceInfo">SourceInfo (class in illustration)</a>
 

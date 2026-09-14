@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.config &mdash; illustration 0.0.6 documentation</title>
+  <title>illustration.config &mdash; illustration 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="../../_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -55,6 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
@@ -131,6 +132,8 @@
     <span class="s2">"cache_dir"</span><span class="p">,</span>
     <span class="s2">"package_version"</span><span class="p">,</span>
     <span class="s2">"user_agent"</span><span class="p">,</span>
+    <span class="s2">"DFLT_DEDUPE"</span><span class="p">,</span>
+    <span class="s2">"DFLT_DEDUPE_STRATEGY"</span><span class="p">,</span>
     <span class="s2">"DFLT_N"</span><span class="p">,</span>
     <span class="s2">"DFLT_SOURCES"</span><span class="p">,</span>
     <span class="s2">"DFLT_LICENSE_ALLOWLIST"</span><span class="p">,</span>
@@ -143,6 +146,23 @@
 
 <span class="c1">#: Default number of results requested *per source*.</span>
 <span class="n">DFLT_N</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1">#: Collapse same-subject duplicates in ``search()``. A search for one person</span>
+<span class="c1">#: routinely returns several reproductions of the same portrait, and a consumer</span>
+<span class="c1">#: asking for N images wants N *subjects*, not N files.</span>
+<span class="c1">#:</span>
+<span class="c1">#: The default is ``"auto"``, not ``True``, and the distinction is the whole</span>
+<span class="c1">#: design: telling two engravings of one sitter apart requires *looking at the</span>
+<span class="c1">#: pixels*, which a bare ``search()`` deliberately never does — it is a metadata</span>
+<span class="c1">#: call with an offline contract. So dedup rides along with image work already</span>
+<span class="c1">#: being paid for: ``"auto"`` means "dedupe when this call fetches images anyway"</span>
+<span class="c1">#: (i.e. when reranking). Pass ``dedupe=True`` to force it and accept the</span>
+<span class="c1">#: fetches, or ``False`` to switch it off. The curation layer, which always</span>
+<span class="c1">#: fetches, dedupes unconditionally.</span>
+<span class="n">DFLT_DEDUPE</span> <span class="o">=</span> <span class="s2">"auto"</span>
+
+<span class="c1">#: What to keep from each duplicate group: the largest reproduction.</span>
+<span class="n">DFLT_DEDUPE_STRATEGY</span> <span class="o">=</span> <span class="s2">"best"</span>
 
 <span class="c1">#: Default source set used when ``search(..., source=None)``. Openverse first</span>
 <span class="c1">#: because it needs no API key (works out of the box).</span>

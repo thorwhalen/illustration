@@ -1,0 +1,4 @@
+illustration.duplicates
+=======================
+.. automodule:: illustration.duplicates
+   :members:

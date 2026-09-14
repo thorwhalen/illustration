@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>illustration.duplicates &mdash; illustration 0.0.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbaf98b3"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            illustration
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/licensing.html">illustration.licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/sequence.html">illustration.sequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/video.html">illustration.video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">illustration</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">illustration.duplicates</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for illustration.duplicates</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Group images that are the same **subject**, and keep the best one of each group.</span>
+
+<span class="sd">The failure this exists for: a search for "Elizabeth Schuyler Hamilton" returns</span>
+<span class="sd">five different files — a colour painting, three nineteenth-century engravings</span>
+<span class="sd">after it, and a library's re-scan of one of the engravings. Five distinct ids,</span>
+<span class="sd">five distinct byte-streams, five distinct pixel layouts. To a viewer they are</span>
+<span class="sd">*the same picture of the same woman*, and a film that uses four of them looks</span>
+<span class="sd">like it ran out of pictures. Exactly that shipped in a real episode.</span>
+
+<span class="sd">``sequence`` already suppresses near-duplicates with a DCT perceptual hash, and</span>
+<span class="sd">that is the right tool for a different job: pHash catches a re-encode, a rescale,</span>
+<span class="sd">a re-crop — images that are the same *raster*. It does not catch two engravings</span>
+<span class="sd">made by different hands after the same sitting, because those genuinely differ</span>
+<span class="sd">pixel by pixel. Telling those apart needs a model that has learned what a picture</span>
+<span class="sd">is *of*.</span>
+
+<span class="sd">Three signature tiers, strongest first</span>
+<span class="sd">--------------------------------------</span>
+
+<span class="sd">===================== ==================================== ==================</span>
+<span class="sd">signature             what it recognises                   cost</span>
+<span class="sd">===================== ==================================== ==================</span>
+<span class="sd">:func:`dinov2_signature`  same subject / instance, across   ``[dedupe]``</span>
+<span class="sd">                      medium, crop, palette, engraving      (torch)</span>
+<span class="sd">:func:`siglip_signature`  same subject, a little looser —   ``[rerank]``</span>
+<span class="sd">                      reuses the reranker's cached          (already paid if</span>
+<span class="sd">                      image embeddings                      you rerank)</span>
+<span class="sd">:func:`phash_signature`   same raster only                  numpy + Pillow</span>
+<span class="sd">===================== ==================================== ==================</span>
+
+<span class="sd">:func:`default_signature` picks the strongest one whose dependencies are</span>
+<span class="sd">actually installed, so the behaviour degrades rather than breaking. Only the</span>
+<span class="sd">first two are ``subject_level``; a caller that needs the real thing can check</span>
+<span class="sd">:attr:`Signature.subject_level` and say so rather than silently getting less.</span>
+
+<span class="sd">Self-supervised descriptors beat text-aligned ones here — DINOv2 is trained to</span>
+<span class="sd">be invariant to crop and perturbation and is consistently better at fine-grained</span>
+<span class="sd">instance retrieval than CLIP-family encoders, which are optimised to match</span>
+<span class="sd">*captions* and therefore pull "any portrait of a woman in period dress" close</span>
+<span class="sd">together. That is why DINOv2 is the preferred tier and SigLIP the fallback.</span>
+
+<span class="sd">One similarity measure</span>
+<span class="sd">----------------------</span>
+
+<span class="sd">Every signature produces an L2-normalised vector and everything is compared by</span>
+<span class="sd">**cosine**, including the perceptual hash — its bits become ±1, for which cosine</span>
+<span class="sd">is an exact affine image of Hamming distance (``cos = 1 - 2·d/bits``). So one</span>
+<span class="sd">threshold semantic covers all three tiers, and each :class:`Signature` carries</span>
+<span class="sd">the threshold that is right for *it* rather than leaving the caller to guess.</span>
+
+<span class="sd">Usage::</span>
+
+<span class="sd">    from illustration.duplicates import dedupe, group_duplicates</span>
+
+<span class="sd">    keep = dedupe(results)                  # best of each group, order preserved</span>
+<span class="sd">    groups = group_duplicates(results)      # or inspect the grouping yourself</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"DFLT_STRATEGY"</span><span class="p">,</span>
+    <span class="s2">"DUPLICATE_STRATEGIES"</span><span class="p">,</span>
+    <span class="s2">"DuplicateGroup"</span><span class="p">,</span>
+    <span class="s2">"Signature"</span><span class="p">,</span>
+    <span class="s2">"dedupe"</span><span class="p">,</span>
+    <span class="s2">"default_signature"</span><span class="p">,</span>
+    <span class="s2">"shared_signature"</span><span class="p">,</span>
+    <span class="s2">"dinov2_signature"</span><span class="p">,</span>
+    <span class="s2">"group_duplicates"</span><span class="p">,</span>
+    <span class="s2">"phash_signature"</span><span class="p">,</span>
+    <span class="s2">"quality_key"</span><span class="p">,</span>
+    <span class="s2">"siglip_signature"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: Default DINOv2 checkpoint. The small ViT-S/14 is enough to separate subjects</span>
+<span class="c1">#: and is a ~22M-parameter download; a caller wanting more can name a larger one.</span>
+<span class="n">DFLT_DINOV2_MODEL</span> <span class="o">=</span> <span class="s2">"facebook/dinov2-small"</span>
+
+<span class="c1">#: What to do with a group by default.</span>
+<span class="n">DFLT_STRATEGY</span> <span class="o">=</span> <span class="s2">"best"</span>
+
+<span class="c1">#: Which result field to fetch. Thumbnails are small, already cached by the</span>
+<span class="c1">#: rerank path, and carry more than enough signal to tell two subjects apart.</span>
+<span class="n">DFLT_IMAGE_FIELD</span> <span class="o">=</span> <span class="s2">"thumbnail_url"</span>
+
+<span class="c1">#: Licence preference when two images of the same subject are otherwise equal.</span>
+<span class="c1">#: An unconditional licence is worth more than a conditional one, because the</span>
+<span class="c1">#: credit it avoids is a credit that cannot later be got wrong.</span>
+<span class="n">_LICENCE_RANK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"pdm"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"cc0"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"public domain"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">"by"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"cc-by"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"by-sa"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"cc-by-sa"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="Signature">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.Signature">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Signature</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A way of turning images into comparable vectors, and when to call it a match.</span>
+
+<span class="sd">    ``threshold`` is cosine similarity at or above which two images are the same</span>
+<span class="sd">    subject. It belongs to the signature rather than to the caller because the</span>
+<span class="sd">    right value is a property of the embedding space, not of the task.</span>
+
+<span class="sd">    ``subject_level`` is the honest capability flag: ``False`` means this</span>
+<span class="sd">    signature can only find the same raster, so a caller relying on subject</span>
+<span class="sd">    grouping should treat it as unavailable rather than as a weak yes.</span>
+<span class="sd">    """</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">embed</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]],</span> <span class="s2">"list[Any | None]"</span><span class="p">]</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">subject_level</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="DuplicateGroup">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.DuplicateGroup">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DuplicateGroup</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Images judged to be the same subject, best first."""</span>
+
+    <span class="n">members</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">best</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""The member a consumer should get — highest quality of the group."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># quality — which member of a group wins</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<div class="viewcode-block" id="quality_key">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.quality_key">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">quality_key</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">ImageResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Sort key for "best of the group", descending.</span>
+
+<span class="sd">    Pixel area first, because for the same subject a bigger reproduction is</span>
+<span class="sd">    strictly more useful to a renderer that will crop and pan over it. Then</span>
+<span class="sd">    licence permissiveness, then whether an author is even recorded — a file</span>
+<span class="sd">    with provenance is a safer thing to publish than an equivalent one without.</span>
+<span class="sd">    """</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">width</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">height</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">licence</span> <span class="o">=</span> <span class="n">_LICENCE_RANK</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">result</span><span class="o">.</span><span class="n">license</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">has_author</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">author</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">licence</span><span class="p">,</span> <span class="n">has_author</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># signatures</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_l2_normalize</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"float32"</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">arr</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">arr</span> <span class="o">/</span> <span class="n">norm</span> <span class="k">if</span> <span class="n">norm</span> <span class="k">else</span> <span class="n">arr</span>
+
+
+<div class="viewcode-block" id="phash_signature">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.phash_signature">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">phash_signature</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_IMAGE_FIELD</span><span class="p">,</span> <span class="n">fetch</span><span class="p">:</span> <span class="s2">"Callable | None"</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Perceptual hash as ±1 bits — the always-available tier.</span>
+
+<span class="sd">    **Not subject-level.** It finds the same raster re-encoded, rescaled or</span>
+<span class="sd">    lightly cropped, and will not group two engravings after the same painting.</span>
+<span class="sd">    The threshold is the cosine image of ``sequence.DFLT_PHASH_THRESHOLD``.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_PHASH_THRESHOLD</span><span class="p">,</span> <span class="n">phash</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration._imageio</span><span class="w"> </span><span class="kn">import</span> <span class="n">memoized_image_loader</span>
+
+    <span class="n">bits</span> <span class="o">=</span> <span class="mi">64</span>
+    <span class="n">load</span> <span class="o">=</span> <span class="n">memoized_image_loader</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="n">fetch</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">"list[Any | None]"</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="n">out</span><span class="p">:</span> <span class="s2">"list[Any | None]"</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">phash</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">unpacked</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">1.0</span> <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bits</span><span class="p">)]</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_l2_normalize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">unpacked</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"float32"</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">return</span> <span class="n">Signature</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">"phash"</span><span class="p">,</span>
+        <span class="n">embed</span><span class="o">=</span><span class="n">embed</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">DFLT_PHASH_THRESHOLD</span> <span class="o">/</span> <span class="n">bits</span><span class="p">,</span>
+        <span class="n">subject_level</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="siglip_signature">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.siglip_signature">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">siglip_signature</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""SigLIP image embeddings, reusing the reranker's on-disk embedding cache.</span>
+
+<span class="sd">    Free if the pass already reranked — the vectors are the same ones. Looser</span>
+<span class="sd">    than DINOv2 for this job: a caption-aligned space puts "portrait of a woman</span>
+<span class="sd">    in eighteenth-century dress" close together whether or not it is the same</span>
+<span class="sd">    woman, so the threshold is set higher to compensate.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.reranking</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_RERANK_MODEL</span><span class="p">,</span> <span class="n">SiglipScorer</span>
+
+    <span class="n">scorer</span> <span class="o">=</span> <span class="n">SiglipScorer</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span> <span class="ow">or</span> <span class="n">DFLT_RERANK_MODEL</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">"list[Any | None]"</span><span class="p">:</span>
+        <span class="n">vectors</span> <span class="o">=</span> <span class="n">scorer</span><span class="o">.</span><span class="n">image_embeddings</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">None</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_l2_normalize</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">Signature</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"siglip"</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="n">embed</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.92</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="dinov2_signature">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.dinov2_signature">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dinov2_signature</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_DINOV2_MODEL</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_IMAGE_FIELD</span><span class="p">,</span>
+    <span class="n">fetch</span><span class="p">:</span> <span class="s2">"Callable | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""DINOv2 embeddings — the preferred tier for "is this the same thing?".</span>
+
+<span class="sd">    Self-supervised, trained for invariance to crop and perturbation, and</span>
+<span class="sd">    stronger than caption-aligned encoders at fine-grained instance retrieval.</span>
+<span class="sd">    Uses the pooled CLS embedding and compares by cosine.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration._imageio</span><span class="w"> </span><span class="kn">import</span> <span class="n">memoized_image_loader</span>
+
+    <span class="n">load</span> <span class="o">=</span> <span class="n">memoized_image_loader</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="n">fetch</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_model_and_processor</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoImageProcessor</span><span class="p">,</span> <span class="n">AutoModel</span>
+
+            <span class="n">state</span><span class="p">[</span><span class="s2">"processor"</span><span class="p">]</span> <span class="o">=</span> <span class="n">AutoImageProcessor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">"model"</span><span class="p">]</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">state</span><span class="p">[</span><span class="s2">"model"</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s2">"processor"</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">"list[Any | None]"</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+        <span class="n">net</span><span class="p">,</span> <span class="n">processor</span> <span class="o">=</span> <span class="n">_model_and_processor</span><span class="p">()</span>
+        <span class="n">out</span><span class="p">:</span> <span class="s2">"list[Any | None]"</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">inputs</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"pt"</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                    <span class="n">pooled</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">last_hidden_state</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_l2_normalize</span><span class="p">(</span><span class="n">pooled</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()))</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">return</span> <span class="n">Signature</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"dinov2"</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="n">embed</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.86</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_importable</span><span class="p">(</span><span class="o">*</span><span class="n">modules</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">importlib.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_spec</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">find_spec</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="default_signature">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.default_signature">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">default_signature</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The strongest signature whose dependencies are installed.</span>
+
+<span class="sd">    DINOv2 -&gt; SigLIP -&gt; pHash. The last is always available, so this never</span>
+<span class="sd">    raises; check :attr:`Signature.subject_level` if you need to know whether</span>
+<span class="sd">    you actually got subject-level grouping or only raster matching.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">_importable</span><span class="p">(</span><span class="s2">"torch"</span><span class="p">,</span> <span class="s2">"transformers"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dinov2_signature</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_importable</span><span class="p">(</span><span class="s2">"torch"</span><span class="p">,</span> <span class="s2">"transformers"</span><span class="p">,</span> <span class="s2">"PIL"</span><span class="p">):</span>  <span class="c1"># pragma: no cover - same gate</span>
+        <span class="k">return</span> <span class="n">siglip_signature</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">phash_signature</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#: Process-wide default, built once. The model weights and the closure's image</span>
+<span class="c1">#: cache are the expensive parts, and rebuilding a signature per ``search()``</span>
+<span class="c1">#: call would pay for both every time.</span>
+<span class="n">_DEFAULT_SIGNATURE</span><span class="p">:</span> <span class="s2">"Signature | None"</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="shared_signature">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.shared_signature">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">shared_signature</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">""":func:`default_signature`, constructed once per process.</span>
+
+<span class="sd">    This is what the façade uses, so repeated searches share one loaded model</span>
+<span class="sd">    and one image cache. Call :func:`default_signature` directly for an</span>
+<span class="sd">    independent one (a test, or a different field/fetch).</span>
+<span class="sd">    """</span>
+    <span class="k">global</span> <span class="n">_DEFAULT_SIGNATURE</span>
+    <span class="k">if</span> <span class="n">_DEFAULT_SIGNATURE</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_DEFAULT_SIGNATURE</span> <span class="o">=</span> <span class="n">default_signature</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">_DEFAULT_SIGNATURE</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># grouping</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_union_find</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">i</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">union</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ra</span><span class="p">,</span> <span class="n">rb</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">find</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ra</span> <span class="o">!=</span> <span class="n">rb</span><span class="p">:</span>
+            <span class="n">parent</span><span class="p">[</span><span class="n">rb</span><span class="p">]</span> <span class="o">=</span> <span class="n">ra</span>
+
+    <span class="k">return</span> <span class="n">find</span><span class="p">,</span> <span class="n">union</span>
+
+
+<div class="viewcode-block" id="group_duplicates">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.group_duplicates">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">group_duplicates</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">signature</span><span class="p">:</span> <span class="s2">"Signature | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="s2">"float | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">quality</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">quality_key</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DuplicateGroup</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Partition ``results`` into groups of the same subject.</span>
+
+<span class="sd">    Single-linkage: A groups with C if A~B and B~C, even when A and C fall just</span>
+<span class="sd">    under the threshold themselves. That is the right shape here, because a run</span>
+<span class="sd">    of reproductions of one painting forms a chain — a colour original, an</span>
+<span class="sd">    engraving after it, and a re-scan of the engraving — where the ends can be</span>
+<span class="sd">    further apart than either is from the middle.</span>
+
+<span class="sd">    Groups come back in the order their best member first appears, and each</span>
+<span class="sd">    group's members are sorted best-first by ``quality``. An image whose</span>
+<span class="sd">    signature could not be computed is never grouped, so a fetch failure loses a</span>
+<span class="sd">    duplicate rather than silently merging two different pictures.</span>
+<span class="sd">    """</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">DuplicateGroup</span><span class="p">(</span><span class="n">members</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="p">,))</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+
+    <span class="n">signature</span> <span class="o">=</span> <span class="n">signature</span> <span class="ow">or</span> <span class="n">default_signature</span><span class="p">()</span>
+    <span class="n">cutoff</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="n">threshold</span> <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">threshold</span>
+    <span class="n">vectors</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="n">find</span><span class="p">,</span> <span class="n">union</span> <span class="o">=</span> <span class="n">_union_find</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+    <span class="n">usable</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">position</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">usable</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">usable</span><span class="p">[</span><span class="n">position</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]:</span>
+            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">vectors</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">cutoff</span><span class="p">:</span>
+                <span class="n">union</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+    <span class="n">clusters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)):</span>
+        <span class="n">clusters</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">clusters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">members</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">((</span><span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">first_seen</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+        <span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">first_seen</span><span class="p">,</span> <span class="n">DuplicateGroup</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">members</span><span class="p">),</span> <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">group</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># strategies</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_strategy_best</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">DuplicateGroup</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">best</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_strategy_all</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">DuplicateGroup</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">members</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_strategy_first</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">DuplicateGroup</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Keep whichever member the provider ranked highest, not the biggest."""</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+
+<span class="c1">#: Named reductions of a group to the images a consumer receives. Add to this</span>
+<span class="c1">#: mapping to register another, or pass a callable directly to :func:`dedupe`.</span>
+<span class="n">DUPLICATE_STRATEGIES</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DuplicateGroup</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"best"</span><span class="p">:</span> <span class="n">_strategy_best</span><span class="p">,</span>
+    <span class="s2">"all"</span><span class="p">:</span> <span class="n">_strategy_all</span><span class="p">,</span>
+    <span class="s2">"first"</span><span class="p">:</span> <span class="n">_strategy_first</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="dedupe">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.dedupe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dedupe</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">strategy</span><span class="p">:</span> <span class="s2">"str | Callable[[DuplicateGroup], list[ImageResult]]"</span> <span class="o">=</span> <span class="n">DFLT_STRATEGY</span><span class="p">,</span>
+    <span class="n">signature</span><span class="p">:</span> <span class="s2">"Signature | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="s2">"float | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">quality</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">quality_key</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""``results`` with same-subject duplicates collapsed, original order kept.</span>
+
+<span class="sd">    ``strategy`` is ``"best"`` (default — one image per subject, the largest),</span>
+<span class="sd">    ``"all"`` (group but keep everything, so a caller can choose), ``"first"``</span>
+<span class="sd">    (keep the provider's own pick), or any callable taking a</span>
+<span class="sd">    :class:`DuplicateGroup`.</span>
+
+<span class="sd">    Order is the order of first appearance, so the top hit stays the top hit</span>
+<span class="sd">    even when a lower-ranked member of its group is the one kept.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">reduce</span> <span class="o">=</span> <span class="n">DUPLICATE_STRATEGIES</span><span class="p">[</span><span class="n">strategy</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"unknown duplicate strategy </span><span class="si">{</span><span class="n">strategy</span><span class="si">!r}</span><span class="s2">; "</span>
+                <span class="sa">f</span><span class="s2">"known: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">DUPLICATE_STRATEGIES</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reduce</span> <span class="o">=</span> <span class="n">strategy</span>
+
+    <span class="n">groups</span> <span class="o">=</span> <span class="n">group_duplicates</span><span class="p">(</span>
+        <span class="n">results</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="n">signature</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="n">quality</span>
+    <span class="p">)</span>
+    <span class="n">kept</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+        <span class="n">kept</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">kept</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

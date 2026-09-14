@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.config &mdash; illustration 0.0.6 documentation</title>
+  <title>illustration.config &mdash; illustration 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="../../_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -56,6 +56,8 @@
 <li class="toctree-l1"><a class="reference internal" href="caching.html">illustration.caching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">illustration.cli</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">illustration.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_DEDUPE"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_DEDUPE_STRATEGY"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE_STRATEGY</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_LICENSE_ALLOWLIST"><code class="docutils literal notranslate"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_N"><code class="docutils literal notranslate"><span class="pre">DFLT_N</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.config.DFLT_SOURCES"><code class="docutils literal notranslate"><span class="pre">DFLT_SOURCES</span></code></a></li>
@@ -71,6 +73,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="credentials.html">illustration.credentials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="duplicates.html">illustration.duplicates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="errors.html">illustration.errors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facade.html">illustration.facade</a></li>
@@ -148,6 +151,33 @@ idiom:</p>
 <span class="go">'illustration'</span>
 </pre></div>
 </div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_DEDUPE">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_DEDUPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></span><a class="headerlink" href="#illustration.config.DFLT_DEDUPE" title="Link to this definition"></a></dt>
+<dd><p>Collapse same-subject duplicates in <code class="docutils literal notranslate"><span class="pre">search()</span></code>. A search for one person
+routinely returns several reproductions of the same portrait, and a consumer
+asking for N images wants N <em>subjects</em>, not N files.</p>
+<p>The default is <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code>, not <code class="docutils literal notranslate"><span class="pre">True</span></code>, and the distinction is the whole
+design: telling two engravings of one sitter apart requires <em>looking at the
+pixels</em>, which a bare <code class="docutils literal notranslate"><span class="pre">search()</span></code> deliberately never does — it is a metadata
+call with an offline contract. So dedup rides along with image work already
+being paid for: <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> means “dedupe when this call fetches images anyway”
+(i.e. when reranking). Pass <code class="docutils literal notranslate"><span class="pre">dedupe=True</span></code> to force it and accept the
+fetches, or <code class="docutils literal notranslate"><span class="pre">False</span></code> to switch it off. The curation layer, which always
+fetches, dedupes unconditionally.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_DEDUPE_STRATEGY">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_DEDUPE_STRATEGY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'best'</span></span><a class="headerlink" href="#illustration.config.DFLT_DEDUPE_STRATEGY" title="Link to this definition"></a></dt>
+<dd><p>the largest reproduction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>What to keep from each duplicate group</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py data">
 <dt class="sig sig-object py" id="illustration.config.DFLT_LICENSE_ALLOWLIST">
 <span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'by',</span> <span class="pre">'by-sa',</span> <span class="pre">'cc0',</span> <span class="pre">'pdm',</span> <span class="pre">'pexels-license',</span> <span class="pre">'pixabay-license'})</span></span><a class="headerlink" href="#illustration.config.DFLT_LICENSE_ALLOWLIST" title="Link to this definition"></a></dt>

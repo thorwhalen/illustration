@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to illustration’s documentation! &mdash; illustration 0.0.6 documentation</title>
+  <title>Welcome to illustration’s documentation! &mdash; illustration 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -57,6 +57,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/config.html">illustration.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/credentials.html">illustration.credentials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/curation.html">illustration.curation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/errors.html">illustration.errors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/expansion.html">illustration.expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/facade.html">illustration.facade</a></li>
@@ -111,6 +112,8 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.Candidate"><code class="docutils literal notranslate"><span class="pre">Candidate</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.CurateDependencyError"><code class="docutils literal notranslate"><span class="pre">CurateDependencyError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.CurationResult"><code class="docutils literal notranslate"><span class="pre">CurationResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.DuplicateGroup"><code class="docutils literal notranslate"><span class="pre">DuplicateGroup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.DuplicateSignature"><code class="docutils literal notranslate"><span class="pre">DuplicateSignature</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.Grade"><code class="docutils literal notranslate"><span class="pre">Grade</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.IllustrationError"><code class="docutils literal notranslate"><span class="pre">IllustrationError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.ImageResult"><code class="docutils literal notranslate"><span class="pre">ImageResult</span></code></a></li>
@@ -138,11 +141,15 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.dedupe"><code class="docutils literal notranslate"><span class="pre">dedupe()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_search_store"><code class="docutils literal notranslate"><span class="pre">default_search_store()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_signature"><code class="docutils literal notranslate"><span class="pre">default_signature()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_sources"><code class="docutils literal notranslate"><span class="pre">default_sources()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.dinov2_signature"><code class="docutils literal notranslate"><span class="pre">dinov2_signature()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.expand_query"><code class="docutils literal notranslate"><span class="pre">expand_query()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.export_otio"><code class="docutils literal notranslate"><span class="pre">export_otio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.get_source"><code class="docutils literal notranslate"><span class="pre">get_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.group_duplicates"><code class="docutils literal notranslate"><span class="pre">group_duplicates()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.inspect_candidate"><code class="docutils literal notranslate"><span class="pre">inspect_candidate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.judge_candidate"><code class="docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a></li>
@@ -156,6 +163,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.package_version"><code class="docutils literal notranslate"><span class="pre">package_version()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.phash"><code class="docutils literal notranslate"><span class="pre">phash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.phash_signature"><code class="docutils literal notranslate"><span class="pre">phash_signature()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.record_override"><code class="docutils literal notranslate"><span class="pre">record_override()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.refine_query"><code class="docutils literal notranslate"><span class="pre">refine_query()</span></code></a></li>
@@ -170,6 +178,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search_cache_key"><code class="docutils literal notranslate"><span class="pre">search_cache_key()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.select_sequence"><code class="docutils literal notranslate"><span class="pre">select_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.siglip_signature"><code class="docutils literal notranslate"><span class="pre">siglip_signature()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.to_walkthru_document"><code class="docutils literal notranslate"><span class="pre">to_walkthru_document()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.unregister_source"><code class="docutils literal notranslate"><span class="pre">unregister_source()</span></code></a></li>
@@ -208,6 +217,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/config.html">illustration.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_DEDUPE"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_DEDUPE_STRATEGY"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE_STRATEGY</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_LICENSE_ALLOWLIST"><code class="docutils literal notranslate"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_N"><code class="docutils literal notranslate"><span class="pre">DFLT_N</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_SOURCES"><code class="docutils literal notranslate"><span class="pre">DFLT_SOURCES</span></code></a></li>
@@ -241,6 +252,23 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.IterationRecord"><code class="docutils literal notranslate"><span class="pre">IterationRecord</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.score_grade"><code class="docutils literal notranslate"><span class="pre">score_grade()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/duplicates.html">illustration.duplicates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#three-signature-tiers-strongest-first">Three signature tiers, strongest first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#one-similarity-measure">One similarity measure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.DFLT_STRATEGY"><code class="docutils literal notranslate"><span class="pre">DFLT_STRATEGY</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.DUPLICATE_STRATEGIES"><code class="docutils literal notranslate"><span class="pre">DUPLICATE_STRATEGIES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.DuplicateGroup"><code class="docutils literal notranslate"><span class="pre">DuplicateGroup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.Signature"><code class="docutils literal notranslate"><span class="pre">Signature</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.dedupe"><code class="docutils literal notranslate"><span class="pre">dedupe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.default_signature"><code class="docutils literal notranslate"><span class="pre">default_signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.dinov2_signature"><code class="docutils literal notranslate"><span class="pre">dinov2_signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.group_duplicates"><code class="docutils literal notranslate"><span class="pre">group_duplicates()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.phash_signature"><code class="docutils literal notranslate"><span class="pre">phash_signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.quality_key"><code class="docutils literal notranslate"><span class="pre">quality_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.shared_signature"><code class="docutils literal notranslate"><span class="pre">shared_signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.siglip_signature"><code class="docutils literal notranslate"><span class="pre">siglip_signature()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/errors.html">illustration.errors</a><ul>
@@ -395,8 +423,8 @@
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-<p>Release: 0.0.6</p>
-<p>Last change: Sep 04, 2026</p>
+<p>Release: 0.0.7</p>
+<p>Last change: Sep 14, 2026</p>
 </section>
 
 
