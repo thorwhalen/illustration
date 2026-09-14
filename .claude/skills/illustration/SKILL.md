@@ -43,6 +43,9 @@ needs pixels. `select_sequence(signature=...)` applies it across beats.
 curated by people who looked at the pictures; search matches filenames and
 descriptions. `search("Hamilton Grange")` returns a branch *library* of that
 name; `search("Category:Hamilton Grange National Memorial")` returns the house.
+`search("File:Exact Name.jpg")` fetches exact titles (pipe-separate for several)
+— use it when you already know the file, because relevance ranking will not
+reliably surface a generic filename.
 
 ## Licence & attribution — read this before you ship anything
 

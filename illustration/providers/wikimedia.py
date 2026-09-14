@@ -46,6 +46,18 @@ _SCALED_IMAGE_LIMIT = 50
 
 
 _CATEGORY_PREFIX = "category:"
+_FILE_PREFIX = "file:"
+
+
+def _is_file_title(query: str) -> bool:
+    """Whether ``query`` names one exact Commons file.
+
+    >>> _is_file_title("File:Alexander Hamilton.jpg")
+    True
+    >>> _is_file_title("Alexander Hamilton")
+    False
+    """
+    return query.strip().lower().startswith(_FILE_PREFIX)
 
 
 def _is_category(query: str) -> bool:
@@ -68,6 +80,15 @@ def _category_title(query: str) -> str:
     'Category:Trinity Church (Manhattan)'
     """
     return "Category:" + query.strip()[len(_CATEGORY_PREFIX) :].strip()
+
+
+def _file_title(query: str) -> str:
+    """Normalise to the canonical ``File:Name`` title.
+
+    >>> _file_title("file:  Alexander Hamilton.jpg ")
+    'File:Alexander Hamilton.jpg'
+    """
+    return "File:" + query.strip()[len(_FILE_PREFIX) :].strip()
 
 
 def _strip_html(value: "str | None") -> "str | None":
@@ -134,6 +155,19 @@ class WikimediaSource(RetrievalSource):
         parameter, because that is MediaWiki's own spelling for it and it
         therefore survives the façade, the cache key and the CLI unchanged.
         """
+        if _is_file_title(query):
+            # Exact titles, not a search. Relevance ranking cannot reliably
+            # surface a *generic* filename — "File:Alexander Hamilton.jpg" is not
+            # in the top hits for "Alexander Hamilton", because thousands of
+            # files match that phrase better than one plainly-named one does.
+            # A caller who already knows the file should not have to hope.
+            # Multiple titles may be pipe-separated, as the MediaWiki API takes them.
+            return {
+                "generator": None,  # dropped by _get; this is a direct lookup
+                "titles": "|".join(
+                    _file_title(part) for part in query.split("|") if part.strip()
+                ),
+            }
         if not _is_category(query):
             return super()._query_params(query, page=page, per_page=per_page)
         return {

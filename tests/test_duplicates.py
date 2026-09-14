@@ -358,3 +358,70 @@ class TestSequenceUsesSubjects:
         )
         assert all(s.chosen is not None for s in sel.selections)
         assert sel.selections[1].forced_duplicate is True
+
+
+class TestWikimediaExactFileTitles:
+    """Relevance ranking cannot reliably surface a *generic* filename.
+
+    "File:Alexander Hamilton.jpg" is not in the top hits for "Alexander
+    Hamilton" — thousands of files match that phrase better than one plainly
+    named one does. A caller who already knows the file should not have to hope,
+    so the File: namespace prefix routes to a direct title lookup.
+    """
+
+    def source(self):
+        from illustration.providers.wikimedia import WikimediaSource
+
+        return WikimediaSource()
+
+    def test_a_file_query_becomes_a_title_lookup(self):
+        params = self.source()._query_params(
+            "File:Alexander Hamilton.jpg", page=1, per_page=10
+        )
+        assert params["titles"] == "File:Alexander Hamilton.jpg"
+        assert "gsrsearch" not in params
+
+    def test_the_search_generator_is_suppressed_not_overridden(self):
+        """It must be *removed*; sending generator="None" would be a bad request."""
+        params = self.source()._query_params("File:X.jpg", page=1, per_page=10)
+        assert params["generator"] is None
+
+    def test_none_valued_params_are_dropped_before_the_request(self):
+        from illustration.base import RetrievalSource
+
+        sent = {}
+
+        class Fake(RetrievalSource):
+            name, endpoint = "fake", "http://x"
+
+            def _items(self, response):
+                return []
+
+            def _normalize(self, item, *, query):
+                raise NotImplementedError
+
+        class Session:
+            def get(self, url, params=None, headers=None, timeout=None):
+                sent.update(params or {})
+                raise RuntimeError("stop here - we only wanted the params")
+
+        try:
+            Fake(session=Session())._get({"keep": "yes", "drop": None})
+        except Exception:
+            pass
+        assert sent.get("keep") == "yes"
+        assert "drop" not in sent
+
+    def test_several_titles_may_be_pipe_separated(self):
+        params = self.source()._query_params(
+            "File:A.jpg|File:B.jpg", page=1, per_page=10
+        )
+        assert params["titles"] == "File:A.jpg|File:B.jpg"
+
+    def test_the_prefix_is_case_insensitive_and_trimmed(self):
+        params = self.source()._query_params("file:  A.jpg ", page=1, per_page=10)
+        assert params["titles"] == "File:A.jpg"
+
+    def test_a_category_query_is_unaffected(self):
+        params = self.source()._query_params("Category:X", page=1, per_page=10)
+        assert params["generator"] == "categorymembers"
