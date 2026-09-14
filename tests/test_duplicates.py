@@ -425,3 +425,172 @@ class TestWikimediaExactFileTitles:
     def test_a_category_query_is_unaffected(self):
         params = self.source()._query_params("Category:X", page=1, per_page=10)
         assert params["generator"] == "categorymembers"
+
+
+# --------------------------------------------------------------------------- #
+# local files — "here are 200 stills, which of them are the same picture?"
+# --------------------------------------------------------------------------- #
+
+
+class TestLocalPaths:
+    """Grouping a folder rather than a search result set.
+
+    The case that prompted it: a Ken Burns still pool assembled from several
+    searches, where one image arrived twice under two provider ids and the film
+    showed it twice. By then the images are files, not ``ImageResult``s, and
+    there was no way to ask the question at all.
+
+    The fixtures are PIL's built-in gradients rather than flat colours on
+    purpose. A flat or hard-edged synthetic image is degenerate for a DCT
+    perceptual hash — nearly every AC coefficient is zero, so the hash bits are
+    decided by rounding noise and the test becomes a coin flip (an earlier draft
+    using half-black/half-white squares reported a rescaled copy as a *different*
+    picture). A gradient has real low-frequency structure, which is what pHash
+    is built to read.
+    """
+
+    def images(self, tmp_path):
+        """A picture, a byte-identical copy of it, and a different picture."""
+        from PIL import Image
+
+        stripes = Image.linear_gradient("L").convert("RGB")
+        rings = Image.radial_gradient("L").convert("RGB")
+        for name, image in [
+            ("a.png", stripes),
+            ("a_copy.png", stripes),
+            ("b.png", rings),
+        ]:
+            image.save(tmp_path / name)
+        return sorted(tmp_path.glob("*.png"))
+
+    def phash(self):
+        """The always-available tier, so nothing here needs torch."""
+        from illustration.duplicates import local_signature
+
+        return local_signature(phash_signature)
+
+    def test_an_exact_duplicate_is_found(self, tmp_path):
+        from illustration.duplicates import group_duplicate_paths
+
+        groups = group_duplicate_paths(self.images(tmp_path), signature=self.phash())
+        duplicates = [g for g in groups if g.is_duplicate]
+        assert len(duplicates) == 1
+        assert {m.id for m in duplicates[0].members} == {"a.png", "a_copy.png"}
+
+    def test_two_different_pictures_are_not_grouped(self, tmp_path):
+        """The hard negative — over-grouping is the worse of the two failures.
+
+        Missing a duplicate costs a repeated shot; merging two distinct stills
+        silently drops one from the pool.
+        """
+        from illustration.duplicates import group_duplicate_paths
+
+        groups = group_duplicate_paths(self.images(tmp_path), signature=self.phash())
+        by_name = {m.id: g for g in groups for m in g.members}
+        assert by_name["b.png"] is not by_name["a.png"]
+        assert len(groups) == 2
+
+    def test_no_network_is_touched_for_local_paths(
+        self, tmp_path, _no_outbound_network
+    ):
+        """The property the local ``signature`` default exists for.
+
+        A path stored in ``ImageResult.url`` is an address as far as the generic
+        signature is concerned, so the wrong default would try to fetch it. The
+        autouse guard would fail this anyway; asserting the empty record says
+        *this* is the thing under test, not an incidental side effect.
+        """
+        from illustration.duplicates import group_duplicate_paths
+
+        groups = group_duplicate_paths(self.images(tmp_path), signature=self.phash())
+        assert _no_outbound_network == []
+        assert sum(len(g) for g in groups) == 3  # and it really did embed them
+
+    def test_dedupe_paths_returns_paths_not_results(self, tmp_path):
+        from pathlib import Path
+
+        from illustration.duplicates import dedupe_paths
+
+        kept = dedupe_paths(self.images(tmp_path), signature=self.phash())
+        assert all(isinstance(p, Path) for p in kept)
+        assert [p.name for p in kept] == ["a.png", "b.png"]
+
+    def test_dedupe_paths_accepts_strings(self, tmp_path):
+        from illustration.duplicates import dedupe_paths
+
+        paths = [str(p) for p in self.images(tmp_path)]
+        assert len(dedupe_paths(paths, signature=self.phash())) == 2
+
+    def test_the_largest_copy_of_a_picture_wins(self, tmp_path):
+        """``strategy="best"`` must still mean something for files with no metadata.
+
+        Local files carry no licence and no author, so pixel area is the only
+        discriminator left — which is why the wrapper reads the image size off
+        the file header instead of leaving it ``None``.
+        """
+        from PIL import Image
+
+        from illustration.duplicates import dedupe_paths
+
+        picture = Image.linear_gradient("L").convert("RGB")
+        picture.save(tmp_path / "small.png")
+        picture.resize((512, 512)).save(tmp_path / "big.png")
+
+        kept = dedupe_paths(sorted(tmp_path.glob("*.png")), signature=self.phash())
+        assert [p.name for p in kept] == ["big.png"]
+
+    def test_strategy_all_keeps_everything(self, tmp_path):
+        from illustration.duplicates import dedupe_paths
+
+        kept = dedupe_paths(
+            self.images(tmp_path), signature=self.phash(), strategy="all"
+        )
+        assert len(kept) == 3
+
+    def test_an_unreadable_file_is_never_grouped(self, tmp_path):
+        """A corrupt still must lose a duplicate, not merge two pictures."""
+        from illustration.duplicates import group_duplicate_paths
+
+        paths = self.images(tmp_path)
+        broken = tmp_path / "broken.png"
+        broken.write_bytes(b"not an image")
+        groups = group_duplicate_paths(paths + [broken], signature=self.phash())
+        group = next(g for g in groups if g.members[0].id == "broken.png")
+        assert not group.is_duplicate
+
+    def test_an_empty_folder_is_not_an_error(self, tmp_path):
+        from illustration.duplicates import dedupe_paths, group_duplicate_paths
+
+        assert group_duplicate_paths(tmp_path.glob("*.png")) == []
+        assert dedupe_paths(tmp_path.glob("*.png")) == []
+
+
+class TestLocalSignatureWiring:
+    """Which tier a local pass gets, and which one it must never get."""
+
+    def test_local_signature_defaults_to_the_strongest_installed_tier(self):
+        from illustration.duplicates import local_signature
+
+        assert local_signature().name == default_signature().name
+
+    def test_a_tier_can_be_pinned(self):
+        from illustration.duplicates import local_signature
+
+        assert local_signature(phash_signature).name == "phash"
+
+    def test_default_signature_never_returns_siglip(self):
+        """SigLIP has no ``fetch`` seam, so auto-selecting it would silently put
+        a local dedupe back on the network (and drop ``field``/``fetch``)."""
+        assert default_signature().name in {"dinov2", "phash"}
+
+    def test_field_and_fetch_reach_whichever_tier_is_chosen(self):
+        """The forwarding that ``local_signature`` rests on. A tier that ignored
+        them would embed every local file as ``None`` — i.e. report no
+        duplicates at all — rather than fail."""
+        import inspect
+
+        from illustration.duplicates import dinov2_signature
+
+        for tier in (phash_signature, dinov2_signature):
+            params = inspect.signature(tier).parameters
+            assert {"field", "fetch"} <= set(params), tier.__name__
