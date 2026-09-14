@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.providers.wikimedia &mdash; illustration 0.0.7 documentation</title>
+  <title>illustration.providers.wikimedia &mdash; illustration 0.0.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=bbaf98b3"></script>
+      <script src="../../../_static/documentation_options.js?v=53b53b71"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -148,6 +148,18 @@
 
 
 <span class="n">_CATEGORY_PREFIX</span> <span class="o">=</span> <span class="s2">"category:"</span>
+<span class="n">_FILE_PREFIX</span> <span class="o">=</span> <span class="s2">"file:"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_file_title</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Whether ``query`` names one exact Commons file.</span>
+
+<span class="sd">    &gt;&gt;&gt; _is_file_title("File:Alexander Hamilton.jpg")</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; _is_file_title("Alexander Hamilton")</span>
+<span class="sd">    False</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">_FILE_PREFIX</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_is_category</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -170,6 +182,15 @@
 <span class="sd">    'Category:Trinity Church (Manhattan)'</span>
 <span class="sd">    """</span>
     <span class="k">return</span> <span class="s2">"Category:"</span> <span class="o">+</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="nb">len</span><span class="p">(</span><span class="n">_CATEGORY_PREFIX</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_file_title</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Normalise to the canonical ``File:Name`` title.</span>
+
+<span class="sd">    &gt;&gt;&gt; _file_title("file:  Alexander Hamilton.jpg ")</span>
+<span class="sd">    'File:Alexander Hamilton.jpg'</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="s2">"File:"</span> <span class="o">+</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="nb">len</span><span class="p">(</span><span class="n">_FILE_PREFIX</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_strip_html</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
@@ -238,6 +259,19 @@
 <span class="sd">        parameter, because that is MediaWiki's own spelling for it and it</span>
 <span class="sd">        therefore survives the façade, the cache key and the CLI unchanged.</span>
 <span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">_is_file_title</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+            <span class="c1"># Exact titles, not a search. Relevance ranking cannot reliably</span>
+            <span class="c1"># surface a *generic* filename — "File:Alexander Hamilton.jpg" is not</span>
+            <span class="c1"># in the top hits for "Alexander Hamilton", because thousands of</span>
+            <span class="c1"># files match that phrase better than one plainly-named one does.</span>
+            <span class="c1"># A caller who already knows the file should not have to hope.</span>
+            <span class="c1"># Multiple titles may be pipe-separated, as the MediaWiki API takes them.</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"generator"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># dropped by _get; this is a direct lookup</span>
+                <span class="s2">"titles"</span><span class="p">:</span> <span class="s2">"|"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">_file_title</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"|"</span><span class="p">)</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_category</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_query_params</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
