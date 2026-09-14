@@ -122,7 +122,15 @@ illustration.search("Category:Elizabeth Schuyler Hamilton", source="wikimedia")
 ```
 
 Detected from MediaWiki's own namespace prefix, so it works through the façade,
-the cache and the CLI with no new parameter.
+the cache and the CLI with no new parameter. The `File:` prefix works the same
+way and fetches **exact titles** — relevance ranking cannot reliably surface a
+generic filename, and a caller who already knows the file should not have to
+hope:
+
+```python
+illustration.search("File:Alexander Hamilton.jpg", source="wikimedia")
+illustration.search("File:A.jpg|File:B.jpg", source="wikimedia")   # several
+```
 
 ## Sources (providers)
 

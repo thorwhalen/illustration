@@ -224,7 +224,12 @@ class RetrievalSource(ABC):
         session = self._session or requests
         headers = {"User-Agent": user_agent(), "Accept": "application/json"}
         headers.update(self._auth_headers(api_key))
-        request_params = {**dict(params), **self._auth_params(api_key)}
+        # A None value *removes* a param rather than sending the string "None".
+        # That is how a provider suppresses one of its own `fixed_params` for a
+        # particular query shape — Wikimedia drops `generator` when asked for
+        # exact titles — without every caller having to rebuild the base set.
+        merged = {**dict(params), **self._auth_params(api_key)}
+        request_params = {k: v for k, v in merged.items() if v is not None}
         try:
             resp = session.get(
                 self.endpoint,
