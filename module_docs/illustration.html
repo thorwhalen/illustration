@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration &mdash; illustration 0.0.8 documentation</title>
+  <title>illustration &mdash; illustration 0.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=53b53b71"></script>
+      <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -155,6 +155,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#illustration.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.dedupe"><code class="docutils literal notranslate"><span class="pre">dedupe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.dedupe_paths"><code class="docutils literal notranslate"><span class="pre">dedupe_paths()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.default_search_store"><code class="docutils literal notranslate"><span class="pre">default_search_store()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.default_signature"><code class="docutils literal notranslate"><span class="pre">default_signature()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.default_sources"><code class="docutils literal notranslate"><span class="pre">default_sources()</span></code></a></li>
@@ -162,12 +163,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#illustration.expand_query"><code class="docutils literal notranslate"><span class="pre">expand_query()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.export_otio"><code class="docutils literal notranslate"><span class="pre">export_otio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.get_source"><code class="docutils literal notranslate"><span class="pre">get_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.group_duplicate_paths"><code class="docutils literal notranslate"><span class="pre">group_duplicate_paths()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.group_duplicates"><code class="docutils literal notranslate"><span class="pre">group_duplicates()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.inspect_candidate"><code class="docutils literal notranslate"><span class="pre">inspect_candidate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.judge_candidate"><code class="docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.list_sources"><code class="docutils literal notranslate"><span class="pre">list_sources()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illustration.local_signature"><code class="docutils literal notranslate"><span class="pre">local_signature()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#illustration.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
@@ -800,6 +803,33 @@ even when a lower-ranked member of its group is the one kept.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="illustration.dedupe_paths">
+<span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">dedupe_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">paths:</span> <span class="pre">~typing.Iterable[str</span> <span class="pre">|</span> <span class="pre">~pathlib.Path],</span> <span class="pre">*,</span> <span class="pre">strategy:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~typing.Callable[[~illustration.duplicates.DuplicateGroup],</span> <span class="pre">list[~illustration.schema.ImageResult]]</span> <span class="pre">=</span> <span class="pre">'best',</span> <span class="pre">signature:</span> <span class="pre">~illustration.duplicates.Signature</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">threshold:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">quality:</span> <span class="pre">~typing.Callable[[~illustration.schema.ImageResult],</span> <span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">quality_key&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/illustration/duplicates.html#dedupe_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.dedupe_paths" title="Link to this definition"></a></dt>
+<dd><p>The paths in <code class="docutils literal notranslate"><span class="pre">paths</span></code> with same-subject duplicates collapsed, order kept.</p>
+<p><a class="reference internal" href="#illustration.dedupe" title="illustration.dedupe"><code class="xref py py-func docutils literal notranslate"><span class="pre">dedupe()</span></code></a> for a folder: same <code class="docutils literal notranslate"><span class="pre">strategy</span></code> vocabulary (<code class="docutils literal notranslate"><span class="pre">&quot;best&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;all&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;first&quot;</span></code>, or a callable), same first-appearance ordering, and
+the same no-fetch default as <a class="reference internal" href="#illustration.group_duplicate_paths" title="illustration.group_duplicate_paths"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_duplicate_paths()</span></code></a>. <code class="docutils literal notranslate"><span class="pre">&quot;best&quot;</span></code> keeps
+the largest reproduction of each subject, which for a pool of stills is the
+one a pan-and-zoom render can actually use.</p>
+<p>Returns <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> objects, not <a class="reference internal" href="#illustration.ImageResult" title="illustration.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> wrappers —
+a caller who handed in paths wants paths back, and the wrapper carries no
+information the file does not.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="o">,</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tmp</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">picture</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">linear_gradient</span><span class="p">(</span><span class="s2">"L"</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">picture</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">tmp</span> <span class="o">/</span> <span class="s2">"small.png"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">picture</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">tmp</span> <span class="o">/</span> <span class="s2">"big.png"</span><span class="p">)</span>  <span class="c1"># same picture, rescaled</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kept</span> <span class="o">=</span> <span class="n">dedupe_paths</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="nb">sorted</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.png"</span><span class="p">)),</span> <span class="n">signature</span><span class="o">=</span><span class="n">local_signature</span><span class="p">(</span><span class="n">phash_signature</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">kept</span><span class="p">]</span>
+<span class="go">['big.png']</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="illustration.default_search_store">
 <span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">default_search_store</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MutableMapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/illustration/caching.html#default_search_store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.default_search_store" title="Link to this definition"></a></dt>
 <dd><p>A <code class="docutils literal notranslate"><span class="pre">JsonFiles</span></code> store under <code class="docutils literal notranslate"><span class="pre">&lt;cache_dir&gt;/search</span></code> (created on demand).</p>
@@ -809,9 +839,18 @@ even when a lower-ranked member of its group is the one kept.</p>
 <dt class="sig sig-object py" id="illustration.default_signature">
 <span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">default_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="illustration/duplicates.html#illustration.duplicates.Signature" title="illustration.duplicates.Signature"><span class="pre">Signature</span></a></span></span><a class="reference internal" href="../_modules/illustration/duplicates.html#default_signature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.default_signature" title="Link to this definition"></a></dt>
 <dd><p>The strongest signature whose dependencies are installed.</p>
-<p>DINOv2 -&gt; SigLIP -&gt; pHash. The last is always available, so this never
-raises; check <code class="xref py py-attr docutils literal notranslate"><span class="pre">Signature.subject_level</span></code> if you need to know whether
-you actually got subject-level grouping or only raster matching.</p>
+<p>DINOv2 when <code class="docutils literal notranslate"><span class="pre">[dedupe]</span></code> is installed, pHash otherwise. pHash is always
+available, so this never raises; check <code class="xref py py-attr docutils literal notranslate"><span class="pre">Signature.subject_level</span></code> if
+you need to know whether you got subject-level grouping or only raster
+matching. <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> (<code class="docutils literal notranslate"><span class="pre">field</span></code>, <code class="docutils literal notranslate"><span class="pre">fetch</span></code>) reach whichever tier is chosen,
+so a caller can redirect <em>where the pixels come from</em> without knowing which
+tier they got — see <a class="reference internal" href="#illustration.local_signature" title="illustration.local_signature"><code class="xref py py-func docutils literal notranslate"><span class="pre">local_signature()</span></code></a>.</p>
+<p><a class="reference internal" href="#illustration.siglip_signature" title="illustration.siglip_signature"><code class="xref py py-func docutils literal notranslate"><span class="pre">siglip_signature()</span></code></a> is deliberately not in this chain. It needs the
+same torch wheels as DINOv2 and is weaker at this job, so it can only ever
+be chosen for a reason this function cannot see (the reranker has already
+paid for its embeddings). It also has no <code class="docutils literal notranslate"><span class="pre">fetch</span></code> seam — it reads network
+URLs only — so auto-selecting it would silently put <a class="reference internal" href="#illustration.local_signature" title="illustration.local_signature"><code class="xref py py-func docutils literal notranslate"><span class="pre">local_signature()</span></code></a>
+back on the network and drop the <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> on the floor. Ask for it by name.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -853,6 +892,47 @@ tools. Returns the bytes when <code class="docutils literal notranslate"><span c
 <dt class="sig sig-object py" id="illustration.get_source">
 <span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">get_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="illustration/base.html#illustration.base.RetrievalSource" title="illustration.base.RetrievalSource"><span class="pre">RetrievalSource</span></a></span></span><a class="reference internal" href="../_modules/illustration/registry.html#get_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.get_source" title="Link to this definition"></a></dt>
 <dd><p>Return the registered source named <code class="docutils literal notranslate"><span class="pre">name</span></code> (raises if unknown).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.group_duplicate_paths">
+<span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">group_duplicate_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">paths:</span> <span class="pre">~typing.Iterable[str</span> <span class="pre">|</span> <span class="pre">~pathlib.Path],</span> <span class="pre">*,</span> <span class="pre">signature:</span> <span class="pre">~illustration.duplicates.Signature</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">threshold:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">quality:</span> <span class="pre">~typing.Callable[[~illustration.schema.ImageResult],</span> <span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">quality_key&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="illustration/duplicates.html#illustration.duplicates.DuplicateGroup" title="illustration.duplicates.DuplicateGroup"><span class="pre">DuplicateGroup</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/illustration/duplicates.html#group_duplicate_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.group_duplicate_paths" title="Link to this definition"></a></dt>
+<dd><p>Partition image files on disk into groups of the same subject.</p>
+<p><a class="reference internal" href="#illustration.group_duplicates" title="illustration.group_duplicates"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_duplicates()</span></code></a> for a folder rather than a search — “here are 200
+stills, which of them are the same picture?”. The motivating case is a
+Ken Burns still pool assembled from several searches, where the same image
+arrives twice under two provider ids and the film shows it twice.</p>
+<p>The default <code class="docutils literal notranslate"><span class="pre">signature</span></code> is <a class="reference internal" href="#illustration.local_signature" title="illustration.local_signature"><code class="xref py py-func docutils literal notranslate"><span class="pre">local_signature()</span></code></a>, so <strong>nothing is
+fetched</strong>: the strongest installed tier is wired to open the files directly.
+That is a correctness property, not an optimisation — the generic path would
+treat each <code class="docutils literal notranslate"><span class="pre">url</span></code> as an address and hand every image back as <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+which grouping reads as “unembeddable”, so a silently-networked default
+would report <em>no duplicates at all</em> rather than failing.</p>
+<p>Groups come back in first-appearance order, members best-first. Each member
+is an <a class="reference internal" href="#illustration.ImageResult" title="illustration.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> whose <code class="docutils literal notranslate"><span class="pre">url</span></code> is the path it came from
+(<code class="docutils literal notranslate"><span class="pre">Path(member.url)</span></code>); use <a class="reference internal" href="#illustration.dedupe_paths" title="illustration.dedupe_paths"><code class="xref py py-func docutils literal notranslate"><span class="pre">dedupe_paths()</span></code></a> if you only want the
+survivors.</p>
+<p>Two copies of one picture and one different picture:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="o">,</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tmp</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stripes</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">linear_gradient</span><span class="p">(</span><span class="s2">"L"</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rings</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">radial_gradient</span><span class="p">(</span><span class="s2">"L"</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">image</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"a.png"</span><span class="p">,</span> <span class="n">stripes</span><span class="p">),</span> <span class="p">(</span><span class="s2">"a_copy.png"</span><span class="p">,</span> <span class="n">stripes</span><span class="p">),</span>
+<span class="gp">... </span>                    <span class="p">(</span><span class="s2">"b.png"</span><span class="p">,</span> <span class="n">rings</span><span class="p">)]:</span>
+<span class="gp">... </span>    <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">tmp</span> <span class="o">/</span> <span class="n">name</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.png"</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Pinning the pHash tier keeps this example offline and torch-free; drop the
+<code class="docutils literal notranslate"><span class="pre">signature=</span></code> argument to get the strongest tier you have installed.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="n">group_duplicate_paths</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">paths</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="n">local_signature</span><span class="p">(</span><span class="n">phash_signature</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">members</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">]</span>
+<span class="go">[['a.png', 'a_copy.png'], ['b.png']]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -934,6 +1014,21 @@ and without ever dropping an <code class="docutils literal notranslate"><span cl
 <dt class="sig sig-object py" id="illustration.list_sources">
 <span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">list_sources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/illustration/registry.html#list_sources"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.list_sources" title="Link to this definition"></a></dt>
 <dd><p>Sorted names of all registered sources.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.local_signature">
+<span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">local_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tier:</span> <span class="pre">~typing.Callable[[...],</span> <span class="pre">~illustration.duplicates.Signature]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">default_signature&gt;,</span> <span class="pre">**kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="illustration/duplicates.html#illustration.duplicates.Signature" title="illustration.duplicates.Signature"><span class="pre">Signature</span></a></span></span><a class="reference internal" href="../_modules/illustration/duplicates.html#local_signature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.local_signature" title="Link to this definition"></a></dt>
+<dd><p>A signature that reads its pixels off the filesystem instead of the network.</p>
+<p>The one seam the local-file entry points need. <code class="docutils literal notranslate"><span class="pre">tier</span></code> is the signature
+factory to wire up — <a class="reference internal" href="#illustration.default_signature" title="illustration.default_signature"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_signature()</span></code></a> (strongest installed),
+or name one to pin it (<code class="docutils literal notranslate"><span class="pre">local_signature(phash_signature)</span></code> for the
+always-available raster tier, no model download).</p>
+<p>Wiring rather than a new tier, because the <em>comparison</em> is identical for a
+local file and a fetched one; only the byte source differs. That is already
+a parameter — <code class="docutils literal notranslate"><span class="pre">field=&quot;url&quot;</span></code> points the loader at the path we stored, and
+<code class="docutils literal notranslate"><span class="pre">fetch=local_image</span></code> opens it — so there is no second code path to keep in
+step, and no way for one image in a batch to be fetched over HTTP.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1250,6 +1345,9 @@ given, it replaces the pHash test entirely — it strictly subsumes it.</p>
 than DINOv2 for this job: a caption-aligned space puts “portrait of a woman
 in eighteenth-century dress” close together whether or not it is the same
 woman, so the threshold is set higher to compensate.</p>
+<p>Network-only: the embeddings come from the reranker’s URL-keyed cache, so
+unlike the other two tiers there is no <code class="docutils literal notranslate"><span class="pre">fetch</span></code> seam and this cannot read a
+local file. That is why <a class="reference internal" href="#illustration.default_signature" title="illustration.default_signature"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_signature()</span></code></a> never returns it.</p>
 </dd></dl>
 
 <dl class="py function">

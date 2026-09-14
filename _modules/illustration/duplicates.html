@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.duplicates &mdash; illustration 0.0.8 documentation</title>
+  <title>illustration.duplicates &mdash; illustration 0.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=53b53b71"></script>
+      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -130,16 +130,20 @@
 <span class="sd">:func:`phash_signature`   same raster only                  numpy + Pillow</span>
 <span class="sd">===================== ==================================== ==================</span>
 
-<span class="sd">:func:`default_signature` picks the strongest one whose dependencies are</span>
-<span class="sd">actually installed, so the behaviour degrades rather than breaking. Only the</span>
-<span class="sd">first two are ``subject_level``; a caller that needs the real thing can check</span>
-<span class="sd">:attr:`Signature.subject_level` and say so rather than silently getting less.</span>
+<span class="sd">:func:`default_signature` picks the strongest *automatic* one whose dependencies</span>
+<span class="sd">are actually installed — DINOv2, else pHash — so the behaviour degrades rather</span>
+<span class="sd">than breaking. Only the first two are ``subject_level``; a caller that needs the</span>
+<span class="sd">real thing can check :attr:`Signature.subject_level` and say so rather than</span>
+<span class="sd">silently getting less. SigLIP is opt-in by name: it needs the same wheels as</span>
+<span class="sd">DINOv2 and is weaker here, so it is worth asking for only when the reranker has</span>
+<span class="sd">already paid for its embeddings — and it reads network URLs only.</span>
 
 <span class="sd">Self-supervised descriptors beat text-aligned ones here — DINOv2 is trained to</span>
 <span class="sd">be invariant to crop and perturbation and is consistently better at fine-grained</span>
 <span class="sd">instance retrieval than CLIP-family encoders, which are optimised to match</span>
 <span class="sd">*captions* and therefore pull "any portrait of a woman in period dress" close</span>
-<span class="sd">together. That is why DINOv2 is the preferred tier and SigLIP the fallback.</span>
+<span class="sd">together. That is why DINOv2 is the preferred tier and SigLIP only a fallback</span>
+<span class="sd">for a caller who already has its vectors.</span>
 
 <span class="sd">One similarity measure</span>
 <span class="sd">----------------------</span>
@@ -150,17 +154,31 @@
 <span class="sd">threshold semantic covers all three tiers, and each :class:`Signature` carries</span>
 <span class="sd">the threshold that is right for *it* rather than leaving the caller to guess.</span>
 
+<span class="sd">Search results or files on disk</span>
+<span class="sd">------------------------------</span>
+
+<span class="sd">The same question gets asked of a folder — "here are 200 stills, which of them</span>
+<span class="sd">are the same picture?" — so the path pair mirrors the result pair exactly, and</span>
+<span class="sd">the only difference is where the pixels are read from. That difference is a</span>
+<span class="sd">parameter, not a code path: :func:`local_signature` points the chosen tier's</span>
+<span class="sd">loader at the file instead of at a URL, so a local dedupe touches no network.</span>
+
 <span class="sd">Usage::</span>
 
 <span class="sd">    from illustration.duplicates import dedupe, group_duplicates</span>
+<span class="sd">    from illustration.duplicates import dedupe_paths, group_duplicate_paths</span>
 
 <span class="sd">    keep = dedupe(results)                  # best of each group, order preserved</span>
 <span class="sd">    groups = group_duplicates(results)      # or inspect the grouping yourself</span>
+
+<span class="sd">    keep = dedupe_paths(folder.glob("*.jpg"))       # -&gt; the surviving Paths</span>
+<span class="sd">    groups = group_duplicate_paths(folder.glob("*.jpg"))</span>
 <span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
@@ -171,10 +189,13 @@
     <span class="s2">"DuplicateGroup"</span><span class="p">,</span>
     <span class="s2">"Signature"</span><span class="p">,</span>
     <span class="s2">"dedupe"</span><span class="p">,</span>
+    <span class="s2">"dedupe_paths"</span><span class="p">,</span>
     <span class="s2">"default_signature"</span><span class="p">,</span>
     <span class="s2">"shared_signature"</span><span class="p">,</span>
     <span class="s2">"dinov2_signature"</span><span class="p">,</span>
     <span class="s2">"group_duplicates"</span><span class="p">,</span>
+    <span class="s2">"group_duplicate_paths"</span><span class="p">,</span>
+    <span class="s2">"local_signature"</span><span class="p">,</span>
     <span class="s2">"phash_signature"</span><span class="p">,</span>
     <span class="s2">"quality_key"</span><span class="p">,</span>
     <span class="s2">"siglip_signature"</span><span class="p">,</span>
@@ -338,6 +359,10 @@
 <span class="sd">    than DINOv2 for this job: a caption-aligned space puts "portrait of a woman</span>
 <span class="sd">    in eighteenth-century dress" close together whether or not it is the same</span>
 <span class="sd">    woman, so the threshold is set higher to compensate.</span>
+
+<span class="sd">    Network-only: the embeddings come from the reranker's URL-keyed cache, so</span>
+<span class="sd">    unlike the other two tiers there is no ``fetch`` seam and this cannot read a</span>
+<span class="sd">    local file. That is why :func:`default_signature` never returns it.</span>
 <span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">illustration.reranking</span><span class="w"> </span><span class="kn">import</span> <span class="n">DFLT_RERANK_MODEL</span><span class="p">,</span> <span class="n">SiglipScorer</span>
 
@@ -415,15 +440,47 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">default_signature</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""The strongest signature whose dependencies are installed.</span>
 
-<span class="sd">    DINOv2 -&gt; SigLIP -&gt; pHash. The last is always available, so this never</span>
-<span class="sd">    raises; check :attr:`Signature.subject_level` if you need to know whether</span>
-<span class="sd">    you actually got subject-level grouping or only raster matching.</span>
+<span class="sd">    DINOv2 when ``[dedupe]`` is installed, pHash otherwise. pHash is always</span>
+<span class="sd">    available, so this never raises; check :attr:`Signature.subject_level` if</span>
+<span class="sd">    you need to know whether you got subject-level grouping or only raster</span>
+<span class="sd">    matching. ``kwargs`` (``field``, ``fetch``) reach whichever tier is chosen,</span>
+<span class="sd">    so a caller can redirect *where the pixels come from* without knowing which</span>
+<span class="sd">    tier they got — see :func:`local_signature`.</span>
+
+<span class="sd">    :func:`siglip_signature` is deliberately not in this chain. It needs the</span>
+<span class="sd">    same torch wheels as DINOv2 and is weaker at this job, so it can only ever</span>
+<span class="sd">    be chosen for a reason this function cannot see (the reranker has already</span>
+<span class="sd">    paid for its embeddings). It also has no ``fetch`` seam — it reads network</span>
+<span class="sd">    URLs only — so auto-selecting it would silently put :func:`local_signature`</span>
+<span class="sd">    back on the network and drop the ``kwargs`` on the floor. Ask for it by name.</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">_importable</span><span class="p">(</span><span class="s2">"torch"</span><span class="p">,</span> <span class="s2">"transformers"</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">dinov2_signature</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">_importable</span><span class="p">(</span><span class="s2">"torch"</span><span class="p">,</span> <span class="s2">"transformers"</span><span class="p">,</span> <span class="s2">"PIL"</span><span class="p">):</span>  <span class="c1"># pragma: no cover - same gate</span>
-        <span class="k">return</span> <span class="n">siglip_signature</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">phash_signature</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="local_signature">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.local_signature">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">local_signature</span><span class="p">(</span>
+    <span class="n">tier</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Signature</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_signature</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A signature that reads its pixels off the filesystem instead of the network.</span>
+
+<span class="sd">    The one seam the local-file entry points need. ``tier`` is the signature</span>
+<span class="sd">    factory to wire up — :func:`default_signature` (strongest installed),</span>
+<span class="sd">    or name one to pin it (``local_signature(phash_signature)`` for the</span>
+<span class="sd">    always-available raster tier, no model download).</span>
+
+<span class="sd">    Wiring rather than a new tier, because the *comparison* is identical for a</span>
+<span class="sd">    local file and a fetched one; only the byte source differs. That is already</span>
+<span class="sd">    a parameter — ``field="url"`` points the loader at the path we stored, and</span>
+<span class="sd">    ``fetch=local_image`` opens it — so there is no second code path to keep in</span>
+<span class="sd">    step, and no way for one image in a batch to be fetched over HTTP.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">illustration._imageio</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_image</span>
+
+    <span class="k">return</span> <span class="n">tier</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s2">"url"</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="n">local_image</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 
@@ -586,6 +643,145 @@
     <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
         <span class="n">kept</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">kept</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># local files — the same question asked of a folder instead of a search</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_image_size</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"tuple[int | None, int | None]"</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``(width, height)`` from the file header, or ``(None, None)``.</span>
+
+<span class="sd">    Pillow decodes lazily, so this reads the header and not the pixels. It is</span>
+<span class="sd">    worth the extra open: without it every local image has zero area, and</span>
+<span class="sd">    :func:`quality_key` — hence ``strategy="best"`` — would have nothing to</span>
+<span class="sd">    prefer, quietly degrading "keep the biggest" into "keep whichever came first".</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+        <span class="k">with</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># missing / unreadable / undecodable -&gt; unknown size</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_result_for_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Present a file on disk as an :class:`ImageResult` so one grouper serves both.</span>
+
+<span class="sd">    ``url`` holds the path, which is what makes this work: the signature's</span>
+<span class="sd">    ``field="url"`` loader reads it and :func:`dedupe_paths` reads it back, so</span>
+<span class="sd">    the round trip needs no side table keyed by identity. ``id`` is the file</span>
+<span class="sd">    name — it is what a human reads in a printed group, and nothing keys off it.</span>
+<span class="sd">    """</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">_image_size</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
+        <span class="n">provider</span><span class="o">=</span><span class="s2">"local"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="group_duplicate_paths">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.group_duplicate_paths">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">group_duplicate_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">"str | Path"</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">signature</span><span class="p">:</span> <span class="s2">"Signature | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="s2">"float | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">quality</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">quality_key</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DuplicateGroup</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Partition image files on disk into groups of the same subject.</span>
+
+<span class="sd">    :func:`group_duplicates` for a folder rather than a search — "here are 200</span>
+<span class="sd">    stills, which of them are the same picture?". The motivating case is a</span>
+<span class="sd">    Ken Burns still pool assembled from several searches, where the same image</span>
+<span class="sd">    arrives twice under two provider ids and the film shows it twice.</span>
+
+<span class="sd">    The default ``signature`` is :func:`local_signature`, so **nothing is</span>
+<span class="sd">    fetched**: the strongest installed tier is wired to open the files directly.</span>
+<span class="sd">    That is a correctness property, not an optimisation — the generic path would</span>
+<span class="sd">    treat each ``url`` as an address and hand every image back as ``None``,</span>
+<span class="sd">    which grouping reads as "unembeddable", so a silently-networked default</span>
+<span class="sd">    would report *no duplicates at all* rather than failing.</span>
+
+<span class="sd">    Groups come back in first-appearance order, members best-first. Each member</span>
+<span class="sd">    is an :class:`ImageResult` whose ``url`` is the path it came from</span>
+<span class="sd">    (``Path(member.url)``); use :func:`dedupe_paths` if you only want the</span>
+<span class="sd">    survivors.</span>
+
+<span class="sd">    Two copies of one picture and one different picture:</span>
+
+<span class="sd">    &gt;&gt;&gt; import pathlib, tempfile</span>
+<span class="sd">    &gt;&gt;&gt; from PIL import Image</span>
+<span class="sd">    &gt;&gt;&gt; tmp = pathlib.Path(tempfile.mkdtemp())</span>
+<span class="sd">    &gt;&gt;&gt; stripes = Image.linear_gradient("L").convert("RGB")</span>
+<span class="sd">    &gt;&gt;&gt; rings = Image.radial_gradient("L").convert("RGB")</span>
+<span class="sd">    &gt;&gt;&gt; for name, image in [("a.png", stripes), ("a_copy.png", stripes),</span>
+<span class="sd">    ...                     ("b.png", rings)]:</span>
+<span class="sd">    ...     image.save(tmp / name)</span>
+<span class="sd">    &gt;&gt;&gt; paths = sorted(tmp.glob("*.png"))</span>
+
+<span class="sd">    Pinning the pHash tier keeps this example offline and torch-free; drop the</span>
+<span class="sd">    ``signature=`` argument to get the strongest tier you have installed.</span>
+
+<span class="sd">    &gt;&gt;&gt; groups = group_duplicate_paths(</span>
+<span class="sd">    ...     paths, signature=local_signature(phash_signature)</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; [sorted(pathlib.Path(m.url).name for m in g.members) for g in groups]</span>
+<span class="sd">    [['a.png', 'a_copy.png'], ['b.png']]</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">group_duplicates</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">_result_for_path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">],</span>
+        <span class="n">signature</span><span class="o">=</span><span class="n">signature</span> <span class="ow">or</span> <span class="n">local_signature</span><span class="p">(),</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+        <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="dedupe_paths">
+<a class="viewcode-back" href="../../module_docs/illustration/duplicates.html#illustration.dedupe_paths">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dedupe_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">"str | Path"</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">strategy</span><span class="p">:</span> <span class="s2">"str | Callable[[DuplicateGroup], list[ImageResult]]"</span> <span class="o">=</span> <span class="n">DFLT_STRATEGY</span><span class="p">,</span>
+    <span class="n">signature</span><span class="p">:</span> <span class="s2">"Signature | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="s2">"float | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">quality</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageResult</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">quality_key</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The paths in ``paths`` with same-subject duplicates collapsed, order kept.</span>
+
+<span class="sd">    :func:`dedupe` for a folder: same ``strategy`` vocabulary (``"best"``,</span>
+<span class="sd">    ``"all"``, ``"first"``, or a callable), same first-appearance ordering, and</span>
+<span class="sd">    the same no-fetch default as :func:`group_duplicate_paths`. ``"best"`` keeps</span>
+<span class="sd">    the largest reproduction of each subject, which for a pool of stills is the</span>
+<span class="sd">    one a pan-and-zoom render can actually use.</span>
+
+<span class="sd">    Returns :class:`~pathlib.Path` objects, not :class:`ImageResult` wrappers —</span>
+<span class="sd">    a caller who handed in paths wants paths back, and the wrapper carries no</span>
+<span class="sd">    information the file does not.</span>
+
+<span class="sd">    &gt;&gt;&gt; import pathlib, tempfile</span>
+<span class="sd">    &gt;&gt;&gt; from PIL import Image</span>
+<span class="sd">    &gt;&gt;&gt; tmp = pathlib.Path(tempfile.mkdtemp())</span>
+<span class="sd">    &gt;&gt;&gt; picture = Image.linear_gradient("L").convert("RGB")</span>
+<span class="sd">    &gt;&gt;&gt; picture.save(tmp / "small.png")</span>
+<span class="sd">    &gt;&gt;&gt; picture.resize((512, 512)).save(tmp / "big.png")  # same picture, rescaled</span>
+<span class="sd">    &gt;&gt;&gt; kept = dedupe_paths(</span>
+<span class="sd">    ...     sorted(tmp.glob("*.png")), signature=local_signature(phash_signature)</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; [p.name for p in kept]</span>
+<span class="sd">    ['big.png']</span>
+<span class="sd">    """</span>
+    <span class="n">kept</span> <span class="o">=</span> <span class="n">dedupe</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">_result_for_path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">],</span>
+        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span>
+        <span class="n">signature</span><span class="o">=</span><span class="n">signature</span> <span class="ow">or</span> <span class="n">local_signature</span><span class="p">(),</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+        <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">kept</span><span class="p">]</span></div>
 
 </pre></div>
 
