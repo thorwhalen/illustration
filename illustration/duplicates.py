@@ -28,16 +28,20 @@ signature             what it recognises                   cost
 :func:`phash_signature`   same raster only                  numpy + Pillow
 ===================== ==================================== ==================
 
-:func:`default_signature` picks the strongest one whose dependencies are
-actually installed, so the behaviour degrades rather than breaking. Only the
-first two are ``subject_level``; a caller that needs the real thing can check
-:attr:`Signature.subject_level` and say so rather than silently getting less.
+:func:`default_signature` picks the strongest *automatic* one whose dependencies
+are actually installed — DINOv2, else pHash — so the behaviour degrades rather
+than breaking. Only the first two are ``subject_level``; a caller that needs the
+real thing can check :attr:`Signature.subject_level` and say so rather than
+silently getting less. SigLIP is opt-in by name: it needs the same wheels as
+DINOv2 and is weaker here, so it is worth asking for only when the reranker has
+already paid for its embeddings — and it reads network URLs only.
 
 Self-supervised descriptors beat text-aligned ones here — DINOv2 is trained to
 be invariant to crop and perturbation and is consistently better at fine-grained
 instance retrieval than CLIP-family encoders, which are optimised to match
 *captions* and therefore pull "any portrait of a woman in period dress" close
-together. That is why DINOv2 is the preferred tier and SigLIP the fallback.
+together. That is why DINOv2 is the preferred tier and SigLIP only a fallback
+for a caller who already has its vectors.
 
 One similarity measure
 ----------------------
@@ -48,17 +52,31 @@ is an exact affine image of Hamming distance (``cos = 1 - 2·d/bits``). So one
 threshold semantic covers all three tiers, and each :class:`Signature` carries
 the threshold that is right for *it* rather than leaving the caller to guess.
 
+Search results or files on disk
+------------------------------
+
+The same question gets asked of a folder — "here are 200 stills, which of them
+are the same picture?" — so the path pair mirrors the result pair exactly, and
+the only difference is where the pixels are read from. That difference is a
+parameter, not a code path: :func:`local_signature` points the chosen tier's
+loader at the file instead of at a URL, so a local dedupe touches no network.
+
 Usage::
 
     from illustration.duplicates import dedupe, group_duplicates
+    from illustration.duplicates import dedupe_paths, group_duplicate_paths
 
     keep = dedupe(results)                  # best of each group, order preserved
     groups = group_duplicates(results)      # or inspect the grouping yourself
+
+    keep = dedupe_paths(folder.glob("*.jpg"))       # -> the surviving Paths
+    groups = group_duplicate_paths(folder.glob("*.jpg"))
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, Sequence
 
 from illustration.schema import ImageResult
@@ -69,10 +87,13 @@ __all__ = [
     "DuplicateGroup",
     "Signature",
     "dedupe",
+    "dedupe_paths",
     "default_signature",
     "shared_signature",
     "dinov2_signature",
     "group_duplicates",
+    "group_duplicate_paths",
+    "local_signature",
     "phash_signature",
     "quality_key",
     "siglip_signature",
@@ -222,6 +243,10 @@ def siglip_signature(model: "str | None" = None) -> Signature:
     than DINOv2 for this job: a caption-aligned space puts "portrait of a woman
     in eighteenth-century dress" close together whether or not it is the same
     woman, so the threshold is set higher to compensate.
+
+    Network-only: the embeddings come from the reranker's URL-keyed cache, so
+    unlike the other two tiers there is no ``fetch`` seam and this cannot read a
+    local file. That is why :func:`default_signature` never returns it.
     """
     from illustration.reranking import DFLT_RERANK_MODEL, SiglipScorer
 
@@ -293,15 +318,44 @@ def _importable(*modules: str) -> bool:
 def default_signature(**kwargs) -> Signature:
     """The strongest signature whose dependencies are installed.
 
-    DINOv2 -> SigLIP -> pHash. The last is always available, so this never
-    raises; check :attr:`Signature.subject_level` if you need to know whether
-    you actually got subject-level grouping or only raster matching.
+    DINOv2 when ``[dedupe]`` is installed, pHash otherwise. pHash is always
+    available, so this never raises; check :attr:`Signature.subject_level` if
+    you need to know whether you got subject-level grouping or only raster
+    matching. ``kwargs`` (``field``, ``fetch``) reach whichever tier is chosen,
+    so a caller can redirect *where the pixels come from* without knowing which
+    tier they got — see :func:`local_signature`.
+
+    :func:`siglip_signature` is deliberately not in this chain. It needs the
+    same torch wheels as DINOv2 and is weaker at this job, so it can only ever
+    be chosen for a reason this function cannot see (the reranker has already
+    paid for its embeddings). It also has no ``fetch`` seam — it reads network
+    URLs only — so auto-selecting it would silently put :func:`local_signature`
+    back on the network and drop the ``kwargs`` on the floor. Ask for it by name.
     """
     if _importable("torch", "transformers"):
         return dinov2_signature(**kwargs)
-    if _importable("torch", "transformers", "PIL"):  # pragma: no cover - same gate
-        return siglip_signature()
     return phash_signature(**kwargs)
+
+
+def local_signature(
+    tier: Callable[..., Signature] = default_signature, **kwargs
+) -> Signature:
+    """A signature that reads its pixels off the filesystem instead of the network.
+
+    The one seam the local-file entry points need. ``tier`` is the signature
+    factory to wire up — :func:`default_signature` (strongest installed),
+    or name one to pin it (``local_signature(phash_signature)`` for the
+    always-available raster tier, no model download).
+
+    Wiring rather than a new tier, because the *comparison* is identical for a
+    local file and a fetched one; only the byte source differs. That is already
+    a parameter — ``field="url"`` points the loader at the path we stored, and
+    ``fetch=local_image`` opens it — so there is no second code path to keep in
+    step, and no way for one image in a batch to be fetched over HTTP.
+    """
+    from illustration._imageio import local_image
+
+    return tier(field="url", fetch=local_image, **kwargs)
 
 
 #: Process-wide default, built once. The model weights and the closure's image
@@ -455,3 +509,136 @@ def dedupe(
     for group in groups:
         kept.extend(reduce(group))
     return kept
+
+
+# --------------------------------------------------------------------------- #
+# local files — the same question asked of a folder instead of a search
+# --------------------------------------------------------------------------- #
+
+
+def _image_size(path: Path) -> "tuple[int | None, int | None]":
+    """``(width, height)`` from the file header, or ``(None, None)``.
+
+    Pillow decodes lazily, so this reads the header and not the pixels. It is
+    worth the extra open: without it every local image has zero area, and
+    :func:`quality_key` — hence ``strategy="best"`` — would have nothing to
+    prefer, quietly degrading "keep the biggest" into "keep whichever came first".
+    """
+    try:
+        from PIL import Image
+
+        with Image.open(path) as image:
+            return image.size
+    except Exception:  # missing / unreadable / undecodable -> unknown size
+        return (None, None)
+
+
+def _result_for_path(path: Path) -> ImageResult:
+    """Present a file on disk as an :class:`ImageResult` so one grouper serves both.
+
+    ``url`` holds the path, which is what makes this work: the signature's
+    ``field="url"`` loader reads it and :func:`dedupe_paths` reads it back, so
+    the round trip needs no side table keyed by identity. ``id`` is the file
+    name — it is what a human reads in a printed group, and nothing keys off it.
+    """
+    width, height = _image_size(path)
+    return ImageResult(
+        provider="local", id=path.name, url=str(path), width=width, height=height
+    )
+
+
+def group_duplicate_paths(
+    paths: Iterable["str | Path"],
+    *,
+    signature: "Signature | None" = None,
+    threshold: "float | None" = None,
+    quality: Callable[[ImageResult], Any] = quality_key,
+) -> list[DuplicateGroup]:
+    """Partition image files on disk into groups of the same subject.
+
+    :func:`group_duplicates` for a folder rather than a search — "here are 200
+    stills, which of them are the same picture?". The motivating case is a
+    Ken Burns still pool assembled from several searches, where the same image
+    arrives twice under two provider ids and the film shows it twice.
+
+    The default ``signature`` is :func:`local_signature`, so **nothing is
+    fetched**: the strongest installed tier is wired to open the files directly.
+    That is a correctness property, not an optimisation — the generic path would
+    treat each ``url`` as an address and hand every image back as ``None``,
+    which grouping reads as "unembeddable", so a silently-networked default
+    would report *no duplicates at all* rather than failing.
+
+    Groups come back in first-appearance order, members best-first. Each member
+    is an :class:`ImageResult` whose ``url`` is the path it came from
+    (``Path(member.url)``); use :func:`dedupe_paths` if you only want the
+    survivors.
+
+    Two copies of one picture and one different picture:
+
+    >>> import pathlib, tempfile
+    >>> from PIL import Image
+    >>> tmp = pathlib.Path(tempfile.mkdtemp())
+    >>> stripes = Image.linear_gradient("L").convert("RGB")
+    >>> rings = Image.radial_gradient("L").convert("RGB")
+    >>> for name, image in [("a.png", stripes), ("a_copy.png", stripes),
+    ...                     ("b.png", rings)]:
+    ...     image.save(tmp / name)
+    >>> paths = sorted(tmp.glob("*.png"))
+
+    Pinning the pHash tier keeps this example offline and torch-free; drop the
+    ``signature=`` argument to get the strongest tier you have installed.
+
+    >>> groups = group_duplicate_paths(
+    ...     paths, signature=local_signature(phash_signature)
+    ... )
+    >>> [sorted(pathlib.Path(m.url).name for m in g.members) for g in groups]
+    [['a.png', 'a_copy.png'], ['b.png']]
+    """
+    return group_duplicates(
+        [_result_for_path(Path(p)) for p in paths],
+        signature=signature or local_signature(),
+        threshold=threshold,
+        quality=quality,
+    )
+
+
+def dedupe_paths(
+    paths: Iterable["str | Path"],
+    *,
+    strategy: "str | Callable[[DuplicateGroup], list[ImageResult]]" = DFLT_STRATEGY,
+    signature: "Signature | None" = None,
+    threshold: "float | None" = None,
+    quality: Callable[[ImageResult], Any] = quality_key,
+) -> list[Path]:
+    """The paths in ``paths`` with same-subject duplicates collapsed, order kept.
+
+    :func:`dedupe` for a folder: same ``strategy`` vocabulary (``"best"``,
+    ``"all"``, ``"first"``, or a callable), same first-appearance ordering, and
+    the same no-fetch default as :func:`group_duplicate_paths`. ``"best"`` keeps
+    the largest reproduction of each subject, which for a pool of stills is the
+    one a pan-and-zoom render can actually use.
+
+    Returns :class:`~pathlib.Path` objects, not :class:`ImageResult` wrappers —
+    a caller who handed in paths wants paths back, and the wrapper carries no
+    information the file does not.
+
+    >>> import pathlib, tempfile
+    >>> from PIL import Image
+    >>> tmp = pathlib.Path(tempfile.mkdtemp())
+    >>> picture = Image.linear_gradient("L").convert("RGB")
+    >>> picture.save(tmp / "small.png")
+    >>> picture.resize((512, 512)).save(tmp / "big.png")  # same picture, rescaled
+    >>> kept = dedupe_paths(
+    ...     sorted(tmp.glob("*.png")), signature=local_signature(phash_signature)
+    ... )
+    >>> [p.name for p in kept]
+    ['big.png']
+    """
+    kept = dedupe(
+        [_result_for_path(Path(p)) for p in paths],
+        strategy=strategy,
+        signature=signature or local_signature(),
+        threshold=threshold,
+        quality=quality,
+    )
+    return [Path(result.url) for result in kept]

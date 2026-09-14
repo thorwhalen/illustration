@@ -100,10 +100,29 @@ two engravings after one painting are one subject.** Measured on a real
 of the sitter, three portraits of her husband, and two near-identical genre
 paintings — while keeping her *sister* correctly separate.
 
-Three tiers, strongest first, chosen automatically by what is installed:
-`dinov2_signature` (`pip install 'illustration[dedupe]'`), `siglip_signature`
-(reuses the reranker's cached embeddings), `phash_signature` (always available,
-and honest about it — `Signature.subject_level` is `False`).
+Three tiers, strongest first: `dinov2_signature` (`pip install
+'illustration[dedupe]'`) and `phash_signature` (always available, and honest
+about it — `Signature.subject_level` is `False`) are chosen automatically by
+what is installed. `siglip_signature` is opt-in by name — it needs the same
+wheels as DINOv2 and is weaker here, so it is worth asking for only when a
+rerank has already paid for its embeddings.
+
+### Files on disk
+
+The same question gets asked of a folder — "here are 200 stills, which of them
+are the same picture?" — so there is a path-shaped pair of the above:
+
+```python
+illustration.dedupe_paths(folder.glob("*.jpg"))  # -> the surviving Paths
+illustration.group_duplicate_paths(folder.glob("*.jpg"))  # -> DuplicateGroups
+```
+
+Same `strategy=`/`quality=`/`threshold=` vocabulary, and `dedupe_paths` hands
+back `Path` objects rather than wrappers. Nothing is fetched: `local_signature`
+points the chosen tier's image loader at the file instead of at a URL, so a
+local pass touches no network at all. Pin the cheap tier with
+`signature=local_signature(illustration.phash_signature)` when you only want
+"same raster" and don't want the torch download.
 
 Telling subjects apart needs the pixels, so `search()` defaults to
 `dedupe="auto"`: it dedupes when the call already fetches images (i.e. when

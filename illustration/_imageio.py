@@ -14,6 +14,8 @@ illustration`` stays dependency-light; the heavy bits ride the optional
 >>> from illustration.schema import ImageResult
 >>> image_for_result(ImageResult(provider="p", id="1", url="")) is None
 True
+>>> local_image("/no/such/file.png") is None  # the on-disk path, same contract
+True
 """
 
 from __future__ import annotations
@@ -24,7 +26,13 @@ from typing import Any, Callable
 from illustration.config import HTTP_TIMEOUT, user_agent
 from illustration.schema import ImageResult
 
-__all__ = ["fetch_image", "fetch_image_bytes", "image_for_result", "DFLT_IMAGE_FIELD"]
+__all__ = [
+    "fetch_image",
+    "fetch_image_bytes",
+    "image_for_result",
+    "local_image",
+    "DFLT_IMAGE_FIELD",
+]
 
 #: Which result field to fetch by default — the thumbnail is smaller/faster than
 #: the full image and sufficient for both relevance scoring and CV pre-filters.
@@ -66,6 +74,27 @@ def fetch_image(
 
         return Image.open(io.BytesIO(data)).convert("RGB")
     except Exception:  # decode failure -> skip this candidate
+        return None
+
+
+def local_image(path):
+    """Open a file on disk as an RGB :class:`PIL.Image.Image`, or ``None``.
+
+    The on-disk twin of :func:`fetch_image`: same fail-soft contract, same
+    one-positional-argument shape. That shape is the point — it means a whole
+    pass can be redirected from the network to the filesystem by passing this as
+    the ``fetch=`` seam of :func:`memoized_image_loader` (which is exactly what
+    :func:`illustration.duplicates.local_signature` does), with no branch inside
+    the pass and no chance of a stray URL fetch slipping through.
+    """
+    if not path:
+        return None
+    try:
+        from PIL import Image
+
+        with Image.open(path) as image:
+            return image.convert("RGB")
+    except Exception:  # missing / unreadable / undecodable file -> skip
         return None
 
 
