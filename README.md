@@ -129,7 +129,7 @@ hope:
 
 ```python
 illustration.search("File:Alexander Hamilton.jpg", source="wikimedia")
-illustration.search("File:A.jpg|File:B.jpg", source="wikimedia")   # several
+illustration.search("File:A.jpg|File:B.jpg", source="wikimedia")  # several
 ```
 
 ## Sources (providers)
