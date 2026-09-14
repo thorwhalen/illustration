@@ -27,8 +27,8 @@ byte-streams, one picture. Use them all and the film looks like it ran out of
 pictures — which is exactly what shipped once.
 
 ```python
-keep = illustration.dedupe(hits)                  # best of each subject
-groups = illustration.group_duplicates(hits)      # or choose yourself
+keep = illustration.dedupe(hits)  # best of each subject
+groups = illustration.group_duplicates(hits)  # or choose yourself
 ```
 
 The perceptual-hash suppression in `select_sequence` does **not** cover this —

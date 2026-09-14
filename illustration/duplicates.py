@@ -93,9 +93,13 @@ DFLT_IMAGE_FIELD = "thumbnail_url"
 #: An unconditional licence is worth more than a conditional one, because the
 #: credit it avoids is a credit that cannot later be got wrong.
 _LICENCE_RANK = {
-    "pdm": 3, "cc0": 3, "public domain": 3,
-    "by": 2, "cc-by": 2,
-    "by-sa": 1, "cc-by-sa": 1,
+    "pdm": 3,
+    "cc0": 3,
+    "public domain": 3,
+    "by": 2,
+    "cc-by": 2,
+    "by-sa": 1,
+    "cc-by-sa": 1,
 }
 
 
@@ -142,6 +146,7 @@ class DuplicateGroup:
 # quality — which member of a group wins
 # --------------------------------------------------------------------------- #
 
+
 def quality_key(result: ImageResult) -> tuple:
     """Sort key for "best of the group", descending.
 
@@ -159,6 +164,7 @@ def quality_key(result: ImageResult) -> tuple:
 # --------------------------------------------------------------------------- #
 # signatures
 # --------------------------------------------------------------------------- #
+
 
 def _l2_normalize(vec):
     import numpy as np
@@ -321,6 +327,7 @@ def shared_signature() -> Signature:
 # grouping
 # --------------------------------------------------------------------------- #
 
+
 def _union_find(n: int):
     parent = list(range(n))
 
@@ -388,6 +395,7 @@ def group_duplicates(
 # --------------------------------------------------------------------------- #
 # strategies
 # --------------------------------------------------------------------------- #
+
 
 def _strategy_best(group: DuplicateGroup) -> list[ImageResult]:
     return [group.best]

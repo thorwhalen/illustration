@@ -185,8 +185,16 @@ def select_sequence(
             continue
 
         embs = list(embed_fn(cands))
-        hashes = [None] * len(cands) if signature is not None else [hash_fn(c) for c in cands]
-        sig_vecs = list(signature.embed(cands)) if signature is not None else [None] * len(cands)
+        hashes = (
+            [None] * len(cands)
+            if signature is not None
+            else [hash_fn(c) for c in cands]
+        )
+        sig_vecs = (
+            list(signature.embed(cands))
+            if signature is not None
+            else [None] * len(cands)
+        )
         prev_emb = chosen_embs[-1] if chosen_embs else None
 
         scored = []

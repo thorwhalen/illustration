@@ -85,9 +85,9 @@ ids, different bytes, different rasters; one picture, as far as a viewer is
 concerned. A film that uses four of them looks like it ran out of pictures.
 
 ```python
-illustration.dedupe(hits)                    # best of each subject, order kept
-illustration.dedupe(hits, strategy="all")    # group, but keep everything
-illustration.group_duplicates(hits)          # inspect the grouping yourself
+illustration.dedupe(hits)  # best of each subject, order kept
+illustration.dedupe(hits, strategy="all")  # group, but keep everything
+illustration.group_duplicates(hits)  # inspect the grouping yourself
 ```
 
 "Best" is the largest reproduction, then the most permissive licence, then the
