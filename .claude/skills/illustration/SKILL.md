@@ -47,6 +47,65 @@ name; `search("Category:Hamilton Grange National Memorial")` returns the house.
 — use it when you already know the file, because relevance ranking will not
 reliably surface a generic filename.
 
+**Read the title, not just the thumbnail.** A contact sheet tells you what a
+picture *looks like*; it does not tell you what it *is*. Six stills once passed
+a visual check and were still wrong: `Category:Crowds` returned Library of
+Congress **portraits of jazz musicians**, a Dresden apartment block sat under
+the words "tenement halls", a 1910 hotel was captioned as a record shop, and a
+1973 trade advertisement for an unrelated band passed as concert footage. Print
+`title` alongside every candidate you are about to use.
+
+**Queries should come from the research, not from the topic.** "Illustrate a
+1965 studio session" returns generic consoles. Knowing what the research turned
+up returns the trade advertisement for the album that flopped, the Rembrandt of
+the hand writing on the wall for a lyric's biblical reference, the period
+Times Square sign for the "neon god" line. The failure this prevents is not a
+*wrong* picture but a **bland** one, which no other gotcha here names.
+
+**Right-shaped but wrong-specific is a labelling decision, not a deletion.** A
+photograph of a real large concert in the right park that is *not the concert
+being discussed* is honest illustration the moment something names it on screen
+("The Beach Boys in Central Park, 1971 — not this concert"), and an implicit
+false claim the moment it is unlabelled. Carry `title` through so the renderer
+*can* label it.
+
+## Downloading the bytes — three traps
+
+`search()` returns metadata. Fetching the actual pixels is a separate job and
+every one of these cost a real film a rebuild.
+
+**Wikimedia throttles on User-Agent policy, not only on rate — and it looks
+exactly like a rate limit.** Measured back to back in one session on the same
+URLs:
+
+| User-Agent | result |
+|---|---|
+| `my-project/1.0 (private video; contact me on GitHub) httpx` | HTTP 429, `Retry-After: 10`, ~**2 successful requests per 100 s**, sustained, even serial with honest backoff |
+| `MyTool/1.0 (https://github.com/me/tool; me@example.com) python-httpx/0.27` | **200 immediately**, five for five, ~1 MB each, 0.5 s apart |
+
+[Wikimedia's UA policy](https://foundation.wikimedia.org/wiki/Policy:User-Agent_policy)
+wants a tool name, a URL and an email. "Contact me on GitHub" does not count.
+
+**Prefer the thumbnail service to the original.** Rewrite
+`.../thumb/x/xx/Name.jpg/330px-Name.jpg` to `1280px-` and you get a right-sized
+render of a few hundred KB instead of a 15 MB original you are about to
+downscale to 1920 anyway. `1600px-` returns HTTP 400 for many files; 1280 and
+1024 are reliable buckets.
+
+**Never cache on existence alone.** A throttled first pass falls back to the
+330 px thumbnail and writes it; every later run finds the file on disk and never
+retries. An entire film was built from 6× upscales before anyone checked a pixel
+dimension. Treat a cached file narrower than your frame needs as a *miss*:
+
+```python
+def cached(path, min_width=900):
+    try:
+        with Image.open(path) as im:
+            return im.width >= min_width
+    except Exception:
+        return False
+```
+
 ## Licence & attribution — read this before you ship anything
 
 You are handling **third-party media under varying licences**. Dropping the
@@ -55,7 +114,16 @@ everything you need on every hit; using it is your job.
 
 Every `ImageResult` carries: `license`, `license_url`, `attribution` (a
 ready-to-render sentence), `source_page_url`, `author`, `author_url`, and
-`cacheable`. That set is `illustration.RIGHTS_FIELDS` — use it when you need to
+`cacheable`.
+
+> ⚠️ **`attribution` is not always complete — compose the credit line yourself.**
+> For a minority of Wikimedia hits it comes back as the **bare author with no
+> licence named at all** ("EliziR", "Norman Bruderhofer"), while `license` and
+> `license_url` on the same hit are correct. Rendering `attribution` as
+> documented then ships "EliziR" as the *entire* credit for a CC BY-SA 3.0
+> image, which fails the one condition the licence imposes. Build the line from
+> `author` + `license` + `license_url`, and assert that every finished line
+> names a licence before it reaches a credits roll. Tracked as issue #22. That set is `illustration.RIGHTS_FIELDS` — use it when you need to
 copy the rights record onto your own model, and keep the field names, so nobody
 downstream needs a rename table. `persist_sequence` stores all seven on the
 lacing annotation, so a selection read back later can still be attributed.
