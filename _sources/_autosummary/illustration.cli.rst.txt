@@ -1,0 +1,22 @@
+illustration.cli
+================
+
+.. automodule:: illustration.cli
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      COMMANDS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      search
+      curate
+      curate_sequence
+      sources
+      info
+   

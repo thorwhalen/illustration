@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="cyan" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>illustration.inspection - illustration</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="illustration.licensing" href="illustration.licensing.html" /><link rel="prev" title="illustration.facade" href="illustration.facade.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="illustration.inspection"/>
+    <meta name="twitter:card" content="summary"/>
+  
+<link rel="alternate" type="text/markdown" href="illustration.inspection.html.md">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+</head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>illustration</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="illustration.html">illustration</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="illustration.base.html">illustration.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.caching.html">illustration.caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.cli.html">illustration.cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.config.html">illustration.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.credentials.html">illustration.credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.curation.html">illustration.curation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.duplicates.html">illustration.duplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.errors.html">illustration.errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.expansion.html">illustration.expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.facade.html">illustration.facade</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">illustration.inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.licensing.html">illustration.licensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.persistence.html">illustration.persistence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.providers.html">illustration.providers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.wikimedia.html">illustration.providers.wikimedia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.registry.html">illustration.registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.reranking.html">illustration.reranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.sequence.html">illustration.sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.translation.html">illustration.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.video.html">illustration.video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ai-agents.html">For AI agents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#illustration.inspection.CORE_CHECKS"><code class="docutils literal notranslate"><span class="pre">CORE_CHECKS</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.Check"><code class="docutils literal notranslate"><span class="pre">Check</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.CheckOutcome"><code class="docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.DEFAULT_CHECKS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_CHECKS</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.DFLT_CAPTION_MAX_TOKENS"><code class="docutils literal notranslate"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.Describe"><code class="docutils literal notranslate"><span class="pre">Describe</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.InspectReport"><code class="docutils literal notranslate"><span class="pre">InspectReport</span></code></a><ul>
+<li><a class="reference internal" href="#illustration.inspection.InspectReport.model_config"><code class="docutils literal notranslate"><span class="pre">InspectReport.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#illustration.inspection.PrefilterReport"><code class="docutils literal notranslate"><span class="pre">PrefilterReport</span></code></a><ul>
+<li><a class="reference internal" href="#illustration.inspection.PrefilterReport.model_config"><code class="docutils literal notranslate"><span class="pre">PrefilterReport.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#illustration.inspection.PrefilterResult"><code class="docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a><ul>
+<li><a class="reference internal" href="#illustration.inspection.PrefilterResult.dropped"><code class="docutils literal notranslate"><span class="pre">PrefilterResult.dropped</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#illustration.inspection.RubricScore"><code class="docutils literal notranslate"><span class="pre">RubricScore</span></code></a><ul>
+<li><a class="reference internal" href="#illustration.inspection.RubricScore.model_config"><code class="docutils literal notranslate"><span class="pre">RubricScore.model_config</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.RubricScore.recompute_overall"><code class="docutils literal notranslate"><span class="pre">RubricScore.recompute_overall()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#illustration.inspection.SafetyGateDisabledWarning"><code class="docutils literal notranslate"><span class="pre">SafetyGateDisabledWarning</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.aspect_ratio_check"><code class="docutils literal notranslate"><span class="pre">aspect_ratio_check()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.blur_check"><code class="docutils literal notranslate"><span class="pre">blur_check()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.brightness_check"><code class="docutils literal notranslate"><span class="pre">brightness_check()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.default_checks"><code class="docutils literal notranslate"><span class="pre">default_checks()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.inspect_candidate"><code class="docutils literal notranslate"><span class="pre">inspect_candidate()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.judge_candidate"><code class="docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.min_dimension_check"><code class="docutils literal notranslate"><span class="pre">min_dimension_check()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.nsfw_check"><code class="docutils literal notranslate"><span class="pre">nsfw_check()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.inspection.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../api.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="illustration.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">illustration.inspection</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <section id="module-illustration.inspection">
+<span id="illustration-inspection"></span><h1>illustration.inspection<a class="headerlink" href="#module-illustration.inspection" title="Link to this heading">#</a></h1>
+<p>Candidate inspection — classical-CV pre-filters + VLM caption/judge (R2 §2-3).</p>
+<p>Two cost tiers, cheapest first:</p>
+<ol class="arabic simple">
+<li><p><strong>Classical-CV pre-filters</strong> (R2 §3) — sub-10ms/image checks (aspect ratio,
+minimum size, brightness, blur, NSFW) that drop unusable candidates <em>before</em>
+any VLM token is spent. This is the single biggest cost lever in the loop.
+License-safe libraries only: Pillow (MIT-CMU) + NumPy for the core checks;
+the NSFW gate defaults to the Apache-2.0 <code class="docutils literal notranslate"><span class="pre">Falconsai/nsfw_image_detection</span></code>
+ViT (the torch stack the reranker already uses) and is fully injectable.</p></li>
+<li><p><strong>VLM inspect</strong> (R2 §2) — a cheap one-sentence caption for the <em>Correct</em> path,
+or a full pointwise rubric judgement for the <em>Ambiguous</em> path. Both go through
+the injectable <code class="docutils literal notranslate"><span class="pre">describe</span></code> seam, which defaults to <code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code>
+(lazy import). Judgements are <strong>pointwise</strong> (one image at a time) rather than
+pairwise, mitigating the position bias that plagues comparative VLM judges
+(R2 §4); use a judge model from a <em>different</em> family than any generator to
+cut self-preference bias.</p></li>
+</ol>
+<p>Every expensive step is an injectable seam, so the whole module is testable
+offline with stubs (synthetic PIL images for the CV checks, canned strings for
+<code class="docutils literal notranslate"><span class="pre">describe</span></code>) — no network, no paid API.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="c1"># offline: a metadata-only check needs no image fetch</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">aspect_ratio_check</span><span class="p">()(</span><span class="n">r</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="n">out</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">passed</span>
+</span><span data-line="6"><span class="go">('aspect_ratio', True)</span>
+</span></pre></div>
+</div>
+<p class="rubric">Module Attributes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.Check" title="illustration.inspection.Check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Check</span></code></a></p></td>
+<td><p>A check maps (result, get_image) -&gt; CheckOutcome.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.CORE_CHECKS" title="illustration.inspection.CORE_CHECKS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CORE_CHECKS</span></code></a></p></td>
+<td><p>Core checks — need only Pillow + NumPy (the <code class="docutils literal notranslate"><span class="pre">[curate]</span></code> extra), no model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.DEFAULT_CHECKS" title="illustration.inspection.DEFAULT_CHECKS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_CHECKS</span></code></a></p></td>
+<td><p>core CV + the NSFW gate.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.Describe" title="illustration.inspection.Describe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Describe</span></code></a></p></td>
+<td><p>A describe seam maps (image_ref, prompt) -&gt; text.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.DFLT_CAPTION_MAX_TOKENS" title="illustration.inspection.DFLT_CAPTION_MAX_TOKENS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></code></a></p></td>
+<td><p>Token caps for the default VLM seam — a soft cost bound on the paid path.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Functions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.prefilter" title="illustration.inspection.prefilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefilter</span></code></a>(results, *[, checks, field, fetch])</p></td>
+<td><p>Run <code class="docutils literal notranslate"><span class="pre">checks</span></code> over <code class="docutils literal notranslate"><span class="pre">results</span></code>, keeping only candidates that pass all.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.aspect_ratio_check" title="illustration.inspection.aspect_ratio_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aspect_ratio_check</span></code></a>(*[, min_ratio, max_ratio])</p></td>
+<td><p>Reject degenerate aspect ratios (extreme slivers/panoramas).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.min_dimension_check" title="illustration.inspection.min_dimension_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_dimension_check</span></code></a>(*[, min_width, min_height])</p></td>
+<td><p>Reject tiny images.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.brightness_check" title="illustration.inspection.brightness_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brightness_check</span></code></a>(*[, min_brightness, ...])</p></td>
+<td><p>Reject near-black / blown-out images.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.blur_check" title="illustration.inspection.blur_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blur_check</span></code></a>(*[, min_variance])</p></td>
+<td><p>Reject blurry images via variance of the Laplacian (R2 §3; OpenCV-free).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.nsfw_check" title="illustration.inspection.nsfw_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nsfw_check</span></code></a>(*[, max_prob, classifier])</p></td>
+<td><p>Hard-drop unsafe images (R2: NSFW is a non-negotiable drop).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.default_checks" title="illustration.inspection.default_checks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_checks</span></code></a>()</p></td>
+<td><p>The default check set, chosen by what's installed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.inspect_candidate" title="illustration.inspection.inspect_candidate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect_candidate</span></code></a>(query, result, *[, mode, ...])</p></td>
+<td><p>Inspect one candidate: a cheap caption (default) or a full rubric judge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.judge_candidate" title="illustration.inspection.judge_candidate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judge_candidate</span></code></a>(query, result, *[, ...])</p></td>
+<td><p>Score one candidate against <code class="docutils literal notranslate"><span class="pre">query</span></code> with a pointwise VLM rubric.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>(name, passed[, value, reason])</p></td>
+<td><p>The result of one check on one candidate.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.PrefilterReport" title="illustration.inspection.PrefilterReport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PrefilterReport</span></code></a>(**data)</p></td>
+<td><p>Per-candidate pre-filter verdict (the R2 PREFILTER stage record).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.PrefilterResult" title="illustration.inspection.PrefilterResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a>(passed, reports)</p></td>
+<td><p>The outcome of pre-filtering a candidate set.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspection.RubricScore" title="illustration.inspection.RubricScore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RubricScore</span></code></a>(**data)</p></td>
+<td><p>A pointwise VLM judgement of one candidate (R2 §4 rubric dimensions).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.InspectReport" title="illustration.inspection.InspectReport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InspectReport</span></code></a>(**data)</p></td>
+<td><p>A VLM inspection of one candidate (caption or judge mode; R2 INSPECT).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Exceptions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspection.SafetyGateDisabledWarning" title="illustration.inspection.SafetyGateDisabledWarning"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SafetyGateDisabledWarning</span></code></a></p></td>
+<td><p>Raised when the default pre-filter set runs without the NSFW safety gate.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.CORE_CHECKS">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">CORE_CHECKS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(&lt;function</span> <span class="pre">aspect_ratio_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">min_dimension_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">brightness_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">blur_check.&lt;locals&gt;.check&gt;)</span></span><a class="headerlink" href="#illustration.inspection.CORE_CHECKS" title="Link to this definition">#</a></dt>
+<dd><p>Core checks — need only Pillow + NumPy (the <code class="docutils literal notranslate"><span class="pre">[curate]</span></code> extra), no model.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.Check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">Check</span></span><a class="headerlink" href="#illustration.inspection.Check" title="Link to this definition">#</a></dt>
+<dd><p>A check maps (result, get_image) -&gt; CheckOutcome. <code class="docutils literal notranslate"><span class="pre">get_image</span></code> is a 0-arg
+thunk returning the candidate’s PIL image (cached) or <code class="docutils literal notranslate"><span class="pre">None</span></code> if unfetchable;
+metadata-only checks ignore it (so a metadata fail never triggers a fetch).</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable[[],</span> <span class="pre">Any]</span></code>], <a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.CheckOutcome">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">CheckOutcome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#CheckOutcome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.CheckOutcome" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The result of one check on one candidate.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.DEFAULT_CHECKS">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_CHECKS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(&lt;function</span> <span class="pre">aspect_ratio_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">min_dimension_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">brightness_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">blur_check.&lt;locals&gt;.check&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">nsfw_check.&lt;locals&gt;.check&gt;)</span></span><a class="headerlink" href="#illustration.inspection.DEFAULT_CHECKS" title="Link to this definition">#</a></dt>
+<dd><p>core CV + the NSFW gate. The NSFW check needs the
+classifier deps (<code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> extra); see <a class="reference internal" href="#illustration.inspection.default_checks" title="illustration.inspection.default_checks"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_checks()</span></code></a> for the
+dependency-aware default actually used when <code class="docutils literal notranslate"><span class="pre">checks</span></code> is omitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The recommended set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.DFLT_CAPTION_MAX_TOKENS">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></span><a class="headerlink" href="#illustration.inspection.DFLT_CAPTION_MAX_TOKENS" title="Link to this definition">#</a></dt>
+<dd><p>Token caps for the default VLM seam — a soft cost bound on the paid path. A
+one-sentence caption and a compact JSON rubric both need very few tokens.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.inspection.Describe">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">Describe</span></span><a class="headerlink" href="#illustration.inspection.Describe" title="Link to this definition">#</a></dt>
+<dd><p>A describe seam maps (image_ref, prompt) -&gt; text. <code class="docutils literal notranslate"><span class="pre">image_ref</span></code> is anything
+<code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code> accepts (URL / path / bytes / PIL / data URI).</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>], <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.InspectReport">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">InspectReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#InspectReport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.InspectReport" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>A VLM inspection of one candidate (caption or judge mode; R2 INSPECT).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.inspection.InspectReport.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.inspection.InspectReport.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<code class="code docutils literal notranslate"><span class="pre">ConfigDict</span></code>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterReport">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">PrefilterReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#PrefilterReport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.PrefilterReport" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Per-candidate pre-filter verdict (the R2 PREFILTER stage record).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterReport.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.inspection.PrefilterReport.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<code class="code docutils literal notranslate"><span class="pre">ConfigDict</span></code>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">PrefilterResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reports</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#PrefilterResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.PrefilterResult" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The outcome of pre-filtering a candidate set.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="illustration.inspection.PrefilterResult.dropped">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dropped</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#illustration.inspection.PrefilterReport" title="illustration.inspection.PrefilterReport"><span class="pre">PrefilterReport</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#illustration.inspection.PrefilterResult.dropped" title="Link to this definition">#</a></dt>
+<dd><p>Reports for the candidates that failed at least one check.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.inspection.RubricScore">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">RubricScore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#RubricScore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.RubricScore" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>A pointwise VLM judgement of one candidate (R2 §4 rubric dimensions).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.inspection.RubricScore.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#illustration.inspection.RubricScore.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<code class="code docutils literal notranslate"><span class="pre">ConfigDict</span></code>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="illustration.inspection.RubricScore.recompute_overall">
+<span class="sig-name descname"><span class="pre">recompute_overall</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#RubricScore.recompute_overall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.RubricScore.recompute_overall" title="Link to this definition">#</a></dt>
+<dd><p>Set <code class="docutils literal notranslate"><span class="pre">overall</span></code> to the mean of the six rubric dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#illustration.inspection.RubricScore" title="illustration.inspection.RubricScore"><code class="xref py py-class docutils literal notranslate"><span class="pre">RubricScore</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="illustration.inspection.SafetyGateDisabledWarning">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">SafetyGateDisabledWarning</span></span><a class="reference internal" href="../_modules/illustration/inspection.html#SafetyGateDisabledWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.SafetyGateDisabledWarning" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#UserWarning" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserWarning</span></code></a></p>
+<p>Raised when the default pre-filter set runs without the NSFW safety gate.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.aspect_ratio_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">aspect_ratio_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#aspect_ratio_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.aspect_ratio_check" title="Link to this definition">#</a></dt>
+<dd><p>Reject degenerate aspect ratios (extreme slivers/panoramas). Metadata-only.</p>
+<p>Uses the result’s <code class="docutils literal notranslate"><span class="pre">width</span></code>/<code class="docutils literal notranslate"><span class="pre">height</span></code>; passes when either is missing (can’t
+assess). <code class="docutils literal notranslate"><span class="pre">ratio</span> <span class="pre">=</span> <span class="pre">width</span> <span class="pre">/</span> <span class="pre">height</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]], <a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.blur_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">blur_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_variance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#blur_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.blur_check" title="Link to this definition">#</a></dt>
+<dd><p>Reject blurry images via variance of the Laplacian (R2 §3; OpenCV-free).</p>
+<p>The 3x3 Laplacian is applied with NumPy (no OpenCV) on the grayscale image;
+a low response variance means few sharp edges, i.e. blur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]], <a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.brightness_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">brightness_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_brightness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_brightness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#brightness_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.brightness_check" title="Link to this definition">#</a></dt>
+<dd><p>Reject near-black / blown-out images. Mean luminance, normalized to [0, 1].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]], <a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.default_checks">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">default_checks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#default_checks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.default_checks" title="Link to this definition">#</a></dt>
+<dd><p>The default check set, chosen by what’s installed.</p>
+<p>Returns <a class="reference internal" href="#illustration.inspection.DEFAULT_CHECKS" title="illustration.inspection.DEFAULT_CHECKS"><code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_CHECKS</span></code></a> (core + NSFW) when the NSFW classifier deps
+are importable, else <a class="reference internal" href="#illustration.inspection.CORE_CHECKS" title="illustration.inspection.CORE_CHECKS"><code class="xref py py-data docutils literal notranslate"><span class="pre">CORE_CHECKS</span></code></a> — and **emits a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">SafetyGateDisabledWarning`**</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">absence</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">safety</span> <span class="pre">screen</span> <span class="pre">is</span>
+<span class="pre">never</span> <span class="pre">silent</span> <span class="pre">(install</span> <span class="pre">``illustration[rerank]`</span></code> to enable it). Passing
+<code class="docutils literal notranslate"><span class="pre">checks=</span></code> to <a class="reference internal" href="#illustration.inspection.prefilter" title="illustration.inspection.prefilter"><code class="xref py py-func docutils literal notranslate"><span class="pre">prefilter()</span></code></a> explicitly always overrides this.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.inspect_candidate">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">inspect_candidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'caption'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">describe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_tokens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#inspect_candidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.inspect_candidate" title="Link to this definition">#</a></dt>
+<dd><p>Inspect one candidate: a cheap caption (default) or a full rubric judge.</p>
+<p><code class="docutils literal notranslate"><span class="pre">mode=&quot;caption&quot;</span></code> (the <em>Correct</em>-grade path) produces a one-sentence
+caption from the thumbnail; <code class="docutils literal notranslate"><span class="pre">mode=&quot;judge&quot;</span></code> (the <em>Ambiguous</em> path) delegates
+to <a class="reference internal" href="#illustration.inspection.judge_candidate" title="illustration.inspection.judge_candidate"><code class="xref py py-func docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a>. <code class="docutils literal notranslate"><span class="pre">describe</span></code> defaults to a lazy
+<code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code> bound to <code class="docutils literal notranslate"><span class="pre">model</span></code> and capped at
+<code class="docutils literal notranslate"><span class="pre">max_tokens</span></code> (default <a class="reference internal" href="#illustration.inspection.DFLT_CAPTION_MAX_TOKENS" title="illustration.inspection.DFLT_CAPTION_MAX_TOKENS"><code class="xref py py-data docutils literal notranslate"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#illustration.inspection.InspectReport" title="illustration.inspection.InspectReport"><code class="xref py py-class docutils literal notranslate"><span class="pre">InspectReport</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.judge_candidate">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">judge_candidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">describe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_tokens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#judge_candidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.judge_candidate" title="Link to this definition">#</a></dt>
+<dd><p>Score one candidate against <code class="docutils literal notranslate"><span class="pre">query</span></code> with a pointwise VLM rubric.</p>
+<p>Uses the full-resolution image for accuracy. <code class="docutils literal notranslate"><span class="pre">describe</span></code> defaults to a lazy
+<code class="xref py py-func docutils literal notranslate"><span class="pre">aix.describe_image()</span></code> capped at <code class="docutils literal notranslate"><span class="pre">max_tokens</span></code> (default
+<code class="xref py py-data docutils literal notranslate"><span class="pre">DFLT_JUDGE_MAX_TOKENS</span></code>). The reply is parsed into a
+<a class="reference internal" href="#illustration.inspection.RubricScore" title="illustration.inspection.RubricScore"><code class="xref py py-class docutils literal notranslate"><span class="pre">RubricScore</span></code></a> (<code class="docutils literal notranslate"><span class="pre">overall</span></code> = mean of the six dimensions); an
+unparseable reply yields a neutral score flagged <code class="docutils literal notranslate"><span class="pre">parsed=False</span></code> so the loop
+can treat it as ambiguous rather than wrongly accept or reject.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#illustration.inspection.InspectReport" title="illustration.inspection.InspectReport"><code class="xref py py-class docutils literal notranslate"><span class="pre">InspectReport</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.min_dimension_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">min_dimension_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#min_dimension_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.min_dimension_check" title="Link to this definition">#</a></dt>
+<dd><p>Reject tiny images. Metadata-only (passes when dimensions are unknown).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]], <a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.nsfw_check">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">nsfw_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#nsfw_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.nsfw_check" title="Link to this definition">#</a></dt>
+<dd><p>Hard-drop unsafe images (R2: NSFW is a non-negotiable drop).</p>
+<p><code class="docutils literal notranslate"><span class="pre">classifier</span></code> is <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">-&gt;</span> <span class="pre">nsfw_probability</span></code>; it defaults to the
+Apache-2.0 <code class="docutils literal notranslate"><span class="pre">Falconsai/nsfw_image_detection</span></code> ViT (torch/transformers — the
+<code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> extra). Fails <strong>closed</strong>: a candidate whose image can’t be
+fetched or classified is dropped, never passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]], <a class="reference internal" href="#illustration.inspection.CheckOutcome" title="illustration.inspection.CheckOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.inspection.prefilter">
+<span class="sig-prename descclassname"><span class="pre">illustration.inspection.</span></span><span class="sig-name descname"><span class="pre">prefilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">checks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'thumbnail_url'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/inspection.html#prefilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.inspection.prefilter" title="Link to this definition">#</a></dt>
+<dd><p>Run <code class="docutils literal notranslate"><span class="pre">checks</span></code> over <code class="docutils literal notranslate"><span class="pre">results</span></code>, keeping only candidates that pass all.</p>
+<p>Checks run cheapest-first and <strong>short-circuit</strong> on the first failure, so a
+candidate dropped on its (free) metadata never triggers an image fetch.
+Images are fetched at most once per URL (in-memory, for this call only);
+<code class="docutils literal notranslate"><span class="pre">fetch</span></code> overrides the fetch function (a test double avoids the network).
+<code class="docutils literal notranslate"><span class="pre">checks</span></code> defaults to <a class="reference internal" href="#illustration.inspection.default_checks" title="illustration.inspection.default_checks"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_checks()</span></code></a> (core CV + NSFW where its deps
+are available).</p>
+<p>Returns a <a class="reference internal" href="#illustration.inspection.PrefilterResult" title="illustration.inspection.PrefilterResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a> with the surviving <code class="docutils literal notranslate"><span class="pre">passed</span></code> results and
+a <a class="reference internal" href="#illustration.inspection.PrefilterReport" title="illustration.inspection.PrefilterReport"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefilterReport</span></code></a> per input candidate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#illustration.inspection.PrefilterResult" title="illustration.inspection.PrefilterResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="illustration.facade.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">illustration.facade</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="illustration.licensing.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">illustration.licensing</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=fd10adb8"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script></body>
+</html>

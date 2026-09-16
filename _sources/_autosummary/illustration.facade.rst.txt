@@ -1,0 +1,12 @@
+illustration.facade
+===================
+
+.. automodule:: illustration.facade
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      search
+   

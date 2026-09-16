@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="cyan" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>illustration.base - illustration</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="illustration.caching" href="illustration.caching.html" /><link rel="prev" title="illustration" href="illustration.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="illustration.base"/>
+    <meta name="twitter:card" content="summary"/>
+  
+<link rel="alternate" type="text/markdown" href="illustration.base.html.md">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+</head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>illustration</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="illustration.html">illustration</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">illustration.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.caching.html">illustration.caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.cli.html">illustration.cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.config.html">illustration.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.credentials.html">illustration.credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.curation.html">illustration.curation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.duplicates.html">illustration.duplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.errors.html">illustration.errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.expansion.html">illustration.expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.facade.html">illustration.facade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.inspection.html">illustration.inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.licensing.html">illustration.licensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.persistence.html">illustration.persistence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.providers.html">illustration.providers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.wikimedia.html">illustration.providers.wikimedia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.registry.html">illustration.registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.reranking.html">illustration.reranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.sequence.html">illustration.sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.translation.html">illustration.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.video.html">illustration.video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ai-agents.html">For AI agents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource"><code class="docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a><ul>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.endpoint"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.endpoint</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.fixed_params"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.fixed_params</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.info"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.info</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.max_per_page"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.max_per_page</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.min_per_page"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.min_per_page</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.name"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.name</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.page_param"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.page_param</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.param_map"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.param_map</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.per_page_param"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.per_page_param</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.query_param"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.query_param</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.raw_search"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.raw_search()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.base.RetrievalSource.search"><code class="docutils literal notranslate"><span class="pre">RetrievalSource.search()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#illustration.base.SourceInfo"><code class="docutils literal notranslate"><span class="pre">SourceInfo</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../api.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="illustration.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">illustration.base</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <section id="module-illustration.base">
+<span id="illustration-base"></span><h1>illustration.base<a class="headerlink" href="#module-illustration.base" title="Link to this heading">#</a></h1>
+<p>The provider plugin contract: <a class="reference internal" href="#illustration.base.RetrievalSource" title="illustration.base.RetrievalSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a>.</p>
+<p>Each image-search provider is a small subclass implementing a few hooks; the
+base class supplies the uniform behaviour (canonical→native translation,
+pagination to satisfy <code class="docutils literal notranslate"><span class="pre">n</span></code>, HTTP with a descriptive User-Agent, credential
+checking, per-item normalization that never lets one bad item fail the search).
+Adding a provider touches only a new subclass + one registration — never the
+façade (open-closed).</p>
+<p>A subclass declares class attributes (<code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">endpoint</span></code>, <code class="docutils literal notranslate"><span class="pre">query_param</span></code>,
+<code class="docutils literal notranslate"><span class="pre">page_param</span></code>, <code class="docutils literal notranslate"><span class="pre">per_page_param</span></code>, <code class="docutils literal notranslate"><span class="pre">max_per_page</span></code>, <code class="docutils literal notranslate"><span class="pre">min_per_page</span></code>,
+<code class="docutils literal notranslate"><span class="pre">param_map</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>)
+and implements three hooks: <code class="xref py py-meth docutils literal notranslate"><span class="pre">_items()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">_normalize()</span></code>, and
+(if the provider needs a key) <code class="xref py py-meth docutils literal notranslate"><span class="pre">_auth_headers()</span></code>.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">illustration/providers/openverse.py</span></code> for the canonical example.</p>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.base.RetrievalSource" title="illustration.base.RetrievalSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a>(*[, session])</p></td>
+<td><p>Abstract base for a pure image-search provider.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SourceInfo</span></code></a>(name[, description, ...])</p></td>
+<td><p>Static, human-facing metadata about a source (for discovery + the gate).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.base.</span></span><span class="sig-name descname"><span class="pre">RetrievalSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/base.html#RetrievalSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.base.RetrievalSource" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>Abstract base for a pure image-search provider.</p>
+<p>Subclasses set the class attributes below and implement <code class="xref py py-meth docutils literal notranslate"><span class="pre">_items()</span></code> and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_normalize()</span></code> (and <code class="xref py py-meth docutils literal notranslate"><span class="pre">_auth_headers()</span></code> if the provider needs a key).
+<a class="reference internal" href="#illustration.base.RetrievalSource.search" title="illustration.base.RetrievalSource.search"><code class="xref py py-meth docutils literal notranslate"><span class="pre">search()</span></code></a> and <a class="reference internal" href="#illustration.base.RetrievalSource.raw_search" title="illustration.base.RetrievalSource.raw_search"><code class="xref py py-meth docutils literal notranslate"><span class="pre">raw_search()</span></code></a> are **template methods — do not
+override them**: they enforce credential checks, canonical→native
+translation, pagination (capped by <code class="docutils literal notranslate"><span class="pre">MAX_PAGES</span></code>), and per-item normalization
+that skips rather than fails on a malformed item. Override a hook, not the
+template, so a provider can never silently lose those guarantees.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.endpoint">
+<span class="sig-name descname"><span class="pre">endpoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.endpoint" title="Link to this definition">#</a></dt>
+<dd><p>Search endpoint URL. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.fixed_params">
+<span class="sig-name descname"><span class="pre">fixed_params</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({})</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.fixed_params" title="Link to this definition">#</a></dt>
+<dd><p>Constant native params sent on every request (e.g. an API mode/format).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><span class="pre">SourceInfo</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SourceInfo(name='',</span> <span class="pre">description='',</span> <span class="pre">requires_key=False,</span> <span class="pre">homepage=None,</span> <span class="pre">default_cacheable=True,</span> <span class="pre">license_note='',</span> <span class="pre">rate_limit='',</span> <span class="pre">tags=())</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.info" title="Link to this definition">#</a></dt>
+<dd><p>Static metadata (a per-instance one is synthesized in __init__ if unset).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.max_per_page">
+<span class="sig-name descname"><span class="pre">max_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.max_per_page" title="Link to this definition">#</a></dt>
+<dd><p>Hard cap on results per page this provider allows.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.min_per_page">
+<span class="sig-name descname"><span class="pre">min_per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.min_per_page" title="Link to this definition">#</a></dt>
+<dd><p>Floor on results per page this provider allows. Default 1 (no floor);
+raise it for a provider that <em>rejects</em> a small page (Pixabay’s documented
+minimum is 3), so <code class="docutils literal notranslate"><span class="pre">search(q,</span> <span class="pre">n=1)</span></code> asks for a page the API accepts and
+the extra rows are trimmed by the <code class="docutils literal notranslate"><span class="pre">n</span></code> slice rather than 400-ing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.name" title="Link to this definition">#</a></dt>
+<dd><p>Registry key, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;openverse&quot;</span></code>. Required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.page_param">
+<span class="sig-name descname"><span class="pre">page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.page_param" title="Link to this definition">#</a></dt>
+<dd><p>Native name of the page-number parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.param_map">
+<span class="sig-name descname"><span class="pre">param_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({})</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.param_map" title="Link to this definition">#</a></dt>
+<dd><p>Canonical→native parameter spec (see <a class="reference internal" href="illustration.translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">illustration.translation</span></code></a>).
+Immutable empty default so subclasses never share one mutable dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.per_page_param">
+<span class="sig-name descname"><span class="pre">per_page_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page_size'</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.per_page_param" title="Link to this definition">#</a></dt>
+<dd><p>Native name of the results-per-page parameter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.query_param">
+<span class="sig-name descname"><span class="pre">query_param</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'q'</span></span><a class="headerlink" href="#illustration.base.RetrievalSource.query_param" title="Link to this definition">#</a></dt>
+<dd><p>Native name of the free-text query parameter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.raw_search">
+<span class="sig-name descname"><span class="pre">raw_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">native_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/base.html#RetrievalSource.raw_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.base.RetrievalSource.raw_search" title="Link to this definition">#</a></dt>
+<dd><p>Hit the endpoint with zero translation — the deepest escape hatch.</p>
+<p><code class="docutils literal notranslate"><span class="pre">native_params</span></code> are passed through verbatim as the provider’s own
+query parameters; the raw decoded JSON response is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="illustration.base.RetrievalSource.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">native_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">canonical</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/base.html#RetrievalSource.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.base.RetrievalSource.search" title="Link to this definition">#</a></dt>
+<dd><p>Search <code class="docutils literal notranslate"><span class="pre">query</span></code> and return up to <code class="docutils literal notranslate"><span class="pre">n</span></code> normalized <code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">canonical</span></code> are façade-canonical filters (see the façade <code class="docutils literal notranslate"><span class="pre">search</span></code> and
+the design doc §2); each is translated to the provider’s native param via
+<code class="docutils literal notranslate"><span class="pre">param_map</span></code>, degrading gracefully where unsupported. <code class="docutils literal notranslate"><span class="pre">native_params</span></code>
+are raw provider-native params (the escape hatch) merged last, overriding
+translated ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="illustration.base.SourceInfo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">illustration.base.</span></span><span class="sig-name descname"><span class="pre">SourceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">homepage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_cacheable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license_note</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/base.html#SourceInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.base.SourceInfo" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Static, human-facing metadata about a source (for discovery + the gate).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="illustration.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">illustration</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="illustration.caching.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">illustration.caching</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=fd10adb8"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script></body>
+</html>

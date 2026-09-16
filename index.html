@@ -1,468 +1,646 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html lang="en" data-accent-color="cyan" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to illustration’s documentation! &mdash; illustration 0.0.9 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>illustration</title><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API reference" href="api.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="illustration"/>
+    <meta name="twitter:card" content="summary"/>
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=f7cdbf68"></script>
+<link rel="alternate" type="text/markdown" href="index.html.md">
+<link rel="describedby" href="llms.txt" type="text/markdown">
+</head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="#">
+      
+      
+      <strong>illustration</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/illustration.html">illustration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.base.html">illustration.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.caching.html">illustration.caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.cli.html">illustration.cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.config.html">illustration.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.credentials.html">illustration.credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.curation.html">illustration.curation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.duplicates.html">illustration.duplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.errors.html">illustration.errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.expansion.html">illustration.expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.facade.html">illustration.facade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.inspection.html">illustration.inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.licensing.html">illustration.licensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.persistence.html">illustration.persistence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.providers.html">illustration.providers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/illustration.providers.openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/illustration.providers.pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/illustration.providers.pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/illustration.providers.wikimedia.html">illustration.providers.wikimedia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.registry.html">illustration.registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.reranking.html">illustration.reranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.sequence.html">illustration.sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.translation.html">illustration.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.video.html">illustration.video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ai-agents.html">For AI agents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#what-it-is">What it is</a></li>
+<li><a class="reference internal" href="#install">Install</a></li>
+<li><a class="reference internal" href="#the-result-schema">The result schema</a></li>
+<li><a class="reference internal" href="#same-subject-duplicates">Same-subject duplicates</a><ul>
+<li><a class="reference internal" href="#files-on-disk">Files on disk</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#browsing-a-wikimedia-category">Browsing a Wikimedia category</a></li>
+<li><a class="reference internal" href="#sources-providers">Sources (providers)</a><ul>
+<li><a class="reference internal" href="#keys">Keys</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#caching">Caching</a></li>
+<li><a class="reference internal" href="#rerank-precision">Rerank (precision)</a></li>
+<li><a class="reference internal" href="#curate-agentic-the-bounded-crag-loop">Curate (agentic, the bounded CRAG loop)</a></li>
+<li><a class="reference internal" href="#sequence-storyboard-selection">Sequence (storyboard selection)</a></li>
+<li><a class="reference internal" href="#persist-render-ecosystem-hooks">Persist &amp; render (ecosystem hooks)</a></li>
+<li><a class="reference internal" href="#the-escape-hatch">The escape hatch</a></li>
+<li><a class="reference internal" href="#adding-a-provider">Adding a provider</a></li>
+<li><a class="reference internal" href="#licensing">Licensing</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="#"><span itemprop="name">illustration</span></a>
+        <meta itemprop="position" content="1" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <!-- generated by epythet -->
+<section id="illustration">
+<h1>illustration<a class="headerlink" href="#illustration" title="Link to this heading">#</a></h1>
+<p>Find <strong>existing</strong> images to illustrate narrated video — cross-modal
+text-to-image retrieval (semantic image search) over stock / open-media corpora.
+Not an image <em>generator</em>: given narration text, it <em>retrieves</em> fitting images.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">illustration</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="c1"># No API key needed — Openverse is the default source.</span>
+</span><span data-line="4"><span class="n">hits</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"a stormy harbour at dusk"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="n">hit</span> <span class="o">=</span> <span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="7"><span class="n">hit</span><span class="o">.</span><span class="n">url</span>  <span class="c1"># full-resolution image URL</span>
+</span><span data-line="8"><span class="n">hit</span><span class="o">.</span><span class="n">license</span>  <span class="c1"># e.g. 'by-sa'  (license carried through from day one)</span>
+</span><span data-line="9"><span class="n">hit</span><span class="o">.</span><span class="n">attribution</span>  <span class="c1"># ready-to-render attribution sentence</span>
+</span><span data-line="10"><span class="n">hit</span><span class="o">.</span><span class="n">cacheable</span>  <span class="c1"># may you download/cache the bytes?</span>
+</span></pre></div>
+</div>
+<p>From the shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">illustration<span class="w"> </span>search<span class="w"> </span><span class="s2">"a stormy harbour at dusk"</span><span class="w"> </span>--n<span class="w"> </span><span class="m">10</span>
+</span><span data-line="2">illustration<span class="w"> </span>search<span class="w"> </span><span class="s2">"rusty bicycle"</span><span class="w"> </span>--source<span class="w"> </span>openverse<span class="w"> </span>--size<span class="w"> </span>large<span class="w"> </span>--json
+</span><span data-line="3">illustration<span class="w"> </span>sources
+</span><span data-line="4">illustration<span class="w"> </span>info<span class="w"> </span>openverse
+</span></pre></div>
+</div>
+<p>That’s the whole common case. Everything below is optional depth.</p>
+<hr class="docutils" />
+<section id="what-it-is">
+<h2>What it is<a class="headerlink" href="#what-it-is" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">illustration</span></code> has two layers:</p>
+<ol class="arabic simple">
+<li><p><strong>The provider façade</strong> — one unified <code class="docutils literal notranslate"><span class="pre">search()</span></code> over many heterogeneous
+image-search backends (Openverse, Pexels, …), normalizing every result into
+one schema with license/attribution/cacheability first-class.</p></li>
+<li><p><strong>An agentic curation layer</strong> — query expansion, multi-provider search,
+classical-CV + vision-LM inspection, reranking, a bounded corrective loop that
+returns one vetted image per beat (<code class="docutils literal notranslate"><span class="pre">illustration.curate</span></code>), and <strong>sequence-level
+selection</strong> across a whole storyboard with cross-shot coherence + near-duplicate
+suppression (<code class="docutils literal notranslate"><span class="pre">illustration.curate_sequence</span></code>). Built on the <code class="docutils literal notranslate"><span class="pre">aix</span></code> AI façade and
+<code class="docutils literal notranslate"><span class="pre">ir</span></code> retrieval substrate; the narrated-video and persistence hooks reuse the
+<code class="docutils literal notranslate"><span class="pre">burns</span></code> / <code class="docutils literal notranslate"><span class="pre">walkthru</span></code> / <code class="docutils literal notranslate"><span class="pre">lacing</span></code> ecosystem packages rather than reinventing them.</p></li>
+</ol>
+<p>The design — provider comparison, canonical parameter mapping, escape-hatch
+design, result schema, and roadmap — is in
+<a class="reference internal" href="#misc/docs/design/illustration_design.md"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">misc/docs/design/illustration_design.md</span></code></span></a>.
+AI agents: <a class="reference internal" href="#.claude/skills/illustration/SKILL.md"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">.claude/skills/illustration/SKILL.md</span></code></span></a>
+is the condensed usage guide (including the licence/attribution obligations);
+<a class="reference internal" href="#CLAUDE.md"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">CLAUDE.md</span></code></span></a> is the contributor’s map of the package.</p>
+</section>
+<section id="install">
+<h2>Install<a class="headerlink" href="#install" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">pip<span class="w"> </span>install<span class="w"> </span>illustration
+</span></pre></div>
+</div>
+<p>Local-ecosystem dependencies (<code class="docutils literal notranslate"><span class="pre">dol</span></code>, <code class="docutils literal notranslate"><span class="pre">config2py</span></code>) are developed alongside this
+package; in the dev environment they resolve to local source.</p>
+</section>
+<section id="the-result-schema">
+<h2>The result schema<a class="headerlink" href="#the-result-schema" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">search()</span></code> returns a list of <code class="docutils literal notranslate"><span class="pre">ImageResult</span></code> (Pydantic v2 — the single source of
+truth shared with the agentic layer):</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>field</p></th>
+<th class="head"><p>meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">provider</span></code>, <code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p>which source, and its native id</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">url</span></code>, <code class="docutils literal notranslate"><span class="pre">thumbnail_url</span></code></p></td>
+<td><p>full-resolution image, and a thumbnail</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">height</span></code></p></td>
+<td><p>pixel dimensions</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>, <code class="docutils literal notranslate"><span class="pre">tags</span></code></p></td>
+<td><p>text metadata (normalized)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">license</span></code>, <code class="docutils literal notranslate"><span class="pre">license_url</span></code>, <code class="docutils literal notranslate"><span class="pre">attribution</span></code></p></td>
+<td><p><strong>licensing, populated from day one</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_page_url</span></code>, <code class="docutils literal notranslate"><span class="pre">author</span></code>, <code class="docutils literal notranslate"><span class="pre">author_url</span></code></p></td>
+<td><p>provenance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cacheable</span></code></p></td>
+<td><p>may the bytes be downloaded/cached to your server?</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">raw</span></code></p></td>
+<td><p>the untranslated provider payload (nothing is lost)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="same-subject-duplicates">
+<h2>Same-subject duplicates<a class="headerlink" href="#same-subject-duplicates" title="Link to this heading">#</a></h2>
+<p>A search for one person returns several <em>reproductions of the same portrait</em> —
+a painting, engravings after it, a library’s re-scan of an engraving. Different
+ids, different bytes, different rasters; one picture, as far as a viewer is
+concerned. A film that uses four of them looks like it ran out of pictures.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">illustration</span><span class="o">.</span><span class="n">dedupe</span><span class="p">(</span><span class="n">hits</span><span class="p">)</span>  <span class="c1"># best of each subject, order kept</span>
+</span><span data-line="2"><span class="n">illustration</span><span class="o">.</span><span class="n">dedupe</span><span class="p">(</span><span class="n">hits</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">"all"</span><span class="p">)</span>  <span class="c1"># group, but keep everything</span>
+</span><span data-line="3"><span class="n">illustration</span><span class="o">.</span><span class="n">group_duplicates</span><span class="p">(</span><span class="n">hits</span><span class="p">)</span>  <span class="c1"># inspect the grouping yourself</span>
+</span></pre></div>
+</div>
+<p>“Best” is the largest reproduction, then the most permissive licence, then the
+one with a recorded author — all replaceable via <code class="docutils literal notranslate"><span class="pre">quality=</span></code>.</p>
+<p>This is a different question from the near-duplicate suppression in <code class="docutils literal notranslate"><span class="pre">sequence</span></code>,
+which uses a perceptual hash. <strong>pHash finds the same raster; it cannot tell that
+two engravings after one painting are one subject.</strong> Measured on a real
+43-image set, pHash found 1 duplicate pair and DINOv2 found all four engravings
+of the sitter, three portraits of her husband, and two near-identical genre
+paintings — while keeping her <em>sister</em> correctly separate.</p>
+<p>Three tiers, strongest first: <code class="docutils literal notranslate"><span class="pre">dinov2_signature</span></code> (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'illustration[dedupe]'</span></code>) and <code class="docutils literal notranslate"><span class="pre">phash_signature</span></code> (always available, and honest
+about it — <code class="docutils literal notranslate"><span class="pre">Signature.subject_level</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>) are chosen automatically by
+what is installed. <code class="docutils literal notranslate"><span class="pre">siglip_signature</span></code> is opt-in by name — it needs the same
+wheels as DINOv2 and is weaker here, so it is worth asking for only when a
+rerank has already paid for its embeddings.</p>
+<section id="files-on-disk">
+<h3>Files on disk<a class="headerlink" href="#files-on-disk" title="Link to this heading">#</a></h3>
+<p>The same question gets asked of a folder — “here are 200 stills, which of them
+are the same picture?” — so there is a path-shaped pair of the above:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">illustration</span><span class="o">.</span><span class="n">dedupe_paths</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.jpg"</span><span class="p">))</span>  <span class="c1"># -&gt; the surviving Paths</span>
+</span><span data-line="2"><span class="n">illustration</span><span class="o">.</span><span class="n">group_duplicate_paths</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.jpg"</span><span class="p">))</span>  <span class="c1"># -&gt; DuplicateGroups</span>
+</span></pre></div>
+</div>
+<p>Same <code class="docutils literal notranslate"><span class="pre">strategy=</span></code>/<code class="docutils literal notranslate"><span class="pre">quality=</span></code>/<code class="docutils literal notranslate"><span class="pre">threshold=</span></code> vocabulary, and <code class="docutils literal notranslate"><span class="pre">dedupe_paths</span></code> hands
+back <code class="docutils literal notranslate"><span class="pre">Path</span></code> objects rather than wrappers. Nothing is fetched: <code class="docutils literal notranslate"><span class="pre">local_signature</span></code>
+points the chosen tier’s image loader at the file instead of at a URL, so a
+local pass touches no network at all. Pin the cheap tier with
+<code class="docutils literal notranslate"><span class="pre">signature=local_signature(illustration.phash_signature)</span></code> when you only want
+“same raster” and don’t want the torch download.</p>
+<p>Telling subjects apart needs the pixels, so <code class="docutils literal notranslate"><span class="pre">search()</span></code> defaults to
+<code class="docutils literal notranslate"><span class="pre">dedupe=&quot;auto&quot;</span></code>: it dedupes when the call already fetches images (i.e. when
+reranking) and leaves a bare metadata search offline. Pass <code class="docutils literal notranslate"><span class="pre">dedupe=True</span></code> to
+force it. <code class="docutils literal notranslate"><span class="pre">select_sequence(signature=...)</span></code> applies the same test across beats,
+so one subject cannot win four of them.</p>
+</section>
+</section>
+<section id="browsing-a-wikimedia-category">
+<h2>Browsing a Wikimedia category<a class="headerlink" href="#browsing-a-wikimedia-category" title="Link to this heading">#</a></h2>
+<p>A Commons <strong>category</strong> is a curated list; free-text search is a guess at the
+filename. Searching <code class="docutils literal notranslate"><span class="pre">&quot;Hamilton</span> <span class="pre">Grange&quot;</span></code> returns a branch library of that name —
+<code class="docutils literal notranslate"><span class="pre">&quot;Category:Hamilton</span> <span class="pre">Grange</span> <span class="pre">National</span> <span class="pre">Memorial&quot;</span></code> returns the house.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"Category:Elizabeth Schuyler Hamilton"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Detected from MediaWiki’s own namespace prefix, so it works through the façade,
+the cache and the CLI with no new parameter. The <code class="docutils literal notranslate"><span class="pre">File:</span></code> prefix works the same
+way and fetches <strong>exact titles</strong> — relevance ranking cannot reliably surface a
+generic filename, and a caller who already knows the file should not have to
+hope:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"File:Alexander Hamilton.jpg"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"File:A.jpg|File:B.jpg"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">)</span>  <span class="c1"># several</span>
+</span></pre></div>
+</div>
+</section>
+<section id="sources-providers">
+<h2>Sources (providers)<a class="headerlink" href="#sources-providers" title="Link to this heading">#</a></h2>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>source</p></th>
+<th class="head"><p>key needed?</p></th>
+<th class="head"><p>notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>openverse</strong> <em>(default)</em></p></td>
+<td><p>no</p></td>
+<td><p>800M+ CC / public-domain images; works out of the box</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>wikimedia</strong></p></td>
+<td><p>no</p></td>
+<td><p>140M+ free media; historical / editorial / fine-art; deep metadata</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>pexels</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PEXELS_API_KEY</span></code></p></td>
+<td><p>curated high-quality stock photos</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>pixabay</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PIXABAY_API_KEY</span></code></p></td>
+<td><p>free commercial-use; license permits caching / self-hosting</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pick a source (or several), and filter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+</span><span data-line="2">    <span class="s2">"harbour"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"landscape"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">"large"</span>
+</span><span data-line="3"><span class="p">)</span>
+</span><span data-line="4"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+</span><span data-line="5">    <span class="s2">"harbour"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"wikimedia"</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span>
+</span><span data-line="6"><span class="p">)</span>  <span class="c1"># per-source, no key</span>
+</span></pre></div>
+</div>
+<p>Canonical filters (<code class="docutils literal notranslate"><span class="pre">orientation</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">safe</span></code>, <code class="docutils literal notranslate"><span class="pre">license_type</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span></code>,
+<code class="docutils literal notranslate"><span class="pre">content_type</span></code>) translate to each provider’s native parameters and degrade
+gracefully where a provider doesn’t support one.</p>
+<section id="keys">
+<h3>Keys<a class="headerlink" href="#keys" title="Link to this heading">#</a></h3>
+<p>Pexels and Pixabay need a key (Openverse and Wikimedia do not). Provide it
+however suits you:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"PEXELS_API_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"..."</span>  <span class="c1"># env var</span>
+</span><span data-line="4"><span class="c1"># or per-request (the bring-your-own-key seam, e.g. a web backend):</span>
+</span><span data-line="5"><span class="k">with</span> <span class="n">illustration</span><span class="o">.</span><span class="n">using_credentials</span><span class="p">(</span><span class="n">pexels</span><span class="o">=</span><span class="s2">"..."</span><span class="p">,</span> <span class="n">pixabay</span><span class="o">=</span><span class="s2">"..."</span><span class="p">):</span>
+</span><span data-line="6">    <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="s2">"pexels"</span><span class="p">,</span> <span class="s2">"pixabay"</span><span class="p">])</span>
+</span></pre></div>
+</div>
+<p>A missing key raises an informative <code class="docutils literal notranslate"><span class="pre">MissingCredentialError</span></code> that names the key,
+how to set it, and where to get one — and never logs the value.</p>
+</section>
+</section>
+<section id="caching">
+<h2>Caching<a class="headerlink" href="#caching" title="Link to this heading">#</a></h2>
+<p>Results are SHA-256 content-addressed and cached behind an injectable <code class="docutils literal notranslate"><span class="pre">dol</span></code>
+store (default: JSON files under <code class="docutils literal notranslate"><span class="pre">~/.cache/illustration/</span></code>), so an identical
+second call is free:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">)</span>  <span class="c1"># hits the network</span>
+</span><span data-line="2"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">)</span>  <span class="c1"># served from cache</span>
+</span><span data-line="3"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># force a re-fetch</span>
+</span><span data-line="4"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># bypass the cache</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># to inject your own store, wrap it — `cache=` takes True/False or a SearchCache</span>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchCache</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">SearchCache</span><span class="p">(</span><span class="n">my_mutable_mapping</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</section>
+<section id="rerank-precision">
+<h2>Rerank (precision)<a class="headerlink" href="#rerank-precision" title="Link to this heading">#</a></h2>
+<p>Provider tag/lexical search is a cheap, high-<strong>recall</strong> stage. For <strong>precision</strong>,
+rerank the candidates by true cross-modal (text↔image) similarity with a local
+SigLIP-2 model — the recall→rerank pattern:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">hits</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"a stormy harbour at dusk"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># recall</span>
+</span><span data-line="2"><span class="n">top</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">rerank</span><span class="p">(</span><span class="s2">"a stormy harbour at dusk"</span><span class="p">,</span> <span class="n">hits</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># precision</span>
+</span><span data-line="3"><span class="c1"># or the one-liner:</span>
+</span><span data-line="4"><span class="n">top</span> <span class="o">=</span> <span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"a stormy harbour at dusk"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">rerank</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+</span></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rerank</span></code> populates each result’s <code class="docutils literal notranslate"><span class="pre">.score</span></code> and sorts by it. The default SigLIP-2
+encoder needs the optional extra (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'illustration[rerank]'</span></code>); a clear
+error tells you if it’s missing. The scorer is injectable — pass any
+<code class="docutils literal notranslate"><span class="pre">(query,</span> <span class="pre">results)</span> <span class="pre">-&gt;</span> <span class="pre">scores</span></code> callable to use a different model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">illustration</span><span class="o">.</span><span class="n">rerank</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">,</span> <span class="n">hits</span><span class="p">,</span> <span class="n">scorer</span><span class="o">=</span><span class="n">my_scorer</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Image embeddings are content-addressed and cached, so re-ranking overlapping
+candidates is cheap.</p>
+</section>
+<section id="curate-agentic-the-bounded-crag-loop">
+<h2>Curate (agentic, the bounded CRAG loop)<a class="headerlink" href="#curate-agentic-the-bounded-crag-loop" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">search</span></code> + <code class="docutils literal notranslate"><span class="pre">rerank</span></code> give you ranked candidates; <code class="docutils literal notranslate"><span class="pre">curate</span></code> goes one step further
+and returns <em>one vetted image</em> for a narration beat, self-correcting across a
+hard-bounded number of rounds. The loop is corrective-RAG-shaped — retrieve →
+grade → conditionally re-query — with a classical-CV pre-filter gating the
+expensive vision-LM, caption-first / judge-on-ambiguity escalation, and a
+<code class="docutils literal notranslate"><span class="pre">Budget</span></code> of caps <strong>enforced in code</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">curate</span><span class="p">,</span> <span class="n">Budget</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">result</span> <span class="o">=</span> <span class="n">curate</span><span class="p">(</span>
+</span><span data-line="4">    <span class="s2">"a stormy harbour at dusk, fishermen hauling nets"</span><span class="p">,</span>
+</span><span data-line="5">    <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"pexels"</span><span class="p">],</span>
+</span><span data-line="6">    <span class="n">budget</span><span class="o">=</span><span class="n">Budget</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_judge_calls</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">accept_threshold</span><span class="o">=</span><span class="mf">0.62</span><span class="p">),</span>
+</span><span data-line="7"><span class="p">)</span>
+</span><span data-line="8"><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">url</span>  <span class="c1"># the chosen image</span>
+</span><span data-line="9"><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">overall</span>  <span class="c1"># its VLM rubric score (when judged)</span>
+</span><span data-line="10"><span class="n">result</span><span class="o">.</span><span class="n">accepted</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">reason</span>
+</span><span data-line="11"><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">trace</span><span class="p">:</span>  <span class="c1"># per-iteration run-log (queries, grade, action, spend)</span>
+</span><span data-line="12">    <span class="nb">print</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">iteration</span><span class="p">,</span> <span class="n">step</span><span class="o">.</span><span class="n">grade</span><span class="p">,</span> <span class="n">step</span><span class="o">.</span><span class="n">action</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">illustration<span class="w"> </span>curate<span class="w"> </span><span class="s2">"a stormy harbour at dusk"</span><span class="w"> </span>--source<span class="w"> </span>openverse<span class="w"> </span>--max-iter<span class="w"> </span><span class="m">3</span>
+</span></pre></div>
+</div>
+<p>This needs the optional <code class="docutils literal notranslate"><span class="pre">[curate]</span></code> extra (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'illustration[curate]'</span></code> —
+<code class="docutils literal notranslate"><span class="pre">aix</span></code> + <code class="docutils literal notranslate"><span class="pre">ir</span></code> + Pillow/NumPy) plus provider and LLM API keys; the NSFW safety gate
+and SigLIP rerank additionally want <code class="docutils literal notranslate"><span class="pre">[rerank]</span></code> (so <code class="docutils literal notranslate"><span class="pre">illustration[rerank,curate]</span></code>
+for the full pipeline). Every paid step is an <strong>injectable seam</strong> — pass your own
+<code class="docutils literal notranslate"><span class="pre">search_fn</span></code>, <code class="docutils literal notranslate"><span class="pre">expander</span></code>/<code class="docutils literal notranslate"><span class="pre">refiner</span></code>, <code class="docutils literal notranslate"><span class="pre">scorer</span></code>, <code class="docutils literal notranslate"><span class="pre">describe</span></code>, <code class="docutils literal notranslate"><span class="pre">grader</span></code>, or <code class="docutils literal notranslate"><span class="pre">checks</span></code> to
+swap a model, add a test double, or run the loop entirely offline.</p>
+<p>The image→text capability the judge/caption uses lives in <code class="docutils literal notranslate"><span class="pre">aix</span></code>
+(<code class="docutils literal notranslate"><span class="pre">aix.describe_image</span></code>, provider-neutral over LiteLLM), so any vision-capable
+model (Claude, GPT-4o, Gemini, …) works by model id alone.</p>
+</section>
+<section id="sequence-storyboard-selection">
+<h2>Sequence (storyboard selection)<a class="headerlink" href="#sequence-storyboard-selection" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">curate</span></code> picks the best image for <em>one</em> beat; <code class="docutils literal notranslate"><span class="pre">curate_sequence</span></code> picks one image
+per beat across a whole storyboard, optimizing <strong>cross-shot coherence</strong> and
+<strong>diversity</strong> with a perceptual-hash <strong>near-duplicate</strong> hard constraint — so
+consecutive shots cohere and no two beats land on the same picture:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">curate_sequence</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">result</span> <span class="o">=</span> <span class="n">curate_sequence</span><span class="p">(</span>
+</span><span data-line="4">    <span class="p">[</span>
+</span><span data-line="5">        <span class="s2">"a stormy harbour at dawn"</span><span class="p">,</span>
+</span><span data-line="6">        <span class="s2">"fishermen hauling nets"</span><span class="p">,</span>
+</span><span data-line="7">        <span class="s2">"the catch unloaded at the quay"</span><span class="p">,</span>
+</span><span data-line="8">    <span class="p">]</span>
+</span><span data-line="9"><span class="p">)</span>
+</span><span data-line="10"><span class="k">for</span> <span class="n">bs</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">selections</span><span class="p">:</span>
+</span><span data-line="11">    <span class="nb">print</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">beat_index</span><span class="p">,</span> <span class="n">bs</span><span class="o">.</span><span class="n">chosen</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">bs</span><span class="o">.</span><span class="n">coherence</span><span class="p">,</span> <span class="n">bs</span><span class="o">.</span><span class="n">forced_duplicate</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">illustration<span class="w"> </span>curate-sequence<span class="w"> </span><span class="s2">"dawn harbour"</span><span class="w"> </span><span class="s2">"hauling nets"</span><span class="w"> </span><span class="s2">"the quay"</span>
+</span></pre></div>
+</div>
+<p>The selection math is <strong>in-house and dependency-light</strong> (NumPy MMR + a DCT
+perceptual hash; coherence reuses the SigLIP embeddings the reranker already
+caches) — <code class="docutils literal notranslate"><span class="pre">select_sequence(per_beat_candidates,</span> <span class="pre">*,</span> <span class="pre">relevance,</span> <span class="pre">embed,</span> <span class="pre">hasher,</span> <span class="pre">shortlist,</span> <span class="pre">alpha,</span> <span class="pre">beta,</span> <span class="pre">phash_threshold)</span></code> exposes every part as an injectable
+seam. <code class="docutils literal notranslate"><span class="pre">apricot</span></code> (submodular shortlisting) and <code class="docutils literal notranslate"><span class="pre">imagededup</span></code> (CNN dedup) are
+optional upgrades you plug into the <code class="docutils literal notranslate"><span class="pre">shortlist</span></code> / <code class="docutils literal notranslate"><span class="pre">hasher</span></code> seams.</p>
+</section>
+<section id="persist-render-ecosystem-hooks">
+<h2>Persist &amp; render (ecosystem hooks)<a class="headerlink" href="#persist-render-ecosystem-hooks" title="Link to this heading">#</a></h2>
+<p>The narrated-video and persistence steps are owned by other ecosystem packages;
+illustration provides thin, opt-in hooks rather than reinventing them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Render the selected stills into a Ken-Burns film (burns + your narration audio):</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_sequence_video</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">render_sequence_video</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">saveas</span><span class="o">=</span><span class="s2">"film.mp4"</span><span class="p">,</span> <span class="n">narration_audio</span><span class="o">=</span><span class="s2">"narration.mp3"</span><span class="p">)</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># Or hand a walkthru DemoDocument to a walkthru/reelee consumer to render its way:</span>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_walkthru_document</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">doc</span> <span class="o">=</span> <span class="n">to_walkthru_document</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">narration</span><span class="o">=</span><span class="p">[</span><span class="s2">"dawn…"</span><span class="p">,</span> <span class="s2">"nets…"</span><span class="p">,</span> <span class="s2">"quay…"</span><span class="p">])</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="c1"># Persist selections (and director overrides) as lacing standoff annotations:</span>
+</span><span data-line="12"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">persist_sequence</span><span class="p">,</span> <span class="n">record_override</span><span class="p">,</span> <span class="n">resolve_selection</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="n">store</span> <span class="o">=</span> <span class="n">persist_sequence</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span data-line="15"><span class="n">record_override</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">my_preferred_image</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">"better composition"</span><span class="p">)</span>
+</span><span data-line="16"><span class="n">resolve_selection</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># the director's choice now supersedes the machine's</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="c1"># The stored body keeps the whole rights record (illustration.RIGHTS_FIELDS),</span>
+</span><span data-line="19"><span class="c1"># under ImageResult's own field names — attribution survives the round trip:</span>
+</span><span data-line="20"><span class="n">resolve_selection</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s2">"selected"</span><span class="p">][</span><span class="s2">"attribution"</span><span class="p">]</span>
+</span></pre></div>
+</div>
+<p>These need the opt-in extras: <code class="docutils literal notranslate"><span class="pre">illustration[video]</span></code> (<code class="docutils literal notranslate"><span class="pre">burns</span></code> + <code class="docutils literal notranslate"><span class="pre">walkthru</span></code>) and
+<code class="docutils literal notranslate"><span class="pre">illustration[persist]</span></code> (<code class="docutils literal notranslate"><span class="pre">lacing</span></code>; add <code class="docutils literal notranslate"><span class="pre">lacing[otio]</span></code> for <code class="docutils literal notranslate"><span class="pre">export_otio</span></code>). The
+render hook uses <code class="docutils literal notranslate"><span class="pre">burns</span></code> directly — the same renderer <code class="docutils literal notranslate"><span class="pre">walkthru</span></code> uses — so it
+never pulls the app layer.</p>
+</section>
+<section id="the-escape-hatch">
+<h2>The escape hatch<a class="headerlink" href="#the-escape-hatch" title="Link to this heading">#</a></h2>
+<p>A pure façade exposes only the common interface — but you can always reach a
+provider’s special powers, via a four-rung ladder (cleanest → rawest):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># 1. pick the source(s)</span>
+</span><span data-line="2"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"q"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"pexels"</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># 2. canonical filters (translated per provider)</span>
+</span><span data-line="5"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"q"</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"portrait"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">"large"</span><span class="p">)</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># 3. native passthrough — anything the façade doesn't name; flat for one</span>
+</span><span data-line="8"><span class="c1">#    source, namespaced for many (flat raises on a multi-source fan-out)</span>
+</span><span data-line="9"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"q"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"pixabay"</span><span class="p">,</span> <span class="n">image_type</span><span class="o">=</span><span class="s2">"photo"</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+</span><span data-line="11">    <span class="s2">"q"</span><span class="p">,</span>
+</span><span data-line="12">    <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="s2">"pixabay"</span><span class="p">],</span>
+</span><span data-line="13">    <span class="n">provider_params</span><span class="o">=</span><span class="p">{</span><span class="s2">"pixabay"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"image_type"</span><span class="p">:</span> <span class="s2">"photo"</span><span class="p">}},</span>
+</span><span data-line="14"><span class="p">)</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="c1"># 4. the raw provider client</span>
+</span><span data-line="17"><span class="n">illustration</span><span class="o">.</span><span class="n">sources</span><span class="p">[</span><span class="s2">"openverse"</span><span class="p">]</span><span class="o">.</span><span class="n">raw_search</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="s2">"q"</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># raw JSON</span>
+</span><span data-line="18"><span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">raw</span>  <span class="c1"># raw item</span>
+</span></pre></div>
+</div>
+<p>A parameter is promoted from the escape hatch to a canonical façade argument
+once <strong>two or more</strong> providers support it (so the interface evolves predictably).</p>
+</section>
+<section id="adding-a-provider">
+<h2>Adding a provider<a class="headerlink" href="#adding-a-provider" title="Link to this heading">#</a></h2>
+<p>Open-closed — subclass <code class="docutils literal notranslate"><span class="pre">RetrievalSource</span></code> and register it; the façade is
+untouched:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetrievalSource</span><span class="p">,</span> <span class="n">ImageResult</span><span class="p">,</span> <span class="n">register_source</span>
+</span><span data-line="2">
+</span><span data-line="3">
+</span><span data-line="4"><span class="k">class</span><span class="w"> </span><span class="nc">MySource</span><span class="p">(</span><span class="n">RetrievalSource</span><span class="p">):</span>
+</span><span data-line="5">    <span class="n">name</span> <span class="o">=</span> <span class="s2">"mysource"</span>
+</span><span data-line="6">    <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">"https://api.example.com/search"</span>
+</span><span data-line="7">    <span class="n">query_param</span> <span class="o">=</span> <span class="s2">"q"</span>
+</span><span data-line="8">    <span class="n">per_page_param</span> <span class="o">=</span> <span class="s2">"limit"</span>
+</span><span data-line="9">    <span class="n">max_per_page</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span data-line="10">    <span class="n">param_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"size"</span><span class="p">:</span> <span class="s2">"size"</span><span class="p">,</span> <span class="s2">"orientation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"orient"</span><span class="p">}}</span>
+</span><span data-line="11">
+</span><span data-line="12">    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span data-line="13">        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"results"</span><span class="p">,</span> <span class="p">[])</span>
+</span><span data-line="14">
+</span><span data-line="15">    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+</span><span data-line="16">        <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
+</span><span data-line="17">            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]),</span> <span class="n">url</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s2">"image_url"</span><span class="p">],</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span>
+</span><span data-line="18">        <span class="p">)</span>
+</span><span data-line="19">
+</span><span data-line="20">
+</span><span data-line="21"><span class="n">register_source</span><span class="p">(</span><span class="n">MySource</span><span class="p">())</span>
+</span></pre></div>
+</div>
+</section>
+<section id="licensing">
+<h2>Licensing<a class="headerlink" href="#licensing" title="Link to this heading">#</a></h2>
+<p>Licensing is first-class for commercial-adjacent video. Each result carries its
+license, license URL, attribution, and a <code class="docutils literal notranslate"><span class="pre">cacheable</span></code> flag. Aggregators
+(Wikimedia, Openverse) disclaim license accuracy, so gate on a known-good set
+when it matters — either inline on <code class="docutils literal notranslate"><span class="pre">search()</span></code> or with the standalone helper:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># inline gate (R3): keep only commercial-safe licenses</span>
+</span><span data-line="2"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"openverse"</span><span class="p">,</span> <span class="n">license_allow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">illustration</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"harbour"</span><span class="p">,</span> <span class="n">license_allow</span><span class="o">=</span><span class="p">{</span><span class="s2">"cc0"</span><span class="p">,</span> <span class="s2">"pdm"</span><span class="p">})</span>  <span class="c1"># public-domain only</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># or filter an existing result list</span>
+</span><span data-line="6"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration</span><span class="w"> </span><span class="kn">import</span> <span class="n">license_allowlist</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">safe</span> <span class="o">=</span> <span class="n">license_allowlist</span><span class="p">(</span><span class="n">hits</span><span class="p">)</span>  <span class="c1"># CC0/PD/BY/BY-SA default</span>
+</span><span data-line="9"><span class="n">safe</span> <span class="o">=</span> <span class="n">license_allowlist</span><span class="p">(</span><span class="n">hits</span><span class="p">,</span> <span class="n">allow</span><span class="o">=</span><span class="p">{</span><span class="s2">"cc0"</span><span class="p">,</span> <span class="s2">"pdm"</span><span class="p">})</span>  <span class="c1"># public-domain only</span>
+</span></pre></div>
+</div>
+<p>The gate normalizes both sides with <code class="docutils literal notranslate"><span class="pre">illustration.normalize_license</span></code> before
+comparing, so every provider’s own spelling reaches the same canonical code —
+Wikimedia’s <code class="docutils literal notranslate"><span class="pre">cc-by-sa-4.0</span></code> and Pixabay’s <code class="docutils literal notranslate"><span class="pre">Pixabay</span> <span class="pre">License</span></code> both match the
+default <code class="docutils literal notranslate"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></code> (<code class="docutils literal notranslate"><span class="pre">cc0</span></code>, <code class="docutils literal notranslate"><span class="pre">pdm</span></code>, <code class="docutils literal notranslate"><span class="pre">by</span></code>, <code class="docutils literal notranslate"><span class="pre">by-sa</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pexels-license</span></code>, <code class="docutils literal notranslate"><span class="pre">pixabay-license</span></code>). Mechanically, normalization only ever
+strips a <code class="docutils literal notranslate"><span class="pre">cc-</span></code> prefix and a trailing version number: restrictions survive
+(<code class="docutils literal notranslate"><span class="pre">cc-by-nc-nd-4.0</span></code> → <code class="docutils literal notranslate"><span class="pre">by-nc-nd</span></code>, dropped), and an unrecognized code is left
+as-is and therefore dropped too — unknown is not allowed. On top of that,
+<code class="docutils literal notranslate"><span class="pre">illustration.LICENSE_ALIASES</span></code> is a short hand-written table folding ten further
+public-domain spellings onto <code class="docutils literal notranslate"><span class="pre">cc0</span></code>/<code class="docutils literal notranslate"><span class="pre">pdm</span></code> — so <code class="docutils literal notranslate"><span class="pre">pd</span></code> (what Wikimedia Commons
+actually emits for many files), <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">domain</span></code>, <code class="docutils literal notranslate"><span class="pre">publicdomain</span></code>,
+<code class="docutils literal notranslate"><span class="pre">public-domain-mark</span></code>, <code class="docutils literal notranslate"><span class="pre">cc-zero</span></code>, <code class="docutils literal notranslate"><span class="pre">cc-0</span></code>, <code class="docutils literal notranslate"><span class="pre">zero</span></code>, <code class="docutils literal notranslate"><span class="pre">cc-pdm</span></code>, <code class="docutils literal notranslate"><span class="pre">cc-publicdomain</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pdm-owner</span></code> all <strong>pass</strong> the default gate. Read that table, not just the
+prefix/version rule, when auditing what <code class="docutils literal notranslate"><span class="pre">license_allow=True</span></code> will keep. Name
+anything else you want explicitly in <code class="docutils literal notranslate"><span class="pre">allow={...}</span></code>.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
+<p>MIT</p>
+<p class="epythet-aggregates">This documentation as a single file: <a href="illustration.md">illustration.md</a> (Markdown, for agents).</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-09-16 16:31 UTC from <a href="https://github.com/thorwhalen/illustration/commit/37261652bced9a597641c18217fd9377bcb6feac">3726165</a> (main) · illustration 0.0.10 · <a href="about-this-build.html">about this build</a></p>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-next">
+    <a href="api.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">API reference</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="_static/documentation_options.js?v=a83ce22a"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
-      <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-      <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="illustration" href="module_docs/illustration.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="#" class="icon icon-home">
-            illustration
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration.html">illustration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/__main__.html">illustration.__main__</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/_imageio.html">illustration._imageio</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/base.html">illustration.base</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/caching.html">illustration.caching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/cli.html">illustration.cli</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/config.html">illustration.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/credentials.html">illustration.credentials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/curation.html">illustration.curation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/errors.html">illustration.errors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/expansion.html">illustration.expansion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/facade.html">illustration.facade</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/inspection.html">illustration.inspection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/licensing.html">illustration.licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/persistence.html">illustration.persistence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers.html">illustration.providers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/registry.html">illustration.registry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/reranking.html">illustration.reranking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/sequence.html">illustration.sequence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/translation.html">illustration.translation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/video.html">illustration.video</a></li>
-</ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">illustration</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to illustration’s documentation!</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="welcome-to-illustration-s-documentation">
-<h1>Welcome to illustration’s documentation!<a class="headerlink" href="#welcome-to-illustration-s-documentation" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration.html">illustration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.BeatSelection"><code class="docutils literal notranslate"><span class="pre">BeatSelection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.Budget"><code class="docutils literal notranslate"><span class="pre">Budget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.Candidate"><code class="docutils literal notranslate"><span class="pre">Candidate</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.CurateDependencyError"><code class="docutils literal notranslate"><span class="pre">CurateDependencyError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.CurationResult"><code class="docutils literal notranslate"><span class="pre">CurationResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.DuplicateGroup"><code class="docutils literal notranslate"><span class="pre">DuplicateGroup</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.DuplicateSignature"><code class="docutils literal notranslate"><span class="pre">DuplicateSignature</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.Grade"><code class="docutils literal notranslate"><span class="pre">Grade</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.IllustrationError"><code class="docutils literal notranslate"><span class="pre">IllustrationError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.ImageResult"><code class="docutils literal notranslate"><span class="pre">ImageResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.InspectReport"><code class="docutils literal notranslate"><span class="pre">InspectReport</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.IterationRecord"><code class="docutils literal notranslate"><span class="pre">IterationRecord</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.MissingCredentialError"><code class="docutils literal notranslate"><span class="pre">MissingCredentialError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.PrefilterReport"><code class="docutils literal notranslate"><span class="pre">PrefilterReport</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.PrefilterResult"><code class="docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.ProviderError"><code class="docutils literal notranslate"><span class="pre">ProviderError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RerankDependencyError"><code class="docutils literal notranslate"><span class="pre">RerankDependencyError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RetrievalSource"><code class="docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.RubricScore"><code class="docutils literal notranslate"><span class="pre">RubricScore</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SearchCache"><code class="docutils literal notranslate"><span class="pre">SearchCache</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SelectionBody"><code class="docutils literal notranslate"><span class="pre">SelectionBody</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SequenceResult"><code class="docutils literal notranslate"><span class="pre">SequenceResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SequenceSelection"><code class="docutils literal notranslate"><span class="pre">SequenceSelection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SourceInfo"><code class="docutils literal notranslate"><span class="pre">SourceInfo</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.SourcesView"><code class="docutils literal notranslate"><span class="pre">SourcesView</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.UnknownSourceError"><code class="docutils literal notranslate"><span class="pre">UnknownSourceError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.blur_check"><code class="docutils literal notranslate"><span class="pre">blur_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.brightness_check"><code class="docutils literal notranslate"><span class="pre">brightness_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.cache_dir"><code class="docutils literal notranslate"><span class="pre">cache_dir()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.check_requirements"><code class="docutils literal notranslate"><span class="pre">check_requirements()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.dedupe"><code class="docutils literal notranslate"><span class="pre">dedupe()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.dedupe_paths"><code class="docutils literal notranslate"><span class="pre">dedupe_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_search_store"><code class="docutils literal notranslate"><span class="pre">default_search_store()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_signature"><code class="docutils literal notranslate"><span class="pre">default_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.default_sources"><code class="docutils literal notranslate"><span class="pre">default_sources()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.dinov2_signature"><code class="docutils literal notranslate"><span class="pre">dinov2_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.expand_query"><code class="docutils literal notranslate"><span class="pre">expand_query()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.export_otio"><code class="docutils literal notranslate"><span class="pre">export_otio()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.get_source"><code class="docutils literal notranslate"><span class="pre">get_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.group_duplicate_paths"><code class="docutils literal notranslate"><span class="pre">group_duplicate_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.group_duplicates"><code class="docutils literal notranslate"><span class="pre">group_duplicates()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.inspect_candidate"><code class="docutils literal notranslate"><span class="pre">inspect_candidate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.judge_candidate"><code class="docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.list_sources"><code class="docutils literal notranslate"><span class="pre">list_sources()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.local_signature"><code class="docutils literal notranslate"><span class="pre">local_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.normalize_license"><code class="docutils literal notranslate"><span class="pre">normalize_license()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.nsfw_check"><code class="docutils literal notranslate"><span class="pre">nsfw_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.package_version"><code class="docutils literal notranslate"><span class="pre">package_version()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.phash"><code class="docutils literal notranslate"><span class="pre">phash()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.phash_signature"><code class="docutils literal notranslate"><span class="pre">phash_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.record_override"><code class="docutils literal notranslate"><span class="pre">record_override()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.refine_query"><code class="docutils literal notranslate"><span class="pre">refine_query()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.register_source"><code class="docutils literal notranslate"><span class="pre">register_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.render_sequence_video"><code class="docutils literal notranslate"><span class="pre">render_sequence_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.requires_credentials"><code class="docutils literal notranslate"><span class="pre">requires_credentials()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.resolve_api_key"><code class="docutils literal notranslate"><span class="pre">resolve_api_key()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.resolve_selection"><code class="docutils literal notranslate"><span class="pre">resolve_selection()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.resolved_selections"><code class="docutils literal notranslate"><span class="pre">resolved_selections()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.score_grade"><code class="docutils literal notranslate"><span class="pre">score_grade()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.search_cache_key"><code class="docutils literal notranslate"><span class="pre">search_cache_key()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.select_sequence"><code class="docutils literal notranslate"><span class="pre">select_sequence()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.siglip_signature"><code class="docutils literal notranslate"><span class="pre">siglip_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.to_walkthru_document"><code class="docutils literal notranslate"><span class="pre">to_walkthru_document()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.unregister_source"><code class="docutils literal notranslate"><span class="pre">unregister_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration.html#illustration.using_credentials"><code class="docutils literal notranslate"><span class="pre">using_credentials()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/__main__.html">illustration.__main__</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/__main__.html#illustration.__main__.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/_imageio.html">illustration._imageio</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/_imageio.html#illustration._imageio.DFLT_IMAGE_FIELD"><code class="docutils literal notranslate"><span class="pre">DFLT_IMAGE_FIELD</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/_imageio.html#illustration._imageio.fetch_image"><code class="docutils literal notranslate"><span class="pre">fetch_image()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/_imageio.html#illustration._imageio.fetch_image_bytes"><code class="docutils literal notranslate"><span class="pre">fetch_image_bytes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/_imageio.html#illustration._imageio.image_for_result"><code class="docutils literal notranslate"><span class="pre">image_for_result()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/_imageio.html#illustration._imageio.local_image"><code class="docutils literal notranslate"><span class="pre">local_image()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/base.html">illustration.base</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/base.html#illustration.base.RetrievalSource"><code class="docutils literal notranslate"><span class="pre">RetrievalSource</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/base.html#illustration.base.SourceInfo"><code class="docutils literal notranslate"><span class="pre">SourceInfo</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/caching.html">illustration.caching</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/caching.html#illustration.caching.SearchCache"><code class="docutils literal notranslate"><span class="pre">SearchCache</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/caching.html#illustration.caching.default_search_store"><code class="docutils literal notranslate"><span class="pre">default_search_store()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/caching.html#illustration.caching.search_cache_key"><code class="docutils literal notranslate"><span class="pre">search_cache_key()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/cli.html">illustration.cli</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.COMMANDS"><code class="docutils literal notranslate"><span class="pre">COMMANDS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.info"><code class="docutils literal notranslate"><span class="pre">info()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/cli.html#illustration.cli.sources"><code class="docutils literal notranslate"><span class="pre">sources()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/config.html">illustration.config</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_DEDUPE"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_DEDUPE_STRATEGY"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE_STRATEGY</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_LICENSE_ALLOWLIST"><code class="docutils literal notranslate"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_N"><code class="docutils literal notranslate"><span class="pre">DFLT_N</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.DFLT_SOURCES"><code class="docutils literal notranslate"><span class="pre">DFLT_SOURCES</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.HTTP_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">HTTP_TIMEOUT</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.MAX_PAGES"><code class="docutils literal notranslate"><span class="pre">MAX_PAGES</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.SEARCH_CACHE_SCHEMA"><code class="docutils literal notranslate"><span class="pre">SEARCH_CACHE_SCHEMA</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.cache_dir"><code class="docutils literal notranslate"><span class="pre">cache_dir()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.config_dir"><code class="docutils literal notranslate"><span class="pre">config_dir()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.data_dir"><code class="docutils literal notranslate"><span class="pre">data_dir()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.package_version"><code class="docutils literal notranslate"><span class="pre">package_version()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/config.html#illustration.config.user_agent"><code class="docutils literal notranslate"><span class="pre">user_agent()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/credentials.html">illustration.credentials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/credentials.html#illustration.credentials.PROVIDER_CONSOLE_URLS"><code class="docutils literal notranslate"><span class="pre">PROVIDER_CONSOLE_URLS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/credentials.html#illustration.credentials.PROVIDER_ENV_VARS"><code class="docutils literal notranslate"><span class="pre">PROVIDER_ENV_VARS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/credentials.html#illustration.credentials.check_requirements"><code class="docutils literal notranslate"><span class="pre">check_requirements()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/credentials.html#illustration.credentials.current_credentials"><code class="docutils literal notranslate"><span class="pre">current_credentials()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/credentials.html#illustration.credentials.requires_credentials"><code class="docutils literal notranslate"><span class="pre">requires_credentials()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/credentials.html#illustration.credentials.resolve_api_key"><code class="docutils literal notranslate"><span class="pre">resolve_api_key()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/credentials.html#illustration.credentials.using_credentials"><code class="docutils literal notranslate"><span class="pre">using_credentials()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/curation.html">illustration.curation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.Budget"><code class="docutils literal notranslate"><span class="pre">Budget</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.Candidate"><code class="docutils literal notranslate"><span class="pre">Candidate</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.CurationResult"><code class="docutils literal notranslate"><span class="pre">CurationResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.DFLT_CURATE_N"><code class="docutils literal notranslate"><span class="pre">DFLT_CURATE_N</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.Grade"><code class="docutils literal notranslate"><span class="pre">Grade</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.Grader"><code class="docutils literal notranslate"><span class="pre">Grader</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.IterationRecord"><code class="docutils literal notranslate"><span class="pre">IterationRecord</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/curation.html#illustration.curation.score_grade"><code class="docutils literal notranslate"><span class="pre">score_grade()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/duplicates.html">illustration.duplicates</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#three-signature-tiers-strongest-first">Three signature tiers, strongest first</a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#one-similarity-measure">One similarity measure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#search-results-or-files-on-disk">Search results or files on disk</a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.DFLT_STRATEGY"><code class="docutils literal notranslate"><span class="pre">DFLT_STRATEGY</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.DUPLICATE_STRATEGIES"><code class="docutils literal notranslate"><span class="pre">DUPLICATE_STRATEGIES</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.DuplicateGroup"><code class="docutils literal notranslate"><span class="pre">DuplicateGroup</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.Signature"><code class="docutils literal notranslate"><span class="pre">Signature</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.dedupe"><code class="docutils literal notranslate"><span class="pre">dedupe()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.dedupe_paths"><code class="docutils literal notranslate"><span class="pre">dedupe_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.default_signature"><code class="docutils literal notranslate"><span class="pre">default_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.dinov2_signature"><code class="docutils literal notranslate"><span class="pre">dinov2_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.group_duplicate_paths"><code class="docutils literal notranslate"><span class="pre">group_duplicate_paths()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.group_duplicates"><code class="docutils literal notranslate"><span class="pre">group_duplicates()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.local_signature"><code class="docutils literal notranslate"><span class="pre">local_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.phash_signature"><code class="docutils literal notranslate"><span class="pre">phash_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.quality_key"><code class="docutils literal notranslate"><span class="pre">quality_key()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.shared_signature"><code class="docutils literal notranslate"><span class="pre">shared_signature()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/duplicates.html#illustration.duplicates.siglip_signature"><code class="docutils literal notranslate"><span class="pre">siglip_signature()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/errors.html">illustration.errors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.CurateDependencyError"><code class="docutils literal notranslate"><span class="pre">CurateDependencyError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.IllustrationError"><code class="docutils literal notranslate"><span class="pre">IllustrationError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.MissingCredentialError"><code class="docutils literal notranslate"><span class="pre">MissingCredentialError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.ProviderError"><code class="docutils literal notranslate"><span class="pre">ProviderError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.RerankDependencyError"><code class="docutils literal notranslate"><span class="pre">RerankDependencyError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/errors.html#illustration.errors.UnknownSourceError"><code class="docutils literal notranslate"><span class="pre">UnknownSourceError</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/expansion.html">illustration.expansion</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/expansion.html#illustration.expansion.DFLT_N_EXPANSIONS"><code class="docutils literal notranslate"><span class="pre">DFLT_N_EXPANSIONS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/expansion.html#illustration.expansion.Expander"><code class="docutils literal notranslate"><span class="pre">Expander</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/expansion.html#illustration.expansion.Refiner"><code class="docutils literal notranslate"><span class="pre">Refiner</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/expansion.html#illustration.expansion.expand_query"><code class="docutils literal notranslate"><span class="pre">expand_query()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/expansion.html#illustration.expansion.make_query_expander"><code class="docutils literal notranslate"><span class="pre">make_query_expander()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/expansion.html#illustration.expansion.make_query_refiner"><code class="docutils literal notranslate"><span class="pre">make_query_refiner()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/expansion.html#illustration.expansion.refine_query"><code class="docutils literal notranslate"><span class="pre">refine_query()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/facade.html">illustration.facade</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/facade.html#illustration.facade.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/inspection.html">illustration.inspection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.CORE_CHECKS"><code class="docutils literal notranslate"><span class="pre">CORE_CHECKS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.Check"><code class="docutils literal notranslate"><span class="pre">Check</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.CheckOutcome"><code class="docutils literal notranslate"><span class="pre">CheckOutcome</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.DEFAULT_CHECKS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_CHECKS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.DFLT_CAPTION_MAX_TOKENS"><code class="docutils literal notranslate"><span class="pre">DFLT_CAPTION_MAX_TOKENS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.Describe"><code class="docutils literal notranslate"><span class="pre">Describe</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.InspectReport"><code class="docutils literal notranslate"><span class="pre">InspectReport</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.PrefilterReport"><code class="docutils literal notranslate"><span class="pre">PrefilterReport</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.PrefilterResult"><code class="docutils literal notranslate"><span class="pre">PrefilterResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.RubricScore"><code class="docutils literal notranslate"><span class="pre">RubricScore</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.SafetyGateDisabledWarning"><code class="docutils literal notranslate"><span class="pre">SafetyGateDisabledWarning</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.aspect_ratio_check"><code class="docutils literal notranslate"><span class="pre">aspect_ratio_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.blur_check"><code class="docutils literal notranslate"><span class="pre">blur_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.brightness_check"><code class="docutils literal notranslate"><span class="pre">brightness_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.default_checks"><code class="docutils literal notranslate"><span class="pre">default_checks()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.inspect_candidate"><code class="docutils literal notranslate"><span class="pre">inspect_candidate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.judge_candidate"><code class="docutils literal notranslate"><span class="pre">judge_candidate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.min_dimension_check"><code class="docutils literal notranslate"><span class="pre">min_dimension_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.nsfw_check"><code class="docutils literal notranslate"><span class="pre">nsfw_check()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/inspection.html#illustration.inspection.prefilter"><code class="docutils literal notranslate"><span class="pre">prefilter()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/licensing.html">illustration.licensing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/licensing.html#illustration.licensing.LICENSE_ALIASES"><code class="docutils literal notranslate"><span class="pre">LICENSE_ALIASES</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/licensing.html#illustration.licensing.RESTRICTION_TOKENS"><code class="docutils literal notranslate"><span class="pre">RESTRICTION_TOKENS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/licensing.html#illustration.licensing.normalize_license"><code class="docutils literal notranslate"><span class="pre">normalize_license()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/persistence.html">illustration.persistence</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SELECTIONS_TIER"><code class="docutils literal notranslate"><span class="pre">SELECTIONS_TIER</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SELECTION_SCHEMA_URI"><code class="docutils literal notranslate"><span class="pre">SELECTION_SCHEMA_URI</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.SelectionBody"><code class="docutils literal notranslate"><span class="pre">SelectionBody</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.export_otio"><code class="docutils literal notranslate"><span class="pre">export_otio()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.persist_sequence"><code class="docutils literal notranslate"><span class="pre">persist_sequence()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.record_override"><code class="docutils literal notranslate"><span class="pre">record_override()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.resolve_selection"><code class="docutils literal notranslate"><span class="pre">resolve_selection()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/persistence.html#illustration.persistence.resolved_selections"><code class="docutils literal notranslate"><span class="pre">resolved_selections()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers.html">illustration.providers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers.html#illustration.providers.OpenverseSource"><code class="docutils literal notranslate"><span class="pre">OpenverseSource</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers.html#illustration.providers.PexelsSource"><code class="docutils literal notranslate"><span class="pre">PexelsSource</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers.html#illustration.providers.PixabaySource"><code class="docutils literal notranslate"><span class="pre">PixabaySource</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers.html#illustration.providers.WikimediaSource"><code class="docutils literal notranslate"><span class="pre">WikimediaSource</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers/openverse.html#illustration.providers.openverse.OpenverseSource"><code class="docutils literal notranslate"><span class="pre">OpenverseSource</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers/pexels.html#illustration.providers.pexels.PexelsSource"><code class="docutils literal notranslate"><span class="pre">PexelsSource</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers/pixabay.html#illustration.providers.pixabay.PixabaySource"><code class="docutils literal notranslate"><span class="pre">PixabaySource</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/providers/wikimedia.html#illustration.providers.wikimedia.WikimediaSource"><code class="docutils literal notranslate"><span class="pre">WikimediaSource</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/registry.html">illustration.registry</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.SourcesView"><code class="docutils literal notranslate"><span class="pre">SourcesView</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.default_sources"><code class="docutils literal notranslate"><span class="pre">default_sources()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.get_source"><code class="docutils literal notranslate"><span class="pre">get_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.list_sources"><code class="docutils literal notranslate"><span class="pre">list_sources()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.register_source"><code class="docutils literal notranslate"><span class="pre">register_source()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.sources"><code class="docutils literal notranslate"><span class="pre">sources</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/registry.html#illustration.registry.unregister_source"><code class="docutils literal notranslate"><span class="pre">unregister_source()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/reranking.html">illustration.reranking</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.DFLT_RERANK_MODEL"><code class="docutils literal notranslate"><span class="pre">DFLT_RERANK_MODEL</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.SiglipScorer"><code class="docutils literal notranslate"><span class="pre">SiglipScorer</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.default_scorer"><code class="docutils literal notranslate"><span class="pre">default_scorer()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.embed_images"><code class="docutils literal notranslate"><span class="pre">embed_images()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.make_siglip_scorer"><code class="docutils literal notranslate"><span class="pre">make_siglip_scorer()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/reranking.html#illustration.reranking.rerank"><code class="docutils literal notranslate"><span class="pre">rerank()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/schema.html">illustration.schema</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.ImageResult"><code class="docutils literal notranslate"><span class="pre">ImageResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.RIGHTS_FIELDS"><code class="docutils literal notranslate"><span class="pre">RIGHTS_FIELDS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/schema.html#illustration.schema.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/sequence.html">illustration.sequence</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.BeatSelection"><code class="docutils literal notranslate"><span class="pre">BeatSelection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_ALPHA"><code class="docutils literal notranslate"><span class="pre">DFLT_ALPHA</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_BETA"><code class="docutils literal notranslate"><span class="pre">DFLT_BETA</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_PHASH_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DFLT_PHASH_THRESHOLD</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.DFLT_SEQUENCE_N"><code class="docutils literal notranslate"><span class="pre">DFLT_SEQUENCE_N</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.SequenceResult"><code class="docutils literal notranslate"><span class="pre">SequenceResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.SequenceSelection"><code class="docutils literal notranslate"><span class="pre">SequenceSelection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.make_phash_hasher"><code class="docutils literal notranslate"><span class="pre">make_phash_hasher()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.phash"><code class="docutils literal notranslate"><span class="pre">phash()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/sequence.html#illustration.sequence.select_sequence"><code class="docutils literal notranslate"><span class="pre">select_sequence()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/translation.html">illustration.translation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/translation.html#illustration.translation.ParamTranslator"><code class="docutils literal notranslate"><span class="pre">ParamTranslator</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/translation.html#illustration.translation.make_param_translator"><code class="docutils literal notranslate"><span class="pre">make_param_translator()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/illustration/video.html">illustration.video</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.DFLT_FPS"><code class="docutils literal notranslate"><span class="pre">DFLT_FPS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.DFLT_PANEL_DURATION_S"><code class="docutils literal notranslate"><span class="pre">DFLT_PANEL_DURATION_S</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.render_sequence_video"><code class="docutils literal notranslate"><span class="pre">render_sequence_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/illustration/video.html#illustration.video.to_walkthru_document"><code class="docutils literal notranslate"><span class="pre">to_walkthru_document()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
-<p>Release: 0.0.9</p>
-<p>Last change: Sep 14, 2026</p>
-</section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="module_docs/illustration.html" class="btn btn-neutral float-right" title="illustration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p></p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+      <script src="_static/copybutton.js?v=fd10adb8"></script>
+      <script src="_static/shibuya.js?v=50760d75"></script></body>
 </html>

@@ -1,0 +1,23 @@
+illustration.expansion
+======================
+
+.. automodule:: illustration.expansion
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      Expander
+      Refiner
+      DFLT_N_EXPANSIONS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      expand_query
+      refine_query
+      make_query_expander
+      make_query_refiner
+   

@@ -1,0 +1,25 @@
+illustration.providers
+======================
+
+.. automodule:: illustration.providers
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      OpenverseSource
+      PexelsSource
+      PixabaySource
+      WikimediaSource
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   openverse
+   pexels
+   pixabay
+   wikimedia

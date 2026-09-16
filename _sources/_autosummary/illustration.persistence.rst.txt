@@ -1,0 +1,29 @@
+illustration.persistence
+========================
+
+.. automodule:: illustration.persistence
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      SELECTION_SCHEMA_URI
+      SELECTIONS_TIER
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      persist_sequence
+      record_override
+      resolve_selection
+      resolved_selections
+      export_otio
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      SelectionBody
+   

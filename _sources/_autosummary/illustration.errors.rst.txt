@@ -1,0 +1,18 @@
+illustration.errors
+===================
+
+.. automodule:: illustration.errors
+
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      IllustrationError
+      UnknownSourceError
+      MissingCredentialError
+      ProviderError
+      RateLimitError
+      RerankDependencyError
+      CurateDependencyError
+   

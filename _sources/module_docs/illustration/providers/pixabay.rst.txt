@@ -1,4 +1,0 @@
-illustration.providers.pixabay
-==============================
-.. automodule:: illustration.providers.pixabay
-   :members:

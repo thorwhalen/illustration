@@ -1,4 +1,0 @@
-illustration
-============
-.. automodule:: illustration
-   :members:

@@ -1,0 +1,18 @@
+illustration.translation
+========================
+
+.. automodule:: illustration.translation
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      ParamTranslator
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      make_param_translator
+   

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="cyan" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>illustration.config - illustration</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="illustration.credentials" href="illustration.credentials.html" /><link rel="prev" title="illustration.cli" href="illustration.cli.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="illustration.config"/>
+    <meta name="twitter:card" content="summary"/>
+  
+<link rel="alternate" type="text/markdown" href="illustration.config.html.md">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+</head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>illustration</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="illustration.html">illustration</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="illustration.base.html">illustration.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.caching.html">illustration.caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.cli.html">illustration.cli</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">illustration.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.credentials.html">illustration.credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.curation.html">illustration.curation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.duplicates.html">illustration.duplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.errors.html">illustration.errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.expansion.html">illustration.expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.facade.html">illustration.facade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.inspection.html">illustration.inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.licensing.html">illustration.licensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.persistence.html">illustration.persistence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.providers.html">illustration.providers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.wikimedia.html">illustration.providers.wikimedia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.registry.html">illustration.registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.reranking.html">illustration.reranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.sequence.html">illustration.sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.translation.html">illustration.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.video.html">illustration.video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ai-agents.html">For AI agents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#illustration.config.DFLT_DEDUPE"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.DFLT_DEDUPE_STRATEGY"><code class="docutils literal notranslate"><span class="pre">DFLT_DEDUPE_STRATEGY</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.DFLT_LICENSE_ALLOWLIST"><code class="docutils literal notranslate"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.DFLT_N"><code class="docutils literal notranslate"><span class="pre">DFLT_N</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.DFLT_SOURCES"><code class="docutils literal notranslate"><span class="pre">DFLT_SOURCES</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.HTTP_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">HTTP_TIMEOUT</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.MAX_PAGES"><code class="docutils literal notranslate"><span class="pre">MAX_PAGES</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.SEARCH_CACHE_SCHEMA"><code class="docutils literal notranslate"><span class="pre">SEARCH_CACHE_SCHEMA</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.cache_dir"><code class="docutils literal notranslate"><span class="pre">cache_dir()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.config_dir"><code class="docutils literal notranslate"><span class="pre">config_dir()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.data_dir"><code class="docutils literal notranslate"><span class="pre">data_dir()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.package_version"><code class="docutils literal notranslate"><span class="pre">package_version()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.config.user_agent"><code class="docutils literal notranslate"><span class="pre">user_agent()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../api.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="illustration.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">illustration.config</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <section id="module-illustration.config">
+<span id="illustration-config"></span><h1>illustration.config<a class="headerlink" href="#module-illustration.config" title="Link to this heading">#</a></h1>
+<p>Configuration: XDG directories and package-wide defaults (the SSOT).</p>
+<p>All tunable constants live here so the rest of the package never hardcodes a
+magic number. Directories follow the XDG base-directory convention with
+per-package environment overrides, mirroring the ecosystem’s <code class="docutils literal notranslate"><span class="pre">ir</span></code>/<code class="docutils literal notranslate"><span class="pre">aix</span></code>
+idiom:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Purpose</p></th>
+<th class="head"><p>Environment override</p></th>
+<th class="head"><p>Fallback</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>config</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ILLUSTRATION_CONFIG_DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code>/illustration</p></td>
+</tr>
+<tr class="row-odd"><td><p>data (durable)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ILLUSTRATION_DATA_DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$XDG_DATA_HOME</span></code>/illustration</p></td>
+</tr>
+<tr class="row-even"><td><p>cache (regen.)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ILLUSTRATION_CACHE_DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME</span></code>/illustration</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">cache_dir</span><span class="p">()</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">name</span>
+</span><span data-line="3"><span class="go">'illustration'</span>
+</span></pre></div>
+</div>
+<p class="rubric">Module Attributes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.config.DFLT_N" title="illustration.config.DFLT_N"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFLT_N</span></code></a></p></td>
+<td><p>Default number of results requested <em>per source</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.config.DFLT_DEDUPE" title="illustration.config.DFLT_DEDUPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFLT_DEDUPE</span></code></a></p></td>
+<td><p>Collapse same-subject duplicates in <code class="docutils literal notranslate"><span class="pre">search()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.config.DFLT_DEDUPE_STRATEGY" title="illustration.config.DFLT_DEDUPE_STRATEGY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFLT_DEDUPE_STRATEGY</span></code></a></p></td>
+<td><p>the largest reproduction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.config.DFLT_SOURCES" title="illustration.config.DFLT_SOURCES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFLT_SOURCES</span></code></a></p></td>
+<td><p>Default source set used when <code class="docutils literal notranslate"><span class="pre">search(...,</span> <span class="pre">source=None)</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.config.DFLT_LICENSE_ALLOWLIST" title="illustration.config.DFLT_LICENSE_ALLOWLIST"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></code></a></p></td>
+<td><p>Conservative default license allowlist for the (opt-in) license gate.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.config.HTTP_TIMEOUT" title="illustration.config.HTTP_TIMEOUT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HTTP_TIMEOUT</span></code></a></p></td>
+<td><p>HTTP request timeout, seconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.config.MAX_PAGES" title="illustration.config.MAX_PAGES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MAX_PAGES</span></code></a></p></td>
+<td><p>Hard safety cap on how many pages a single <code class="docutils literal notranslate"><span class="pre">search</span></code> will fetch, so an unbounded <code class="docutils literal notranslate"><span class="pre">n</span></code> (or a misbehaving provider) can never loop forever.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.config.SEARCH_CACHE_SCHEMA" title="illustration.config.SEARCH_CACHE_SCHEMA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SEARCH_CACHE_SCHEMA</span></code></a></p></td>
+<td><p>Version token folded into every cache key, so a result-schema change invalidates the cache <em>structurally</em> (a new key) rather than by deletion.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Functions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.config.config_dir" title="illustration.config.config_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_dir</span></code></a>(*[, ensure])</p></td>
+<td><p>Directory for durable configuration (e.g. registered sources).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.config.data_dir" title="illustration.config.data_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_dir</span></code></a>(*[, ensure])</p></td>
+<td><p>Directory for durable data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.config.cache_dir" title="illustration.config.cache_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cache_dir</span></code></a>(*[, ensure])</p></td>
+<td><p>Directory for regenerable caches (the default search-result store).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.config.package_version" title="illustration.config.package_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">package_version</span></code></a>()</p></td>
+<td><p>The installed package version, or <code class="docutils literal notranslate"><span class="pre">'0+unknown'</span></code> if not installed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.config.user_agent" title="illustration.config.user_agent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_agent</span></code></a>()</p></td>
+<td><p>A descriptive User-Agent string (some providers throttle default UAs).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_DEDUPE">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_DEDUPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></span><a class="headerlink" href="#illustration.config.DFLT_DEDUPE" title="Link to this definition">#</a></dt>
+<dd><p>Collapse same-subject duplicates in <code class="docutils literal notranslate"><span class="pre">search()</span></code>. A search for one person
+routinely returns several reproductions of the same portrait, and a consumer
+asking for N images wants N <em>subjects</em>, not N files.</p>
+<p>The default is <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code>, not <code class="docutils literal notranslate"><span class="pre">True</span></code>, and the distinction is the whole
+design: telling two engravings of one sitter apart requires *looking at the
+pixels*, which a bare <code class="docutils literal notranslate"><span class="pre">search()</span></code> deliberately never does — it is a metadata
+call with an offline contract. So dedup rides along with image work already
+being paid for: <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> means “dedupe when this call fetches images anyway”
+(i.e. when reranking). Pass <code class="docutils literal notranslate"><span class="pre">dedupe=True</span></code> to force it and accept the
+fetches, or <code class="docutils literal notranslate"><span class="pre">False</span></code> to switch it off. The curation layer, which always
+fetches, dedupes unconditionally.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_DEDUPE_STRATEGY">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_DEDUPE_STRATEGY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'best'</span></span><a class="headerlink" href="#illustration.config.DFLT_DEDUPE_STRATEGY" title="Link to this definition">#</a></dt>
+<dd><p>the largest reproduction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>What to keep from each duplicate group</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_LICENSE_ALLOWLIST">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_LICENSE_ALLOWLIST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'by',</span> <span class="pre">'by-sa',</span> <span class="pre">'cc0',</span> <span class="pre">'pdm',</span> <span class="pre">'pexels-license',</span> <span class="pre">'pixabay-license'})</span></span><a class="headerlink" href="#illustration.config.DFLT_LICENSE_ALLOWLIST" title="Link to this definition">#</a></dt>
+<dd><p>Conservative default license allowlist for the (opt-in) license gate.
+CC0 / public-domain / CC-BY / CC-BY-SA are commercial-safe (BY-SA imposes
+share-alike — flagged, not rejected). NC/ND and unknowns are excluded.
+Entries are compared <em>after</em> <a class="reference internal" href="illustration.licensing.html#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.normalize_license()</span></code></a>
+runs over both sides, so a provider’s own spelling (<code class="docutils literal notranslate"><span class="pre">cc-by-sa-4.0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Pixabay</span> <span class="pre">License</span></code>) matches the canonical code written here.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_N">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_N</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#illustration.config.DFLT_N" title="Link to this definition">#</a></dt>
+<dd><p>Default number of results requested <em>per source</em>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.DFLT_SOURCES">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">DFLT_SOURCES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('openverse',)</span></span><a class="headerlink" href="#illustration.config.DFLT_SOURCES" title="Link to this definition">#</a></dt>
+<dd><p>Default source set used when <code class="docutils literal notranslate"><span class="pre">search(...,</span> <span class="pre">source=None)</span></code>. Openverse first
+because it needs no API key (works out of the box).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.HTTP_TIMEOUT">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">HTTP_TIMEOUT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></span><a class="headerlink" href="#illustration.config.HTTP_TIMEOUT" title="Link to this definition">#</a></dt>
+<dd><p>HTTP request timeout, seconds.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.MAX_PAGES">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">MAX_PAGES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">25</span></span><a class="headerlink" href="#illustration.config.MAX_PAGES" title="Link to this definition">#</a></dt>
+<dd><p>Hard safety cap on how many pages a single <code class="docutils literal notranslate"><span class="pre">search</span></code> will fetch, so an
+unbounded <code class="docutils literal notranslate"><span class="pre">n</span></code> (or a misbehaving provider) can never loop forever.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.config.SEARCH_CACHE_SCHEMA">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">SEARCH_CACHE_SCHEMA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'illustration.search/v1'</span></span><a class="headerlink" href="#illustration.config.SEARCH_CACHE_SCHEMA" title="Link to this definition">#</a></dt>
+<dd><p>Version token folded into every cache key, so a result-schema change
+invalidates the cache <em>structurally</em> (a new key) rather than by deletion.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.cache_dir">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">cache_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/config.html#cache_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.cache_dir" title="Link to this definition">#</a></dt>
+<dd><p>Directory for regenerable caches (the default search-result store).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.config_dir">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">config_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/config.html#config_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.config_dir" title="Link to this definition">#</a></dt>
+<dd><p>Directory for durable configuration (e.g. registered sources).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.data_dir">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/config.html#data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.data_dir" title="Link to this definition">#</a></dt>
+<dd><p>Directory for durable data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.package_version">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">package_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/config.html#package_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.package_version" title="Link to this definition">#</a></dt>
+<dd><p>The installed package version, or <code class="docutils literal notranslate"><span class="pre">'0+unknown'</span></code> if not installed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">package_version</span><span class="p">(),</span> <span class="nb">str</span><span class="p">)</span>
+</span><span data-line="2"><span class="go">True</span>
+</span></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.config.user_agent">
+<span class="sig-prename descclassname"><span class="pre">illustration.config.</span></span><span class="sig-name descname"><span class="pre">user_agent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/config.html#user_agent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.config.user_agent" title="Link to this definition">#</a></dt>
+<dd><p>A descriptive User-Agent string (some providers throttle default UAs).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">user_agent</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'illustration/'</span><span class="p">)</span>
+</span><span data-line="2"><span class="go">True</span>
+</span></pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="illustration.cli.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">illustration.cli</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="illustration.credentials.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">illustration.credentials</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=fd10adb8"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script></body>
+</html>

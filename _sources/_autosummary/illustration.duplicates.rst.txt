@@ -1,0 +1,36 @@
+illustration.duplicates
+=======================
+
+.. automodule:: illustration.duplicates
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DFLT_STRATEGY
+      DUPLICATE_STRATEGIES
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      dedupe
+      dedupe_paths
+      default_signature
+      shared_signature
+      dinov2_signature
+      group_duplicates
+      group_duplicate_paths
+      local_signature
+      phash_signature
+      quality_key
+      siglip_signature
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      DuplicateGroup
+      Signature
+   

@@ -1,0 +1,20 @@
+illustration.video
+==================
+
+.. automodule:: illustration.video
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DFLT_PANEL_DURATION_S
+      DFLT_FPS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      render_sequence_video
+      to_walkthru_document
+   

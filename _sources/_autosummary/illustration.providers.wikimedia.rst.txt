@@ -1,0 +1,12 @@
+illustration.providers.wikimedia
+================================
+
+.. automodule:: illustration.providers.wikimedia
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      WikimediaSource
+   

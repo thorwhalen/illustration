@@ -1,0 +1,29 @@
+illustration.config
+===================
+
+.. automodule:: illustration.config
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DFLT_N
+      DFLT_DEDUPE
+      DFLT_DEDUPE_STRATEGY
+      DFLT_SOURCES
+      DFLT_LICENSE_ALLOWLIST
+      HTTP_TIMEOUT
+      MAX_PAGES
+      SEARCH_CACHE_SCHEMA
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      config_dir
+      data_dir
+      cache_dir
+      package_version
+      user_agent
+   

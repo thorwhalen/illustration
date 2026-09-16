@@ -1,0 +1,126 @@
+﻿illustration
+============
+
+.. automodule:: illustration
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      search
+      license_allowlist
+      normalize_license
+      to_search_hit
+      register_source
+      unregister_source
+      get_source
+      list_sources
+      default_sources
+      search_cache_key
+      default_search_store
+      using_credentials
+      resolve_api_key
+      check_requirements
+      requires_credentials
+      make_param_translator
+      cache_dir
+      package_version
+      rerank
+      make_siglip_scorer
+      check_rerank_requirements
+      curate
+      score_grade
+      expand_query
+      refine_query
+      prefilter
+      blur_check
+      brightness_check
+      nsfw_check
+      inspect_candidate
+      judge_candidate
+      select_sequence
+      curate_sequence
+      phash
+      dedupe
+      dedupe_paths
+      group_duplicates
+      group_duplicate_paths
+      default_signature
+      local_signature
+      dinov2_signature
+      siglip_signature
+      phash_signature
+      hamming_distance
+      make_phash_hasher
+      persist_sequence
+      record_override
+      resolve_selection
+      resolved_selections
+      export_otio
+      render_sequence_video
+      to_walkthru_document
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ImageResult
+      RetrievalSource
+      SourceInfo
+      SourcesView
+      SearchCache
+      CurationResult
+      Candidate
+      Budget
+      Grade
+      IterationRecord
+      PrefilterResult
+      PrefilterReport
+      InspectReport
+      RubricScore
+      SequenceSelection
+      SequenceResult
+      BeatSelection
+      DuplicateGroup
+      DuplicateSignature
+      SelectionBody
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      IllustrationError
+      UnknownSourceError
+      MissingCredentialError
+      ProviderError
+      RateLimitError
+      RerankDependencyError
+      CurateDependencyError
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   base
+   caching
+   cli
+   config
+   credentials
+   curation
+   duplicates
+   errors
+   expansion
+   facade
+   inspection
+   licensing
+   persistence
+   providers
+   registry
+   reranking
+   schema
+   sequence
+   translation
+   video

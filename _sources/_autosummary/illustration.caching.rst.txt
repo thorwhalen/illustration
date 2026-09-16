@@ -1,0 +1,19 @@
+illustration.caching
+====================
+
+.. automodule:: illustration.caching
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      search_cache_key
+      default_search_store
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      SearchCache
+   

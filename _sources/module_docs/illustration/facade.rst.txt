@@ -1,4 +1,0 @@
-illustration.facade
-===================
-.. automodule:: illustration.facade
-   :members:

@@ -1,4 +1,0 @@
-illustration.config
-===================
-.. automodule:: illustration.config
-   :members:

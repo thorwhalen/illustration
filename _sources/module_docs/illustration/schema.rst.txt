@@ -1,4 +1,0 @@
-illustration.schema
-===================
-.. automodule:: illustration.schema
-   :members:

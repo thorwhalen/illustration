@@ -1,0 +1,29 @@
+illustration.reranking
+======================
+
+.. automodule:: illustration.reranking
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      Scorer
+      DFLT_RERANK_MODEL
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      rerank
+      make_siglip_scorer
+      default_scorer
+      embed_images
+      check_rerank_requirements
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      SiglipScorer
+   

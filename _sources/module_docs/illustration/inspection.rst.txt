@@ -1,4 +1,0 @@
-illustration.inspection
-=======================
-.. automodule:: illustration.inspection
-   :members:

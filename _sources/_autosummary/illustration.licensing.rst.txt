@@ -1,0 +1,19 @@
+illustration.licensing
+======================
+
+.. automodule:: illustration.licensing
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      LICENSE_ALIASES
+      RESTRICTION_TOKENS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      normalize_license
+   

@@ -1,4 +1,0 @@
-illustration.video
-==================
-.. automodule:: illustration.video
-   :members:

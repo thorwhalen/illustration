@@ -1,0 +1,33 @@
+illustration.sequence
+=====================
+
+.. automodule:: illustration.sequence
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DFLT_ALPHA
+      DFLT_BETA
+      DFLT_PHASH_THRESHOLD
+      DFLT_SEQUENCE_N
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      select_sequence
+      curate_sequence
+      phash
+      hamming_distance
+      make_phash_hasher
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      SequenceSelection
+      BeatSelection
+      SequenceResult
+   

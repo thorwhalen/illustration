@@ -1,0 +1,12 @@
+illustration.providers.openverse
+================================
+
+.. automodule:: illustration.providers.openverse
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      OpenverseSource
+   

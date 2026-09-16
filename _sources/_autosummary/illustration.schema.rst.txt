@@ -1,0 +1,25 @@
+illustration.schema
+===================
+
+.. automodule:: illustration.schema
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      RIGHTS_FIELDS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      license_allowlist
+      to_search_hit
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ImageResult
+   

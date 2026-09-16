@@ -1,4 +1,0 @@
-illustration.errors
-===================
-.. automodule:: illustration.errors
-   :members:

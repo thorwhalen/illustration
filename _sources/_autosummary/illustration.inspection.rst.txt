@@ -1,0 +1,46 @@
+illustration.inspection
+=======================
+
+.. automodule:: illustration.inspection
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      Check
+      CORE_CHECKS
+      DEFAULT_CHECKS
+      Describe
+      DFLT_CAPTION_MAX_TOKENS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      prefilter
+      aspect_ratio_check
+      min_dimension_check
+      brightness_check
+      blur_check
+      nsfw_check
+      default_checks
+      inspect_candidate
+      judge_candidate
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CheckOutcome
+      PrefilterReport
+      PrefilterResult
+      RubricScore
+      InspectReport
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      SafetyGateDisabledWarning
+   

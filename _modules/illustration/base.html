@@ -1,413 +1,813 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
+<html lang="en" data-accent-color="cyan" data-content_root="../../">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>illustration.base &mdash; illustration 0.0.9 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
-
-  
-      <script src="../../_static/jquery.js?v=5d32c60e"></script>
-      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
-      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
-      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
-      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-      <script src="../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index.html" class="icon icon-home">
-            illustration
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>illustration.base - illustration</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="illustration.base"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>illustration</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration.html">illustration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/__main__.html">illustration.__main__</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/_imageio.html">illustration._imageio</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/base.html">illustration.base</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/caching.html">illustration.caching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/cli.html">illustration.cli</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/config.html">illustration.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/credentials.html">illustration.credentials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/curation.html">illustration.curation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/duplicates.html">illustration.duplicates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/errors.html">illustration.errors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/expansion.html">illustration.expansion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/facade.html">illustration.facade</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/inspection.html">illustration.inspection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/licensing.html">illustration.licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/persistence.html">illustration.persistence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers.html">illustration.providers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/openverse.html">illustration.providers.openverse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pexels.html">illustration.providers.pexels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/pixabay.html">illustration.providers.pixabay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/providers/wikimedia.html">illustration.providers.wikimedia</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/registry.html">illustration.registry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/reranking.html">illustration.reranking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/schema.html">illustration.schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/sequence.html">illustration.sequence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/translation.html">illustration.translation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../module_docs/illustration/video.html">illustration.video</a></li>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/illustration.html">illustration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.base.html">illustration.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.caching.html">illustration.caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.cli.html">illustration.cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.config.html">illustration.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.credentials.html">illustration.credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.curation.html">illustration.curation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.duplicates.html">illustration.duplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.errors.html">illustration.errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.expansion.html">illustration.expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.facade.html">illustration.facade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.inspection.html">illustration.inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.licensing.html">illustration.licensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.persistence.html">illustration.persistence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.providers.html">illustration.providers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/illustration.providers.openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/illustration.providers.pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/illustration.providers.pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/illustration.providers.wikimedia.html">illustration.providers.wikimedia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.registry.html">illustration.registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.reranking.html">illustration.reranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.sequence.html">illustration.sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.translation.html">illustration.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.video.html">illustration.video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ai-agents.html">For AI agents</a></li>
 </ul>
 
         </div>
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">illustration</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">illustration.base</li>
-      <li class="wy-breadcrumbs-aside">
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <h1>Source code for illustration.base</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""The provider plugin contract: :class:`RetrievalSource`.</span>
-
-<span class="sd">Each image-search provider is a small subclass implementing a few hooks; the</span>
-<span class="sd">base class supplies the uniform behaviour (canonical→native translation,</span>
-<span class="sd">pagination to satisfy ``n``, HTTP with a descriptive User-Agent, credential</span>
-<span class="sd">checking, per-item normalization that never lets one bad item fail the search).</span>
-<span class="sd">Adding a provider touches only a new subclass + one registration — never the</span>
-<span class="sd">façade (open-closed).</span>
-
-<span class="sd">A subclass declares class attributes (``name``, ``endpoint``, ``query_param``,</span>
-<span class="sd">``page_param``, ``per_page_param``, ``max_per_page``, ``min_per_page``,</span>
-<span class="sd">``param_map``, ``info``)</span>
-<span class="sd">and implements three hooks: :meth:`_items`, :meth:`_normalize`, and</span>
-<span class="sd">(if the provider needs a key) :meth:`_auth_headers`.</span>
-
-<span class="sd">See ``illustration/providers/openverse.py`` for the canonical example.</span>
-<span class="sd">"""</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">MappingProxyType</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTP_TIMEOUT</span><span class="p">,</span> <span class="n">MAX_PAGES</span><span class="p">,</span> <span class="n">user_agent</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.credentials</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_requirements</span><span class="p">,</span> <span class="n">resolve_api_key</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProviderError</span><span class="p">,</span> <span class="n">RateLimitError</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">illustration.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_param_translator</span>
-
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"RetrievalSource"</span><span class="p">,</span> <span class="s2">"SourceInfo"</span><span class="p">]</span>
-
-
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">illustration.base</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <h1>Source code for illustration.base</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""The provider plugin contract: :class:`RetrievalSource`.</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="sd">Each image-search provider is a small subclass implementing a few hooks; the</span>
+</span><span data-line="4"><span class="sd">base class supplies the uniform behaviour (canonical→native translation,</span>
+</span><span data-line="5"><span class="sd">pagination to satisfy ``n``, HTTP with a descriptive User-Agent, credential</span>
+</span><span data-line="6"><span class="sd">checking, per-item normalization that never lets one bad item fail the search).</span>
+</span><span data-line="7"><span class="sd">Adding a provider touches only a new subclass + one registration — never the</span>
+</span><span data-line="8"><span class="sd">façade (open-closed).</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="sd">A subclass declares class attributes (``name``, ``endpoint``, ``query_param``,</span>
+</span><span data-line="11"><span class="sd">``page_param``, ``per_page_param``, ``max_per_page``, ``min_per_page``,</span>
+</span><span data-line="12"><span class="sd">``param_map``, ``info``)</span>
+</span><span data-line="13"><span class="sd">and implements three hooks: :meth:`_items`, :meth:`_normalize`, and</span>
+</span><span data-line="14"><span class="sd">(if the provider needs a key) :meth:`_auth_headers`.</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="sd">See ``illustration/providers/openverse.py`` for the canonical example.</span>
+</span><span data-line="17"><span class="sd">"""</span>
+</span><span data-line="18">
+</span><span data-line="19"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+</span><span data-line="22"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+</span><span data-line="23"><span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">MappingProxyType</span>
+</span><span data-line="24"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTP_TIMEOUT</span><span class="p">,</span> <span class="n">MAX_PAGES</span><span class="p">,</span> <span class="n">user_agent</span>
+</span><span data-line="27"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.credentials</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_requirements</span><span class="p">,</span> <span class="n">resolve_api_key</span>
+</span><span data-line="28"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProviderError</span><span class="p">,</span> <span class="n">RateLimitError</span>
+</span><span data-line="29"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageResult</span>
+</span><span data-line="30"><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_param_translator</span>
+</span><span data-line="31">
+</span><span data-line="32"><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"RetrievalSource"</span><span class="p">,</span> <span class="s2">"SourceInfo"</span><span class="p">]</span>
+</span><span data-line="33">
+</span><span data-line="34">
 <div class="viewcode-block" id="SourceInfo">
-<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.SourceInfo">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SourceInfo</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Static, human-facing metadata about a source (for discovery + the gate)."""</span>
+<a class="viewcode-back" href="../../_autosummary/illustration.base.html#illustration.SourceInfo">[docs]</a>
+</span><span data-line="35"><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="36"><span class="k">class</span><span class="w"> </span><span class="nc">SourceInfo</span><span class="p">:</span>
+</span><span data-line="37"><span class="w">    </span><span class="sd">"""Static, human-facing metadata about a source (for discovery + the gate)."""</span>
+</span><span data-line="38">
+</span><span data-line="39">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span data-line="40">    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="41">    <span class="n">requires_key</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="42">    <span class="n">homepage</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="43">    <span class="n">default_cacheable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="44">    <span class="n">license_note</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="45">    <span class="n">rate_limit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="46">    <span class="n">tags</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
+</span><span data-line="47">
+</span><span data-line="48">    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="49">        <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">asdict</span>
+</span><span data-line="50">
+</span><span data-line="51">        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="n">requires_key</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">homepage</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">default_cacheable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">license_note</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="n">rate_limit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="n">tags</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">asdict</span>
-
-        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
-
-
-
+</span><span data-line="52">
+</span><span data-line="53">
 <div class="viewcode-block" id="RetrievalSource">
-<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.RetrievalSource">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">RetrievalSource</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Abstract base for a pure image-search provider.</span>
-
-<span class="sd">    Subclasses set the class attributes below and implement :meth:`_items` and</span>
-<span class="sd">    :meth:`_normalize` (and :meth:`_auth_headers` if the provider needs a key).</span>
-<span class="sd">    :meth:`search` and :meth:`raw_search` are **template methods — do not</span>
-<span class="sd">    override them**: they enforce credential checks, canonical→native</span>
-<span class="sd">    translation, pagination (capped by ``MAX_PAGES``), and per-item normalization</span>
-<span class="sd">    that skips rather than fails on a malformed item. Override a hook, not the</span>
-<span class="sd">    template, so a provider can never silently lose those guarantees.</span>
-<span class="sd">    """</span>
-
-    <span class="c1">#: Registry key, e.g. ``"openverse"``. Required.</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="c1">#: Search endpoint URL. Required.</span>
-    <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="c1">#: Native name of the free-text query parameter.</span>
-    <span class="n">query_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"q"</span>
-    <span class="c1">#: Native name of the page-number parameter.</span>
-    <span class="n">page_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"page"</span>
-    <span class="c1">#: Native name of the results-per-page parameter.</span>
-    <span class="n">per_page_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"page_size"</span>
-    <span class="c1">#: Hard cap on results per page this provider allows.</span>
-    <span class="n">max_per_page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
-    <span class="c1">#: Floor on results per page this provider allows. Default 1 (no floor);</span>
-    <span class="c1">#: raise it for a provider that *rejects* a small page (Pixabay's documented</span>
-    <span class="c1">#: minimum is 3), so ``search(q, n=1)`` asks for a page the API accepts and</span>
-    <span class="c1">#: the extra rows are trimmed by the ``n`` slice rather than 400-ing.</span>
-    <span class="n">min_per_page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="c1">#: Constant native params sent on every request (e.g. an API mode/format).</span>
-    <span class="n">fixed_params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({})</span>
-    <span class="c1">#: Canonical→native parameter spec (see :mod:`illustration.translation`).</span>
-    <span class="c1">#: Immutable empty default so subclasses never share one mutable dict.</span>
-    <span class="n">param_map</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({})</span>
-    <span class="c1">#: Static metadata (a per-instance one is synthesized in __init__ if unset).</span>
-    <span class="n">info</span><span class="p">:</span> <span class="n">SourceInfo</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># `session` lets callers/tests inject a requests.Session (or a stub).</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># never leave a nameless shared SourceInfo sentinel</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_translate</span> <span class="o">=</span> <span class="n">make_param_translator</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">param_map</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">source_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-        <span class="p">)</span>
-
-    <span class="c1"># -- public API ----------------------------------------------------------</span>
-
+<a class="viewcode-back" href="../../_autosummary/illustration.base.html#illustration.RetrievalSource">[docs]</a>
+</span><span data-line="54"><span class="k">class</span><span class="w"> </span><span class="nc">RetrievalSource</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+</span><span data-line="55"><span class="w">    </span><span class="sd">"""Abstract base for a pure image-search provider.</span>
+</span><span data-line="56">
+</span><span data-line="57"><span class="sd">    Subclasses set the class attributes below and implement :meth:`_items` and</span>
+</span><span data-line="58"><span class="sd">    :meth:`_normalize` (and :meth:`_auth_headers` if the provider needs a key).</span>
+</span><span data-line="59"><span class="sd">    :meth:`search` and :meth:`raw_search` are **template methods — do not</span>
+</span><span data-line="60"><span class="sd">    override them**: they enforce credential checks, canonical→native</span>
+</span><span data-line="61"><span class="sd">    translation, pagination (capped by ``MAX_PAGES``), and per-item normalization</span>
+</span><span data-line="62"><span class="sd">    that skips rather than fails on a malformed item. Override a hook, not the</span>
+</span><span data-line="63"><span class="sd">    template, so a provider can never silently lose those guarantees.</span>
+</span><span data-line="64"><span class="sd">    """</span>
+</span><span data-line="65">
+</span><span data-line="66">    <span class="c1">#: Registry key, e.g. ``"openverse"``. Required.</span>
+</span><span data-line="67">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="68">    <span class="c1">#: Search endpoint URL. Required.</span>
+</span><span data-line="69">    <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="70">    <span class="c1">#: Native name of the free-text query parameter.</span>
+</span><span data-line="71">    <span class="n">query_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"q"</span>
+</span><span data-line="72">    <span class="c1">#: Native name of the page-number parameter.</span>
+</span><span data-line="73">    <span class="n">page_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"page"</span>
+</span><span data-line="74">    <span class="c1">#: Native name of the results-per-page parameter.</span>
+</span><span data-line="75">    <span class="n">per_page_param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"page_size"</span>
+</span><span data-line="76">    <span class="c1">#: Hard cap on results per page this provider allows.</span>
+</span><span data-line="77">    <span class="n">max_per_page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span data-line="78">    <span class="c1">#: Floor on results per page this provider allows. Default 1 (no floor);</span>
+</span><span data-line="79">    <span class="c1">#: raise it for a provider that *rejects* a small page (Pixabay's documented</span>
+</span><span data-line="80">    <span class="c1">#: minimum is 3), so ``search(q, n=1)`` asks for a page the API accepts and</span>
+</span><span data-line="81">    <span class="c1">#: the extra rows are trimmed by the ``n`` slice rather than 400-ing.</span>
+</span><span data-line="82">    <span class="n">min_per_page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span data-line="83">    <span class="c1">#: Constant native params sent on every request (e.g. an API mode/format).</span>
+</span><span data-line="84">    <span class="n">fixed_params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({})</span>
+</span><span data-line="85">    <span class="c1">#: Canonical→native parameter spec (see :mod:`illustration.translation`).</span>
+</span><span data-line="86">    <span class="c1">#: Immutable empty default so subclasses never share one mutable dict.</span>
+</span><span data-line="87">    <span class="n">param_map</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({})</span>
+</span><span data-line="88">    <span class="c1">#: Static metadata (a per-instance one is synthesized in __init__ if unset).</span>
+</span><span data-line="89">    <span class="n">info</span><span class="p">:</span> <span class="n">SourceInfo</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+</span><span data-line="90">
+</span><span data-line="91">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span data-line="92">        <span class="c1"># `session` lets callers/tests inject a requests.Session (or a stub).</span>
+</span><span data-line="93">        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+</span><span data-line="94">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># never leave a nameless shared SourceInfo sentinel</span>
+</span><span data-line="95">            <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span><span data-line="96">        <span class="bp">self</span><span class="o">.</span><span class="n">_translate</span> <span class="o">=</span> <span class="n">make_param_translator</span><span class="p">(</span>
+</span><span data-line="97">            <span class="bp">self</span><span class="o">.</span><span class="n">param_map</span><span class="p">,</span> <span class="n">on_unsupported</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">source_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+</span><span data-line="98">        <span class="p">)</span>
+</span><span data-line="99">
+</span><span data-line="100">    <span class="c1"># -- public API ----------------------------------------------------------</span>
+</span><span data-line="101">
 <div class="viewcode-block" id="RetrievalSource.search">
-<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.RetrievalSource.search">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">native_params</span><span class="p">:</span> <span class="s2">"Mapping[str, Any] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">canonical</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">"""Search ``query`` and return up to ``n`` normalized :class:`ImageResult`.</span>
+<a class="viewcode-back" href="../../_autosummary/illustration.base.html#illustration.RetrievalSource.search">[docs]</a>
+</span><span data-line="102">    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
+</span><span data-line="103">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="104">        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="105">        <span class="o">*</span><span class="p">,</span>
+</span><span data-line="106">        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+</span><span data-line="107">        <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="108">        <span class="n">native_params</span><span class="p">:</span> <span class="s2">"Mapping[str, Any] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="109">        <span class="o">**</span><span class="n">canonical</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span data-line="110">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+</span><span data-line="111"><span class="w">        </span><span class="sd">"""Search ``query`` and return up to ``n`` normalized :class:`ImageResult`.</span>
+</span><span data-line="112">
+</span><span data-line="113"><span class="sd">        ``canonical`` are façade-canonical filters (see the façade ``search`` and</span>
+</span><span data-line="114"><span class="sd">        the design doc §2); each is translated to the provider's native param via</span>
+</span><span data-line="115"><span class="sd">        ``param_map``, degrading gracefully where unsupported. ``native_params``</span>
+</span><span data-line="116"><span class="sd">        are raw provider-native params (the escape hatch) merged last, overriding</span>
+</span><span data-line="117"><span class="sd">        translated ones.</span>
+</span><span data-line="118"><span class="sd">        """</span>
+</span><span data-line="119">        <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span><span class="p">:</span>
+</span><span data-line="120">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"query must be a non-empty string"</span><span class="p">)</span>
+</span><span data-line="121">        <span class="n">check_requirements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+</span><span data-line="122">        <span class="n">key</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+</span><span data-line="123">
+</span><span data-line="124">        <span class="n">native</span><span class="p">,</span> <span class="n">_dropped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate</span><span class="p">(</span><span class="n">canonical</span><span class="p">)</span>
+</span><span data-line="125">        <span class="k">if</span> <span class="n">native_params</span><span class="p">:</span>
+</span><span data-line="126">            <span class="n">native</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">native_params</span><span class="p">)</span>
+</span><span data-line="127">
+</span><span data-line="128">        <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="129">        <span class="n">per_page</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_per_page</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_per_page</span><span class="p">))</span>
+</span><span data-line="130">        <span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span data-line="131">        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">page</span> <span class="o">&lt;=</span> <span class="n">MAX_PAGES</span><span class="p">:</span>
+</span><span data-line="132">            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="133">                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">,</span>
+</span><span data-line="134">                <span class="o">**</span><span class="n">native</span><span class="p">,</span>
+</span><span data-line="135">                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_query_params</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">),</span>
+</span><span data-line="136">            <span class="p">}</span>
+</span><span data-line="137">            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+</span><span data-line="138">            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</span><span data-line="139">            <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
+</span><span data-line="140">                <span class="k">break</span>
+</span><span data-line="141">            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+</span><span data-line="142">                <span class="n">normalized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_safe_normalize</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+</span><span data-line="143">                <span class="k">if</span> <span class="n">normalized</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="144">                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
+</span><span data-line="145">                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+</span><span data-line="146">                        <span class="k">break</span>
+</span><span data-line="147">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">per_page</span><span class="p">:</span>
+</span><span data-line="148">                <span class="k">break</span>  <span class="c1"># last page</span>
+</span><span data-line="149">            <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span data-line="150">        <span class="k">return</span> <span class="n">results</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span></div>
 
-<span class="sd">        ``canonical`` are façade-canonical filters (see the façade ``search`` and</span>
-<span class="sd">        the design doc §2); each is translated to the provider's native param via</span>
-<span class="sd">        ``param_map``, degrading gracefully where unsupported. ``native_params``</span>
-<span class="sd">        are raw provider-native params (the escape hatch) merged last, overriding</span>
-<span class="sd">        translated ones.</span>
-<span class="sd">        """</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"query must be a non-empty string"</span><span class="p">)</span>
-        <span class="n">check_requirements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-
-        <span class="n">native</span><span class="p">,</span> <span class="n">_dropped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate</span><span class="p">(</span><span class="n">canonical</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">native_params</span><span class="p">:</span>
-            <span class="n">native</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">native_params</span><span class="p">)</span>
-
-        <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">per_page</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_per_page</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_per_page</span><span class="p">))</span>
-        <span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">page</span> <span class="o">&lt;=</span> <span class="n">MAX_PAGES</span><span class="p">:</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">,</span>
-                <span class="o">**</span><span class="n">native</span><span class="p">,</span>
-                <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_query_params</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">),</span>
-            <span class="p">}</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
-            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
-                <span class="k">break</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-                <span class="n">normalized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_safe_normalize</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">normalized</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
-                        <span class="k">break</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">per_page</span><span class="p">:</span>
-                <span class="k">break</span>  <span class="c1"># last page</span>
-            <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">results</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span></div>
-
-
+</span><span data-line="151">
 <div class="viewcode-block" id="RetrievalSource.raw_search">
-<a class="viewcode-back" href="../../module_docs/illustration/base.html#illustration.RetrievalSource.raw_search">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">raw_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">native_params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Hit the endpoint with zero translation — the deepest escape hatch.</span>
+<a class="viewcode-back" href="../../_autosummary/illustration.base.html#illustration.RetrievalSource.raw_search">[docs]</a>
+</span><span data-line="152">    <span class="k">def</span><span class="w"> </span><span class="nf">raw_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">native_params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="153"><span class="w">        </span><span class="sd">"""Hit the endpoint with zero translation — the deepest escape hatch.</span>
+</span><span data-line="154">
+</span><span data-line="155"><span class="sd">        ``native_params`` are passed through verbatim as the provider's own</span>
+</span><span data-line="156"><span class="sd">        query parameters; the raw decoded JSON response is returned.</span>
+</span><span data-line="157"><span class="sd">        """</span>
+</span><span data-line="158">        <span class="n">check_requirements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+</span><span data-line="159">        <span class="n">key</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+</span><span data-line="160">        <span class="c1"># include fixed_params as a base so raw_search to APIs with mandatory</span>
+</span><span data-line="161">        <span class="c1"># constant params (e.g. action=query) still works; caller params win.</span>
+</span><span data-line="162">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">,</span> <span class="o">**</span><span class="n">native_params</span><span class="p">},</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span></div>
 
-<span class="sd">        ``native_params`` are passed through verbatim as the provider's own</span>
-<span class="sd">        query parameters; the raw decoded JSON response is returned.</span>
-<span class="sd">        """</span>
-        <span class="n">check_requirements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="n">resolve_api_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-        <span class="c1"># include fixed_params as a base so raw_search to APIs with mandatory</span>
-        <span class="c1"># constant params (e.g. action=query) still works; caller params win.</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">,</span> <span class="o">**</span><span class="n">native_params</span><span class="p">},</span> <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span></div>
+</span><span data-line="163">
+</span><span data-line="164">    <span class="c1"># -- hooks for subclasses ------------------------------------------------</span>
+</span><span data-line="165">
+</span><span data-line="166">    <span class="nd">@abstractmethod</span>
+</span><span data-line="167">    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+</span><span data-line="168"><span class="w">        </span><span class="sd">"""Extract the list of raw result items from a decoded response."""</span>
+</span><span data-line="169">
+</span><span data-line="170">    <span class="nd">@abstractmethod</span>
+</span><span data-line="171">    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
+</span><span data-line="172"><span class="w">        </span><span class="sd">"""Map one raw provider item to an :class:`ImageResult`."""</span>
+</span><span data-line="173">
+</span><span data-line="174">    <span class="k">def</span><span class="w"> </span><span class="nf">_page_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="175"><span class="w">        </span><span class="sd">"""Native pagination params for a 1-based ``page``. Override for offset</span>
+</span><span data-line="176"><span class="sd">        models (e.g. Wikimedia's ``gsroffset``). Default is page-number based."""</span>
+</span><span data-line="177">        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">page_param</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_page_param</span><span class="p">:</span> <span class="n">per_page</span><span class="p">}</span>
+</span><span data-line="178">
+</span><span data-line="179">    <span class="k">def</span><span class="w"> </span><span class="nf">_query_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="180"><span class="w">        </span><span class="sd">"""Every param that depends on the *query* — the query itself and paging.</span>
+</span><span data-line="181">
+</span><span data-line="182"><span class="sd">        The default puts ``query`` under :attr:`query_param` and delegates paging</span>
+</span><span data-line="183"><span class="sd">        to :meth:`_page_params`, which is what every simple provider wants.</span>
+</span><span data-line="184">
+</span><span data-line="185"><span class="sd">        It exists as one hook because some APIs change **shape** with the query</span>
+</span><span data-line="186"><span class="sd">        rather than just its value: Wikimedia answers a plain phrase with a</span>
+</span><span data-line="187"><span class="sd">        search generator and a ``Category:…`` with a category-members generator,</span>
+</span><span data-line="188"><span class="sd">        which changes the query param, the paging param and the limit param</span>
+</span><span data-line="189"><span class="sd">        together. Splitting that across two hooks would leave a provider setting</span>
+</span><span data-line="190"><span class="sd">        one half from state left by the other.</span>
+</span><span data-line="191"><span class="sd">        """</span>
+</span><span data-line="192">        <span class="k">return</span> <span class="p">{</span>
+</span><span data-line="193">            <span class="bp">self</span><span class="o">.</span><span class="n">query_param</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+</span><span data-line="194">            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_page_params</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">),</span>
+</span><span data-line="195">        <span class="p">}</span>
+</span><span data-line="196">
+</span><span data-line="197">    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="198"><span class="w">        </span><span class="sd">"""HTTP auth headers for this provider (default: none)."""</span>
+</span><span data-line="199">        <span class="k">return</span> <span class="p">{}</span>
+</span><span data-line="200">
+</span><span data-line="201">    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="202"><span class="w">        </span><span class="sd">"""Native query params carrying auth (default: none).</span>
+</span><span data-line="203">
+</span><span data-line="204"><span class="sd">        For providers that take the key as a query param (e.g. Pixabay's</span>
+</span><span data-line="205"><span class="sd">        ``key=``) rather than a header.</span>
+</span><span data-line="206"><span class="sd">        """</span>
+</span><span data-line="207">        <span class="k">return</span> <span class="p">{}</span>
+</span><span data-line="208">
+</span><span data-line="209">    <span class="c1"># -- internals -----------------------------------------------------------</span>
+</span><span data-line="210">
+</span><span data-line="211">    <span class="k">def</span><span class="w"> </span><span class="nf">_safe_normalize</span><span class="p">(</span>
+</span><span data-line="212">        <span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span>
+</span><span data-line="213">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ImageResult | None"</span><span class="p">:</span>
+</span><span data-line="214"><span class="w">        </span><span class="sd">"""Normalize one item, skipping (not failing) on a malformed item."""</span>
+</span><span data-line="215">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="216">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+</span><span data-line="217">        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># one bad item must not sink the whole search</span>
+</span><span data-line="218">            <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="219">
+</span><span data-line="220">    <span class="k">def</span><span class="w"> </span><span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="221"><span class="w">        </span><span class="sd">"""Perform the HTTP GET and return decoded JSON, translating errors."""</span>
+</span><span data-line="222">        <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>  <span class="c1"># lazy: keep `import illustration` light</span>
+</span><span data-line="223">
+</span><span data-line="224">        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="ow">or</span> <span class="n">requests</span>
+</span><span data-line="225">        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"User-Agent"</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">(),</span> <span class="s2">"Accept"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">}</span>
+</span><span data-line="226">        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth_headers</span><span class="p">(</span><span class="n">api_key</span><span class="p">))</span>
+</span><span data-line="227">        <span class="c1"># A None value *removes* a param rather than sending the string "None".</span>
+</span><span data-line="228">        <span class="c1"># That is how a provider suppresses one of its own `fixed_params` for a</span>
+</span><span data-line="229">        <span class="c1"># particular query shape — Wikimedia drops `generator` when asked for</span>
+</span><span data-line="230">        <span class="c1"># exact titles — without every caller having to rebuild the base set.</span>
+</span><span data-line="231">        <span class="n">merged</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth_params</span><span class="p">(</span><span class="n">api_key</span><span class="p">)}</span>
+</span><span data-line="232">        <span class="n">request_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+</span><span data-line="233">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="234">            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span><span data-line="235">                <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
+</span><span data-line="236">                <span class="n">params</span><span class="o">=</span><span class="n">request_params</span><span class="p">,</span>
+</span><span data-line="237">                <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span data-line="238">                <span class="n">timeout</span><span class="o">=</span><span class="n">HTTP_TIMEOUT</span><span class="p">,</span>
+</span><span data-line="239">            <span class="p">)</span>
+</span><span data-line="240">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># network/transport failure</span>
+</span><span data-line="241">            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"request failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+</span><span data-line="242">        <span class="n">status</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">"status_code"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="243">        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
+</span><span data-line="244">            <span class="k">raise</span> <span class="n">RateLimitError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">"rate limit exceeded"</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">429</span><span class="p">)</span>
+</span><span data-line="245">        <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">401</span><span class="p">,</span> <span class="mi">403</span><span class="p">):</span>
+</span><span data-line="246">            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span>
+</span><span data-line="247">                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">"authentication failed (check API key)"</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span>
+</span><span data-line="248">            <span class="p">)</span>
+</span><span data-line="249">        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">status</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="p">:</span>
+</span><span data-line="250">            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">_short_body</span><span class="p">(</span><span class="n">resp</span><span class="p">),</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+</span><span data-line="251">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="252">            <span class="n">decoded</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span data-line="253">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="254">            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"response was not valid JSON: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+</span><span data-line="255">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decoded</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+</span><span data-line="256">            <span class="c1"># a valid-JSON-but-non-object body (array / null / scalar) would crash</span>
+</span><span data-line="257">            <span class="c1"># _items downstream with a bare AttributeError; surface it informatively</span>
+</span><span data-line="258">            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span>
+</span><span data-line="259">                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="260">                <span class="sa">f</span><span class="s2">"unexpected response type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> (expected a JSON object)"</span><span class="p">,</span>
+</span><span data-line="261">                <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
+</span><span data-line="262">            <span class="p">)</span>
+</span><span data-line="263">        <span class="k">return</span> <span class="n">decoded</span></div>
 
-
-    <span class="c1"># -- hooks for subclasses ------------------------------------------------</span>
-
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">"""Extract the list of raw result items from a decoded response."""</span>
-
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Map one raw provider item to an :class:`ImageResult`."""</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_page_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Native pagination params for a 1-based ``page``. Override for offset</span>
-<span class="sd">        models (e.g. Wikimedia's ``gsroffset``). Default is page-number based."""</span>
-        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">page_param</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_page_param</span><span class="p">:</span> <span class="n">per_page</span><span class="p">}</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_query_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Every param that depends on the *query* — the query itself and paging.</span>
-
-<span class="sd">        The default puts ``query`` under :attr:`query_param` and delegates paging</span>
-<span class="sd">        to :meth:`_page_params`, which is what every simple provider wants.</span>
-
-<span class="sd">        It exists as one hook because some APIs change **shape** with the query</span>
-<span class="sd">        rather than just its value: Wikimedia answers a plain phrase with a</span>
-<span class="sd">        search generator and a ``Category:…`` with a category-members generator,</span>
-<span class="sd">        which changes the query param, the paging param and the limit param</span>
-<span class="sd">        together. Splitting that across two hooks would leave a provider setting</span>
-<span class="sd">        one half from state left by the other.</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">query_param</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
-            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_page_params</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">),</span>
-        <span class="p">}</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""HTTP auth headers for this provider (default: none)."""</span>
-        <span class="k">return</span> <span class="p">{}</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_auth_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Native query params carrying auth (default: none).</span>
-
-<span class="sd">        For providers that take the key as a query param (e.g. Pixabay's</span>
-<span class="sd">        ``key=``) rather than a header.</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="p">{}</span>
-
-    <span class="c1"># -- internals -----------------------------------------------------------</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_safe_normalize</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ImageResult | None"</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Normalize one item, skipping (not failing) on a malformed item."""</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># one bad item must not sink the whole search</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="s2">"str | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Perform the HTTP GET and return decoded JSON, translating errors."""</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>  <span class="c1"># lazy: keep `import illustration` light</span>
-
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="ow">or</span> <span class="n">requests</span>
-        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"User-Agent"</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">(),</span> <span class="s2">"Accept"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">}</span>
-        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth_headers</span><span class="p">(</span><span class="n">api_key</span><span class="p">))</span>
-        <span class="c1"># A None value *removes* a param rather than sending the string "None".</span>
-        <span class="c1"># That is how a provider suppresses one of its own `fixed_params` for a</span>
-        <span class="c1"># particular query shape — Wikimedia drops `generator` when asked for</span>
-        <span class="c1"># exact titles — without every caller having to rebuild the base set.</span>
-        <span class="n">merged</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_auth_params</span><span class="p">(</span><span class="n">api_key</span><span class="p">)}</span>
-        <span class="n">request_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
-                <span class="n">params</span><span class="o">=</span><span class="n">request_params</span><span class="p">,</span>
-                <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-                <span class="n">timeout</span><span class="o">=</span><span class="n">HTTP_TIMEOUT</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># network/transport failure</span>
-            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"request failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">"status_code"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RateLimitError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">"rate limit exceeded"</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">429</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">401</span><span class="p">,</span> <span class="mi">403</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">"authentication failed (check API key)"</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">status</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">_short_body</span><span class="p">(</span><span class="n">resp</span><span class="p">),</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">decoded</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"response was not valid JSON: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decoded</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="c1"># a valid-JSON-but-non-object body (array / null / scalar) would crash</span>
-            <span class="c1"># _items downstream with a bare AttributeError; surface it informatively</span>
-            <span class="k">raise</span> <span class="n">ProviderError</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">"unexpected response type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> (expected a JSON object)"</span><span class="p">,</span>
-                <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">return</span> <span class="n">decoded</span></div>
-
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_short_body</span><span class="p">(</span><span class="n">resp</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">text</span><span class="p">[:</span><span class="n">limit</span><span class="p">]</span> <span class="k">if</span> <span class="n">text</span> <span class="k">else</span> <span class="s2">"request failed"</span>
-</pre></div>
-
-           </div>
-          </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p></p>
+</span><span data-line="264">
+</span><span data-line="265">
+</span><span data-line="266"><span class="k">def</span><span class="w"> </span><span class="nf">_short_body</span><span class="p">(</span><span class="n">resp</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="267">    <span class="n">text</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span>
+</span><span data-line="268">    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span>
+</span><span data-line="269">    <span class="k">return</span> <span class="n">text</span><span class="p">[:</span><span class="n">limit</span><span class="p">]</span> <span class="k">if</span> <span class="n">text</span> <span class="k">else</span> <span class="s2">"request failed"</span>
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
   </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=fd10adb8"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
-</body>
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script></body>
 </html>

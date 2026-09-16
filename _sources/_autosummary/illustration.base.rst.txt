@@ -1,0 +1,13 @@
+illustration.base
+=================
+
+.. automodule:: illustration.base
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      RetrievalSource
+      SourceInfo
+   

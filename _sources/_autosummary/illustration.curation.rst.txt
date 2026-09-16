@@ -1,0 +1,30 @@
+illustration.curation
+=====================
+
+.. automodule:: illustration.curation
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DFLT_CURATE_N
+      Grader
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      curate
+      score_grade
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Grade
+      Budget
+      Candidate
+      IterationRecord
+      CurationResult
+   

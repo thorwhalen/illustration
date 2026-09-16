@@ -1,0 +1,28 @@
+illustration.registry
+=====================
+
+.. automodule:: illustration.registry
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      sources
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      register_source
+      unregister_source
+      get_source
+      list_sources
+      default_sources
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      SourcesView
+   

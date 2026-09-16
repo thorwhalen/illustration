@@ -1,4 +1,0 @@
-illustration.cli
-================
-.. automodule:: illustration.cli
-   :members:

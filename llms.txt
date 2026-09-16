@@ -1,0 +1,44 @@
+# illustration
+
+> agentic semantic image retrieval
+
+
+## Pages
+
+- [illustration](index.html.md): Find **existing** images to illustrate narrated video — cross-modal
+- [API reference](api.html.md): | [`illustration`](_autosummary/illustration.html.md#module-illustration)   | illustration — find ex...
+- [illustration](_autosummary/illustration.html.md): illustration — find existing images to illustrate narrated video.
+- [illustration.base](_autosummary/illustration.base.html.md): The provider plugin contract: [`RetrievalSource`](#illustration.base.RetrievalSource).
+- [illustration.caching](_autosummary/illustration.caching.html.md): SHA-256 content-addressed caching of search results (the `falaw` recipe).
+- [illustration.cli](_autosummary/illustration.cli.html.md): Command-line surface (thin `cw` wrappers over the library functions).
+- [illustration.config](_autosummary/illustration.config.html.md): Configuration: XDG directories and package-wide defaults (the SSOT).
+- [illustration.credentials](_autosummary/illustration.credentials.html.md): API-key resolution (the `aix` credentials idiom + `falaw` BYO-key seam).
+- [illustration.curation](_autosummary/illustration.curation.html.md): The bounded corrective-retrieval (CRAG) loop — Layer 2’s heart (R2 §1).
+- [illustration.duplicates](_autosummary/illustration.duplicates.html.md): Group images that are the same **subject**, and keep the best one of each group.
+- [illustration.errors](_autosummary/illustration.errors.html.md): The package exception hierarchy.
+- [illustration.expansion](_autosummary/illustration.expansion.html.md): Query expansion & refinement — the first node of the curation loop (R2 §1).
+- [illustration.facade](_autosummary/illustration.facade.html.md): The façade: [`search()`](#illustration.facade.search) — one call over any registered provider(s).
+- [illustration.inspection](_autosummary/illustration.inspection.html.md): Candidate inspection — classical-CV pre-filters + VLM caption/judge (R2 §2-3).
+- [illustration.licensing](_autosummary/illustration.licensing.html.md): Licence-code normalisation — one vocabulary for four provider vocabularies.
+- [illustration.persistence](_autosummary/illustration.persistence.html.md): Persist curation/selection decisions as `lacing` standoff annotations (R2 §6).
+- [illustration.providers](_autosummary/illustration.providers.html.md): Built-in provider sources, registered on import.
+- [illustration.providers.openverse](_autosummary/illustration.providers.openverse.html.md): Openverse source — 800M+ openly-licensed / public-domain images, **no key**.
+- [illustration.providers.pexels](_autosummary/illustration.providers.pexels.html.md): Pexels source — high-quality stock photos, **API key required**.
+- [illustration.providers.pixabay](_autosummary/illustration.providers.pixabay.html.md): Pixabay source — free commercial-use images, **API key required (query param)**.
+- [illustration.providers.wikimedia](_autosummary/illustration.providers.wikimedia.html.md): Wikimedia Commons source — 140M+ free media, **no key**, deep file metadata.
+- [illustration.registry](_autosummary/illustration.registry.html.md): The open-closed source registry and the `sources` view.
+- [illustration.reranking](_autosummary/illustration.reranking.html.md): Local cross-modal rerank — the precision stage (research report R1 §3).
+- [illustration.schema](_autosummary/illustration.schema.html.md): The normalized result schema — the single source of truth (Pydantic v2).
+- [illustration.sequence](_autosummary/illustration.sequence.html.md): Sequence-level selection — the M4 domain core (research report R2 §5).
+- [illustration.translation](_autosummary/illustration.translation.html.md): Canonical → native parameter translation (the `denote` `param_map` idiom).
+- [illustration.video](_autosummary/illustration.video.html.md): Narration → Ken-Burns video hook — the M4 integration seam.
+- [For AI agents](ai-agents.html.md): `illustration` ships artifacts for coding agents alongside its code. This page lists
+- [About this build](about-this-build.html.md): This documentation was built on **2026-09-16 16:31 UTC** from commit <a href="https://github.com/tho...
+
+---
+
+For more comprehensive documentation, see [illustration.md](illustration.md)
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)

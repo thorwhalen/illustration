@@ -1,4 +1,0 @@
-illustration.providers.pexels
-=============================
-.. automodule:: illustration.providers.pexels
-   :members:

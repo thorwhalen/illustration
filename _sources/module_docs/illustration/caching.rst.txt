@@ -1,4 +1,0 @@
-illustration.caching
-====================
-.. automodule:: illustration.caching
-   :members:
