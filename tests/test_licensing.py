@@ -13,6 +13,7 @@ from illustration.config import DFLT_LICENSE_ALLOWLIST
 from illustration.licensing import (
     LICENSE_ALIASES,
     RESTRICTION_TOKENS,
+    display_license,
     normalize_license,
 )
 from illustration.providers.openverse import OpenverseSource
@@ -60,6 +61,66 @@ def test_unknown_code_is_left_alone_not_guessed():
     # unchanged rather than being coerced toward something familiar.
     assert normalize_license("PD-US-expired") == "pd-us-expired"
     assert normalize_license("some-bespoke-museum-terms") == "some-bespoke-museum-terms"
+
+
+# --- display (issue #24) ----------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "raw,expected",
+    [
+        # Wikimedia's dialect -- version survives, it's the whole point
+        ("cc-by-sa-4.0", "CC BY-SA 4.0"),
+        ("CC BY-SA 4.0", "CC BY-SA 4.0"),
+        ("cc-by-3.0", "CC BY 3.0"),
+        ("CC0 1.0", "CC0 1.0"),
+        # Openverse's canonical-looking dialect -- no version was recorded
+        ("by-sa", "CC BY-SA"),
+        ("cc0", "CC0"),
+        ("pdm", "Public Domain Mark"),
+        # public-domain spellings
+        ("pd", "Public Domain Mark"),
+        ("public domain", "Public Domain Mark"),
+        # restrictions display too -- this is presentation, not a gate
+        ("cc-by-nc-nd-4.0", "CC BY-NC-ND 4.0"),
+        ("by-nc", "CC BY-NC"),
+        # single-licence providers: not a CC/PD code, shown as recorded
+        ("Pixabay License", "Pixabay License"),
+        ("Pexels License", "Pexels License"),
+        # absent stays absent
+        (None, None),
+        ("", None),
+    ],
+)
+def test_display_license(raw, expected):
+    assert display_license(raw) == expected
+
+
+def test_display_license_never_launders_an_unrecognised_code_into_valid():
+    # display_license must never change what normalize_license/license_allowlist
+    # think of a code -- it only ever changes how it is shown.
+    for raw in ("PD-US-expired", "some-bespoke-museum-terms"):
+        shown = display_license(raw)
+        assert shown is not None
+        # still fails the gate exactly as before, unaffected by display_license
+        # having been called
+        assert license_allowlist(
+            [ImageResult(provider="p", id="1", url="u", license=raw)]
+        ) == []
+
+
+def test_display_license_keys_are_normalize_license_values():
+    # _DISPLAY_NAMES is only useful if every canonical code normalize_license
+    # can actually produce has a spelling -- catch drift between the two
+    # tables the same way test_every_alias_key_is_reachable catches drift in
+    # LICENSE_ALIASES.
+    from illustration.licensing import _DISPLAY_NAMES
+
+    produced_codes = {normalize_license(v) for v in LICENSE_ALIASES.values()} | {
+        "by", "by-sa", "by-nc", "by-nd", "by-nc-sa", "by-nc-nd",
+    }
+    missing = produced_codes - set(_DISPLAY_NAMES)
+    assert not missing, f"canonical code(s) with no display spelling: {missing}"
 
 
 # --- the safety invariant ---------------------------------------------------

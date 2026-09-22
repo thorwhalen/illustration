@@ -132,7 +132,7 @@ from illustration.registry import (
     sources,
     unregister_source,
 )
-from illustration.licensing import normalize_license
+from illustration.licensing import display_license, normalize_license
 from illustration.schema import (
     RIGHTS_FIELDS,
     ImageResult,
@@ -154,6 +154,7 @@ __all__ = [
     "RIGHTS_FIELDS",
     "license_allowlist",
     "normalize_license",
+    "display_license",
     "to_search_hit",
     # registry / sources
     "RetrievalSource",
