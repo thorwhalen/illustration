@@ -39,6 +39,7 @@ import re
 __all__ = [
     "normalize_license",
     "display_license",
+    "mentions_license",
     "LICENSE_ALIASES",
     "RESTRICTION_TOKENS",
 ]
@@ -173,3 +174,44 @@ def display_license(value: "str | None") -> "str | None":
     # title-cased, rather than inventing a CC-style name for something that
     # isn't one (e.g. "Pixabay License", "Pexels License").
     return " ".join(word.capitalize() for word in base.replace("-", " ").split()) or None
+
+
+# Loose signal words that a piece of free text is *naming* a licence /
+# rights status, rather than just crediting an author. Deliberately broad
+# (word-boundary matched, case-insensitive) — this is a soft audit signal for
+# :func:`mentions_license`, not a licence-gate comparison, so a false positive
+# (text that happens to contain "license" without truly identifying one) is
+# far cheaper than a false negative (a credit line silently missing the
+# licence it is legally required to name).
+_LICENSE_MENTION_RE = re.compile(
+    r"©|\b(cc0|cc|creative\s+commons|public\s+domain|copyright|licen[cs]e|"
+    r"all\s+rights\s+reserved)\b",
+    re.IGNORECASE,
+)
+
+
+def mentions_license(attribution: "str | None") -> bool:
+    """Whether ``attribution`` appears to name a licence or rights status.
+
+    A soft, presentation-side audit signal for
+    :func:`illustration.schema.check_attributions` — CC BY / CC BY-SA require
+    the licence to be identified in the credit, and some providers' raw
+    attribution text (notably Wikimedia Commons' ``extmetadata.Attribution``,
+    illustration#22) is sometimes just the author's name with no licence
+    mentioned at all, even when the file's ``license``/``license_url`` fields
+    are populated and correct. This never changes what a licence *is* — it
+    only flags text that does not visibly say what it is, for a caller to
+    review or fall back on ``author``/``license``/``license_url`` themselves.
+
+    >>> mentions_license("Alice / CC BY-SA 4.0, via Wikimedia Commons")
+    True
+    >>> mentions_license("Public domain, via Wikimedia Commons")
+    True
+    >>> mentions_license("EliziR")            # illustration#22: bare author name
+    False
+    >>> mentions_license("Use freely, credit ACME")  # custom wording, no licence named
+    False
+    >>> mentions_license(None)
+    False
+    """
+    return bool(attribution) and bool(_LICENSE_MENTION_RE.search(attribution))

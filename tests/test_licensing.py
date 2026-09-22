@@ -14,6 +14,7 @@ from illustration.licensing import (
     LICENSE_ALIASES,
     RESTRICTION_TOKENS,
     display_license,
+    mentions_license,
     normalize_license,
 )
 from illustration.providers.openverse import OpenverseSource
@@ -121,6 +122,32 @@ def test_display_license_keys_are_normalize_license_values():
     }
     missing = produced_codes - set(_DISPLAY_NAMES)
     assert not missing, f"canonical code(s) with no display spelling: {missing}"
+
+
+# --- mentions_license (illustration#22) --------------------------------------
+
+
+@pytest.mark.parametrize(
+    "attribution,expected",
+    [
+        ("Alice / CC BY-SA 4.0, via Wikimedia Commons", True),
+        ("Public domain, via Wikimedia Commons", True),
+        ("Joost Evers / Anefo / CC0, via Wikimedia Commons", True),
+        ("Rembrandt / Public domain, via Wikimedia Commons", True),
+        ("Copyright 2020 Jane Doe, all rights reserved", True),
+        ("© Jane Doe", True),
+        # illustration#22's real fixture: bare author names, no licence
+        ("EliziR", False),
+        ("Norman Bruderhofer", False),
+        ("Roger Carvell", False),
+        # custom wording that still names no licence
+        ("Use freely, credit ACME", False),
+        (None, False),
+        ("", False),
+    ],
+)
+def test_mentions_license(attribution, expected):
+    assert mentions_license(attribution) is expected
 
 
 # --- the safety invariant ---------------------------------------------------

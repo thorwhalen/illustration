@@ -25,9 +25,15 @@ from typing import Any, Iterable, Mapping
 from pydantic import BaseModel, Field
 
 from illustration.config import DFLT_LICENSE_ALLOWLIST
-from illustration.licensing import normalize_license
+from illustration.licensing import mentions_license, normalize_license
 
-__all__ = ["ImageResult", "license_allowlist", "to_search_hit", "RIGHTS_FIELDS"]
+__all__ = [
+    "ImageResult",
+    "license_allowlist",
+    "check_attributions",
+    "to_search_hit",
+    "RIGHTS_FIELDS",
+]
 
 #: The **rights record**: the fields that answer "may we ship this, and whom
 #: must we credit?". This tuple is the SSOT for that question — anything that
@@ -167,6 +173,37 @@ def license_allowlist(
     }
     allowed.discard(None)
     return [r for r in results if normalize_license(r.license) in allowed]
+
+
+def check_attributions(results: Iterable["ImageResult"]) -> list["ImageResult"]:
+    """Return the results whose ``attribution`` does not visibly name a licence.
+
+    ``license_allowlist`` gates on the *machine-readable* ``license`` field;
+    this is the companion audit for the *human-readable* ``attribution``
+    string a credit roll actually renders. CC BY / CC BY-SA require the
+    licence to be identified in the credit — a licensed result with a
+    populated, correct ``license`` can still carry an ``attribution`` that is
+    just an author's name (illustration#22, seen on ~4% of one Wikimedia
+    session's hits), which silently breaches that condition if a consumer
+    renders ``attribution`` verbatim, as the package's own guide tells them
+    to. This never rewrites or drops a result — it is read-only, for a
+    pipeline to review, log, or compose a fallback credit from ``author`` /
+    ``license`` / ``license_url`` for exactly the results it returns.
+
+    A result with no ``license`` at all is not flagged: there is nothing to
+    name, and it should already have been dropped by ``license_allowlist`` if
+    that matters to the caller.
+
+    >>> a = ImageResult(provider="p", id="1", url="u", license="by-sa", attribution="Jane Doe")
+    >>> b = ImageResult(provider="p", id="2", url="u", license="by-sa",
+    ...                  attribution="Jane Doe / CC BY-SA 4.0, via Wikimedia Commons")
+    >>> c = ImageResult(provider="p", id="3", url="u", license=None, attribution=None)
+    >>> [r.id for r in check_attributions([a, b, c])]
+    ['1']
+    """
+    return [
+        r for r in results if r.license and not mentions_license(r.attribution)
+    ]
 
 
 def _coerce_results(items: Iterable[Mapping[str, Any]]) -> list[ImageResult]:
