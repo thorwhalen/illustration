@@ -114,6 +114,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li><a class="reference internal" href="#illustration.schema.RIGHTS_FIELDS"><code class="docutils literal notranslate"><span class="pre">RIGHTS_FIELDS</span></code></a></li>
+<li><a class="reference internal" href="#illustration.schema.check_attributions"><code class="docutils literal notranslate"><span class="pre">check_attributions()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.schema.license_allowlist"><code class="docutils literal notranslate"><span class="pre">license_allowlist()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.schema.to_search_hit"><code class="docutils literal notranslate"><span class="pre">to_search_hit()</span></code></a></li>
 </ul>
@@ -190,7 +191,10 @@ provider-specific field the normalized schema doesn’t name.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#illustration.schema.license_allowlist" title="illustration.schema.license_allowlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">license_allowlist</span></code></a>(results, *[, allow])</p></td>
 <td><p>Keep only results whose license is on the allowlist (R3's license gate).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.schema.to_search_hit" title="illustration.schema.to_search_hit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_search_hit</span></code></a>(result)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.schema.check_attributions" title="illustration.schema.check_attributions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_attributions</span></code></a>(results)</p></td>
+<td><p>Return the results whose <code class="docutils literal notranslate"><span class="pre">attribution</span></code> does not visibly name a licence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.schema.to_search_hit" title="illustration.schema.to_search_hit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_search_hit</span></code></a>(result)</p></td>
 <td><p>Map an <a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> to an <code class="docutils literal notranslate"><span class="pre">ir.SearchHit</span></code> for Layer-2 fusion.</p></td>
 </tr>
 </tbody>
@@ -245,6 +249,39 @@ unable to answer it.</p>
 <dd class="field-odd"><p>The <strong>rights record</strong></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.schema.check_attributions">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema.</span></span><span class="sig-name descname"><span class="pre">check_attributions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/schema.html#check_attributions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.schema.check_attributions" title="Link to this definition">#</a></dt>
+<dd><p>Return the results whose <code class="docutils literal notranslate"><span class="pre">attribution</span></code> does not visibly name a licence.</p>
+<p><code class="docutils literal notranslate"><span class="pre">license_allowlist</span></code> gates on the <em>machine-readable</em> <code class="docutils literal notranslate"><span class="pre">license</span></code> field;
+this is the companion audit for the <em>human-readable</em> <code class="docutils literal notranslate"><span class="pre">attribution</span></code>
+string a credit roll actually renders. CC BY / CC BY-SA require the
+licence to be identified in the credit — a licensed result with a
+populated, correct <code class="docutils literal notranslate"><span class="pre">license</span></code> can still carry an <code class="docutils literal notranslate"><span class="pre">attribution</span></code> that is
+just an author’s name (illustration#22, seen on ~4% of one Wikimedia
+session’s hits), which silently breaches that condition if a consumer
+renders <code class="docutils literal notranslate"><span class="pre">attribution</span></code> verbatim, as the package’s own guide tells them
+to. This never rewrites or drops a result — it is read-only, for a
+pipeline to review, log, or compose a fallback credit from <code class="docutils literal notranslate"><span class="pre">author</span></code> /
+<code class="docutils literal notranslate"><span class="pre">license</span></code> / <code class="docutils literal notranslate"><span class="pre">license_url</span></code> for exactly the results it returns.</p>
+<p>A result with no <code class="docutils literal notranslate"><span class="pre">license</span></code> at all is not flagged: there is nothing to
+name, and it should already have been dropped by <code class="docutils literal notranslate"><span class="pre">license_allowlist</span></code> if
+that matters to the caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>]</span></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"by-sa"</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="s2">"Jane Doe"</span><span class="p">)</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"2"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"by-sa"</span><span class="p">,</span>
+</span><span data-line="3"><span class="gp">... </span>                 <span class="n">attribution</span><span class="o">=</span><span class="s2">"Jane Doe / CC BY-SA 4.0, via Wikimedia Commons"</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"3"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">check_attributions</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])]</span>
+</span><span data-line="6"><span class="go">['1']</span>
+</span></pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -345,7 +382,7 @@ is correct for fusion.</p>
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=3bbcec59"></script>
+      <script src="../_static/documentation_options.js?v=9fc46840"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

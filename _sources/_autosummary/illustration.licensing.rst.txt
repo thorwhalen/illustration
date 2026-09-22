@@ -17,4 +17,5 @@ illustration.licensing
    
       normalize_license
       display_license
+      mentions_license
    

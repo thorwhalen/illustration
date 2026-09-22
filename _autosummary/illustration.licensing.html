@@ -111,6 +111,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#illustration.licensing.LICENSE_ALIASES"><code class="docutils literal notranslate"><span class="pre">LICENSE_ALIASES</span></code></a></li>
 <li><a class="reference internal" href="#illustration.licensing.RESTRICTION_TOKENS"><code class="docutils literal notranslate"><span class="pre">RESTRICTION_TOKENS</span></code></a></li>
 <li><a class="reference internal" href="#illustration.licensing.display_license"><code class="docutils literal notranslate"><span class="pre">display_license()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.licensing.mentions_license"><code class="docutils literal notranslate"><span class="pre">mentions_license()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.licensing.normalize_license"><code class="docutils literal notranslate"><span class="pre">normalize_license()</span></code></a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
@@ -205,6 +206,9 @@ the recorded spelling rather than the normalised code.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#illustration.licensing.display_license" title="illustration.licensing.display_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_license</span></code></a>(value)</p></td>
 <td><p>The conventional human spelling of a licence, for on-screen credit.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.licensing.mentions_license" title="illustration.licensing.mentions_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mentions_license</span></code></a>(attribution)</p></td>
+<td><p>Whether <code class="docutils literal notranslate"><span class="pre">attribution</span></code> appears to name a licence or rights status.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -267,6 +271,38 @@ reinterpreted — it must still fail <a class="reference internal" href="#illust
 </span><span data-line="14"><span class="go">'Pixabay License'</span>
 </span><span data-line="15"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
 </span><span data-line="16"><span class="go">True</span>
+</span></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.licensing.mentions_license">
+<span class="sig-prename descclassname"><span class="pre">illustration.licensing.</span></span><span class="sig-name descname"><span class="pre">mentions_license</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/licensing.html#mentions_license"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.licensing.mentions_license" title="Link to this definition">#</a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">attribution</span></code> appears to name a licence or rights status.</p>
+<p>A soft, presentation-side audit signal for
+<a class="reference internal" href="illustration.schema.html#illustration.schema.check_attributions" title="illustration.schema.check_attributions"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.schema.check_attributions()</span></code></a> — CC BY / CC BY-SA require
+the licence to be identified in the credit, and some providers’ raw
+attribution text (notably Wikimedia Commons’ <code class="docutils literal notranslate"><span class="pre">extmetadata.Attribution</span></code>,
+illustration#22) is sometimes just the author’s name with no licence
+mentioned at all, even when the file’s <code class="docutils literal notranslate"><span class="pre">license</span></code>/<code class="docutils literal notranslate"><span class="pre">license_url</span></code> fields
+are populated and correct. This never changes what a licence <em>is</em> — it
+only flags text that does not visibly say what it is, for a caller to
+review or fall back on <code class="docutils literal notranslate"><span class="pre">author</span></code>/<code class="docutils literal notranslate"><span class="pre">license</span></code>/<code class="docutils literal notranslate"><span class="pre">license_url</span></code> themselves.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">mentions_license</span><span class="p">(</span><span class="s2">"Alice / CC BY-SA 4.0, via Wikimedia Commons"</span><span class="p">)</span>
+</span><span data-line="2"><span class="go">True</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">mentions_license</span><span class="p">(</span><span class="s2">"Public domain, via Wikimedia Commons"</span><span class="p">)</span>
+</span><span data-line="4"><span class="go">True</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="n">mentions_license</span><span class="p">(</span><span class="s2">"EliziR"</span><span class="p">)</span>            <span class="c1"># illustration#22: bare author name</span>
+</span><span data-line="6"><span class="go">False</span>
+</span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><span class="n">mentions_license</span><span class="p">(</span><span class="s2">"Use freely, credit ACME"</span><span class="p">)</span>  <span class="c1"># custom wording, no licence named</span>
+</span><span data-line="8"><span class="go">False</span>
+</span><span data-line="9"><span class="gp">&gt;&gt;&gt; </span><span class="n">mentions_license</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</span><span data-line="10"><span class="go">False</span>
 </span></pre></div>
 </div>
 </dd></dl>
@@ -339,7 +375,7 @@ leading <code class="docutils literal notranslate"><span class="pre">cc-</span><
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=3bbcec59"></script>
+      <script src="../_static/documentation_options.js?v=9fc46840"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

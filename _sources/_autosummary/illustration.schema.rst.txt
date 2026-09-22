@@ -15,6 +15,7 @@ illustration.schema
    .. autosummary::
    
       license_allowlist
+      check_attributions
       to_search_hit
    
    .. rubric:: Classes

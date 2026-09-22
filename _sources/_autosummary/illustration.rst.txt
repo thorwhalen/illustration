@@ -10,6 +10,7 @@
    
       search
       license_allowlist
+      check_attributions
       normalize_license
       display_license
       to_search_hit

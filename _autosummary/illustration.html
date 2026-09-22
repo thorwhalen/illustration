@@ -208,6 +208,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#illustration.blur_check"><code class="docutils literal notranslate"><span class="pre">blur_check()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.brightness_check"><code class="docutils literal notranslate"><span class="pre">brightness_check()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.cache_dir"><code class="docutils literal notranslate"><span class="pre">cache_dir()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.check_attributions"><code class="docutils literal notranslate"><span class="pre">check_attributions()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.check_requirements"><code class="docutils literal notranslate"><span class="pre">check_requirements()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.check_rerank_requirements"><code class="docutils literal notranslate"><span class="pre">check_rerank_requirements()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
@@ -315,157 +316,160 @@ so an identical second call is free.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#illustration.license_allowlist" title="illustration.license_allowlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">license_allowlist</span></code></a>(results, *[, allow])</p></td>
 <td><p>Keep only results whose license is on the allowlist (R3's license gate).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.normalize_license" title="illustration.normalize_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_license</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.check_attributions" title="illustration.check_attributions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_attributions</span></code></a>(results)</p></td>
+<td><p>Return the results whose <code class="docutils literal notranslate"><span class="pre">attribution</span></code> does not visibly name a licence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.normalize_license" title="illustration.normalize_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_license</span></code></a>(value)</p></td>
 <td><p>Fold a provider's licence spelling onto one canonical, comparable code.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.display_license" title="illustration.display_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_license</span></code></a>(value)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.display_license" title="illustration.display_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_license</span></code></a>(value)</p></td>
 <td><p>The conventional human spelling of a licence, for on-screen credit.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.to_search_hit" title="illustration.to_search_hit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_search_hit</span></code></a>(result)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.to_search_hit" title="illustration.to_search_hit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_search_hit</span></code></a>(result)</p></td>
 <td><p>Map an <a class="reference internal" href="#illustration.ImageResult" title="illustration.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> to an <code class="docutils literal notranslate"><span class="pre">ir.SearchHit</span></code> for Layer-2 fusion.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.register_source" title="illustration.register_source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_source</span></code></a>(source, *[, name])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.register_source" title="illustration.register_source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_source</span></code></a>(source, *[, name])</p></td>
 <td><p>Register a source instance under <code class="docutils literal notranslate"><span class="pre">name</span></code> (default <code class="docutils literal notranslate"><span class="pre">source.name</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.unregister_source" title="illustration.unregister_source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unregister_source</span></code></a>(name)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.unregister_source" title="illustration.unregister_source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unregister_source</span></code></a>(name)</p></td>
 <td><p>Remove a source from the registry (no error if absent).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.get_source" title="illustration.get_source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_source</span></code></a>(name)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.get_source" title="illustration.get_source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_source</span></code></a>(name)</p></td>
 <td><p>Return the registered source named <code class="docutils literal notranslate"><span class="pre">name</span></code> (raises if unknown).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.list_sources" title="illustration.list_sources"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_sources</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.list_sources" title="illustration.list_sources"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_sources</span></code></a>()</p></td>
 <td><p>Sorted names of all registered sources.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.default_sources" title="illustration.default_sources"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_sources</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.default_sources" title="illustration.default_sources"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_sources</span></code></a>()</p></td>
 <td><p>The default source set (config <code class="docutils literal notranslate"><span class="pre">DFLT_SOURCES</span></code>), filtered to registered.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.search_cache_key" title="illustration.search_cache_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_cache_key</span></code></a>(source, query, params)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.search_cache_key" title="illustration.search_cache_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_cache_key</span></code></a>(source, query, params)</p></td>
 <td><p>Content-addressed SHA-256 key for <code class="docutils literal notranslate"><span class="pre">(source,</span> <span class="pre">query,</span> <span class="pre">params)</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.default_search_store" title="illustration.default_search_store"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_search_store</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.default_search_store" title="illustration.default_search_store"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_search_store</span></code></a>()</p></td>
 <td><p>A <code class="docutils literal notranslate"><span class="pre">JsonFiles</span></code> store under <code class="docutils literal notranslate"><span class="pre">&lt;cache_dir&gt;/search</span></code> (created on demand).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.using_credentials" title="illustration.using_credentials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">using_credentials</span></code></a>(**provider_keys)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.using_credentials" title="illustration.using_credentials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">using_credentials</span></code></a>(**provider_keys)</p></td>
 <td><p>Bind per-request provider API keys for the duration of the <code class="docutils literal notranslate"><span class="pre">with</span></code> block.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.resolve_api_key" title="illustration.resolve_api_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_api_key</span></code></a>(provider, *[, api_key])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.resolve_api_key" title="illustration.resolve_api_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_api_key</span></code></a>(provider, *[, api_key])</p></td>
 <td><p>Resolve the API key for <code class="docutils literal notranslate"><span class="pre">provider</span></code> by precedence, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if absent.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.check_requirements" title="illustration.check_requirements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_requirements</span></code></a>(provider, *[, api_key])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.check_requirements" title="illustration.check_requirements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_requirements</span></code></a>(provider, *[, api_key])</p></td>
 <td><p>Return the key for <code class="docutils literal notranslate"><span class="pre">provider</span></code>, raising if a <em>required</em> key is missing.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.requires_credentials" title="illustration.requires_credentials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">requires_credentials</span></code></a>(provider)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.requires_credentials" title="illustration.requires_credentials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">requires_credentials</span></code></a>(provider)</p></td>
 <td><p>Decorator separating credential-checking from a function's business logic.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.make_param_translator" title="illustration.make_param_translator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_param_translator</span></code></a>(param_map, *[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.make_param_translator" title="illustration.make_param_translator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_param_translator</span></code></a>(param_map, *[, ...])</p></td>
 <td><p>Build a translator from a <code class="docutils literal notranslate"><span class="pre">param_map</span></code> (see module docstring).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.cache_dir" title="illustration.cache_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cache_dir</span></code></a>(*[, ensure])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.cache_dir" title="illustration.cache_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cache_dir</span></code></a>(*[, ensure])</p></td>
 <td><p>Directory for regenerable caches (the default search-result store).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.package_version" title="illustration.package_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">package_version</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.package_version" title="illustration.package_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">package_version</span></code></a>()</p></td>
 <td><p>The installed package version, or <code class="docutils literal notranslate"><span class="pre">'0+unknown'</span></code> if not installed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.rerank" title="illustration.rerank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rerank</span></code></a>(query, results, *[, scorer, descending])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.rerank" title="illustration.rerank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rerank</span></code></a>(query, results, *[, scorer, descending])</p></td>
 <td><p>Re-score <code class="docutils literal notranslate"><span class="pre">results</span></code> against <code class="docutils literal notranslate"><span class="pre">query</span></code> and return them sorted by score.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.make_siglip_scorer" title="illustration.make_siglip_scorer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_siglip_scorer</span></code></a>(*[, model, cache, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.make_siglip_scorer" title="illustration.make_siglip_scorer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_siglip_scorer</span></code></a>(*[, model, cache, ...])</p></td>
 <td><p>Build a SigLIP <code class="xref py py-class docutils literal notranslate"><span class="pre">SiglipScorer</span></code> (raises if the extra is missing).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.check_rerank_requirements" title="illustration.check_rerank_requirements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_rerank_requirements</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.check_rerank_requirements" title="illustration.check_rerank_requirements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_rerank_requirements</span></code></a>()</p></td>
 <td><p>Raise <a class="reference internal" href="#illustration.RerankDependencyError" title="illustration.RerankDependencyError"><code class="xref py py-class docutils literal notranslate"><span class="pre">RerankDependencyError</span></code></a> if the rerank extra isn't installed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.curate" title="illustration.curate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">curate</span></code></a>(beat, *[, sources, n, budget, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.curate" title="illustration.curate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">curate</span></code></a>(beat, *[, sources, n, budget, ...])</p></td>
 <td><p>Curate the single best image for a narration <code class="docutils literal notranslate"><span class="pre">beat</span></code> via the CRAG loop.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.score_grade" title="illustration.score_grade"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score_grade</span></code></a>(results, selection)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.score_grade" title="illustration.score_grade"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score_grade</span></code></a>(results, selection)</p></td>
 <td><p>The default, model-free grader — scale-robust via <code class="docutils literal notranslate"><span class="pre">ir.select</span></code> structure.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.expand_query" title="illustration.expand_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_query</span></code></a>(beat, *[, n, expander, model, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.expand_query" title="illustration.expand_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_query</span></code></a>(beat, *[, n, expander, model, ...])</p></td>
 <td><p>Expand a narration <code class="docutils literal notranslate"><span class="pre">beat</span></code> into a deduped list of image-search queries.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.refine_query" title="illustration.refine_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refine_query</span></code></a>(beat, critique, *[, refiner, model])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.refine_query" title="illustration.refine_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refine_query</span></code></a>(beat, critique, *[, refiner, model])</p></td>
 <td><p>Refine a query for <code class="docutils literal notranslate"><span class="pre">beat</span></code> given a short <code class="docutils literal notranslate"><span class="pre">critique</span></code> of the last round.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.prefilter" title="illustration.prefilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefilter</span></code></a>(results, *[, checks, field, fetch])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.prefilter" title="illustration.prefilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefilter</span></code></a>(results, *[, checks, field, fetch])</p></td>
 <td><p>Run <code class="docutils literal notranslate"><span class="pre">checks</span></code> over <code class="docutils literal notranslate"><span class="pre">results</span></code>, keeping only candidates that pass all.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.blur_check" title="illustration.blur_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blur_check</span></code></a>(*[, min_variance])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.blur_check" title="illustration.blur_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blur_check</span></code></a>(*[, min_variance])</p></td>
 <td><p>Reject blurry images via variance of the Laplacian (R2 §3; OpenCV-free).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.brightness_check" title="illustration.brightness_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brightness_check</span></code></a>(*[, min_brightness, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.brightness_check" title="illustration.brightness_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brightness_check</span></code></a>(*[, min_brightness, ...])</p></td>
 <td><p>Reject near-black / blown-out images.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.nsfw_check" title="illustration.nsfw_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nsfw_check</span></code></a>(*[, max_prob, classifier])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.nsfw_check" title="illustration.nsfw_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nsfw_check</span></code></a>(*[, max_prob, classifier])</p></td>
 <td><p>Hard-drop unsafe images (R2: NSFW is a non-negotiable drop).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.inspect_candidate" title="illustration.inspect_candidate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect_candidate</span></code></a>(query, result, *[, mode, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.inspect_candidate" title="illustration.inspect_candidate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect_candidate</span></code></a>(query, result, *[, mode, ...])</p></td>
 <td><p>Inspect one candidate: a cheap caption (default) or a full rubric judge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.judge_candidate" title="illustration.judge_candidate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judge_candidate</span></code></a>(query, result, *[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.judge_candidate" title="illustration.judge_candidate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judge_candidate</span></code></a>(query, result, *[, ...])</p></td>
 <td><p>Score one candidate against <code class="docutils literal notranslate"><span class="pre">query</span></code> with a pointwise VLM rubric.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.select_sequence" title="illustration.select_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_sequence</span></code></a>(per_beat_candidates, *[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.select_sequence" title="illustration.select_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_sequence</span></code></a>(per_beat_candidates, *[, ...])</p></td>
 <td><p>Choose one image per beat optimizing relevance + coherence − redundancy.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.curate_sequence" title="illustration.curate_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">curate_sequence</span></code></a>(beats, *[, sources, n, per_beat])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.curate_sequence" title="illustration.curate_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">curate_sequence</span></code></a>(beats, *[, sources, n, per_beat])</p></td>
 <td><p>Curate a whole sequence: gather a candidate pool per beat, then select.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.phash" title="illustration.phash"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phash</span></code></a>(image, *[, hash_size, highfreq_factor])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.phash" title="illustration.phash"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phash</span></code></a>(image, *[, hash_size, highfreq_factor])</p></td>
 <td><p>A DCT perceptual hash of a PIL image, as a <code class="docutils literal notranslate"><span class="pre">hash_size**2</span></code>-bit integer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.dedupe" title="illustration.dedupe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dedupe</span></code></a>(results, *[, strategy, signature, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.dedupe" title="illustration.dedupe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dedupe</span></code></a>(results, *[, strategy, signature, ...])</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">results</span></code> with same-subject duplicates collapsed, original order kept.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.dedupe_paths" title="illustration.dedupe_paths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dedupe_paths</span></code></a>(paths, *[, strategy, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.dedupe_paths" title="illustration.dedupe_paths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dedupe_paths</span></code></a>(paths, *[, strategy, ...])</p></td>
 <td><p>The paths in <code class="docutils literal notranslate"><span class="pre">paths</span></code> with same-subject duplicates collapsed, order kept.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.group_duplicates" title="illustration.group_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_duplicates</span></code></a>(results, *[, signature, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.group_duplicates" title="illustration.group_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_duplicates</span></code></a>(results, *[, signature, ...])</p></td>
 <td><p>Partition <code class="docutils literal notranslate"><span class="pre">results</span></code> into groups of the same subject.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.group_duplicate_paths" title="illustration.group_duplicate_paths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_duplicate_paths</span></code></a>(paths, *[, signature, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.group_duplicate_paths" title="illustration.group_duplicate_paths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_duplicate_paths</span></code></a>(paths, *[, signature, ...])</p></td>
 <td><p>Partition image files on disk into groups of the same subject.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.default_signature" title="illustration.default_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_signature</span></code></a>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.default_signature" title="illustration.default_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_signature</span></code></a>(**kwargs)</p></td>
 <td><p>The strongest signature whose dependencies are installed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.local_signature" title="illustration.local_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_signature</span></code></a>([tier])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.local_signature" title="illustration.local_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_signature</span></code></a>([tier])</p></td>
 <td><p>A signature that reads its pixels off the filesystem instead of the network.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.dinov2_signature" title="illustration.dinov2_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dinov2_signature</span></code></a>([model, field, fetch])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.dinov2_signature" title="illustration.dinov2_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dinov2_signature</span></code></a>([model, field, fetch])</p></td>
 <td><p>DINOv2 embeddings — the preferred tier for &quot;is this the same thing?&quot;.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.siglip_signature" title="illustration.siglip_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">siglip_signature</span></code></a>([model])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.siglip_signature" title="illustration.siglip_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">siglip_signature</span></code></a>([model])</p></td>
 <td><p>SigLIP image embeddings, reusing the reranker's on-disk embedding cache.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.phash_signature" title="illustration.phash_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phash_signature</span></code></a>(*[, field, fetch])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.phash_signature" title="illustration.phash_signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phash_signature</span></code></a>(*[, field, fetch])</p></td>
 <td><p>Perceptual hash as ±1 bits — the always-available tier.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.hamming_distance" title="illustration.hamming_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hamming_distance</span></code></a>(a, b)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.hamming_distance" title="illustration.hamming_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hamming_distance</span></code></a>(a, b)</p></td>
 <td><p>Number of differing bits between two perceptual hashes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.make_phash_hasher" title="illustration.make_phash_hasher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_phash_hasher</span></code></a>(*[, field, fetch])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.make_phash_hasher" title="illustration.make_phash_hasher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_phash_hasher</span></code></a>(*[, field, fetch])</p></td>
 <td><p>A pHash hasher that fetches each result's image once (cached for the pass).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.persist_sequence" title="illustration.persist_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">persist_sequence</span></code></a>(result, *[, store, actor, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.persist_sequence" title="illustration.persist_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">persist_sequence</span></code></a>(result, *[, store, actor, ...])</p></td>
 <td><p>Persist a <a class="reference internal" href="illustration.sequence.html#illustration.sequence.SequenceResult" title="illustration.sequence.SequenceResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceResult</span></code></a> as lacing annotations.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.record_override" title="illustration.record_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">record_override</span></code></a>(store, beat_index, chosen, *)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.record_override" title="illustration.record_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">record_override</span></code></a>(store, beat_index, chosen, *)</p></td>
 <td><p>Append a director override for <code class="docutils literal notranslate"><span class="pre">beat_index</span></code> (a new, superseding annotation).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.resolve_selection" title="illustration.resolve_selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_selection</span></code></a>(store, beat_index)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.resolve_selection" title="illustration.resolve_selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_selection</span></code></a>(store, beat_index)</p></td>
 <td><p>The <em>active</em> selection body for a beat — the latest annotation wins.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.resolved_selections" title="illustration.resolved_selections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolved_selections</span></code></a>(store)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.resolved_selections" title="illustration.resolved_selections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolved_selections</span></code></a>(store)</p></td>
 <td><p>The active selection body per beat index (resolved over all overrides).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.export_otio" title="illustration.export_otio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_otio</span></code></a>(store[, target])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.export_otio" title="illustration.export_otio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_otio</span></code></a>(store[, target])</p></td>
 <td><p>Export the annotation store to OpenTimelineIO (needs <code class="docutils literal notranslate"><span class="pre">lacing[otio]</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#illustration.render_sequence_video" title="illustration.render_sequence_video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_sequence_video</span></code></a>(selections, *, saveas)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.render_sequence_video" title="illustration.render_sequence_video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_sequence_video</span></code></a>(selections, *, saveas)</p></td>
 <td><p>Render chosen images into a single Ken-Burns film via <code class="docutils literal notranslate"><span class="pre">burns</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.to_walkthru_document" title="illustration.to_walkthru_document"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_walkthru_document</span></code></a>(selections, *[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.to_walkthru_document" title="illustration.to_walkthru_document"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_walkthru_document</span></code></a>(selections, *[, ...])</p></td>
 <td><p>Build a <code class="docutils literal notranslate"><span class="pre">walkthru.DemoDocument</span></code> from the selections (pure data, no render).</p></td>
 </tr>
 </tbody>
@@ -1134,6 +1138,39 @@ a low response variance means few sharp edges, i.e. blur.</p>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.check_attributions">
+<span class="sig-prename descclassname"><span class="pre">illustration.</span></span><span class="sig-name descname"><span class="pre">check_attributions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/schema.html#check_attributions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.check_attributions" title="Link to this definition">#</a></dt>
+<dd><p>Return the results whose <code class="docutils literal notranslate"><span class="pre">attribution</span></code> does not visibly name a licence.</p>
+<p><code class="docutils literal notranslate"><span class="pre">license_allowlist</span></code> gates on the <em>machine-readable</em> <code class="docutils literal notranslate"><span class="pre">license</span></code> field;
+this is the companion audit for the <em>human-readable</em> <code class="docutils literal notranslate"><span class="pre">attribution</span></code>
+string a credit roll actually renders. CC BY / CC BY-SA require the
+licence to be identified in the credit — a licensed result with a
+populated, correct <code class="docutils literal notranslate"><span class="pre">license</span></code> can still carry an <code class="docutils literal notranslate"><span class="pre">attribution</span></code> that is
+just an author’s name (illustration#22, seen on ~4% of one Wikimedia
+session’s hits), which silently breaches that condition if a consumer
+renders <code class="docutils literal notranslate"><span class="pre">attribution</span></code> verbatim, as the package’s own guide tells them
+to. This never rewrites or drops a result — it is read-only, for a
+pipeline to review, log, or compose a fallback credit from <code class="docutils literal notranslate"><span class="pre">author</span></code> /
+<code class="docutils literal notranslate"><span class="pre">license</span></code> / <code class="docutils literal notranslate"><span class="pre">license_url</span></code> for exactly the results it returns.</p>
+<p>A result with no <code class="docutils literal notranslate"><span class="pre">license</span></code> at all is not flagged: there is nothing to
+name, and it should already have been dropped by <code class="docutils literal notranslate"><span class="pre">license_allowlist</span></code> if
+that matters to the caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>]</span></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"by-sa"</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="s2">"Jane Doe"</span><span class="p">)</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"2"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="s2">"by-sa"</span><span class="p">,</span>
+</span><span data-line="3"><span class="gp">... </span>                 <span class="n">attribution</span><span class="o">=</span><span class="s2">"Jane Doe / CC BY-SA 4.0, via Wikimedia Commons"</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ImageResult</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">"p"</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"3"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">"u"</span><span class="p">,</span> <span class="n">license</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">check_attributions</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])]</span>
+</span><span data-line="6"><span class="go">['1']</span>
+</span></pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -2191,7 +2228,7 @@ through). Bindings nest: an inner block overlays the outer.</p>
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=3bbcec59"></script>
+      <script src="../_static/documentation_options.js?v=9fc46840"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

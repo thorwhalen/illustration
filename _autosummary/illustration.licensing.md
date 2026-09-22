@@ -43,9 +43,10 @@ the recorded spelling rather than the normalised code.
 
 ### Functions
 
-| [`normalize_license`](#illustration.licensing.normalize_license)(value)   | Fold a provider's licence spelling onto one canonical, comparable code.   |
-|-----------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| [`display_license`](#illustration.licensing.display_license)(value)     | The conventional human spelling of a licence, for on-screen credit.       |
+| [`normalize_license`](#illustration.licensing.normalize_license)(value)      | Fold a provider's licence spelling onto one canonical, comparable code.   |
+|--------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [`display_license`](#illustration.licensing.display_license)(value)        | The conventional human spelling of a licence, for on-screen credit.       |
+| [`mentions_license`](#illustration.licensing.mentions_license)(attribution) | Whether `attribution` appears to name a licence or rights status.         |
 
 ### illustration.licensing.LICENSE_ALIASES *= {'cc-0': 'cc0', 'cc-pdm': 'pdm', 'cc-publicdomain': 'pdm', 'cc-zero': 'cc0', 'pd': 'pdm', 'pdm-owner': 'pdm', 'public-domain': 'pdm', 'public-domain-mark': 'pdm', 'publicdomain': 'pdm', 'zero': 'cc0'}*
 
@@ -103,6 +104,36 @@ reinterpreted — it must still fail [`normalize_license()`](#illustration.licen
 'Pixabay License'
 >>> display_license(None) is None
 True
+```
+
+### illustration.licensing.mentions_license(attribution)
+
+Whether `attribution` appears to name a licence or rights status.
+
+A soft, presentation-side audit signal for
+[`illustration.schema.check_attributions()`](illustration.schema.md#illustration.schema.check_attributions) — CC BY / CC BY-SA require
+the licence to be identified in the credit, and some providers’ raw
+attribution text (notably Wikimedia Commons’ `extmetadata.Attribution`,
+illustration#22) is sometimes just the author’s name with no licence
+mentioned at all, even when the file’s `license`/`license_url` fields
+are populated and correct. This never changes what a licence *is* — it
+only flags text that does not visibly say what it is, for a caller to
+review or fall back on `author`/`license`/`license_url` themselves.
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
+
+```pycon
+>>> mentions_license("Alice / CC BY-SA 4.0, via Wikimedia Commons")
+True
+>>> mentions_license("Public domain, via Wikimedia Commons")
+True
+>>> mentions_license("EliziR")            # illustration#22: bare author name
+False
+>>> mentions_license("Use freely, credit ACME")  # custom wording, no licence named
+False
+>>> mentions_license(None)
+False
 ```
 
 ### illustration.licensing.normalize_license(value)

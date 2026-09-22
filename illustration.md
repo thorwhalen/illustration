@@ -1,4 +1,4 @@
-> built 2026-09-22 14:20 UTC from 198098b (main) · illustration 0.0.12. Details: build_info.json
+> built 2026-09-22 14:30 UTC from fd576ad (main) · illustration 0.0.13. Details: build_info.json
 
 # index.html.md
 
@@ -1842,6 +1842,7 @@ See `misc/docs/design/illustration_design.md` for the full design.
 | [`search`](_autosummary/illustration.html.md#illustration.search)(query, \*[, n, source, orientation, ...])   | Search for up to `n` images matching `query` from one or more sources.                                                                |
 |-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | [`license_allowlist`](_autosummary/illustration.html.md#illustration.license_allowlist)(results, \*[, allow])            | Keep only results whose license is on the allowlist (R3's license gate).                                                              |
+| [`check_attributions`](_autosummary/illustration.html.md#illustration.check_attributions)(results)                        | Return the results whose `attribution` does not visibly name a licence.                                                               |
 | [`normalize_license`](_autosummary/illustration.html.md#illustration.normalize_license)(value)                           | Fold a provider's licence spelling onto one canonical, comparable code.                                                               |
 | [`display_license`](_autosummary/illustration.html.md#illustration.display_license)(value)                             | The conventional human spelling of a licence, for on-screen credit.                                                                   |
 | [`to_search_hit`](_autosummary/illustration.html.md#illustration.to_search_hit)(result)                              | Map an [`ImageResult`](_autosummary/illustration.html.md#illustration.ImageResult) to an `ir.SearchHit` for Layer-2 fusion.                          |
@@ -2336,6 +2337,38 @@ Directory for regenerable caches (the default search-result store).
 
 * **Return type:**
   [`Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path)
+
+### illustration.check_attributions(results)
+
+Return the results whose `attribution` does not visibly name a licence.
+
+`license_allowlist` gates on the *machine-readable* `license` field;
+this is the companion audit for the *human-readable* `attribution`
+string a credit roll actually renders. CC BY / CC BY-SA require the
+licence to be identified in the credit — a licensed result with a
+populated, correct `license` can still carry an `attribution` that is
+just an author’s name (illustration#22, seen on ~4% of one Wikimedia
+session’s hits), which silently breaches that condition if a consumer
+renders `attribution` verbatim, as the package’s own guide tells them
+to. This never rewrites or drops a result — it is read-only, for a
+pipeline to review, log, or compose a fallback credit from `author` /
+`license` / `license_url` for exactly the results it returns.
+
+A result with no `license` at all is not flagged: there is nothing to
+name, and it should already have been dropped by `license_allowlist` if
+that matters to the caller.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)[[`ImageResult`](_autosummary/illustration.schema.html.md#illustration.schema.ImageResult)]
+
+```pycon
+>>> a = ImageResult(provider="p", id="1", url="u", license="by-sa", attribution="Jane Doe")
+>>> b = ImageResult(provider="p", id="2", url="u", license="by-sa",
+...                  attribution="Jane Doe / CC BY-SA 4.0, via Wikimedia Commons")
+>>> c = ImageResult(provider="p", id="3", url="u", license=None, attribution=None)
+>>> [r.id for r in check_attributions([a, b, c])]
+['1']
+```
 
 ### illustration.check_requirements(provider, , api_key=None)
 
@@ -3481,9 +3514,10 @@ the recorded spelling rather than the normalised code.
 
 ### Functions
 
-| [`normalize_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license)(value)   | Fold a provider's licence spelling onto one canonical, comparable code.   |
-|-----------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| [`display_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.display_license)(value)     | The conventional human spelling of a licence, for on-screen credit.       |
+| [`normalize_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license)(value)      | Fold a provider's licence spelling onto one canonical, comparable code.   |
+|--------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [`display_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.display_license)(value)        | The conventional human spelling of a licence, for on-screen credit.       |
+| [`mentions_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.mentions_license)(attribution) | Whether `attribution` appears to name a licence or rights status.         |
 
 ### illustration.licensing.LICENSE_ALIASES *= {'cc-0': 'cc0', 'cc-pdm': 'pdm', 'cc-publicdomain': 'pdm', 'cc-zero': 'cc0', 'pd': 'pdm', 'pdm-owner': 'pdm', 'public-domain': 'pdm', 'public-domain-mark': 'pdm', 'publicdomain': 'pdm', 'zero': 'cc0'}*
 
@@ -3541,6 +3575,36 @@ reinterpreted — it must still fail [`normalize_license()`](_autosummary/illust
 'Pixabay License'
 >>> display_license(None) is None
 True
+```
+
+### illustration.licensing.mentions_license(attribution)
+
+Whether `attribution` appears to name a licence or rights status.
+
+A soft, presentation-side audit signal for
+[`illustration.schema.check_attributions()`](_autosummary/illustration.schema.html.md#illustration.schema.check_attributions) — CC BY / CC BY-SA require
+the licence to be identified in the credit, and some providers’ raw
+attribution text (notably Wikimedia Commons’ `extmetadata.Attribution`,
+illustration#22) is sometimes just the author’s name with no licence
+mentioned at all, even when the file’s `license`/`license_url` fields
+are populated and correct. This never changes what a licence *is* — it
+only flags text that does not visibly say what it is, for a caller to
+review or fall back on `author`/`license`/`license_url` themselves.
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
+
+```pycon
+>>> mentions_license("Alice / CC BY-SA 4.0, via Wikimedia Commons")
+True
+>>> mentions_license("Public domain, via Wikimedia Commons")
+True
+>>> mentions_license("EliziR")            # illustration#22: bare author name
+False
+>>> mentions_license("Use freely, credit ACME")  # custom wording, no licence named
+False
+>>> mentions_license(None)
+False
 ```
 
 ### illustration.licensing.normalize_license(value)
@@ -4422,6 +4486,7 @@ provider-specific field the normalized schema doesn’t name.
 
 | [`license_allowlist`](_autosummary/illustration.schema.html.md#illustration.schema.license_allowlist)(results, \*[, allow])   | Keep only results whose license is on the allowlist (R3's license gate).                                     |
 |--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| [`check_attributions`](_autosummary/illustration.schema.html.md#illustration.schema.check_attributions)(results)               | Return the results whose `attribution` does not visibly name a licence.                                      |
 | [`to_search_hit`](_autosummary/illustration.schema.html.md#illustration.schema.to_search_hit)(result)                     | Map an [`ImageResult`](_autosummary/illustration.schema.html.md#illustration.schema.ImageResult) to an `ir.SearchHit` for Layer-2 fusion. |
 
 ### Classes
@@ -4460,6 +4525,38 @@ unable to answer it.
 
 * **Type:**
   The **rights record**
+
+### illustration.schema.check_attributions(results)
+
+Return the results whose `attribution` does not visibly name a licence.
+
+`license_allowlist` gates on the *machine-readable* `license` field;
+this is the companion audit for the *human-readable* `attribution`
+string a credit roll actually renders. CC BY / CC BY-SA require the
+licence to be identified in the credit — a licensed result with a
+populated, correct `license` can still carry an `attribution` that is
+just an author’s name (illustration#22, seen on ~4% of one Wikimedia
+session’s hits), which silently breaches that condition if a consumer
+renders `attribution` verbatim, as the package’s own guide tells them
+to. This never rewrites or drops a result — it is read-only, for a
+pipeline to review, log, or compose a fallback credit from `author` /
+`license` / `license_url` for exactly the results it returns.
+
+A result with no `license` at all is not flagged: there is nothing to
+name, and it should already have been dropped by `license_allowlist` if
+that matters to the caller.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)[[`ImageResult`](_autosummary/illustration.schema.html.md#illustration.schema.ImageResult)]
+
+```pycon
+>>> a = ImageResult(provider="p", id="1", url="u", license="by-sa", attribution="Jane Doe")
+>>> b = ImageResult(provider="p", id="2", url="u", license="by-sa",
+...                  attribution="Jane Doe / CC BY-SA 4.0, via Wikimedia Commons")
+>>> c = ImageResult(provider="p", id="3", url="u", license=None, attribution=None)
+>>> [r.id for r in check_attributions([a, b, c])]
+['1']
+```
 
 ### illustration.schema.license_allowlist(results, , allow=None)
 
@@ -4862,18 +4959,18 @@ Beats with no chosen image are skipped. Needs the `[video]` extra.
 
 # About this build
 
-This documentation was built on **2026-09-22 14:20 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/198098bcea03d661ce08555e87266c3647e4310e"><code>198098b</code></a> on branch <code>main</code>, for **illustration 0.0.12** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-09-22 14:30 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/fd576adc6b32052bce82f7cad15558a6b7c848b6"><code>fd576ad</code></a> on branch <code>main</code>, for **illustration 0.0.13** (from <code>pyproject.toml</code>).
 
 #### WARNING
 The documentation and the package may be misaligned:
 
-- The documented version (0.0.12) is behind the latest release on PyPI (0.0.13): `pip install illustration` gives newer code than these docs describe.
+- The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install illustration` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                                |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/198098bcea03d661ce08555e87266c3647e4310e"><code>198098bcea03d661ce08555e87266c3647e4310e</code></a> |
+| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/fd576adc6b32052bce82f7cad15558a6b7c848b6"><code>fd576adc6b32052bce82f7cad15558a6b7c848b6</code></a> |
 | Branch              | <code>main</code>                                                                                                                                              |
 | Tags at this commit | none                                                                                                                                                           |
 | Working tree        | clean                                                                                                                                                          |
@@ -4884,9 +4981,9 @@ The documentation and the package may be misaligned:
 |              |                                                                                               |
 |--------------|-----------------------------------------------------------------------------------------------|
 | Repository   | <code>thorwhalen/illustration</code>                                                          |
-| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/35737955335">35737955335</a> |
+| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/35740628069">35740628069</a> |
 | Ref          | <code>refs/heads/main</code>                                                                  |
-| Event commit | <code>198098bcea03d661ce08555e87266c3647e4310e</code> (in the history of the built commit)    |
+| Event commit | <code>fd576adc6b32052bce82f7cad15558a6b7c848b6</code> (in the history of the built commit)    |
 
 ## Tools
 
@@ -4911,13 +5008,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/illustration/0.0.13/">0.0.13</a>, newer than the documented version (0.0.12).
+Latest release: <a href="https://pypi.org/project/illustration/0.0.14/">0.0.14</a>, newer than the documented version (0.0.13).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/thorwhalen/illustration && cd illustration
-git checkout 198098bcea03d661ce08555e87266c3647e4310e
+git checkout fd576adc6b32052bce82f7cad15558a6b7c848b6
 pip install "epythet==0.2.12"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
