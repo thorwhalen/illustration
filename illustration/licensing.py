@@ -26,13 +26,22 @@ A code that is not recognised stays as-is and therefore fails the allowlist:
 'by-nc-nd'
 >>> normalize_license(None) is None
 True
+
+:func:`display_license` is the inverse-flavoured sibling, for *showing* a
+licence rather than comparing it — see its own docstring for why it works on
+the recorded spelling rather than the normalised code.
 """
 
 from __future__ import annotations
 
 import re
 
-__all__ = ["normalize_license", "LICENSE_ALIASES", "RESTRICTION_TOKENS"]
+__all__ = [
+    "normalize_license",
+    "display_license",
+    "LICENSE_ALIASES",
+    "RESTRICTION_TOKENS",
+]
 
 #: Whole-code spellings that no mechanical rule can fold, mapped by hand. Kept
 #: deliberately short: every entry is a judgement that two strings name the same
@@ -64,6 +73,23 @@ _VERSION_SUFFIX_RE = re.compile(r"[-_ ]v?\d+(?:\.\d+)*$")
 _CC_PREFIX_RE = re.compile(r"^cc[-_ ]")
 _SEPARATORS_RE = re.compile(r"[\s_]+")
 
+#: Conventional human spelling for every canonical permission code
+#: :func:`normalize_license` can produce (the six CC by-family combinations,
+#: plus the two public-domain-flavoured codes). Deliberately does not cover
+#: every key of :data:`LICENSE_ALIASES` by name — the *values* of that table
+#: are exactly this dict's keys, so it stays reachable the same way
+#: ``test_every_alias_key_is_reachable`` pins normalize_license's table.
+_DISPLAY_NAMES = {
+    "by": "CC BY",
+    "by-sa": "CC BY-SA",
+    "by-nc": "CC BY-NC",
+    "by-nd": "CC BY-ND",
+    "by-nc-sa": "CC BY-NC-SA",
+    "by-nc-nd": "CC BY-NC-ND",
+    "cc0": "CC0",
+    "pdm": "Public Domain Mark",
+}
+
 
 def normalize_license(value: "str | None") -> "str | None":
     """Fold a provider's licence spelling onto one canonical, comparable code.
@@ -93,3 +119,57 @@ def normalize_license(value: "str | None") -> "str | None":
         return LICENSE_ALIASES[code]
     code = _CC_PREFIX_RE.sub("", code)
     return LICENSE_ALIASES.get(code, code) or None
+
+
+def display_license(value: "str | None") -> "str | None":
+    """The conventional human spelling of a licence, for on-screen credit.
+
+    Unlike :func:`normalize_license` (a canonical code for *comparison*, with
+    the version stripped by design), this is for *display* — a credit line, a
+    video description, an attribution card — and works on the **recorded**
+    spelling rather than the normalised one, because the version is
+    information a normalised code deliberately drops and a credit arguably
+    should keep: ``cc-by-sa-4.0`` and a hypothetical ``cc-by-sa-3.0`` compare
+    equal under :func:`normalize_license` but are not the same licence to name
+    on screen.
+
+    Recognised Creative Commons / public-domain codes (the same vocabulary
+    :func:`normalize_license` produces) get the conventional spelling —
+    ``"by-sa"`` → ``"CC BY-SA"``, ``"cc0"`` → ``"CC0"``, ``"pdm"`` →
+    ``"Public Domain Mark"`` — with the recorded version appended if the input
+    carried one. This is presentation only: an input that does not resolve to
+    a known permission code is title-cased and returned as-is, never
+    reinterpreted — it must still fail :func:`normalize_license`'s consumers
+    (e.g. :func:`illustration.schema.license_allowlist`) exactly as before.
+
+    >>> display_license("cc-by-sa-4.0")
+    'CC BY-SA 4.0'
+    >>> display_license("CC BY-SA 4.0")
+    'CC BY-SA 4.0'
+    >>> display_license("by-sa")           # no version in the recorded spelling
+    'CC BY-SA'
+    >>> display_license("cc0"), display_license("CC0 1.0")
+    ('CC0', 'CC0 1.0')
+    >>> display_license("pd"), display_license("public domain")
+    ('Public Domain Mark', 'Public Domain Mark')
+    >>> display_license("cc-by-nc-nd-4.0")  # restrictions survive, same as normalize_license
+    'CC BY-NC-ND 4.0'
+    >>> display_license("Pixabay License")  # not a CC/PD code -- shown, not invented
+    'Pixabay License'
+    >>> display_license(None) is None
+    True
+    """
+    if not value or not value.strip():
+        return None
+    raw = _SEPARATORS_RE.sub("-", value.strip().lower())
+    version_match = _VERSION_SUFFIX_RE.search(raw)
+    version = version_match.group(0).lstrip("-_ ").lstrip("v") if version_match else None
+    base = _VERSION_SUFFIX_RE.sub("", raw)
+    code = normalize_license(base)
+    if code in _DISPLAY_NAMES:
+        name = _DISPLAY_NAMES[code]
+        return f"{name} {version}" if version else name
+    # Not a recognised CC/PD code: present the provider's own spelling,
+    # title-cased, rather than inventing a CC-style name for something that
+    # isn't one (e.g. "Pixabay License", "Pexels License").
+    return " ".join(word.capitalize() for word in base.replace("-", " ").split()) or None
