@@ -32,6 +32,7 @@ See `misc/docs/design/illustration_design.md` for the full design.
 |-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | [`license_allowlist`](#illustration.license_allowlist)(results, \*[, allow])            | Keep only results whose license is on the allowlist (R3's license gate).                                                              |
 | [`normalize_license`](#illustration.normalize_license)(value)                           | Fold a provider's licence spelling onto one canonical, comparable code.                                                               |
+| [`display_license`](#illustration.display_license)(value)                             | The conventional human spelling of a licence, for on-screen credit.                                                                   |
 | [`to_search_hit`](#illustration.to_search_hit)(result)                              | Map an [`ImageResult`](#illustration.ImageResult) to an `ir.SearchHit` for Layer-2 fusion.                          |
 | [`register_source`](#illustration.register_source)(source, \*[, name])                | Register a source instance under `name` (default `source.name`).                                                                      |
 | [`unregister_source`](#illustration.unregister_source)(name)                            | Remove a source from the registry (no error if absent).                                                                               |
@@ -677,6 +678,50 @@ Uses the pooled CLS embedding and compares by cosine.
 
 * **Return type:**
   [`Signature`](illustration.duplicates.md#illustration.duplicates.Signature)
+
+### illustration.display_license(value)
+
+The conventional human spelling of a licence, for on-screen credit.
+
+Unlike [`normalize_license()`](#illustration.normalize_license) (a canonical code for *comparison*, with
+the version stripped by design), this is for *display* — a credit line, a
+video description, an attribution card — and works on the **recorded**
+spelling rather than the normalised one, because the version is
+information a normalised code deliberately drops and a credit arguably
+should keep: `cc-by-sa-4.0` and a hypothetical `cc-by-sa-3.0` compare
+equal under [`normalize_license()`](#illustration.normalize_license) but are not the same licence to name
+on screen.
+
+Recognised Creative Commons / public-domain codes (the same vocabulary
+[`normalize_license()`](#illustration.normalize_license) produces) get the conventional spelling —
+`"by-sa"` → `"CC BY-SA"`, `"cc0"` → `"CC0"`, `"pdm"` →
+`"Public Domain Mark"` — with the recorded version appended if the input
+carried one. This is presentation only: an input that does not resolve to
+a known permission code is title-cased and returned as-is, never
+reinterpreted — it must still fail [`normalize_license()`](#illustration.normalize_license)’s consumers
+(e.g. [`illustration.schema.license_allowlist()`](illustration.schema.md#illustration.schema.license_allowlist)) exactly as before.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str) | [`None`](https://docs.python.org/3/builtins/constants.html#None)
+
+```pycon
+>>> display_license("cc-by-sa-4.0")
+'CC BY-SA 4.0'
+>>> display_license("CC BY-SA 4.0")
+'CC BY-SA 4.0'
+>>> display_license("by-sa")           # no version in the recorded spelling
+'CC BY-SA'
+>>> display_license("cc0"), display_license("CC0 1.0")
+('CC0', 'CC0 1.0')
+>>> display_license("pd"), display_license("public domain")
+('Public Domain Mark', 'Public Domain Mark')
+>>> display_license("cc-by-nc-nd-4.0")  # restrictions survive, same as normalize_license
+'CC BY-NC-ND 4.0'
+>>> display_license("Pixabay License")  # not a CC/PD code -- shown, not invented
+'Pixabay License'
+>>> display_license(None) is None
+True
+```
 
 ### illustration.expand_query(beat, , n=3, expander=None, model=None, include_verbatim=True)
 

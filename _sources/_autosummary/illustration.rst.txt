@@ -11,6 +11,7 @@
       search
       license_allowlist
       normalize_license
+      display_license
       to_search_hit
       register_source
       unregister_source

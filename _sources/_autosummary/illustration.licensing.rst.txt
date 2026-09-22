@@ -16,4 +16,5 @@ illustration.licensing
    .. autosummary::
    
       normalize_license
+      display_license
    

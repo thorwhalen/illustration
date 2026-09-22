@@ -110,6 +110,7 @@ data-aria-dark="Switch to auto color mode">
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
 <li><a class="reference internal" href="#illustration.licensing.LICENSE_ALIASES"><code class="docutils literal notranslate"><span class="pre">LICENSE_ALIASES</span></code></a></li>
 <li><a class="reference internal" href="#illustration.licensing.RESTRICTION_TOKENS"><code class="docutils literal notranslate"><span class="pre">RESTRICTION_TOKENS</span></code></a></li>
+<li><a class="reference internal" href="#illustration.licensing.display_license"><code class="docutils literal notranslate"><span class="pre">display_license()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.licensing.normalize_license"><code class="docutils literal notranslate"><span class="pre">normalize_license()</span></code></a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
@@ -178,6 +179,9 @@ A code that is not recognised stays as-is and therefore fails the allowlist:
 </span><span data-line="10"><span class="go">True</span>
 </span></pre></div>
 </div>
+<p><a class="reference internal" href="#illustration.licensing.display_license" title="illustration.licensing.display_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">display_license()</span></code></a> is the inverse-flavoured sibling, for <em>showing</em> a
+licence rather than comparing it — see its own docstring for why it works on
+the recorded spelling rather than the normalised code.</p>
 <p class="rubric">Module Attributes</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
@@ -198,6 +202,9 @@ A code that is not recognised stays as-is and therefore fails the allowlist:
 <tr class="row-odd"><td><p><a class="reference internal" href="#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_license</span></code></a>(value)</p></td>
 <td><p>Fold a provider's licence spelling onto one canonical, comparable code.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.licensing.display_license" title="illustration.licensing.display_license"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_license</span></code></a>(value)</p></td>
+<td><p>The conventional human spelling of a licence, for on-screen credit.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -217,6 +224,51 @@ by the default gate; <code class="docutils literal notranslate"><span class="pre
 <span class="sig-prename descclassname"><span class="pre">illustration.licensing.</span></span><span class="sig-name descname"><span class="pre">RESTRICTION_TOKENS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'nc',</span> <span class="pre">'nd',</span> <span class="pre">'sampling'})</span></span><a class="headerlink" href="#illustration.licensing.RESTRICTION_TOKENS" title="Link to this definition">#</a></dt>
 <dd><p>Tokens that <em>restrict</em> use. Present only so the guard test can assert that
 normalisation never removes one; nothing in the transform consults it.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.licensing.display_license">
+<span class="sig-prename descclassname"><span class="pre">illustration.licensing.</span></span><span class="sig-name descname"><span class="pre">display_license</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/licensing.html#display_license"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.licensing.display_license" title="Link to this definition">#</a></dt>
+<dd><p>The conventional human spelling of a licence, for on-screen credit.</p>
+<p>Unlike <a class="reference internal" href="#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalize_license()</span></code></a> (a canonical code for <em>comparison</em>, with
+the version stripped by design), this is for <em>display</em> — a credit line, a
+video description, an attribution card — and works on the <strong>recorded</strong>
+spelling rather than the normalised one, because the version is
+information a normalised code deliberately drops and a credit arguably
+should keep: <code class="docutils literal notranslate"><span class="pre">cc-by-sa-4.0</span></code> and a hypothetical <code class="docutils literal notranslate"><span class="pre">cc-by-sa-3.0</span></code> compare
+equal under <a class="reference internal" href="#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalize_license()</span></code></a> but are not the same licence to name
+on screen.</p>
+<p>Recognised Creative Commons / public-domain codes (the same vocabulary
+<a class="reference internal" href="#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalize_license()</span></code></a> produces) get the conventional spelling —
+<code class="docutils literal notranslate"><span class="pre">&quot;by-sa&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;CC</span> <span class="pre">BY-SA&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cc0&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;CC0&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;pdm&quot;</span></code> →
+<code class="docutils literal notranslate"><span class="pre">&quot;Public</span> <span class="pre">Domain</span> <span class="pre">Mark&quot;</span></code> — with the recorded version appended if the input
+carried one. This is presentation only: an input that does not resolve to
+a known permission code is title-cased and returned as-is, never
+reinterpreted — it must still fail <a class="reference internal" href="#illustration.licensing.normalize_license" title="illustration.licensing.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalize_license()</span></code></a>’s consumers
+(e.g. <a class="reference internal" href="illustration.schema.html#illustration.schema.license_allowlist" title="illustration.schema.license_allowlist"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.schema.license_allowlist()</span></code></a>) exactly as before.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"cc-by-sa-4.0"</span><span class="p">)</span>
+</span><span data-line="2"><span class="go">'CC BY-SA 4.0'</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"CC BY-SA 4.0"</span><span class="p">)</span>
+</span><span data-line="4"><span class="go">'CC BY-SA 4.0'</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"by-sa"</span><span class="p">)</span>           <span class="c1"># no version in the recorded spelling</span>
+</span><span data-line="6"><span class="go">'CC BY-SA'</span>
+</span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"cc0"</span><span class="p">),</span> <span class="n">display_license</span><span class="p">(</span><span class="s2">"CC0 1.0"</span><span class="p">)</span>
+</span><span data-line="8"><span class="go">('CC0', 'CC0 1.0')</span>
+</span><span data-line="9"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"pd"</span><span class="p">),</span> <span class="n">display_license</span><span class="p">(</span><span class="s2">"public domain"</span><span class="p">)</span>
+</span><span data-line="10"><span class="go">('Public Domain Mark', 'Public Domain Mark')</span>
+</span><span data-line="11"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"cc-by-nc-nd-4.0"</span><span class="p">)</span>  <span class="c1"># restrictions survive, same as normalize_license</span>
+</span><span data-line="12"><span class="go">'CC BY-NC-ND 4.0'</span>
+</span><span data-line="13"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"Pixabay License"</span><span class="p">)</span>  <span class="c1"># not a CC/PD code -- shown, not invented</span>
+</span><span data-line="14"><span class="go">'Pixabay License'</span>
+</span><span data-line="15"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+</span><span data-line="16"><span class="go">True</span>
+</span></pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -287,7 +339,7 @@ leading <code class="docutils literal notranslate"><span class="pre">cc-</span><
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=0c446633"></script>
+      <script src="../_static/documentation_options.js?v=3bbcec59"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
