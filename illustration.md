@@ -1,4 +1,4 @@
-> built 2026-09-22 14:07 UTC from 198098b (main) · illustration 0.0.12. Details: build_info.json
+> built 2026-09-22 14:20 UTC from 198098b (main) · illustration 0.0.12. Details: build_info.json
 
 # index.html.md
 
@@ -4862,10 +4862,12 @@ Beats with no chosen image are skipped. Needs the `[video]` extra.
 
 # About this build
 
-This documentation was built on **2026-09-22 14:07 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/198098bcea03d661ce08555e87266c3647e4310e"><code>198098b</code></a> on branch <code>main</code>, for **illustration 0.0.12** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-09-22 14:20 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/198098bcea03d661ce08555e87266c3647e4310e"><code>198098b</code></a> on branch <code>main</code>, for **illustration 0.0.12** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.0.12) is behind the latest release on PyPI (0.0.13): `pip install illustration` gives newer code than these docs describe.
 
 ## Source
 
@@ -4909,7 +4911,7 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/illustration/0.0.12/">0.0.12</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/illustration/0.0.13/">0.0.13</a>, newer than the documented version (0.0.12).
 
 ## Reproduce
 

@@ -33,7 +33,7 @@
 - [illustration.translation](_autosummary/illustration.translation.html.md): Canonical → native parameter translation (the &#96;denote&#96; &#96;param_map&#96; idiom).
 - [illustration.video](_autosummary/illustration.video.html.md): Narration → Ken-Burns video hook — the M4 integration seam.
 - [For AI agents](ai-agents.html.md): &#96;illustration&#96; ships artifacts for coding agents alongside its code. This page lists
-- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-09-22 14:07 UTC&#42;&#42; from commit &lt;a href="https://github.com/tho...
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-09-22 14:20 UTC&#42;&#42; from commit &lt;a href="https://github.com/tho...
 
 ## Optional
 
