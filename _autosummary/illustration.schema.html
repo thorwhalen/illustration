@@ -266,6 +266,13 @@ renders <code class="docutils literal notranslate"><span class="pre">attribution
 to. This never rewrites or drops a result — it is read-only, for a
 pipeline to review, log, or compose a fallback credit from <code class="docutils literal notranslate"><span class="pre">author</span></code> /
 <code class="docutils literal notranslate"><span class="pre">license</span></code> / <code class="docutils literal notranslate"><span class="pre">license_url</span></code> for exactly the results it returns.</p>
+<p>What counts as “naming the licence” depends on the licence. For the
+CC BY family (<code class="docutils literal notranslate"><span class="pre">by</span></code>, <code class="docutils literal notranslate"><span class="pre">by-sa</span></code>, <code class="docutils literal notranslate"><span class="pre">by-nc</span></code>, …) the attribution must name
+<em>that</em> licence (see <a class="reference internal" href="illustration.licensing.html#illustration.licensing.licenses_named" title="illustration.licensing.licenses_named"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.licenses_named()</span></code></a>), or
+contain the result’s <code class="docutils literal notranslate"><span class="pre">license_url</span></code>: “© Jane Doe”, “Public domain”, or a
+different CC code (e.g. “CC BY” for a <code class="docutils literal notranslate"><span class="pre">by-nc</span></code> image, which drops the NC
+restriction) are all flagged. For any other licence, the looser
+<a class="reference internal" href="illustration.licensing.html#illustration.licensing.mentions_license" title="illustration.licensing.mentions_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.mentions_license()</span></code></a> signal is used.</p>
 <p>A result with no <code class="docutils literal notranslate"><span class="pre">license</span></code> at all is not flagged: there is nothing to
 name, and it should already have been dropped by <code class="docutils literal notranslate"><span class="pre">license_allowlist</span></code> if
 that matters to the caller.</p>
@@ -382,7 +389,7 @@ is correct for fusion.</p>
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=9fc46840"></script>
+      <script src="../_static/documentation_options.js?v=544df88d"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

@@ -43,10 +43,11 @@ the recorded spelling rather than the normalised code.
 
 ### Functions
 
-| [`normalize_license`](#illustration.licensing.normalize_license)(value)      | Fold a provider's licence spelling onto one canonical, comparable code.   |
-|--------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| [`display_license`](#illustration.licensing.display_license)(value)        | The conventional human spelling of a licence, for on-screen credit.       |
-| [`mentions_license`](#illustration.licensing.mentions_license)(attribution) | Whether `attribution` appears to name a licence or rights status.         |
+| [`normalize_license`](#illustration.licensing.normalize_license)(value)      | Fold a provider's licence spelling onto one canonical, comparable code.                                                                                                        |
+|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`display_license`](#illustration.licensing.display_license)(value)        | The conventional human spelling of a licence, for on-screen credit.                                                                                                            |
+| [`mentions_license`](#illustration.licensing.mentions_license)(attribution) | Whether `attribution` appears to name a licence or rights status.                                                                                                              |
+| [`licenses_named`](#illustration.licensing.licenses_named)(text)          | The canonical codes (as [`normalize_license()`](#illustration.licensing.normalize_license) spells them) of every Creative Commons / public-domain licence that `text` names. |
 
 ### illustration.licensing.LICENSE_ALIASES *= {'cc-0': 'cc0', 'cc-pdm': 'pdm', 'cc-publicdomain': 'pdm', 'cc-zero': 'cc0', 'pd': 'pdm', 'pdm-owner': 'pdm', 'public-domain': 'pdm', 'public-domain-mark': 'pdm', 'publicdomain': 'pdm', 'zero': 'cc0'}*
 
@@ -80,8 +81,8 @@ Recognised Creative Commons / public-domain codes (the same vocabulary
 `"by-sa"` → `"CC BY-SA"`, `"cc0"` → `"CC0"`, `"pdm"` →
 `"Public Domain Mark"` — with the recorded version appended if the input
 carried one. This is presentation only: an input that does not resolve to
-a known permission code is title-cased and returned as-is, never
-reinterpreted — it must still fail [`normalize_license()`](#illustration.licensing.normalize_license)’s consumers
+a known permission code is returned as recorded (whitespace collapsed,
+case and version kept), never reinterpreted — it must still fail [`normalize_license()`](#illustration.licensing.normalize_license)’s consumers
 (e.g. [`illustration.schema.license_allowlist()`](illustration.schema.md#illustration.schema.license_allowlist)) exactly as before.
 
 * **Return type:**
@@ -102,8 +103,37 @@ reinterpreted — it must still fail [`normalize_license()`](#illustration.licen
 'CC BY-NC-ND 4.0'
 >>> display_license("Pixabay License")  # not a CC/PD code -- shown, not invented
 'Pixabay License'
+>>> display_license("cc-0")  # whole-code alias: "-0" is not a version
+'CC0'
+>>> display_license("GFDL 1.3"), display_license("PD-US-expired")
+('GFDL 1.3', 'PD-US-expired')
 >>> display_license(None) is None
 True
+```
+
+### illustration.licensing.licenses_named(text)
+
+The canonical codes (as [`normalize_license()`](#illustration.licensing.normalize_license) spells them) of every
+Creative Commons / public-domain licence that `text` names.
+
+Unlike [`mentions_license()`](#illustration.licensing.mentions_license) (“does this text talk about rights at
+all?”), this says *which* licence a credit line identifies, so an audit can
+tell “names CC BY-SA” from “names some other licence” or “just says ©”.
+Long forms are folded first (“Creative Commons Attribution-ShareAlike” ->
+`by-sa`); versions are ignored, as in [`normalize_license()`](#illustration.licensing.normalize_license).
+
+* **Return type:**
+  [`set`](https://docs.python.org/3/builtins/stdtypes.html#set)[[`str`](https://docs.python.org/3/builtins/stdtypes.html#str)]
+
+```pycon
+>>> sorted(licenses_named("Alice / CC BY-SA 4.0, via Wikimedia Commons"))
+['by-sa']
+>>> sorted(licenses_named("Creative Commons Attribution-NonCommercial 4.0"))
+['by-nc']
+>>> sorted(licenses_named("Rembrandt / Public domain; CC0 1.0"))
+['cc0', 'pdm']
+>>> licenses_named("© Jane Doe"), licenses_named(None)
+(set(), set())
 ```
 
 ### illustration.licensing.mentions_license(attribution)

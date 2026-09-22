@@ -543,6 +543,14 @@ to. This never rewrites or drops a result — it is read-only, for a
 pipeline to review, log, or compose a fallback credit from `author` /
 `license` / `license_url` for exactly the results it returns.
 
+What counts as “naming the licence” depends on the licence. For the
+CC BY family (`by`, `by-sa`, `by-nc`, …) the attribution must name
+*that* licence (see [`illustration.licensing.licenses_named()`](illustration.licensing.html.md#illustration.licensing.licenses_named)), or
+contain the result’s `license_url`: “© Jane Doe”, “Public domain”, or a
+different CC code (e.g. “CC BY” for a `by-nc` image, which drops the NC
+restriction) are all flagged. For any other licence, the looser
+[`illustration.licensing.mentions_license()`](illustration.licensing.html.md#illustration.licensing.mentions_license) signal is used.
+
 A result with no `license` at all is not flagged: there is nothing to
 name, and it should already have been dropped by `license_allowlist` if
 that matters to the caller.
@@ -730,8 +738,8 @@ Recognised Creative Commons / public-domain codes (the same vocabulary
 `"by-sa"` → `"CC BY-SA"`, `"cc0"` → `"CC0"`, `"pdm"` →
 `"Public Domain Mark"` — with the recorded version appended if the input
 carried one. This is presentation only: an input that does not resolve to
-a known permission code is title-cased and returned as-is, never
-reinterpreted — it must still fail [`normalize_license()`](#illustration.normalize_license)’s consumers
+a known permission code is returned as recorded (whitespace collapsed,
+case and version kept), never reinterpreted — it must still fail [`normalize_license()`](#illustration.normalize_license)’s consumers
 (e.g. [`illustration.schema.license_allowlist()`](illustration.schema.html.md#illustration.schema.license_allowlist)) exactly as before.
 
 * **Return type:**
@@ -752,6 +760,10 @@ reinterpreted — it must still fail [`normalize_license()`](#illustration.norma
 'CC BY-NC-ND 4.0'
 >>> display_license("Pixabay License")  # not a CC/PD code -- shown, not invented
 'Pixabay License'
+>>> display_license("cc-0")  # whole-code alias: "-0" is not a version
+'CC0'
+>>> display_license("GFDL 1.3"), display_license("PD-US-expired")
+('GFDL 1.3', 'PD-US-expired')
 >>> display_license(None) is None
 True
 ```

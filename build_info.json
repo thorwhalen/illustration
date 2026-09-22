@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-22T14:30:48Z",
+  "built_at": "2026-09-22T14:46:49Z",
   "package": {
     "name": "illustration",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "display_name": "illustration",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "fd576adc6b32052bce82f7cad15558a6b7c848b6",
-    "short_commit": "fd576ad",
+    "commit": "25d46d041be90ffc391f5e8d31babe304d99204b",
+    "short_commit": "25d46d0",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/thorwhalen/illustration",
-    "commit_url": "https://github.com/thorwhalen/illustration/commit/fd576adc6b32052bce82f7cad15558a6b7c848b6",
+    "commit_url": "https://github.com/thorwhalen/illustration/commit/25d46d041be90ffc391f5e8d31babe304d99204b",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "thorwhalen/illustration",
-    "sha": "fd576adc6b32052bce82f7cad15558a6b7c848b6",
+    "sha": "25d46d041be90ffc391f5e8d31babe304d99204b",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "35740628069",
-    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/35740628069",
+    "run_id": "35742492690",
+    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/35742492690",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -56,20 +56,20 @@
   },
   "site": {
     "modules_documented": 25,
-    "objects_documented": 369
+    "objects_documented": 370
   },
   "pypi": {
     "checked": true,
-    "latest": "0.0.14",
+    "latest": "0.0.15",
     "relation": "behind",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout fd576adc6b32052bce82f7cad15558a6b7c848b6\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout 25d46d041be90ffc391f5e8d31babe304d99204b\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": false,
     "notes": [
-      "The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install illustration` gives newer code than these docs describe."
+      "The documented version (0.0.14) is behind the latest release on PyPI (0.0.15): `pip install illustration` gives newer code than these docs describe."
     ]
   }
 }

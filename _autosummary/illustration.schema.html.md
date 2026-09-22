@@ -86,6 +86,14 @@ to. This never rewrites or drops a result — it is read-only, for a
 pipeline to review, log, or compose a fallback credit from `author` /
 `license` / `license_url` for exactly the results it returns.
 
+What counts as “naming the licence” depends on the licence. For the
+CC BY family (`by`, `by-sa`, `by-nc`, …) the attribution must name
+*that* licence (see [`illustration.licensing.licenses_named()`](illustration.licensing.html.md#illustration.licensing.licenses_named)), or
+contain the result’s `license_url`: “© Jane Doe”, “Public domain”, or a
+different CC code (e.g. “CC BY” for a `by-nc` image, which drops the NC
+restriction) are all flagged. For any other licence, the looser
+[`illustration.licensing.mentions_license()`](illustration.licensing.html.md#illustration.licensing.mentions_license) signal is used.
+
 A result with no `license` at all is not flagged: there is nothing to
 name, and it should already have been dropped by `license_allowlist` if
 that matters to the caller.

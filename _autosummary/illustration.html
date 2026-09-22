@@ -1155,6 +1155,13 @@ renders <code class="docutils literal notranslate"><span class="pre">attribution
 to. This never rewrites or drops a result — it is read-only, for a
 pipeline to review, log, or compose a fallback credit from <code class="docutils literal notranslate"><span class="pre">author</span></code> /
 <code class="docutils literal notranslate"><span class="pre">license</span></code> / <code class="docutils literal notranslate"><span class="pre">license_url</span></code> for exactly the results it returns.</p>
+<p>What counts as “naming the licence” depends on the licence. For the
+CC BY family (<code class="docutils literal notranslate"><span class="pre">by</span></code>, <code class="docutils literal notranslate"><span class="pre">by-sa</span></code>, <code class="docutils literal notranslate"><span class="pre">by-nc</span></code>, …) the attribution must name
+<em>that</em> licence (see <a class="reference internal" href="illustration.licensing.html#illustration.licensing.licenses_named" title="illustration.licensing.licenses_named"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.licenses_named()</span></code></a>), or
+contain the result’s <code class="docutils literal notranslate"><span class="pre">license_url</span></code>: “© Jane Doe”, “Public domain”, or a
+different CC code (e.g. “CC BY” for a <code class="docutils literal notranslate"><span class="pre">by-nc</span></code> image, which drops the NC
+restriction) are all flagged. For any other licence, the looser
+<a class="reference internal" href="illustration.licensing.html#illustration.licensing.mentions_license" title="illustration.licensing.mentions_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.licensing.mentions_license()</span></code></a> signal is used.</p>
 <p>A result with no <code class="docutils literal notranslate"><span class="pre">license</span></code> at all is not flagged: there is nothing to
 name, and it should already have been dropped by <code class="docutils literal notranslate"><span class="pre">license_allowlist</span></code> if
 that matters to the caller.</p>
@@ -1376,8 +1383,8 @@ on screen.</p>
 <code class="docutils literal notranslate"><span class="pre">&quot;by-sa&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;CC</span> <span class="pre">BY-SA&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cc0&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;CC0&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;pdm&quot;</span></code> →
 <code class="docutils literal notranslate"><span class="pre">&quot;Public</span> <span class="pre">Domain</span> <span class="pre">Mark&quot;</span></code> — with the recorded version appended if the input
 carried one. This is presentation only: an input that does not resolve to
-a known permission code is title-cased and returned as-is, never
-reinterpreted — it must still fail <a class="reference internal" href="#illustration.normalize_license" title="illustration.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalize_license()</span></code></a>’s consumers
+a known permission code is returned as recorded (whitespace collapsed,
+case and version kept), never reinterpreted — it must still fail <a class="reference internal" href="#illustration.normalize_license" title="illustration.normalize_license"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalize_license()</span></code></a>’s consumers
 (e.g. <a class="reference internal" href="illustration.schema.html#illustration.schema.license_allowlist" title="illustration.schema.license_allowlist"><code class="xref py py-func docutils literal notranslate"><span class="pre">illustration.schema.license_allowlist()</span></code></a>) exactly as before.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1398,8 +1405,12 @@ reinterpreted — it must still fail <a class="reference internal" href="#illust
 </span><span data-line="12"><span class="go">'CC BY-NC-ND 4.0'</span>
 </span><span data-line="13"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"Pixabay License"</span><span class="p">)</span>  <span class="c1"># not a CC/PD code -- shown, not invented</span>
 </span><span data-line="14"><span class="go">'Pixabay License'</span>
-</span><span data-line="15"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
-</span><span data-line="16"><span class="go">True</span>
+</span><span data-line="15"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"cc-0"</span><span class="p">)</span>  <span class="c1"># whole-code alias: "-0" is not a version</span>
+</span><span data-line="16"><span class="go">'CC0'</span>
+</span><span data-line="17"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="s2">"GFDL 1.3"</span><span class="p">),</span> <span class="n">display_license</span><span class="p">(</span><span class="s2">"PD-US-expired"</span><span class="p">)</span>
+</span><span data-line="18"><span class="go">('GFDL 1.3', 'PD-US-expired')</span>
+</span><span data-line="19"><span class="gp">&gt;&gt;&gt; </span><span class="n">display_license</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+</span><span data-line="20"><span class="go">True</span>
 </span></pre></div>
 </div>
 </dd></dl>
@@ -2228,7 +2239,7 @@ through). Bindings nest: an inner block overlays the outer.</p>
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=9fc46840"></script>
+      <script src="../_static/documentation_options.js?v=544df88d"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

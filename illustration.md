@@ -1,4 +1,4 @@
-> built 2026-09-22 14:30 UTC from fd576ad (main) · illustration 0.0.13. Details: build_info.json
+> built 2026-09-22 14:46 UTC from 25d46d0 (main) · illustration 0.0.14. Details: build_info.json
 
 # index.html.md
 
@@ -2354,6 +2354,14 @@ to. This never rewrites or drops a result — it is read-only, for a
 pipeline to review, log, or compose a fallback credit from `author` /
 `license` / `license_url` for exactly the results it returns.
 
+What counts as “naming the licence” depends on the licence. For the
+CC BY family (`by`, `by-sa`, `by-nc`, …) the attribution must name
+*that* licence (see [`illustration.licensing.licenses_named()`](_autosummary/illustration.licensing.html.md#illustration.licensing.licenses_named)), or
+contain the result’s `license_url`: “© Jane Doe”, “Public domain”, or a
+different CC code (e.g. “CC BY” for a `by-nc` image, which drops the NC
+restriction) are all flagged. For any other licence, the looser
+[`illustration.licensing.mentions_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.mentions_license) signal is used.
+
 A result with no `license` at all is not flagged: there is nothing to
 name, and it should already have been dropped by `license_allowlist` if
 that matters to the caller.
@@ -2541,8 +2549,8 @@ Recognised Creative Commons / public-domain codes (the same vocabulary
 `"by-sa"` → `"CC BY-SA"`, `"cc0"` → `"CC0"`, `"pdm"` →
 `"Public Domain Mark"` — with the recorded version appended if the input
 carried one. This is presentation only: an input that does not resolve to
-a known permission code is title-cased and returned as-is, never
-reinterpreted — it must still fail [`normalize_license()`](_autosummary/illustration.html.md#illustration.normalize_license)’s consumers
+a known permission code is returned as recorded (whitespace collapsed,
+case and version kept), never reinterpreted — it must still fail [`normalize_license()`](_autosummary/illustration.html.md#illustration.normalize_license)’s consumers
 (e.g. [`illustration.schema.license_allowlist()`](_autosummary/illustration.schema.html.md#illustration.schema.license_allowlist)) exactly as before.
 
 * **Return type:**
@@ -2563,6 +2571,10 @@ reinterpreted — it must still fail [`normalize_license()`](_autosummary/illust
 'CC BY-NC-ND 4.0'
 >>> display_license("Pixabay License")  # not a CC/PD code -- shown, not invented
 'Pixabay License'
+>>> display_license("cc-0")  # whole-code alias: "-0" is not a version
+'CC0'
+>>> display_license("GFDL 1.3"), display_license("PD-US-expired")
+('GFDL 1.3', 'PD-US-expired')
 >>> display_license(None) is None
 True
 ```
@@ -3514,10 +3526,11 @@ the recorded spelling rather than the normalised code.
 
 ### Functions
 
-| [`normalize_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license)(value)      | Fold a provider's licence spelling onto one canonical, comparable code.   |
-|--------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| [`display_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.display_license)(value)        | The conventional human spelling of a licence, for on-screen credit.       |
-| [`mentions_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.mentions_license)(attribution) | Whether `attribution` appears to name a licence or rights status.         |
+| [`normalize_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license)(value)      | Fold a provider's licence spelling onto one canonical, comparable code.                                                                                                        |
+|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`display_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.display_license)(value)        | The conventional human spelling of a licence, for on-screen credit.                                                                                                            |
+| [`mentions_license`](_autosummary/illustration.licensing.html.md#illustration.licensing.mentions_license)(attribution) | Whether `attribution` appears to name a licence or rights status.                                                                                                              |
+| [`licenses_named`](_autosummary/illustration.licensing.html.md#illustration.licensing.licenses_named)(text)          | The canonical codes (as [`normalize_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license) spells them) of every Creative Commons / public-domain licence that `text` names. |
 
 ### illustration.licensing.LICENSE_ALIASES *= {'cc-0': 'cc0', 'cc-pdm': 'pdm', 'cc-publicdomain': 'pdm', 'cc-zero': 'cc0', 'pd': 'pdm', 'pdm-owner': 'pdm', 'public-domain': 'pdm', 'public-domain-mark': 'pdm', 'publicdomain': 'pdm', 'zero': 'cc0'}*
 
@@ -3551,8 +3564,8 @@ Recognised Creative Commons / public-domain codes (the same vocabulary
 `"by-sa"` → `"CC BY-SA"`, `"cc0"` → `"CC0"`, `"pdm"` →
 `"Public Domain Mark"` — with the recorded version appended if the input
 carried one. This is presentation only: an input that does not resolve to
-a known permission code is title-cased and returned as-is, never
-reinterpreted — it must still fail [`normalize_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license)’s consumers
+a known permission code is returned as recorded (whitespace collapsed,
+case and version kept), never reinterpreted — it must still fail [`normalize_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license)’s consumers
 (e.g. [`illustration.schema.license_allowlist()`](_autosummary/illustration.schema.html.md#illustration.schema.license_allowlist)) exactly as before.
 
 * **Return type:**
@@ -3573,8 +3586,37 @@ reinterpreted — it must still fail [`normalize_license()`](_autosummary/illust
 'CC BY-NC-ND 4.0'
 >>> display_license("Pixabay License")  # not a CC/PD code -- shown, not invented
 'Pixabay License'
+>>> display_license("cc-0")  # whole-code alias: "-0" is not a version
+'CC0'
+>>> display_license("GFDL 1.3"), display_license("PD-US-expired")
+('GFDL 1.3', 'PD-US-expired')
 >>> display_license(None) is None
 True
+```
+
+### illustration.licensing.licenses_named(text)
+
+The canonical codes (as [`normalize_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license) spells them) of every
+Creative Commons / public-domain licence that `text` names.
+
+Unlike [`mentions_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.mentions_license) (“does this text talk about rights at
+all?”), this says *which* licence a credit line identifies, so an audit can
+tell “names CC BY-SA” from “names some other licence” or “just says ©”.
+Long forms are folded first (“Creative Commons Attribution-ShareAlike” ->
+`by-sa`); versions are ignored, as in [`normalize_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.normalize_license).
+
+* **Return type:**
+  [`set`](https://docs.python.org/3/builtins/stdtypes.html#set)[[`str`](https://docs.python.org/3/builtins/stdtypes.html#str)]
+
+```pycon
+>>> sorted(licenses_named("Alice / CC BY-SA 4.0, via Wikimedia Commons"))
+['by-sa']
+>>> sorted(licenses_named("Creative Commons Attribution-NonCommercial 4.0"))
+['by-nc']
+>>> sorted(licenses_named("Rembrandt / Public domain; CC0 1.0"))
+['cc0', 'pdm']
+>>> licenses_named("© Jane Doe"), licenses_named(None)
+(set(), set())
 ```
 
 ### illustration.licensing.mentions_license(attribution)
@@ -4542,6 +4584,14 @@ to. This never rewrites or drops a result — it is read-only, for a
 pipeline to review, log, or compose a fallback credit from `author` /
 `license` / `license_url` for exactly the results it returns.
 
+What counts as “naming the licence” depends on the licence. For the
+CC BY family (`by`, `by-sa`, `by-nc`, …) the attribution must name
+*that* licence (see [`illustration.licensing.licenses_named()`](_autosummary/illustration.licensing.html.md#illustration.licensing.licenses_named)), or
+contain the result’s `license_url`: “© Jane Doe”, “Public domain”, or a
+different CC code (e.g. “CC BY” for a `by-nc` image, which drops the NC
+restriction) are all flagged. For any other licence, the looser
+[`illustration.licensing.mentions_license()`](_autosummary/illustration.licensing.html.md#illustration.licensing.mentions_license) signal is used.
+
 A result with no `license` at all is not flagged: there is nothing to
 name, and it should already have been dropped by `license_allowlist` if
 that matters to the caller.
@@ -4959,18 +5009,18 @@ Beats with no chosen image are skipped. Needs the `[video]` extra.
 
 # About this build
 
-This documentation was built on **2026-09-22 14:30 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/fd576adc6b32052bce82f7cad15558a6b7c848b6"><code>fd576ad</code></a> on branch <code>main</code>, for **illustration 0.0.13** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-09-22 14:46 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/25d46d041be90ffc391f5e8d31babe304d99204b"><code>25d46d0</code></a> on branch <code>main</code>, for **illustration 0.0.14** (from <code>pyproject.toml</code>).
 
 #### WARNING
 The documentation and the package may be misaligned:
 
-- The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install illustration` gives newer code than these docs describe.
+- The documented version (0.0.14) is behind the latest release on PyPI (0.0.15): `pip install illustration` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                                |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/fd576adc6b32052bce82f7cad15558a6b7c848b6"><code>fd576adc6b32052bce82f7cad15558a6b7c848b6</code></a> |
+| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/25d46d041be90ffc391f5e8d31babe304d99204b"><code>25d46d041be90ffc391f5e8d31babe304d99204b</code></a> |
 | Branch              | <code>main</code>                                                                                                                                              |
 | Tags at this commit | none                                                                                                                                                           |
 | Working tree        | clean                                                                                                                                                          |
@@ -4981,9 +5031,9 @@ The documentation and the package may be misaligned:
 |              |                                                                                               |
 |--------------|-----------------------------------------------------------------------------------------------|
 | Repository   | <code>thorwhalen/illustration</code>                                                          |
-| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/35740628069">35740628069</a> |
+| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/35742492690">35742492690</a> |
 | Ref          | <code>refs/heads/main</code>                                                                  |
-| Event commit | <code>fd576adc6b32052bce82f7cad15558a6b7c848b6</code> (in the history of the built commit)    |
+| Event commit | <code>25d46d041be90ffc391f5e8d31babe304d99204b</code> (in the history of the built commit)    |
 
 ## Tools
 
@@ -5008,13 +5058,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/illustration/0.0.14/">0.0.14</a>, newer than the documented version (0.0.13).
+Latest release: <a href="https://pypi.org/project/illustration/0.0.15/">0.0.15</a>, newer than the documented version (0.0.14).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/thorwhalen/illustration && cd illustration
-git checkout fd576adc6b32052bce82f7cad15558a6b7c848b6
+git checkout 25d46d041be90ffc391f5e8d31babe304d99204b
 pip install "epythet==0.2.12"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

@@ -180,193 +180,256 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="40">    <span class="s2">"normalize_license"</span><span class="p">,</span>
 </span><span data-line="41">    <span class="s2">"display_license"</span><span class="p">,</span>
 </span><span data-line="42">    <span class="s2">"mentions_license"</span><span class="p">,</span>
-</span><span data-line="43">    <span class="s2">"LICENSE_ALIASES"</span><span class="p">,</span>
-</span><span data-line="44">    <span class="s2">"RESTRICTION_TOKENS"</span><span class="p">,</span>
-</span><span data-line="45"><span class="p">]</span>
-</span><span data-line="46">
-</span><span data-line="47"><span class="c1">#: Whole-code spellings that no mechanical rule can fold, mapped by hand. Kept</span>
-</span><span data-line="48"><span class="c1">#: deliberately short: every entry is a judgement that two strings name the same</span>
-</span><span data-line="49"><span class="c1">#: permissions, and a wrong entry silently widens the gate. Every key must stay</span>
-</span><span data-line="50"><span class="c1">#: *reachable* — ``"cc-0"`` was dead for a release because the version strip ran</span>
-</span><span data-line="51"><span class="c1">#: first and turned it into ``"cc"``, so a CC0 image spelled that way was dropped</span>
-</span><span data-line="52"><span class="c1">#: by the default gate; ``test_every_alias_key_is_reachable`` now pins that.</span>
-</span><span data-line="53"><span class="n">LICENSE_ALIASES</span> <span class="o">=</span> <span class="p">{</span>
-</span><span data-line="54">    <span class="s2">"cc-zero"</span><span class="p">:</span> <span class="s2">"cc0"</span><span class="p">,</span>
-</span><span data-line="55">    <span class="s2">"cc-0"</span><span class="p">:</span> <span class="s2">"cc0"</span><span class="p">,</span>
-</span><span data-line="56">    <span class="s2">"zero"</span><span class="p">:</span> <span class="s2">"cc0"</span><span class="p">,</span>
-</span><span data-line="57">    <span class="s2">"publicdomain"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
-</span><span data-line="58">    <span class="s2">"public-domain"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
-</span><span data-line="59">    <span class="s2">"public-domain-mark"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
-</span><span data-line="60">    <span class="s2">"pd"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
-</span><span data-line="61">    <span class="s2">"pdm-owner"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
-</span><span data-line="62">    <span class="s2">"cc-pdm"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
-</span><span data-line="63">    <span class="s2">"cc-publicdomain"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
-</span><span data-line="64"><span class="p">}</span>
-</span><span data-line="65">
-</span><span data-line="66"><span class="c1">#: Tokens that *restrict* use. Present only so the guard test can assert that</span>
-</span><span data-line="67"><span class="c1">#: normalisation never removes one; nothing in the transform consults it.</span>
-</span><span data-line="68"><span class="n">RESTRICTION_TOKENS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">"nc"</span><span class="p">,</span> <span class="s2">"nd"</span><span class="p">,</span> <span class="s2">"sampling"</span><span class="p">})</span>
-</span><span data-line="69">
-</span><span data-line="70"><span class="c1"># A trailing version, e.g. the "-4.0" of "cc-by-sa-4.0". The leading separator is</span>
-</span><span data-line="71"><span class="c1"># required so a code that merely *ends* in a digit (``cc0``) is left alone.</span>
-</span><span data-line="72"><span class="n">_VERSION_SUFFIX_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[-_ ]v?\d+(?:\.\d+)*$"</span><span class="p">)</span>
-</span><span data-line="73"><span class="c1"># The Creative Commons prefix, which carries no permission meaning of its own.</span>
-</span><span data-line="74"><span class="n">_CC_PREFIX_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^cc[-_ ]"</span><span class="p">)</span>
-</span><span data-line="75"><span class="n">_SEPARATORS_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[\s_]+"</span><span class="p">)</span>
-</span><span data-line="76">
-</span><span data-line="77"><span class="c1">#: Conventional human spelling for every canonical permission code</span>
-</span><span data-line="78"><span class="c1">#: :func:`normalize_license` can produce (the six CC by-family combinations,</span>
-</span><span data-line="79"><span class="c1">#: plus the two public-domain-flavoured codes). Deliberately does not cover</span>
-</span><span data-line="80"><span class="c1">#: every key of :data:`LICENSE_ALIASES` by name — the *values* of that table</span>
-</span><span data-line="81"><span class="c1">#: are exactly this dict's keys, so it stays reachable the same way</span>
-</span><span data-line="82"><span class="c1">#: ``test_every_alias_key_is_reachable`` pins normalize_license's table.</span>
-</span><span data-line="83"><span class="n">_DISPLAY_NAMES</span> <span class="o">=</span> <span class="p">{</span>
-</span><span data-line="84">    <span class="s2">"by"</span><span class="p">:</span> <span class="s2">"CC BY"</span><span class="p">,</span>
-</span><span data-line="85">    <span class="s2">"by-sa"</span><span class="p">:</span> <span class="s2">"CC BY-SA"</span><span class="p">,</span>
-</span><span data-line="86">    <span class="s2">"by-nc"</span><span class="p">:</span> <span class="s2">"CC BY-NC"</span><span class="p">,</span>
-</span><span data-line="87">    <span class="s2">"by-nd"</span><span class="p">:</span> <span class="s2">"CC BY-ND"</span><span class="p">,</span>
-</span><span data-line="88">    <span class="s2">"by-nc-sa"</span><span class="p">:</span> <span class="s2">"CC BY-NC-SA"</span><span class="p">,</span>
-</span><span data-line="89">    <span class="s2">"by-nc-nd"</span><span class="p">:</span> <span class="s2">"CC BY-NC-ND"</span><span class="p">,</span>
-</span><span data-line="90">    <span class="s2">"cc0"</span><span class="p">:</span> <span class="s2">"CC0"</span><span class="p">,</span>
-</span><span data-line="91">    <span class="s2">"pdm"</span><span class="p">:</span> <span class="s2">"Public Domain Mark"</span><span class="p">,</span>
-</span><span data-line="92"><span class="p">}</span>
-</span><span data-line="93">
+</span><span data-line="43">    <span class="s2">"licenses_named"</span><span class="p">,</span>
+</span><span data-line="44">    <span class="s2">"LICENSE_ALIASES"</span><span class="p">,</span>
+</span><span data-line="45">    <span class="s2">"RESTRICTION_TOKENS"</span><span class="p">,</span>
+</span><span data-line="46"><span class="p">]</span>
+</span><span data-line="47">
+</span><span data-line="48"><span class="c1">#: Whole-code spellings that no mechanical rule can fold, mapped by hand. Kept</span>
+</span><span data-line="49"><span class="c1">#: deliberately short: every entry is a judgement that two strings name the same</span>
+</span><span data-line="50"><span class="c1">#: permissions, and a wrong entry silently widens the gate. Every key must stay</span>
+</span><span data-line="51"><span class="c1">#: *reachable* — ``"cc-0"`` was dead for a release because the version strip ran</span>
+</span><span data-line="52"><span class="c1">#: first and turned it into ``"cc"``, so a CC0 image spelled that way was dropped</span>
+</span><span data-line="53"><span class="c1">#: by the default gate; ``test_every_alias_key_is_reachable`` now pins that.</span>
+</span><span data-line="54"><span class="n">LICENSE_ALIASES</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="55">    <span class="s2">"cc-zero"</span><span class="p">:</span> <span class="s2">"cc0"</span><span class="p">,</span>
+</span><span data-line="56">    <span class="s2">"cc-0"</span><span class="p">:</span> <span class="s2">"cc0"</span><span class="p">,</span>
+</span><span data-line="57">    <span class="s2">"zero"</span><span class="p">:</span> <span class="s2">"cc0"</span><span class="p">,</span>
+</span><span data-line="58">    <span class="s2">"publicdomain"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
+</span><span data-line="59">    <span class="s2">"public-domain"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
+</span><span data-line="60">    <span class="s2">"public-domain-mark"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
+</span><span data-line="61">    <span class="s2">"pd"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
+</span><span data-line="62">    <span class="s2">"pdm-owner"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
+</span><span data-line="63">    <span class="s2">"cc-pdm"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
+</span><span data-line="64">    <span class="s2">"cc-publicdomain"</span><span class="p">:</span> <span class="s2">"pdm"</span><span class="p">,</span>
+</span><span data-line="65"><span class="p">}</span>
+</span><span data-line="66">
+</span><span data-line="67"><span class="c1">#: Tokens that *restrict* use. Present only so the guard test can assert that</span>
+</span><span data-line="68"><span class="c1">#: normalisation never removes one; nothing in the transform consults it.</span>
+</span><span data-line="69"><span class="n">RESTRICTION_TOKENS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">"nc"</span><span class="p">,</span> <span class="s2">"nd"</span><span class="p">,</span> <span class="s2">"sampling"</span><span class="p">})</span>
+</span><span data-line="70">
+</span><span data-line="71"><span class="c1"># A trailing version, e.g. the "-4.0" of "cc-by-sa-4.0". The leading separator is</span>
+</span><span data-line="72"><span class="c1"># required so a code that merely *ends* in a digit (``cc0``) is left alone.</span>
+</span><span data-line="73"><span class="n">_VERSION_SUFFIX_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[-_ ]v?\d+(?:\.\d+)*$"</span><span class="p">)</span>
+</span><span data-line="74"><span class="c1"># The Creative Commons prefix, which carries no permission meaning of its own.</span>
+</span><span data-line="75"><span class="n">_CC_PREFIX_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^cc[-_ ]"</span><span class="p">)</span>
+</span><span data-line="76"><span class="n">_SEPARATORS_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[\s_]+"</span><span class="p">)</span>
+</span><span data-line="77">
+</span><span data-line="78"><span class="c1">#: Conventional human spelling for every canonical permission code</span>
+</span><span data-line="79"><span class="c1">#: :func:`normalize_license` can produce (the six CC by-family combinations,</span>
+</span><span data-line="80"><span class="c1">#: plus the two public-domain-flavoured codes). Deliberately does not cover</span>
+</span><span data-line="81"><span class="c1">#: every key of :data:`LICENSE_ALIASES` by name — the *values* of that table</span>
+</span><span data-line="82"><span class="c1">#: are exactly this dict's keys, so it stays reachable the same way</span>
+</span><span data-line="83"><span class="c1">#: ``test_every_alias_key_is_reachable`` pins normalize_license's table.</span>
+</span><span data-line="84"><span class="n">_DISPLAY_NAMES</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="85">    <span class="s2">"by"</span><span class="p">:</span> <span class="s2">"CC BY"</span><span class="p">,</span>
+</span><span data-line="86">    <span class="s2">"by-sa"</span><span class="p">:</span> <span class="s2">"CC BY-SA"</span><span class="p">,</span>
+</span><span data-line="87">    <span class="s2">"by-nc"</span><span class="p">:</span> <span class="s2">"CC BY-NC"</span><span class="p">,</span>
+</span><span data-line="88">    <span class="s2">"by-nd"</span><span class="p">:</span> <span class="s2">"CC BY-ND"</span><span class="p">,</span>
+</span><span data-line="89">    <span class="s2">"by-nc-sa"</span><span class="p">:</span> <span class="s2">"CC BY-NC-SA"</span><span class="p">,</span>
+</span><span data-line="90">    <span class="s2">"by-nc-nd"</span><span class="p">:</span> <span class="s2">"CC BY-NC-ND"</span><span class="p">,</span>
+</span><span data-line="91">    <span class="s2">"cc0"</span><span class="p">:</span> <span class="s2">"CC0"</span><span class="p">,</span>
+</span><span data-line="92">    <span class="s2">"pdm"</span><span class="p">:</span> <span class="s2">"Public Domain Mark"</span><span class="p">,</span>
+</span><span data-line="93"><span class="p">}</span>
 </span><span data-line="94">
+</span><span data-line="95">
 <div class="viewcode-block" id="normalize_license">
 <a class="viewcode-back" href="../../_autosummary/illustration.licensing.html#illustration.normalize_license">[docs]</a>
-</span><span data-line="95"><span class="k">def</span><span class="w"> </span><span class="nf">normalize_license</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
-</span><span data-line="96"><span class="w">    </span><span class="sd">"""Fold a provider's licence spelling onto one canonical, comparable code.</span>
-</span><span data-line="97">
-</span><span data-line="98"><span class="sd">    Lower-cases, unifies separators to ``-``, strips a trailing version and a</span>
-</span><span data-line="99"><span class="sd">    leading ``cc-``, then applies :data:`LICENSE_ALIASES`. Returns ``None`` for</span>
-</span><span data-line="100"><span class="sd">    ``None``/blank — an absent licence is never a code.</span>
-</span><span data-line="101">
-</span><span data-line="102"><span class="sd">    &gt;&gt;&gt; normalize_license("by-sa"), normalize_license("cc0"), normalize_license("CC0 1.0")</span>
-</span><span data-line="103"><span class="sd">    ('by-sa', 'cc0', 'cc0')</span>
-</span><span data-line="104"><span class="sd">    &gt;&gt;&gt; normalize_license("Pexels License"), normalize_license("  BY  ")</span>
-</span><span data-line="105"><span class="sd">    ('pexels-license', 'by')</span>
-</span><span data-line="106"><span class="sd">    &gt;&gt;&gt; normalize_license("public domain"), normalize_license("cc-by-3.0")</span>
-</span><span data-line="107"><span class="sd">    ('pdm', 'by')</span>
-</span><span data-line="108"><span class="sd">    &gt;&gt;&gt; normalize_license("cc-0")  # the version strip would otherwise eat "-0"</span>
-</span><span data-line="109"><span class="sd">    'cc0'</span>
-</span><span data-line="110"><span class="sd">    &gt;&gt;&gt; normalize_license("")  is None</span>
-</span><span data-line="111"><span class="sd">    True</span>
-</span><span data-line="112"><span class="sd">    """</span>
-</span><span data-line="113">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-</span><span data-line="114">        <span class="k">return</span> <span class="kc">None</span>
-</span><span data-line="115">    <span class="n">code</span> <span class="o">=</span> <span class="n">_SEPARATORS_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-</span><span data-line="116">    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">LICENSE_ALIASES</span><span class="p">:</span>  <span class="c1"># before the version strip, which eats "cc-0"'s "-0"</span>
-</span><span data-line="117">        <span class="k">return</span> <span class="n">LICENSE_ALIASES</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
-</span><span data-line="118">    <span class="n">code</span> <span class="o">=</span> <span class="n">_VERSION_SUFFIX_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
-</span><span data-line="119">    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">LICENSE_ALIASES</span><span class="p">:</span>  <span class="c1"># alias before de-prefixing (e.g. "cc-pdm")</span>
-</span><span data-line="120">        <span class="k">return</span> <span class="n">LICENSE_ALIASES</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
-</span><span data-line="121">    <span class="n">code</span> <span class="o">=</span> <span class="n">_CC_PREFIX_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
-</span><span data-line="122">    <span class="k">return</span> <span class="n">LICENSE_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span></div>
+</span><span data-line="96"><span class="k">def</span><span class="w"> </span><span class="nf">normalize_license</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
+</span><span data-line="97"><span class="w">    </span><span class="sd">"""Fold a provider's licence spelling onto one canonical, comparable code.</span>
+</span><span data-line="98">
+</span><span data-line="99"><span class="sd">    Lower-cases, unifies separators to ``-``, strips a trailing version and a</span>
+</span><span data-line="100"><span class="sd">    leading ``cc-``, then applies :data:`LICENSE_ALIASES`. Returns ``None`` for</span>
+</span><span data-line="101"><span class="sd">    ``None``/blank — an absent licence is never a code.</span>
+</span><span data-line="102">
+</span><span data-line="103"><span class="sd">    &gt;&gt;&gt; normalize_license("by-sa"), normalize_license("cc0"), normalize_license("CC0 1.0")</span>
+</span><span data-line="104"><span class="sd">    ('by-sa', 'cc0', 'cc0')</span>
+</span><span data-line="105"><span class="sd">    &gt;&gt;&gt; normalize_license("Pexels License"), normalize_license("  BY  ")</span>
+</span><span data-line="106"><span class="sd">    ('pexels-license', 'by')</span>
+</span><span data-line="107"><span class="sd">    &gt;&gt;&gt; normalize_license("public domain"), normalize_license("cc-by-3.0")</span>
+</span><span data-line="108"><span class="sd">    ('pdm', 'by')</span>
+</span><span data-line="109"><span class="sd">    &gt;&gt;&gt; normalize_license("cc-0")  # the version strip would otherwise eat "-0"</span>
+</span><span data-line="110"><span class="sd">    'cc0'</span>
+</span><span data-line="111"><span class="sd">    &gt;&gt;&gt; normalize_license("")  is None</span>
+</span><span data-line="112"><span class="sd">    True</span>
+</span><span data-line="113"><span class="sd">    """</span>
+</span><span data-line="114">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+</span><span data-line="115">        <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="116">    <span class="n">code</span> <span class="o">=</span> <span class="n">_SEPARATORS_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+</span><span data-line="117">    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">LICENSE_ALIASES</span><span class="p">:</span>  <span class="c1"># before the version strip, which eats "cc-0"'s "-0"</span>
+</span><span data-line="118">        <span class="k">return</span> <span class="n">LICENSE_ALIASES</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
+</span><span data-line="119">    <span class="n">code</span> <span class="o">=</span> <span class="n">_VERSION_SUFFIX_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+</span><span data-line="120">    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">LICENSE_ALIASES</span><span class="p">:</span>  <span class="c1"># alias before de-prefixing (e.g. "cc-pdm")</span>
+</span><span data-line="121">        <span class="k">return</span> <span class="n">LICENSE_ALIASES</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
+</span><span data-line="122">    <span class="n">code</span> <span class="o">=</span> <span class="n">_CC_PREFIX_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+</span><span data-line="123">    <span class="k">return</span> <span class="n">LICENSE_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span></div>
 
-</span><span data-line="123">
 </span><span data-line="124">
+</span><span data-line="125">
 <div class="viewcode-block" id="display_license">
 <a class="viewcode-back" href="../../_autosummary/illustration.licensing.html#illustration.display_license">[docs]</a>
-</span><span data-line="125"><span class="k">def</span><span class="w"> </span><span class="nf">display_license</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
-</span><span data-line="126"><span class="w">    </span><span class="sd">"""The conventional human spelling of a licence, for on-screen credit.</span>
-</span><span data-line="127">
-</span><span data-line="128"><span class="sd">    Unlike :func:`normalize_license` (a canonical code for *comparison*, with</span>
-</span><span data-line="129"><span class="sd">    the version stripped by design), this is for *display* — a credit line, a</span>
-</span><span data-line="130"><span class="sd">    video description, an attribution card — and works on the **recorded**</span>
-</span><span data-line="131"><span class="sd">    spelling rather than the normalised one, because the version is</span>
-</span><span data-line="132"><span class="sd">    information a normalised code deliberately drops and a credit arguably</span>
-</span><span data-line="133"><span class="sd">    should keep: ``cc-by-sa-4.0`` and a hypothetical ``cc-by-sa-3.0`` compare</span>
-</span><span data-line="134"><span class="sd">    equal under :func:`normalize_license` but are not the same licence to name</span>
-</span><span data-line="135"><span class="sd">    on screen.</span>
-</span><span data-line="136">
-</span><span data-line="137"><span class="sd">    Recognised Creative Commons / public-domain codes (the same vocabulary</span>
-</span><span data-line="138"><span class="sd">    :func:`normalize_license` produces) get the conventional spelling —</span>
-</span><span data-line="139"><span class="sd">    ``"by-sa"`` → ``"CC BY-SA"``, ``"cc0"`` → ``"CC0"``, ``"pdm"`` →</span>
-</span><span data-line="140"><span class="sd">    ``"Public Domain Mark"`` — with the recorded version appended if the input</span>
-</span><span data-line="141"><span class="sd">    carried one. This is presentation only: an input that does not resolve to</span>
-</span><span data-line="142"><span class="sd">    a known permission code is title-cased and returned as-is, never</span>
-</span><span data-line="143"><span class="sd">    reinterpreted — it must still fail :func:`normalize_license`'s consumers</span>
-</span><span data-line="144"><span class="sd">    (e.g. :func:`illustration.schema.license_allowlist`) exactly as before.</span>
-</span><span data-line="145">
-</span><span data-line="146"><span class="sd">    &gt;&gt;&gt; display_license("cc-by-sa-4.0")</span>
-</span><span data-line="147"><span class="sd">    'CC BY-SA 4.0'</span>
-</span><span data-line="148"><span class="sd">    &gt;&gt;&gt; display_license("CC BY-SA 4.0")</span>
-</span><span data-line="149"><span class="sd">    'CC BY-SA 4.0'</span>
-</span><span data-line="150"><span class="sd">    &gt;&gt;&gt; display_license("by-sa")           # no version in the recorded spelling</span>
-</span><span data-line="151"><span class="sd">    'CC BY-SA'</span>
-</span><span data-line="152"><span class="sd">    &gt;&gt;&gt; display_license("cc0"), display_license("CC0 1.0")</span>
-</span><span data-line="153"><span class="sd">    ('CC0', 'CC0 1.0')</span>
-</span><span data-line="154"><span class="sd">    &gt;&gt;&gt; display_license("pd"), display_license("public domain")</span>
-</span><span data-line="155"><span class="sd">    ('Public Domain Mark', 'Public Domain Mark')</span>
-</span><span data-line="156"><span class="sd">    &gt;&gt;&gt; display_license("cc-by-nc-nd-4.0")  # restrictions survive, same as normalize_license</span>
-</span><span data-line="157"><span class="sd">    'CC BY-NC-ND 4.0'</span>
-</span><span data-line="158"><span class="sd">    &gt;&gt;&gt; display_license("Pixabay License")  # not a CC/PD code -- shown, not invented</span>
-</span><span data-line="159"><span class="sd">    'Pixabay License'</span>
-</span><span data-line="160"><span class="sd">    &gt;&gt;&gt; display_license(None) is None</span>
-</span><span data-line="161"><span class="sd">    True</span>
-</span><span data-line="162"><span class="sd">    """</span>
-</span><span data-line="163">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-</span><span data-line="164">        <span class="k">return</span> <span class="kc">None</span>
-</span><span data-line="165">    <span class="n">raw</span> <span class="o">=</span> <span class="n">_SEPARATORS_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-</span><span data-line="166">    <span class="n">version_match</span> <span class="o">=</span> <span class="n">_VERSION_SUFFIX_RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-</span><span data-line="167">    <span class="n">version</span> <span class="o">=</span> <span class="p">(</span>
-</span><span data-line="168">        <span class="n">version_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"-_ "</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"v"</span><span class="p">)</span> <span class="k">if</span> <span class="n">version_match</span> <span class="k">else</span> <span class="kc">None</span>
-</span><span data-line="169">    <span class="p">)</span>
-</span><span data-line="170">    <span class="n">base</span> <span class="o">=</span> <span class="n">_VERSION_SUFFIX_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">raw</span><span class="p">)</span>
-</span><span data-line="171">    <span class="n">code</span> <span class="o">=</span> <span class="n">normalize_license</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
-</span><span data-line="172">    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">_DISPLAY_NAMES</span><span class="p">:</span>
-</span><span data-line="173">        <span class="n">name</span> <span class="o">=</span> <span class="n">_DISPLAY_NAMES</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
-</span><span data-line="174">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">version</span> <span class="k">else</span> <span class="n">name</span>
-</span><span data-line="175">    <span class="c1"># Not a recognised CC/PD code: present the provider's own spelling,</span>
-</span><span data-line="176">    <span class="c1"># title-cased, rather than inventing a CC-style name for something that</span>
-</span><span data-line="177">    <span class="c1"># isn't one (e.g. "Pixabay License", "Pexels License").</span>
-</span><span data-line="178">    <span class="k">return</span> <span class="p">(</span>
-</span><span data-line="179">        <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">base</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="ow">or</span> <span class="kc">None</span>
-</span><span data-line="180">    <span class="p">)</span></div>
+</span><span data-line="126"><span class="k">def</span><span class="w"> </span><span class="nf">display_license</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
+</span><span data-line="127"><span class="w">    </span><span class="sd">"""The conventional human spelling of a licence, for on-screen credit.</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="sd">    Unlike :func:`normalize_license` (a canonical code for *comparison*, with</span>
+</span><span data-line="130"><span class="sd">    the version stripped by design), this is for *display* — a credit line, a</span>
+</span><span data-line="131"><span class="sd">    video description, an attribution card — and works on the **recorded**</span>
+</span><span data-line="132"><span class="sd">    spelling rather than the normalised one, because the version is</span>
+</span><span data-line="133"><span class="sd">    information a normalised code deliberately drops and a credit arguably</span>
+</span><span data-line="134"><span class="sd">    should keep: ``cc-by-sa-4.0`` and a hypothetical ``cc-by-sa-3.0`` compare</span>
+</span><span data-line="135"><span class="sd">    equal under :func:`normalize_license` but are not the same licence to name</span>
+</span><span data-line="136"><span class="sd">    on screen.</span>
+</span><span data-line="137">
+</span><span data-line="138"><span class="sd">    Recognised Creative Commons / public-domain codes (the same vocabulary</span>
+</span><span data-line="139"><span class="sd">    :func:`normalize_license` produces) get the conventional spelling —</span>
+</span><span data-line="140"><span class="sd">    ``"by-sa"`` → ``"CC BY-SA"``, ``"cc0"`` → ``"CC0"``, ``"pdm"`` →</span>
+</span><span data-line="141"><span class="sd">    ``"Public Domain Mark"`` — with the recorded version appended if the input</span>
+</span><span data-line="142"><span class="sd">    carried one. This is presentation only: an input that does not resolve to</span>
+</span><span data-line="143"><span class="sd">    a known permission code is returned as recorded (whitespace collapsed,</span>
+</span><span data-line="144"><span class="sd">    case and version kept), never reinterpreted — it must still fail :func:`normalize_license`'s consumers</span>
+</span><span data-line="145"><span class="sd">    (e.g. :func:`illustration.schema.license_allowlist`) exactly as before.</span>
+</span><span data-line="146">
+</span><span data-line="147"><span class="sd">    &gt;&gt;&gt; display_license("cc-by-sa-4.0")</span>
+</span><span data-line="148"><span class="sd">    'CC BY-SA 4.0'</span>
+</span><span data-line="149"><span class="sd">    &gt;&gt;&gt; display_license("CC BY-SA 4.0")</span>
+</span><span data-line="150"><span class="sd">    'CC BY-SA 4.0'</span>
+</span><span data-line="151"><span class="sd">    &gt;&gt;&gt; display_license("by-sa")           # no version in the recorded spelling</span>
+</span><span data-line="152"><span class="sd">    'CC BY-SA'</span>
+</span><span data-line="153"><span class="sd">    &gt;&gt;&gt; display_license("cc0"), display_license("CC0 1.0")</span>
+</span><span data-line="154"><span class="sd">    ('CC0', 'CC0 1.0')</span>
+</span><span data-line="155"><span class="sd">    &gt;&gt;&gt; display_license("pd"), display_license("public domain")</span>
+</span><span data-line="156"><span class="sd">    ('Public Domain Mark', 'Public Domain Mark')</span>
+</span><span data-line="157"><span class="sd">    &gt;&gt;&gt; display_license("cc-by-nc-nd-4.0")  # restrictions survive, same as normalize_license</span>
+</span><span data-line="158"><span class="sd">    'CC BY-NC-ND 4.0'</span>
+</span><span data-line="159"><span class="sd">    &gt;&gt;&gt; display_license("Pixabay License")  # not a CC/PD code -- shown, not invented</span>
+</span><span data-line="160"><span class="sd">    'Pixabay License'</span>
+</span><span data-line="161"><span class="sd">    &gt;&gt;&gt; display_license("cc-0")  # whole-code alias: "-0" is not a version</span>
+</span><span data-line="162"><span class="sd">    'CC0'</span>
+</span><span data-line="163"><span class="sd">    &gt;&gt;&gt; display_license("GFDL 1.3"), display_license("PD-US-expired")</span>
+</span><span data-line="164"><span class="sd">    ('GFDL 1.3', 'PD-US-expired')</span>
+</span><span data-line="165"><span class="sd">    &gt;&gt;&gt; display_license(None) is None</span>
+</span><span data-line="166"><span class="sd">    True</span>
+</span><span data-line="167"><span class="sd">    """</span>
+</span><span data-line="168">    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+</span><span data-line="169">        <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="170">    <span class="n">raw</span> <span class="o">=</span> <span class="n">_SEPARATORS_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+</span><span data-line="171">    <span class="k">if</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">LICENSE_ALIASES</span><span class="p">:</span>
+</span><span data-line="172">        <span class="c1"># A whole-code alias carries no version: check it *before* the version</span>
+</span><span data-line="173">        <span class="c1"># strip, which would read "cc-0" as code "cc" at version "0" -- the</span>
+</span><span data-line="174">        <span class="c1"># same trap normalize_license documents.</span>
+</span><span data-line="175">        <span class="k">return</span> <span class="n">_DISPLAY_NAMES</span><span class="p">[</span><span class="n">LICENSE_ALIASES</span><span class="p">[</span><span class="n">raw</span><span class="p">]]</span>
+</span><span data-line="176">    <span class="n">version_match</span> <span class="o">=</span> <span class="n">_VERSION_SUFFIX_RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+</span><span data-line="177">    <span class="n">version</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="178">        <span class="n">version_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"-_ "</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"v"</span><span class="p">)</span> <span class="k">if</span> <span class="n">version_match</span> <span class="k">else</span> <span class="kc">None</span>
+</span><span data-line="179">    <span class="p">)</span>
+</span><span data-line="180">    <span class="n">base</span> <span class="o">=</span> <span class="n">_VERSION_SUFFIX_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">raw</span><span class="p">)</span>
+</span><span data-line="181">    <span class="n">code</span> <span class="o">=</span> <span class="n">normalize_license</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+</span><span data-line="182">    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">_DISPLAY_NAMES</span><span class="p">:</span>
+</span><span data-line="183">        <span class="n">name</span> <span class="o">=</span> <span class="n">_DISPLAY_NAMES</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
+</span><span data-line="184">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">version</span> <span class="k">else</span> <span class="n">name</span>
+</span><span data-line="185">    <span class="c1"># Not a recognised CC/PD code: present the provider's own spelling as</span>
+</span><span data-line="186">    <span class="c1"># recorded (whitespace collapsed), rather than inventing a CC-style name</span>
+</span><span data-line="187">    <span class="c1"># for something that isn't one. Verbatim, not re-cased and not</span>
+</span><span data-line="188">    <span class="c1"># version-stripped: "GFDL 1.3", "MIT", "PD-US-expired", "CC BY-SA 3.0 DE"</span>
+</span><span data-line="189">    <span class="c1"># are already human spellings, and re-casing or dropping the version</span>
+</span><span data-line="190">    <span class="c1"># would lose exactly the information a credit line needs.</span>
+</span><span data-line="191">    <span class="k">return</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">())</span></div>
 
-</span><span data-line="181">
-</span><span data-line="182">
-</span><span data-line="183"><span class="c1"># Loose signal words that a piece of free text is *naming* a licence /</span>
-</span><span data-line="184"><span class="c1"># rights status, rather than just crediting an author. Deliberately broad</span>
-</span><span data-line="185"><span class="c1"># (word-boundary matched, case-insensitive) — this is a soft audit signal for</span>
-</span><span data-line="186"><span class="c1"># :func:`mentions_license`, not a licence-gate comparison, so a false positive</span>
-</span><span data-line="187"><span class="c1"># (text that happens to contain "license" without truly identifying one) is</span>
-</span><span data-line="188"><span class="c1"># far cheaper than a false negative (a credit line silently missing the</span>
-</span><span data-line="189"><span class="c1"># licence it is legally required to name).</span>
-</span><span data-line="190"><span class="n">_LICENSE_MENTION_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-</span><span data-line="191">    <span class="sa">r</span><span class="s2">"©|\b(cc0|cc|creative\s+commons|public\s+domain|copyright|licen[cs]e|"</span>
-</span><span data-line="192">    <span class="sa">r</span><span class="s2">"all\s+rights\s+reserved)\b"</span><span class="p">,</span>
-</span><span data-line="193">    <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">,</span>
-</span><span data-line="194"><span class="p">)</span>
-</span><span data-line="195">
-</span><span data-line="196">
+</span><span data-line="192">
+</span><span data-line="193">
+</span><span data-line="194"><span class="c1"># Loose signal words that a piece of free text is *naming* a licence /</span>
+</span><span data-line="195"><span class="c1"># rights status, rather than just crediting an author. Deliberately broad</span>
+</span><span data-line="196"><span class="c1"># (word-boundary matched, case-insensitive). Note which way the error runs: a</span>
+</span><span data-line="197"><span class="c1"># *false positive* here ("© Jane Doe" counts as a mention) is what lets a</span>
+</span><span data-line="198"><span class="c1"># licence-less credit through an audit, so this generic signal is only the</span>
+</span><span data-line="199"><span class="c1"># fallback in :func:`illustration.schema.check_attributions` -- for the CC BY</span>
+</span><span data-line="200"><span class="c1"># family, which legally requires the licence to be named, that audit asks</span>
+</span><span data-line="201"><span class="c1"># :func:`licenses_named` for the *specific* licence instead.</span>
+</span><span data-line="202"><span class="n">_LICENSE_MENTION_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+</span><span data-line="203">    <span class="sa">r</span><span class="s2">"©|\b(cc0|cc|creative\s+commons|public\s+domain|copyright|licen[cs]e|"</span>
+</span><span data-line="204">    <span class="sa">r</span><span class="s2">"all\s+rights\s+reserved)\b"</span><span class="p">,</span>
+</span><span data-line="205">    <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">,</span>
+</span><span data-line="206"><span class="p">)</span>
+</span><span data-line="207">
+</span><span data-line="208">
 <div class="viewcode-block" id="mentions_license">
 <a class="viewcode-back" href="../../_autosummary/illustration.licensing.html#illustration.mentions_license">[docs]</a>
-</span><span data-line="197"><span class="k">def</span><span class="w"> </span><span class="nf">mentions_license</span><span class="p">(</span><span class="n">attribution</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span data-line="198"><span class="w">    </span><span class="sd">"""Whether ``attribution`` appears to name a licence or rights status.</span>
-</span><span data-line="199">
-</span><span data-line="200"><span class="sd">    A soft, presentation-side audit signal for</span>
-</span><span data-line="201"><span class="sd">    :func:`illustration.schema.check_attributions` — CC BY / CC BY-SA require</span>
-</span><span data-line="202"><span class="sd">    the licence to be identified in the credit, and some providers' raw</span>
-</span><span data-line="203"><span class="sd">    attribution text (notably Wikimedia Commons' ``extmetadata.Attribution``,</span>
-</span><span data-line="204"><span class="sd">    illustration#22) is sometimes just the author's name with no licence</span>
-</span><span data-line="205"><span class="sd">    mentioned at all, even when the file's ``license``/``license_url`` fields</span>
-</span><span data-line="206"><span class="sd">    are populated and correct. This never changes what a licence *is* — it</span>
-</span><span data-line="207"><span class="sd">    only flags text that does not visibly say what it is, for a caller to</span>
-</span><span data-line="208"><span class="sd">    review or fall back on ``author``/``license``/``license_url`` themselves.</span>
-</span><span data-line="209">
-</span><span data-line="210"><span class="sd">    &gt;&gt;&gt; mentions_license("Alice / CC BY-SA 4.0, via Wikimedia Commons")</span>
-</span><span data-line="211"><span class="sd">    True</span>
-</span><span data-line="212"><span class="sd">    &gt;&gt;&gt; mentions_license("Public domain, via Wikimedia Commons")</span>
-</span><span data-line="213"><span class="sd">    True</span>
-</span><span data-line="214"><span class="sd">    &gt;&gt;&gt; mentions_license("EliziR")            # illustration#22: bare author name</span>
-</span><span data-line="215"><span class="sd">    False</span>
-</span><span data-line="216"><span class="sd">    &gt;&gt;&gt; mentions_license("Use freely, credit ACME")  # custom wording, no licence named</span>
-</span><span data-line="217"><span class="sd">    False</span>
-</span><span data-line="218"><span class="sd">    &gt;&gt;&gt; mentions_license(None)</span>
-</span><span data-line="219"><span class="sd">    False</span>
-</span><span data-line="220"><span class="sd">    """</span>
-</span><span data-line="221">    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">attribution</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_LICENSE_MENTION_RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">attribution</span><span class="p">))</span></div>
+</span><span data-line="209"><span class="k">def</span><span class="w"> </span><span class="nf">mentions_license</span><span class="p">(</span><span class="n">attribution</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="210"><span class="w">    </span><span class="sd">"""Whether ``attribution`` appears to name a licence or rights status.</span>
+</span><span data-line="211">
+</span><span data-line="212"><span class="sd">    A soft, presentation-side audit signal for</span>
+</span><span data-line="213"><span class="sd">    :func:`illustration.schema.check_attributions` — CC BY / CC BY-SA require</span>
+</span><span data-line="214"><span class="sd">    the licence to be identified in the credit, and some providers' raw</span>
+</span><span data-line="215"><span class="sd">    attribution text (notably Wikimedia Commons' ``extmetadata.Attribution``,</span>
+</span><span data-line="216"><span class="sd">    illustration#22) is sometimes just the author's name with no licence</span>
+</span><span data-line="217"><span class="sd">    mentioned at all, even when the file's ``license``/``license_url`` fields</span>
+</span><span data-line="218"><span class="sd">    are populated and correct. This never changes what a licence *is* — it</span>
+</span><span data-line="219"><span class="sd">    only flags text that does not visibly say what it is, for a caller to</span>
+</span><span data-line="220"><span class="sd">    review or fall back on ``author``/``license``/``license_url`` themselves.</span>
+</span><span data-line="221">
+</span><span data-line="222"><span class="sd">    &gt;&gt;&gt; mentions_license("Alice / CC BY-SA 4.0, via Wikimedia Commons")</span>
+</span><span data-line="223"><span class="sd">    True</span>
+</span><span data-line="224"><span class="sd">    &gt;&gt;&gt; mentions_license("Public domain, via Wikimedia Commons")</span>
+</span><span data-line="225"><span class="sd">    True</span>
+</span><span data-line="226"><span class="sd">    &gt;&gt;&gt; mentions_license("EliziR")            # illustration#22: bare author name</span>
+</span><span data-line="227"><span class="sd">    False</span>
+</span><span data-line="228"><span class="sd">    &gt;&gt;&gt; mentions_license("Use freely, credit ACME")  # custom wording, no licence named</span>
+</span><span data-line="229"><span class="sd">    False</span>
+</span><span data-line="230"><span class="sd">    &gt;&gt;&gt; mentions_license(None)</span>
+</span><span data-line="231"><span class="sd">    False</span>
+</span><span data-line="232"><span class="sd">    """</span>
+</span><span data-line="233">    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">attribution</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_LICENSE_MENTION_RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">attribution</span><span class="p">))</span></div>
+
+</span><span data-line="234">
+</span><span data-line="235">
+</span><span data-line="236"><span class="c1"># Long-form Creative Commons element names -&gt; the short tokens of a code.</span>
+</span><span data-line="237"><span class="n">_CC_LONG_FORMS</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="238">    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"creative[\s-]+commons"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">),</span> <span class="s2">"cc"</span><span class="p">),</span>
+</span><span data-line="239">    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"attribution"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">),</span> <span class="s2">"by"</span><span class="p">),</span>
+</span><span data-line="240">    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"share[\s-]?alike"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">),</span> <span class="s2">"sa"</span><span class="p">),</span>
+</span><span data-line="241">    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"non[\s-]?commercial"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">),</span> <span class="s2">"nc"</span><span class="p">),</span>
+</span><span data-line="242">    <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"no[\s-]?deriv(?:ative)?s?"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">),</span> <span class="s2">"nd"</span><span class="p">),</span>
+</span><span data-line="243"><span class="p">)</span>
+</span><span data-line="244"><span class="c1"># A CC code as written in running text: "CC BY-SA 4.0", "cc-by-nc-nd",</span>
+</span><span data-line="245"><span class="c1"># "CC0", "CC Zero", "CC PDM". The by-family elements must follow "by".</span>
+</span><span data-line="246"><span class="n">_CC_CODE_IN_TEXT_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+</span><span data-line="247">    <span class="sa">r</span><span class="s2">"\bcc[-\s]*(by(?:[-\s]+(?:nc|nd|sa)\b)*|0|zero|pdm)\b"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span>
+</span><span data-line="248"><span class="p">)</span>
+</span><span data-line="249"><span class="n">_PUBLIC_DOMAIN_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\bpublic[\s-]+domain\b"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+</span><span data-line="250">
+</span><span data-line="251">
+<div class="viewcode-block" id="licenses_named">
+<a class="viewcode-back" href="../../_autosummary/illustration.licensing.html#illustration.licenses_named">[docs]</a>
+</span><span data-line="252"><span class="k">def</span><span class="w"> </span><span class="nf">licenses_named</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"set[str]"</span><span class="p">:</span>
+</span><span data-line="253"><span class="w">    </span><span class="sd">"""The canonical codes (as :func:`normalize_license` spells them) of every</span>
+</span><span data-line="254"><span class="sd">    Creative Commons / public-domain licence that ``text`` names.</span>
+</span><span data-line="255">
+</span><span data-line="256"><span class="sd">    Unlike :func:`mentions_license` ("does this text talk about rights at</span>
+</span><span data-line="257"><span class="sd">    all?"), this says *which* licence a credit line identifies, so an audit can</span>
+</span><span data-line="258"><span class="sd">    tell "names CC BY-SA" from "names some other licence" or "just says ©".</span>
+</span><span data-line="259"><span class="sd">    Long forms are folded first ("Creative Commons Attribution-ShareAlike" -&gt;</span>
+</span><span data-line="260"><span class="sd">    ``by-sa``); versions are ignored, as in :func:`normalize_license`.</span>
+</span><span data-line="261">
+</span><span data-line="262"><span class="sd">    &gt;&gt;&gt; sorted(licenses_named("Alice / CC BY-SA 4.0, via Wikimedia Commons"))</span>
+</span><span data-line="263"><span class="sd">    ['by-sa']</span>
+</span><span data-line="264"><span class="sd">    &gt;&gt;&gt; sorted(licenses_named("Creative Commons Attribution-NonCommercial 4.0"))</span>
+</span><span data-line="265"><span class="sd">    ['by-nc']</span>
+</span><span data-line="266"><span class="sd">    &gt;&gt;&gt; sorted(licenses_named("Rembrandt / Public domain; CC0 1.0"))</span>
+</span><span data-line="267"><span class="sd">    ['cc0', 'pdm']</span>
+</span><span data-line="268"><span class="sd">    &gt;&gt;&gt; licenses_named("© Jane Doe"), licenses_named(None)</span>
+</span><span data-line="269"><span class="sd">    (set(), set())</span>
+</span><span data-line="270"><span class="sd">    """</span>
+</span><span data-line="271">    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+</span><span data-line="272">        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+</span><span data-line="273">    <span class="k">for</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">short</span> <span class="ow">in</span> <span class="n">_CC_LONG_FORMS</span><span class="p">:</span>
+</span><span data-line="274">        <span class="n">text</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">short</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span data-line="275">    <span class="n">codes</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="276">        <span class="n">normalize_license</span><span class="p">(</span><span class="s2">"cc-"</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[-\s]+"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+</span><span data-line="277">        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">_CC_CODE_IN_TEXT_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span data-line="278">    <span class="p">}</span>
+</span><span data-line="279">    <span class="k">if</span> <span class="n">_PUBLIC_DOMAIN_RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+</span><span data-line="280">        <span class="n">codes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"pdm"</span><span class="p">)</span>
+</span><span data-line="281">    <span class="k">return</span> <span class="p">{</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">codes</span> <span class="k">if</span> <span class="n">c</span><span class="p">}</span></div>
 
 </span></pre></div>
         </article><button class="back-to-top" type="button">
@@ -395,7 +458,7 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </footer>
-      <script src="../../_static/documentation_options.js?v=9fc46840"></script>
+      <script src="../../_static/documentation_options.js?v=544df88d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
