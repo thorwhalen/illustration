@@ -7,7 +7,7 @@ moviepy encode runs.
 
 import pytest
 
-from illustration.schema import ImageResult
+from illustration.schema import RIGHTS_FIELDS, ImageResult
 from illustration.sequence import BeatSelection, SequenceSelection
 
 
@@ -21,6 +21,24 @@ def _selection(ids_with_none):
             for i, x in enumerate(ids_with_none)
         ]
     )
+
+
+def _licensed_image(**overrides):
+    """An ImageResult with every rights field populated (mirrors tests/test_persistence.py)."""
+    fields = dict(
+        provider="wikimedia",
+        id="12345",
+        url="https://upload.wikimedia.example/Stormy_Harbour.jpg",
+        license="cc-by-sa-4.0",
+        license_url="https://creativecommons.org/licenses/by-sa/4.0",
+        attribution="Alice / CC BY-SA 4.0, via Wikimedia Commons",
+        source_page_url="https://commons.wikimedia.org/wiki/File:Stormy_Harbour.jpg",
+        author="Alice",
+        author_url="https://commons.wikimedia.org/wiki/User:Alice",
+        cacheable=True,
+    )
+    fields.update(overrides)
+    return ImageResult(**fields)
 
 
 class TestRenderSequenceVideo:
@@ -124,3 +142,34 @@ class TestToWalkthruDocument:
 
         doc = to_walkthru_document(_selection(["a", None, "c"]))
         assert [s.poster.uri for s in doc.sections[0].steps] == ["ua", "uc"]
+
+    def test_asset_rights_declares_every_rights_field(self):
+        """A field in the rights record cannot silently fail to reach the Demo Document.
+
+        Same guard shape as ``tests/test_persistence.py``'s
+        ``test_candidate_ref_declares_every_rights_field`` for the ``lacing`` hop — this is the
+        analogous guard for the *other* hand-off, ``walkthru.AssetRights`` (issue #15).
+        """
+        pytest.importorskip("walkthru")
+        from walkthru import AssetRights
+
+        missing = [f for f in RIGHTS_FIELDS if f not in AssetRights.model_fields]
+        assert not missing, f"walkthru.AssetRights drops rights field(s): {missing}"
+
+    def test_walkthru_document_carries_the_whole_rights_record(self):
+        """Every ``RIGHTS_FIELDS`` value set on the chosen image reaches the Demo Document's
+        ``AssetRef.rights``, under the same names — the #15 counterpart of
+        ``test_persisted_selection_carries_the_whole_rights_record`` in test_persistence.py.
+        """
+        pytest.importorskip("walkthru")
+        from illustration.video import to_walkthru_document
+
+        source = _licensed_image()
+        selection = SequenceSelection(
+            selections=[BeatSelection(beat_index=0, chosen=source)]
+        )
+        doc = to_walkthru_document(selection)
+        rights = doc.sections[0].steps[0].poster.rights
+        assert rights is not None
+        for field in RIGHTS_FIELDS:
+            assert getattr(rights, field) == getattr(source, field), field

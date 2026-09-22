@@ -77,7 +77,7 @@ curate = [
 # narration audio with mixing (or walkthru[synth]).
 video = [
     "burns",
-    "walkthru",
+    "walkthru>=0.0.19",  # AssetRef.rights (issue #15)
 ]
 # Layer 2 — M4 persistence hook. Persist curation/selection decisions as lacing
 # standoff annotations (PROV-O provenance + append-only director overrides). Add
@@ -107,7 +107,7 @@ test = [
     "lacing",          # persistence: standoff annotations (test_persistence)
     "opentimelineio",  # persistence: OTIO export round-trip (test_persistence)
     "burns",           # video: Ken-Burns render hook (test_video)
-    "walkthru",        # video: to_walkthru_document adapter (test_video)
+    "walkthru>=0.0.19",  # video: to_walkthru_document adapter, AssetRef.rights (test_video)
     "numpy>=1.24",     # sequence coherence/pHash, inspection CV, rerank cache
     "pillow>=10",      # image-based CV / pHash / fetch tests
 ]
