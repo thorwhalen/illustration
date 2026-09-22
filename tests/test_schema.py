@@ -75,3 +75,49 @@ def test_to_search_hit_bridges_to_ir():
     assert hit.metadata["url"] == "https://x/i.jpg"  # full result rides in metadata
     # the disclosure pointer must resolve to the image URL (ir scans POINTER_KEYS)
     assert hit.pointer == "https://x/i.jpg"
+
+
+# --- check_attributions: the credit must name *this* licence ------------------
+@pytest.mark.parametrize(
+    "license,attribution",
+    [
+        ("by-sa", "© Jane Doe"),  # a rights notice, not a licence
+        ("by-sa", "Copyright Jane Doe"),
+        ("by", "Jane Doe / CC0, via Wikimedia Commons"),  # a different licence
+        ("by-sa", "Jane Doe / Public domain"),
+        ("cc-by-sa-4.0", "Photo: CC Sabathia"),  # "CC" as a name, no code
+        ("by-nc", "Jane / CC BY 4.0"),  # drops the NC restriction
+    ],
+)
+def test_check_attributions_flags_credit_naming_the_wrong_or_no_licence(
+    license, attribution
+):
+    r = ImageResult(provider="p", id="1", url="u", license=license,
+                    attribution=attribution)
+    assert check_attributions([r]) == [r]
+
+
+@pytest.mark.parametrize(
+    "license,attribution",
+    [
+        ("by-sa", "Alice / CC BY-SA 4.0, via Wikimedia Commons"),
+        ("cc-by-sa-4.0", "Jane, CC-BY-SA-4.0"),
+        ("by-sa", "Jane Doe, Creative Commons Attribution-ShareAlike 4.0"),
+        ("by-nc-nd", "Jane / CC BY-NC-ND 3.0"),
+        ("CC BY-SA 3.0 DE", "Jane / CC BY-SA 3.0 DE"),  # jurisdiction port
+        ("by-sa", "Jane / CC BY - SA"),
+        ("CC0 1.0", "Joost Evers / Anefo / CC0, via Wikimedia Commons"),
+        ("Pixabay License", "Jane on Pixabay (Pixabay License)"),
+    ],
+)
+def test_check_attributions_passes_credit_naming_its_licence(license, attribution):
+    r = ImageResult(provider="p", id="1", url="u", license=license,
+                    attribution=attribution)
+    assert check_attributions([r]) == []
+
+
+def test_check_attributions_accepts_the_licence_url_in_the_credit():
+    url = "https://creativecommons.org/licenses/by-sa/4.0/"
+    r = ImageResult(provider="p", id="1", url="u", license="by-sa",
+                    license_url=url, attribution=f"Jane Doe ({url})")
+    assert check_attributions([r]) == []
