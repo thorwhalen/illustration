@@ -25,7 +25,11 @@ from typing import Any, Iterable, Mapping
 from pydantic import BaseModel, Field
 
 from illustration.config import DFLT_LICENSE_ALLOWLIST
-from illustration.licensing import mentions_license, normalize_license
+from illustration.licensing import (
+    licenses_named,
+    mentions_license,
+    normalize_license,
+)
 
 __all__ = [
     "ImageResult",
@@ -190,6 +194,14 @@ def check_attributions(results: Iterable["ImageResult"]) -> list["ImageResult"]:
     pipeline to review, log, or compose a fallback credit from ``author`` /
     ``license`` / ``license_url`` for exactly the results it returns.
 
+    What counts as "naming the licence" depends on the licence. For the
+    CC BY family (``by``, ``by-sa``, ``by-nc``, ...) the attribution must name
+    *that* licence (see :func:`illustration.licensing.licenses_named`), or
+    contain the result's ``license_url``: "© Jane Doe", "Public domain", or a
+    different CC code (e.g. "CC BY" for a ``by-nc`` image, which drops the NC
+    restriction) are all flagged. For any other licence, the looser
+    :func:`illustration.licensing.mentions_license` signal is used.
+
     A result with no ``license`` at all is not flagged: there is nothing to
     name, and it should already have been dropped by ``license_allowlist`` if
     that matters to the caller.
@@ -201,7 +213,26 @@ def check_attributions(results: Iterable["ImageResult"]) -> list["ImageResult"]:
     >>> [r.id for r in check_attributions([a, b, c])]
     ['1']
     """
-    return [r for r in results if r.license and not mentions_license(r.attribution)]
+
+    def by_family(code: "str | None") -> str:
+        # "by-sa-3.0-de" (a jurisdiction port) -> "by-sa": the permission
+        # elements only, which is what a credit line has to identify.
+        elements = []
+        for token in (code or "").split("-"):
+            if token not in ("by", "nc", "nd", "sa"):
+                break
+            elements.append(token)
+        return "-".join(elements) if elements[:1] == ["by"] else ""
+
+    def names_its_license(r: "ImageResult") -> bool:
+        family = by_family(normalize_license(r.license))
+        if family:
+            if r.license_url and r.attribution and r.license_url in r.attribution:
+                return True
+            return family in {by_family(c) for c in licenses_named(r.attribution)}
+        return mentions_license(r.attribution)
+
+    return [r for r in results if r.license and not names_its_license(r)]
 
 
 def _coerce_results(items: Iterable[Mapping[str, Any]]) -> list[ImageResult]:

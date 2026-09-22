@@ -88,6 +88,16 @@ def test_unknown_code_is_left_alone_not_guessed():
         # single-licence providers: not a CC/PD code, shown as recorded
         ("Pixabay License", "Pixabay License"),
         ("Pexels License", "Pexels License"),
+        # whole-code aliases: the trailing "-0" of "cc-0" is not a version
+        ("cc-0", "CC0"),
+        ("cc-zero", "CC0"),
+        ("cc-pdm", "Public Domain Mark"),
+        # unrecognised codes keep their recorded case AND version
+        ("GFDL 1.3", "GFDL 1.3"),
+        ("MIT", "MIT"),
+        ("PD-US-expired", "PD-US-expired"),
+        ("pd-old-70", "pd-old-70"),
+        ("CC BY-SA 3.0  DE", "CC BY-SA 3.0 DE"),
         # absent stays absent
         (None, None),
         ("", None),
@@ -108,6 +118,16 @@ def test_display_license_never_launders_an_unrecognised_code_into_valid():
         assert license_allowlist(
             [ImageResult(provider="p", id="1", url="u", license=raw)]
         ) == []
+
+
+def test_every_alias_key_displays_as_its_canonical_name():
+    # Drift guard on the *keys* of LICENSE_ALIASES, not just its values:
+    # "cc-0" was displayed as "Cc" because display_license stripped its "-0"
+    # as a version before consulting the alias table.
+    from illustration.licensing import _DISPLAY_NAMES
+
+    for alias, code in LICENSE_ALIASES.items():
+        assert display_license(alias) == _DISPLAY_NAMES[code], alias
 
 
 def test_display_license_keys_are_normalize_license_values():

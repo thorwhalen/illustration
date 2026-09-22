@@ -40,6 +40,7 @@ __all__ = [
     "normalize_license",
     "display_license",
     "mentions_license",
+    "licenses_named",
     "LICENSE_ALIASES",
     "RESTRICTION_TOKENS",
 ]
@@ -139,8 +140,8 @@ def display_license(value: "str | None") -> "str | None":
     ``"by-sa"`` → ``"CC BY-SA"``, ``"cc0"`` → ``"CC0"``, ``"pdm"`` →
     ``"Public Domain Mark"`` — with the recorded version appended if the input
     carried one. This is presentation only: an input that does not resolve to
-    a known permission code is title-cased and returned as-is, never
-    reinterpreted — it must still fail :func:`normalize_license`'s consumers
+    a known permission code is returned as recorded (whitespace collapsed,
+    case and version kept), never reinterpreted — it must still fail :func:`normalize_license`'s consumers
     (e.g. :func:`illustration.schema.license_allowlist`) exactly as before.
 
     >>> display_license("cc-by-sa-4.0")
@@ -157,12 +158,21 @@ def display_license(value: "str | None") -> "str | None":
     'CC BY-NC-ND 4.0'
     >>> display_license("Pixabay License")  # not a CC/PD code -- shown, not invented
     'Pixabay License'
+    >>> display_license("cc-0")  # whole-code alias: "-0" is not a version
+    'CC0'
+    >>> display_license("GFDL 1.3"), display_license("PD-US-expired")
+    ('GFDL 1.3', 'PD-US-expired')
     >>> display_license(None) is None
     True
     """
     if not value or not value.strip():
         return None
     raw = _SEPARATORS_RE.sub("-", value.strip().lower())
+    if raw in LICENSE_ALIASES:
+        # A whole-code alias carries no version: check it *before* the version
+        # strip, which would read "cc-0" as code "cc" at version "0" -- the
+        # same trap normalize_license documents.
+        return _DISPLAY_NAMES[LICENSE_ALIASES[raw]]
     version_match = _VERSION_SUFFIX_RE.search(raw)
     version = (
         version_match.group(0).lstrip("-_ ").lstrip("v") if version_match else None
@@ -172,21 +182,23 @@ def display_license(value: "str | None") -> "str | None":
     if code in _DISPLAY_NAMES:
         name = _DISPLAY_NAMES[code]
         return f"{name} {version}" if version else name
-    # Not a recognised CC/PD code: present the provider's own spelling,
-    # title-cased, rather than inventing a CC-style name for something that
-    # isn't one (e.g. "Pixabay License", "Pexels License").
-    return (
-        " ".join(word.capitalize() for word in base.replace("-", " ").split()) or None
-    )
+    # Not a recognised CC/PD code: present the provider's own spelling as
+    # recorded (whitespace collapsed), rather than inventing a CC-style name
+    # for something that isn't one. Verbatim, not re-cased and not
+    # version-stripped: "GFDL 1.3", "MIT", "PD-US-expired", "CC BY-SA 3.0 DE"
+    # are already human spellings, and re-casing or dropping the version
+    # would lose exactly the information a credit line needs.
+    return " ".join(value.split())
 
 
 # Loose signal words that a piece of free text is *naming* a licence /
 # rights status, rather than just crediting an author. Deliberately broad
-# (word-boundary matched, case-insensitive) — this is a soft audit signal for
-# :func:`mentions_license`, not a licence-gate comparison, so a false positive
-# (text that happens to contain "license" without truly identifying one) is
-# far cheaper than a false negative (a credit line silently missing the
-# licence it is legally required to name).
+# (word-boundary matched, case-insensitive). Note which way the error runs: a
+# *false positive* here ("© Jane Doe" counts as a mention) is what lets a
+# licence-less credit through an audit, so this generic signal is only the
+# fallback in :func:`illustration.schema.check_attributions` -- for the CC BY
+# family, which legally requires the licence to be named, that audit asks
+# :func:`licenses_named` for the *specific* licence instead.
 _LICENSE_MENTION_RE = re.compile(
     r"©|\b(cc0|cc|creative\s+commons|public\s+domain|copyright|licen[cs]e|"
     r"all\s+rights\s+reserved)\b",
@@ -219,3 +231,51 @@ def mentions_license(attribution: "str | None") -> bool:
     False
     """
     return bool(attribution) and bool(_LICENSE_MENTION_RE.search(attribution))
+
+
+# Long-form Creative Commons element names -> the short tokens of a code.
+_CC_LONG_FORMS = (
+    (re.compile(r"creative[\s-]+commons", re.I), "cc"),
+    (re.compile(r"attribution", re.I), "by"),
+    (re.compile(r"share[\s-]?alike", re.I), "sa"),
+    (re.compile(r"non[\s-]?commercial", re.I), "nc"),
+    (re.compile(r"no[\s-]?deriv(?:ative)?s?", re.I), "nd"),
+)
+# A CC code as written in running text: "CC BY-SA 4.0", "cc-by-nc-nd",
+# "CC0", "CC Zero", "CC PDM". The by-family elements must follow "by".
+_CC_CODE_IN_TEXT_RE = re.compile(
+    r"\bcc[-\s]*(by(?:[-\s]+(?:nc|nd|sa)\b)*|0|zero|pdm)\b", re.I
+)
+_PUBLIC_DOMAIN_RE = re.compile(r"\bpublic[\s-]+domain\b", re.I)
+
+
+def licenses_named(text: "str | None") -> "set[str]":
+    """The canonical codes (as :func:`normalize_license` spells them) of every
+    Creative Commons / public-domain licence that ``text`` names.
+
+    Unlike :func:`mentions_license` ("does this text talk about rights at
+    all?"), this says *which* licence a credit line identifies, so an audit can
+    tell "names CC BY-SA" from "names some other licence" or "just says ©".
+    Long forms are folded first ("Creative Commons Attribution-ShareAlike" ->
+    ``by-sa``); versions are ignored, as in :func:`normalize_license`.
+
+    >>> sorted(licenses_named("Alice / CC BY-SA 4.0, via Wikimedia Commons"))
+    ['by-sa']
+    >>> sorted(licenses_named("Creative Commons Attribution-NonCommercial 4.0"))
+    ['by-nc']
+    >>> sorted(licenses_named("Rembrandt / Public domain; CC0 1.0"))
+    ['cc0', 'pdm']
+    >>> licenses_named("© Jane Doe"), licenses_named(None)
+    (set(), set())
+    """
+    if not text:
+        return set()
+    for pattern, short in _CC_LONG_FORMS:
+        text = pattern.sub(short, text)
+    codes = {
+        normalize_license("cc-" + re.sub(r"[-\s]+", "-", m.group(1)))
+        for m in _CC_CODE_IN_TEXT_RE.finditer(text)
+    }
+    if _PUBLIC_DOMAIN_RE.search(text):
+        codes.add("pdm")
+    return {c for c in codes if c}
