@@ -163,7 +163,9 @@ def display_license(value: "str | None") -> "str | None":
         return None
     raw = _SEPARATORS_RE.sub("-", value.strip().lower())
     version_match = _VERSION_SUFFIX_RE.search(raw)
-    version = version_match.group(0).lstrip("-_ ").lstrip("v") if version_match else None
+    version = (
+        version_match.group(0).lstrip("-_ ").lstrip("v") if version_match else None
+    )
     base = _VERSION_SUFFIX_RE.sub("", raw)
     code = normalize_license(base)
     if code in _DISPLAY_NAMES:
@@ -172,4 +174,6 @@ def display_license(value: "str | None") -> "str | None":
     # Not a recognised CC/PD code: present the provider's own spelling,
     # title-cased, rather than inventing a CC-style name for something that
     # isn't one (e.g. "Pixabay License", "Pexels License").
-    return " ".join(word.capitalize() for word in base.replace("-", " ").split()) or None
+    return (
+        " ".join(word.capitalize() for word in base.replace("-", " ").split()) or None
+    )
