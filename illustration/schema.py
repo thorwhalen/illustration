@@ -201,9 +201,7 @@ def check_attributions(results: Iterable["ImageResult"]) -> list["ImageResult"]:
     >>> [r.id for r in check_attributions([a, b, c])]
     ['1']
     """
-    return [
-        r for r in results if r.license and not mentions_license(r.attribution)
-    ]
+    return [r for r in results if r.license and not mentions_license(r.attribution)]
 
 
 def _coerce_results(items: Iterable[Mapping[str, Any]]) -> list[ImageResult]:
