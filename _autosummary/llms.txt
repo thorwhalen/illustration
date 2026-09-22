@@ -1,0 +1,36 @@
+# illustration
+
+> agentic semantic image retrieval
+
+
+## Pages in this subsection
+
+- [illustration](illustration.html.md): illustration — find existing images to illustrate narrated video.
+- [illustration.base](illustration.base.html.md): The provider plugin contract: &#96;RetrievalSource&#96;.
+- [illustration.caching](illustration.caching.html.md): SHA-256 content-addressed caching of search results (the &#96;falaw&#96; recipe).
+- [illustration.cli](illustration.cli.html.md): Command-line surface (thin &#96;cw&#96; wrappers over the library functions).
+- [illustration.config](illustration.config.html.md): Configuration: XDG directories and package-wide defaults (the SSOT).
+- [illustration.credentials](illustration.credentials.html.md): API-key resolution (the &#96;aix&#96; credentials idiom + &#96;falaw&#96; BYO-key seam).
+- [illustration.curation](illustration.curation.html.md): The bounded corrective-retrieval (CRAG) loop — Layer 2’s heart (R2 §1).
+- [illustration.duplicates](illustration.duplicates.html.md): Group images that are the same &#42;&#42;subject&#42;&#42;, and keep the best one of each group.
+- [illustration.errors](illustration.errors.html.md): The package exception hierarchy.
+- [illustration.expansion](illustration.expansion.html.md): Query expansion &amp; refinement — the first node of the curation loop (R2 §1).
+- [illustration.facade](illustration.facade.html.md): The façade: &#96;search()&#96; — one call over any registered provider(s).
+- [illustration.inspection](illustration.inspection.html.md): Candidate inspection — classical-CV pre-filters + VLM caption/judge (R2 §2-3).
+- [illustration.licensing](illustration.licensing.html.md): Licence-code normalisation — one vocabulary for four provider vocabularies.
+- [illustration.persistence](illustration.persistence.html.md): Persist curation/selection decisions as &#96;lacing&#96; standoff annotations (R2 §6).
+- [illustration.providers](illustration.providers.html.md): Built-in provider sources, registered on import.
+- [illustration.providers.openverse](illustration.providers.openverse.html.md): Openverse source — 800M+ openly-licensed / public-domain images, &#42;&#42;no key&#42;&#42;.
+- [illustration.providers.pexels](illustration.providers.pexels.html.md): Pexels source — high-quality stock photos, &#42;&#42;API key required&#42;&#42;.
+- [illustration.providers.pixabay](illustration.providers.pixabay.html.md): Pixabay source — free commercial-use images, &#42;&#42;API key required (query param)&#42;&#42;.
+- [illustration.providers.wikimedia](illustration.providers.wikimedia.html.md): Wikimedia Commons source — 140M+ free media, &#42;&#42;no key&#42;&#42;, deep file metadata.
+- [illustration.registry](illustration.registry.html.md): The open-closed source registry and the &#96;sources&#96; view.
+- [illustration.reranking](illustration.reranking.html.md): Local cross-modal rerank — the precision stage (research report R1 §3).
+- [illustration.schema](illustration.schema.html.md): The normalized result schema — the single source of truth (Pydantic v2).
+- [illustration.sequence](illustration.sequence.html.md): Sequence-level selection — the M4 domain core (research report R2 §5).
+- [illustration.translation](illustration.translation.html.md): Canonical → native parameter translation (the &#96;denote&#96; &#96;param_map&#96; idiom).
+- [illustration.video](illustration.video.html.md): Narration → Ken-Burns video hook — the M4 integration seam.
+
+## Optional
+
+- [Top-level llms.txt](../llms.txt): Complete documentation index.

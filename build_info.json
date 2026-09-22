@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-16T16:31:16Z",
+  "built_at": "2026-09-22T12:58:15Z",
   "package": {
     "name": "illustration",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "display_name": "illustration",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "37261652bced9a597641c18217fd9377bcb6feac",
-    "short_commit": "3726165",
+    "commit": "e56acf573ee36a076ca880ed5f1e7b5fdbb92dbd",
+    "short_commit": "e56acf5",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/thorwhalen/illustration",
-    "commit_url": "https://github.com/thorwhalen/illustration/commit/37261652bced9a597641c18217fd9377bcb6feac",
+    "commit_url": "https://github.com/thorwhalen/illustration/commit/e56acf573ee36a076ca880ed5f1e7b5fdbb92dbd",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "thorwhalen/illustration",
-    "sha": "37261652bced9a597641c18217fd9377bcb6feac",
+    "sha": "e56acf573ee36a076ca880ed5f1e7b5fdbb92dbd",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "35122227358",
-    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/35122227358",
+    "run_id": "35730260636",
+    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/35730260636",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -60,16 +60,16 @@
   },
   "pypi": {
     "checked": true,
-    "latest": "0.0.11",
+    "latest": "0.0.12",
     "relation": "behind",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout 37261652bced9a597641c18217fd9377bcb6feac\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout e56acf573ee36a076ca880ed5f1e7b5fdbb92dbd\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": false,
     "notes": [
-      "The documented version (0.0.10) is behind the latest release on PyPI (0.0.11): `pip install illustration` gives newer code than these docs describe."
+      "The documented version (0.0.11) is behind the latest release on PyPI (0.0.12): `pip install illustration` gives newer code than these docs describe."
     ]
   }
 }
