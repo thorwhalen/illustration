@@ -136,6 +136,7 @@ from illustration.licensing import display_license, normalize_license
 from illustration.schema import (
     RIGHTS_FIELDS,
     ImageResult,
+    check_attributions,
     license_allowlist,
     to_search_hit,
 )
@@ -153,6 +154,7 @@ __all__ = [
     "ImageResult",
     "RIGHTS_FIELDS",
     "license_allowlist",
+    "check_attributions",
     "normalize_license",
     "display_license",
     "to_search_hit",
