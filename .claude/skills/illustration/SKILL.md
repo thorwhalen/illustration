@@ -62,12 +62,20 @@ the hand writing on the wall for a lyric's biblical reference, the period
 Times Square sign for the "neon god" line. The failure this prevents is not a
 *wrong* picture but a **bland** one, which no other gotcha here names.
 
-**Right-shaped but wrong-specific is a labelling decision, not a deletion.** A
-photograph of a real large concert in the right park that is *not the concert
-being discussed* is honest illustration the moment something names it on screen
-("The Beach Boys in Central Park, 1971 — not this concert"), and an implicit
-false claim the moment it is unlabelled. Carry `title` through so the renderer
-*can* label it.
+**Right-shaped but wrong-specific is a wrong result. Replace it; do not
+caption your way past it.** A photograph of a real large concert in the right
+park that is *not the concert being discussed* (the Beach Boys in Central Park
+in 1971, returned by `Category:Central Park in the 1970s` for a 1981 recording)
+answered the query you wrote, not the sentence it will sit under. Search again
+with the specific the narration names. A label that says what the picture is
+*not* is an explicit, opt-in exception that the consumer decides on: in
+braidio it is a pick marked `disclaimed`, admitted only under
+`allow_disclaimed=True` and recorded as such (braidio#85). It is not a default
+you reach for when a search comes up short. Keep the hit's `title` and
+`score` with the candidate, so that whoever places the picture can check it
+against the words spoken over it (braidio's `video_panels.plan` scores every
+placement, and `rerank` / the VLM judge here are the stronger scorers it can
+use).
 
 ## Downloading the bytes — three traps
 
