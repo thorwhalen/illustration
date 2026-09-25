@@ -1,0 +1,213 @@
+{
+  "expected": [
+    {
+      "attribution": "Alice / CC BY-SA 4.0, via Wikimedia Commons",
+      "author": "Alice",
+      "author_url": "https://commons.wikimedia.org/wiki/User:Alice",
+      "avg_color": null,
+      "cacheable": true,
+      "description": "A stormy harbour at dusk.",
+      "height": 768,
+      "id": "12345",
+      "license": "cc-by-sa-4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "provider": "wikimedia",
+      "query": "stormy harbour",
+      "raw": {
+        "imageinfo": [
+          {
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Stormy_Harbour.jpg",
+            "extmetadata": {
+              "Artist": {
+                "value": "<a href=\"//commons.wikimedia.org/wiki/User:Alice\">Alice</a>"
+              },
+              "Attribution": {
+                "value": ""
+              },
+              "ImageDescription": {
+                "value": "A <b>stormy</b> harbour at dusk."
+              },
+              "License": {
+                "value": "cc-by-sa-4.0"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 4.0"
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/4.0"
+              }
+            },
+            "height": 768,
+            "mime": "image/jpeg",
+            "size": 123456,
+            "thumburl": "https://upload.wikimedia.example/thumb/330px-Stormy_Harbour.jpg",
+            "url": "https://upload.wikimedia.example/Stormy_Harbour.jpg",
+            "user": "Alice",
+            "width": 1024
+          }
+        ],
+        "index": 1,
+        "ns": 6,
+        "pageid": 12345,
+        "title": "File:Stormy Harbour.jpg"
+      },
+      "score": null,
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Stormy_Harbour.jpg",
+      "tags": [],
+      "thumbnail_url": "https://upload.wikimedia.example/thumb/330px-Stormy_Harbour.jpg",
+      "title": "Stormy Harbour.jpg",
+      "url": "https://upload.wikimedia.example/Stormy_Harbour.jpg",
+      "width": 1024
+    }
+  ],
+  "per_page": [
+    {
+      "n": 1,
+      "per_page": 1
+    },
+    {
+      "n": 3,
+      "per_page": 3
+    },
+    {
+      "n": 10,
+      "per_page": 10
+    },
+    {
+      "n": 50,
+      "per_page": 50
+    },
+    {
+      "n": 500,
+      "per_page": 50
+    }
+  ],
+  "query": "stormy harbour",
+  "query_params": [
+    {
+      "page": 1,
+      "params": {
+        "gsrlimit": 10,
+        "gsroffset": 0,
+        "gsrsearch": "stormy harbour"
+      },
+      "per_page": 10,
+      "query": "stormy harbour"
+    },
+    {
+      "page": 3,
+      "params": {
+        "gsrlimit": 5,
+        "gsroffset": 10,
+        "gsrsearch": "stormy harbour"
+      },
+      "per_page": 5,
+      "query": "stormy harbour"
+    },
+    {
+      "page": 1,
+      "params": {
+        "gcmlimit": 20,
+        "gcmtitle": "Category:Ships at dusk",
+        "gcmtype": "file",
+        "generator": "categorymembers"
+      },
+      "per_page": 20,
+      "query": "Category:Ships at dusk"
+    },
+    {
+      "page": 1,
+      "params": {
+        "generator": null,
+        "titles": "File:Stormy Harbour.jpg|File:Dusk Pier.jpg"
+      },
+      "per_page": 10,
+      "query": "File:Stormy Harbour.jpg|File:Dusk Pier.jpg"
+    }
+  ],
+  "requests": [
+    {
+      "canonical": {},
+      "dropped": [],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "color": "blue",
+        "content_type": "photo",
+        "license_type": "commercial",
+        "orientation": "landscape",
+        "safe": true,
+        "size": "large"
+      },
+      "dropped": [
+        "orientation",
+        "size",
+        "safe",
+        "license_type",
+        "color",
+        "content_type"
+      ],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "content_type": "illustration",
+        "orientation": "portrait",
+        "size": "medium"
+      },
+      "dropped": [
+        "orientation",
+        "size",
+        "content_type"
+      ],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "content_type": "vector",
+        "orientation": "square",
+        "size": "small"
+      },
+      "dropped": [
+        "orientation",
+        "size",
+        "content_type"
+      ],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "safe": false
+      },
+      "dropped": [
+        "safe"
+      ],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "content_type": "hologram",
+        "orientation": "diagonal",
+        "size": "huge"
+      },
+      "dropped": [
+        "orientation",
+        "size",
+        "content_type"
+      ],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "color": "#ff0000",
+        "license_type": "all-cc"
+      },
+      "dropped": [
+        "license_type",
+        "color"
+      ],
+      "native": {}
+    }
+  ]
+}

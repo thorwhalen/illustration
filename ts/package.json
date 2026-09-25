@@ -1,0 +1,81 @@
+{
+  "name": "illustration-search",
+  "version": "0.0.1",
+  "description": "Text-to-image retrieval over open-media corpora, in the browser: the TypeScript twin of the Python `illustration` package, with licence and attribution first-class on every hit.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "codegen": "node scripts/codegen.mjs",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "image-search",
+    "stock-photos",
+    "openverse",
+    "wikimedia-commons",
+    "pexels",
+    "pixabay",
+    "creative-commons",
+    "attribution"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorwhalen/illustration.git",
+    "directory": "ts"
+  },
+  "homepage": "https://github.com/thorwhalen/illustration#readme",
+  "bugs": "https://github.com/thorwhalen/illustration/issues",
+  "dependencies": {
+    "entities": "^8"
+  },
+  "devDependencies": {
+    "@apidevtools/json-schema-ref-parser": "^15.3.5",
+    "@types/node": "^25.9.1",
+    "json-schema-to-zod": "^2.8.1",
+    "tsup": "^8",
+    "typescript": "^5",
+    "vitest": "^2",
+    "zod": "^4"
+  },
+  "wads": {
+    "ci": {
+      "subdir": "ts",
+      "packageManager": "npm",
+      "nodeVersions": [
+        "20",
+        "22",
+        "24"
+      ],
+      "publishNode": "24",
+      "lintCommand": "npm run lint --if-present",
+      "testCommand": "npm test --if-present",
+      "buildCommand": "npm run build --if-present",
+      "publish": {
+        "enabled": true,
+        "marker": "[publish-npm]",
+        "registry": "https://registry.npmjs.org",
+        "provenance": true,
+        "trustedPublishing": true,
+        "access": "public"
+      }
+    }
+  },
+  "peerDependencies": {
+    "zod": "^4"
+  }
+}

@@ -51,6 +51,22 @@ class SourceInfo:
         return asdict(self)
 
 
+def per_page_for(source: "RetrievalSource", n: int) -> int:
+    """The page size to ask ``source`` for when ``n`` results are wanted.
+
+    At least ``min_per_page`` (Pixabay rejects a smaller page), at most
+    ``max_per_page``, ideally ``n``. The one definition of the clamp: the
+    template method and the schema export both call it, so the TS twin's
+    fixture pins this function rather than a copy of its formula.
+
+    >>> class S:
+    ...     min_per_page, max_per_page = 3, 50
+    >>> per_page_for(S(), 1), per_page_for(S(), 10), per_page_for(S(), 500)
+    (3, 10, 50)
+    """
+    return max(source.min_per_page, min(n, source.max_per_page))
+
+
 class RetrievalSource(ABC):
     """Abstract base for a pure image-search provider.
 
@@ -126,7 +142,7 @@ class RetrievalSource(ABC):
             native.update(native_params)
 
         results: list[ImageResult] = []
-        per_page = max(self.min_per_page, min(n, self.max_per_page))
+        per_page = per_page_for(self, n)
         page = 1
         while len(results) < n and page <= MAX_PAGES:
             params = {

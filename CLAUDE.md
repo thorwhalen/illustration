@@ -190,6 +190,42 @@ docstring example is a test — mark network/extra-dependent ones `# doctest: +S
   `config.package_version()`. **Never hardcode it** — `pyproject.toml` is the
   SSOT and the wads release job bumps it.
 
+## The TypeScript twin — `ts/`, npm `illustration-search`
+
+The same `search()` runs in a browser, published from `ts/` (one npm package,
+the walkthru shape: Python at the root is the SSOT, `ts/` a sibling with its own
+CI). **Nothing Python-owned is re-typed on the TS side.** `illustration
+export-schema` writes `schema/` at the repo root — the `ImageResult` JSON
+Schema, `sources.json` (every source's declared vocabulary: endpoint, param
+names, paging caps, fixed params, auth style, canonical→native names,
+`SourceInfo`), `constants.json` (`RIGHTS_FIELDS`, licence aliases, the default
+allowlist, façade defaults, licence-normalisation cases) and
+`fixtures/<source>.expected.json` — and `ts/scripts/codegen.mjs` generates
+`ts/src/generated/` from it.
+
+What the TS side *codes* (coerce functions, `_items`, `_normalize`, a
+`_query_params` override) is ported by hand under `ts/src/providers/` and
+**pinned by parity fixtures Python computes**: what this package makes of
+`schema/fixtures/<source>.payload.json` (the canned pages `conftest.py` now
+loads too, one copy for both suites), the canonical→native translation of a
+fixed set of filter combinations, query/paging params, and the per-page clamp.
+`ts/src/parity.test.ts` replays them and asserts deep equality.
+
+Three guards, one per hop, so drift fails CI on the side that changed:
+`tests/test_schema_export.py` (models/providers → `schema/`),
+`ts/src/codegen.test.ts` (`schema/` → `ts/src/generated/`, via `--check`), and
+the parity suite (`schema/fixtures` → provider ports). **Changing `ImageResult`,
+a provider's declared attributes, the licence tables or a canned payload
+therefore means: `illustration export-schema`, then `cd ts && npm run codegen`,
+then commit both.** A new provider needs a canned payload before it can ship —
+`test_every_registered_source_has_a_payload_and_an_expected_fixture` refuses
+otherwise, because a provider with no fixture has no parity test.
+
+Decisions of record (why inside this repo, the npm name, transport per provider,
+keys, rights and provenance) are in the federation's
+`g_av/docs/media_facades_decision_record.md`; the work is tracked in #40.
+Layer 2 (rerank, dedupe, curate) and the cache stay Python-only on purpose.
+
 ## CI
 
 `.github/workflows/ci.yml` calls the `i2mint/wads` reusable workflow; all
@@ -197,3 +233,10 @@ configuration is `[tool.wads.ci.*]` in `pyproject.toml` (extras `dev,test`,
 Python 3.10 + 3.12, Windows too, ruff on). **A push to the default branch
 publishes to PyPI and bumps the version** — do not re-run a default-branch
 workflow run casually.
+
+Two packages, two publish gates: `ci.yml`'s `push` trigger carries
+`paths-ignore: ts/**` so a TS-only push never burns a PyPI version, while
+`pull_request` stays unfiltered so the Python matrix runs on every PR
+(`tests/test_ci_workflow.py` pins both halves — walkthru#23 is the incident).
+`npm-ci-ts.yml` runs on `ts/**` and publishes to npm only when the commit
+subject carries `[publish-npm]`.

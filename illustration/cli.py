@@ -15,7 +15,15 @@ import json as _json
 
 import illustration
 
-__all__ = ["search", "curate", "curate_sequence", "sources", "info", "COMMANDS"]
+__all__ = [
+    "search",
+    "curate",
+    "curate_sequence",
+    "sources",
+    "info",
+    "export_schema",
+    "COMMANDS",
+]
 
 
 def search(
@@ -148,4 +156,18 @@ def info(name: str):
 
 
 #: Commands exposed by the CLI (consumed by ``illustration/__main__.py``).
-COMMANDS = [search, curate, curate_sequence, sources, info]
+def export_schema(*, out_dir: "str | None" = None):
+    """Write the JSON contract the TypeScript twin (``ts/``) is generated from.
+
+    Re-run after changing :class:`~illustration.schema.ImageResult`, a provider's
+    declared vocabulary, the licence tables or a canned payload; commit the
+    result. ``tests/test_schema_export.py`` fails until you do. ``out_dir``
+    defaults to this checkout's ``schema/``; outside a checkout it refuses.
+    """
+    from illustration.schema_export import export_schema as _export
+
+    for path in _export(out_dir):
+        print(path)
+
+
+COMMANDS = [search, curate, curate_sequence, sources, info, export_schema]

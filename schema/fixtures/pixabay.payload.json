@@ -1,0 +1,19 @@
+{
+  "total": 100,
+  "totalHits": 100,
+  "hits": [
+    {
+      "id": 555,
+      "pageURL": "https://pixabay.com/photos/harbour-555/",
+      "type": "photo",
+      "tags": "harbour, boats, dusk",
+      "previewURL": "https://cdn.pixabay.example/555_150.jpg",
+      "webformatURL": "https://cdn.pixabay.example/555_640.jpg",
+      "largeImageURL": "https://cdn.pixabay.example/555_1280.jpg",
+      "imageWidth": 4000,
+      "imageHeight": 3000,
+      "user": "janedoe",
+      "user_id": 42
+    }
+  ]
+}
