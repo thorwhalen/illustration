@@ -1,0 +1,249 @@
+[
+  {
+    "auth": {
+      "format": null,
+      "kind": "none",
+      "name": null
+    },
+    "console_url": null,
+    "endpoint": "https://api.openverse.org/v1/images/",
+    "env_var": null,
+    "fixed_params": {},
+    "info": {
+      "default_cacheable": true,
+      "description": "800M+ CC / public-domain images aggregated from 50+ sources.",
+      "homepage": "https://openverse.org",
+      "license_note": "Per-result CC/PD license; preserve attribution for BY-family.",
+      "name": "openverse",
+      "rate_limit": "anonymous: 20/min, 200/day",
+      "requires_key": false,
+      "tags": [
+        "open",
+        "cc",
+        "public-domain",
+        "breadth"
+      ]
+    },
+    "max_per_page": 20,
+    "min_per_page": 1,
+    "name": "openverse",
+    "page_param": "page",
+    "params": {
+      "color": null,
+      "content_type": {
+        "choices": [
+          "illustration",
+          "photo"
+        ],
+        "coerce": true,
+        "name": "category"
+      },
+      "license_type": {
+        "choices": null,
+        "coerce": false,
+        "name": "license_type"
+      },
+      "orientation": {
+        "choices": null,
+        "coerce": true,
+        "name": "aspect_ratio"
+      },
+      "safe": {
+        "choices": null,
+        "coerce": true,
+        "name": "mature"
+      },
+      "size": {
+        "choices": [
+          "large",
+          "medium",
+          "small"
+        ],
+        "coerce": false,
+        "name": "size"
+      }
+    },
+    "per_page_param": "page_size",
+    "query_param": "q"
+  },
+  {
+    "auth": {
+      "format": "{key}",
+      "kind": "header",
+      "name": "Authorization"
+    },
+    "console_url": "https://www.pexels.com/api/new/",
+    "endpoint": "https://api.pexels.com/v1/search",
+    "env_var": "PEXELS_API_KEY",
+    "fixed_params": {},
+    "info": {
+      "default_cacheable": true,
+      "description": "Curated high-quality stock photos under the Pexels License.",
+      "homepage": "https://www.pexels.com",
+      "license_note": "Single Pexels License (commercial OK); credit photographer + backlink.",
+      "name": "pexels",
+      "rate_limit": "200/hour, 20,000/month",
+      "requires_key": true,
+      "tags": [
+        "stock",
+        "photos",
+        "keyed"
+      ]
+    },
+    "max_per_page": 80,
+    "min_per_page": 1,
+    "name": "pexels",
+    "page_param": "page",
+    "params": {
+      "color": {
+        "choices": null,
+        "coerce": false,
+        "name": "color"
+      },
+      "content_type": null,
+      "license_type": null,
+      "orientation": {
+        "choices": [
+          "landscape",
+          "portrait",
+          "square"
+        ],
+        "coerce": false,
+        "name": "orientation"
+      },
+      "safe": null,
+      "size": {
+        "choices": [
+          "large",
+          "medium",
+          "small"
+        ],
+        "coerce": false,
+        "name": "size"
+      }
+    },
+    "per_page_param": "per_page",
+    "query_param": "query"
+  },
+  {
+    "auth": {
+      "format": "{key}",
+      "kind": "query",
+      "name": "key"
+    },
+    "console_url": "https://pixabay.com/api/docs/",
+    "endpoint": "https://pixabay.com/api/",
+    "env_var": "PIXABAY_API_KEY",
+    "fixed_params": {},
+    "info": {
+      "default_cacheable": true,
+      "description": "Free commercial-use images; license permits caching + self-hosting.",
+      "homepage": "https://pixabay.com",
+      "license_note": "Single Pixabay Content License; download-to-own-server (no hotlink).",
+      "name": "pixabay",
+      "rate_limit": "100/60s (raisable); responses must be cached 24h",
+      "requires_key": true,
+      "tags": [
+        "stock",
+        "free-commercial",
+        "keyed",
+        "cacheable"
+      ]
+    },
+    "max_per_page": 200,
+    "min_per_page": 3,
+    "name": "pixabay",
+    "page_param": "page",
+    "params": {
+      "color": {
+        "choices": null,
+        "coerce": false,
+        "name": "colors"
+      },
+      "content_type": {
+        "choices": [
+          "illustration",
+          "photo",
+          "vector"
+        ],
+        "coerce": false,
+        "name": "image_type"
+      },
+      "license_type": null,
+      "orientation": {
+        "choices": [
+          "landscape",
+          "portrait",
+          "square"
+        ],
+        "coerce": true,
+        "name": "orientation"
+      },
+      "safe": {
+        "choices": null,
+        "coerce": true,
+        "name": "safesearch"
+      },
+      "size": {
+        "choices": [
+          "large",
+          "medium",
+          "small"
+        ],
+        "coerce": true,
+        "name": "min_width"
+      }
+    },
+    "per_page_param": "per_page",
+    "query_param": "q"
+  },
+  {
+    "auth": {
+      "format": null,
+      "kind": "none",
+      "name": null
+    },
+    "console_url": null,
+    "endpoint": "https://commons.wikimedia.org/w/api.php",
+    "env_var": null,
+    "fixed_params": {
+      "action": "query",
+      "format": "json",
+      "generator": "search",
+      "gsrnamespace": "6",
+      "iiprop": "url|extmetadata|size|mime|user",
+      "iiurlwidth": "320",
+      "prop": "imageinfo"
+    },
+    "info": {
+      "default_cacheable": true,
+      "description": "140M+ free media files with deep per-file metadata; no key.",
+      "homepage": "https://commons.wikimedia.org",
+      "license_note": "Per-file license varies (CC/PD; some share-alike) — gate for commercial use.",
+      "name": "wikimedia",
+      "rate_limit": "etiquette-bound (descriptive User-Agent required)",
+      "requires_key": false,
+      "tags": [
+        "open",
+        "historical",
+        "editorial",
+        "breadth",
+        "no-key"
+      ]
+    },
+    "max_per_page": 50,
+    "min_per_page": 1,
+    "name": "wikimedia",
+    "page_param": "page",
+    "params": {
+      "color": null,
+      "content_type": null,
+      "license_type": null,
+      "orientation": null,
+      "safe": null,
+      "size": null
+    },
+    "per_page_param": "page_size",
+    "query_param": "gsrsearch"
+  }
+]

@@ -102,7 +102,14 @@ def test_main_dispatch_sources(capsys):
     assert "openverse" in out
 
 
-COMMAND_NAMES = ("search", "curate", "curate-sequence", "sources", "info")
+COMMAND_NAMES = (
+    "search",
+    "curate",
+    "curate-sequence",
+    "sources",
+    "info",
+    "export-schema",
+)
 
 
 def _parser():
@@ -134,8 +141,9 @@ class TestCliGrammar:
     def test_the_commands_list_is_what_reaches_the_parser(self):
         assert tuple(_subparsers(_parser())) == COMMAND_NAMES
         assert _parser().format_usage() == (
-            "usage: illustration [-h]"
-            " {search,curate,curate-sequence,sources,info} ...\n"
+            "usage: illustration [-h]\n"
+            "                    {search,curate,curate-sequence,sources,info,export-schema}\n"
+            "                    ...\n"
         )
 
     @pytest.mark.parametrize(

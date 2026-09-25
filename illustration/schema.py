@@ -64,7 +64,7 @@ class ImageResult(BaseModel):
     description: str | None = Field(
         default=None, description="Alt text / longer description."
     )
-    tags: list[str] = Field(default_factory=list)
+    tags: list[str] = Field(default_factory=list, json_schema_extra={"default": []})
     license: str | None = Field(
         default=None, description="License code or name (e.g. 'by-sa')."
     )
@@ -89,7 +89,11 @@ class ImageResult(BaseModel):
         default=None, description="Reserved for Layer-2 rerank; None at Layer 1."
     )
     raw: dict[str, Any] = Field(
-        default_factory=dict, description="Untranslated provider payload."
+        default_factory=dict,
+        description="Untranslated provider payload.",
+        # A default_factory emits no JSON-Schema default; the TS twin needs one
+        # so a parsed result carries `{}` (and `[]` for tags) like this side does.
+        json_schema_extra={"default": {}},
     )
 
     def to_search_hit(self):

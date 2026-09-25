@@ -1,0 +1,60 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "12345": {
+        "pageid": 12345,
+        "ns": 6,
+        "title": "File:Stormy Harbour.jpg",
+        "index": 1,
+        "imageinfo": [
+          {
+            "user": "Alice",
+            "size": 123456,
+            "width": 1024,
+            "height": 768,
+            "thumburl": "https://upload.wikimedia.example/thumb/330px-Stormy_Harbour.jpg",
+            "url": "https://upload.wikimedia.example/Stormy_Harbour.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Stormy_Harbour.jpg",
+            "mime": "image/jpeg",
+            "extmetadata": {
+              "License": {
+                "value": "cc-by-sa-4.0"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 4.0"
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/4.0"
+              },
+              "Artist": {
+                "value": "<a href=\"//commons.wikimedia.org/wiki/User:Alice\">Alice</a>"
+              },
+              "ImageDescription": {
+                "value": "A <b>stormy</b> harbour at dusk."
+              },
+              "Attribution": {
+                "value": ""
+              }
+            }
+          }
+        ]
+      },
+      "67890": {
+        "pageid": 67890,
+        "ns": 6,
+        "title": "File:Foghorn.ogg",
+        "index": 2,
+        "imageinfo": [
+          {
+            "mime": "audio/ogg",
+            "url": "https://upload.wikimedia.example/Foghorn.ogg",
+            "width": 0,
+            "height": 0,
+            "extmetadata": {}
+          }
+        ]
+      }
+    }
+  }
+}

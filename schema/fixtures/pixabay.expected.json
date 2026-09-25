@@ -1,0 +1,194 @@
+{
+  "expected": [
+    {
+      "attribution": "Image by janedoe on Pixabay",
+      "author": "janedoe",
+      "author_url": null,
+      "avg_color": null,
+      "cacheable": true,
+      "description": null,
+      "height": 3000,
+      "id": "555",
+      "license": "Pixabay License",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "provider": "pixabay",
+      "query": "stormy harbour",
+      "raw": {
+        "id": 555,
+        "imageHeight": 3000,
+        "imageWidth": 4000,
+        "largeImageURL": "https://cdn.pixabay.example/555_1280.jpg",
+        "pageURL": "https://pixabay.com/photos/harbour-555/",
+        "previewURL": "https://cdn.pixabay.example/555_150.jpg",
+        "tags": "harbour, boats, dusk",
+        "type": "photo",
+        "user": "janedoe",
+        "user_id": 42,
+        "webformatURL": "https://cdn.pixabay.example/555_640.jpg"
+      },
+      "score": null,
+      "source_page_url": "https://pixabay.com/photos/harbour-555/",
+      "tags": [
+        "harbour",
+        "boats",
+        "dusk"
+      ],
+      "thumbnail_url": "https://cdn.pixabay.example/555_150.jpg",
+      "title": null,
+      "url": "https://cdn.pixabay.example/555_1280.jpg",
+      "width": 4000
+    }
+  ],
+  "per_page": [
+    {
+      "n": 1,
+      "per_page": 3
+    },
+    {
+      "n": 3,
+      "per_page": 3
+    },
+    {
+      "n": 10,
+      "per_page": 10
+    },
+    {
+      "n": 50,
+      "per_page": 50
+    },
+    {
+      "n": 500,
+      "per_page": 200
+    }
+  ],
+  "query": "stormy harbour",
+  "query_params": [
+    {
+      "page": 1,
+      "params": {
+        "page": 1,
+        "per_page": 10,
+        "q": "stormy harbour"
+      },
+      "per_page": 10,
+      "query": "stormy harbour"
+    },
+    {
+      "page": 3,
+      "params": {
+        "page": 3,
+        "per_page": 5,
+        "q": "stormy harbour"
+      },
+      "per_page": 5,
+      "query": "stormy harbour"
+    },
+    {
+      "page": 1,
+      "params": {
+        "page": 1,
+        "per_page": 20,
+        "q": "Category:Ships at dusk"
+      },
+      "per_page": 20,
+      "query": "Category:Ships at dusk"
+    },
+    {
+      "page": 1,
+      "params": {
+        "page": 1,
+        "per_page": 10,
+        "q": "File:Stormy Harbour.jpg|File:Dusk Pier.jpg"
+      },
+      "per_page": 10,
+      "query": "File:Stormy Harbour.jpg|File:Dusk Pier.jpg"
+    }
+  ],
+  "requests": [
+    {
+      "canonical": {},
+      "dropped": [],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "color": "blue",
+        "content_type": "photo",
+        "license_type": "commercial",
+        "orientation": "landscape",
+        "safe": true,
+        "size": "large"
+      },
+      "dropped": [
+        "license_type"
+      ],
+      "native": {
+        "colors": "blue",
+        "image_type": "photo",
+        "min_width": 1920,
+        "orientation": "horizontal",
+        "safesearch": "true"
+      }
+    },
+    {
+      "canonical": {
+        "content_type": "illustration",
+        "orientation": "portrait",
+        "size": "medium"
+      },
+      "dropped": [],
+      "native": {
+        "image_type": "illustration",
+        "min_width": 1280,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "canonical": {
+        "content_type": "vector",
+        "orientation": "square",
+        "size": "small"
+      },
+      "dropped": [],
+      "native": {
+        "image_type": "vector",
+        "min_width": 640,
+        "orientation": "all"
+      }
+    },
+    {
+      "canonical": {
+        "safe": false
+      },
+      "dropped": [],
+      "native": {
+        "safesearch": "false"
+      }
+    },
+    {
+      "canonical": {
+        "content_type": "hologram",
+        "orientation": "diagonal",
+        "size": "huge"
+      },
+      "dropped": [
+        "orientation",
+        "size",
+        "content_type"
+      ],
+      "native": {}
+    },
+    {
+      "canonical": {
+        "color": "#ff0000",
+        "license_type": "all-cc"
+      },
+      "dropped": [
+        "license_type"
+      ],
+      "native": {
+        "colors": "#ff0000"
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "result_count": 3,
+  "page_count": 2,
+  "page": 1,
+  "page_size": 2,
+  "results": [
+    {
+      "id": "uuid-1",
+      "title": "Stormy Harbour",
+      "url": "https://img.example/full1.jpg",
+      "thumbnail": "https://api.openverse.org/v1/images/uuid-1/thumb/",
+      "width": 1024,
+      "height": 768,
+      "creator": "Jane Doe",
+      "creator_url": "https://flickr.example/jane",
+      "tags": [
+        {
+          "name": "harbour"
+        },
+        {
+          "name": "storm"
+        },
+        {
+          "accuracy": 0.9
+        }
+      ],
+      "license": "by-sa",
+      "license_version": "2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "\"Stormy Harbour\" by Jane Doe is licensed under CC BY-SA 2.0.",
+      "foreign_landing_url": "https://flickr.example/photos/jane/1",
+      "provider": "flickr",
+      "source": "flickr",
+      "category": "photograph",
+      "filetype": null
+    },
+    {
+      "id": "uuid-2",
+      "title": "Dusk Pier",
+      "url": "https://img.example/full2.jpg",
+      "thumbnail": "https://api.openverse.org/v1/images/uuid-2/thumb/",
+      "width": 800,
+      "height": 600,
+      "creator": null,
+      "tags": [],
+      "license": "cc0",
+      "license_version": "1.0",
+      "license_url": null,
+      "attribution": "Marked as public domain.",
+      "foreign_landing_url": "https://wikimedia.example/2",
+      "provider": "wikimedia",
+      "source": "wikimedia"
+    }
+  ]
+}
