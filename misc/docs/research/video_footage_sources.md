@@ -244,28 +244,32 @@ British Pathé (per-second pricing, 60-second minimum) [100] and Periscope Film 
 ```python
 class Rendition(BaseModel):
     url: str
-    mime_type: str | None = None        # "video/mp4", "video/webm"
-    video_codec: str | None = None      # confirm with ffprobe downstream
+    mime_type: str | None = None  # "video/mp4", "video/webm"
+    video_codec: str | None = None  # confirm with ffprobe downstream
     width: int | None = None
     height: int | None = None
     fps: float | None = None
     size_bytes: int | None = None
-    quality_label: str | None = None    # provider's own: "hd", "tiny", "_4k"
+    quality_label: str | None = None  # provider's own: "hd", "tiny", "_4k"
     expires_at: datetime | None = None  # signed URLs
 
-class TimeSpan(BaseModel):              # seconds; ↔ OTIO TimeRange, schema.org Clip
+
+class TimeSpan(BaseModel):  # seconds; ↔ OTIO TimeRange, schema.org Clip
     start: float
     end: float
 
-class MediaResult(BaseModel):           # today's shared fields, rights record included
+
+class MediaResult(BaseModel):  # today's shared fields, rights record included
     media_type: str
     provider: str
     id: str
     ...
 
+
 class ImageResult(MediaResult):
     media_type: Literal["image"] = "image"
-    ...                                 # unchanged
+    ...  # unchanged
+
 
 class VideoResult(MediaResult):
     media_type: Literal["video"] = "video"
