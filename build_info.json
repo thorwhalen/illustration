@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-25T00:33:21Z",
+  "built_at": "2026-09-25T09:37:50Z",
   "package": {
     "name": "illustration",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "display_name": "illustration",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "d658df91a3ac934aed6f9b34fcf6f0bffb49056f",
-    "short_commit": "d658df9",
+    "commit": "7c9ea1e289242b9e15f1027357184fbb967d7bc9",
+    "short_commit": "7c9ea1e",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/thorwhalen/illustration",
-    "commit_url": "https://github.com/thorwhalen/illustration/commit/d658df91a3ac934aed6f9b34fcf6f0bffb49056f",
+    "commit_url": "https://github.com/thorwhalen/illustration/commit/7c9ea1e289242b9e15f1027357184fbb967d7bc9",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "thorwhalen/illustration",
-    "sha": "d658df91a3ac934aed6f9b34fcf6f0bffb49056f",
+    "sha": "7c9ea1e289242b9e15f1027357184fbb967d7bc9",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "36077953761",
-    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/36077953761",
+    "run_id": "36119357159",
+    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/36119357159",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -55,16 +55,16 @@
     "docs_dir": "docsrc"
   },
   "site": {
-    "modules_documented": 25,
-    "objects_documented": 370
+    "modules_documented": 26,
+    "objects_documented": 375
   },
   "pypi": {
     "checked": true,
-    "latest": "0.0.15",
+    "latest": "0.0.16",
     "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout d658df91a3ac934aed6f9b34fcf6f0bffb49056f\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout 7c9ea1e289242b9e15f1027357184fbb967d7bc9\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": true,

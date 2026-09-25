@@ -123,6 +123,7 @@
    registry
    reranking
    schema
+   schema_export
    sequence
    translation
    video

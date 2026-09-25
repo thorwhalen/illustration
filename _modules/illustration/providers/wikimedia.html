@@ -85,6 +85,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/illustration.registry.html">illustration.registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/illustration.reranking.html">illustration.reranking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/illustration.schema_export.html">illustration.schema_export</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/illustration.sequence.html">illustration.sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/illustration.translation.html">illustration.translation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/illustration.video.html">illustration.video</a></li>
@@ -261,122 +262,131 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="119">    <span class="n">fixed_params</span> <span class="o">=</span> <span class="p">{</span>
 </span><span data-line="120">        <span class="s2">"action"</span><span class="p">:</span> <span class="s2">"query"</span><span class="p">,</span>
 </span><span data-line="121">        <span class="s2">"format"</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span>
-</span><span data-line="122">        <span class="s2">"generator"</span><span class="p">:</span> <span class="s2">"search"</span><span class="p">,</span>
-</span><span data-line="123">        <span class="s2">"gsrnamespace"</span><span class="p">:</span> <span class="s2">"6"</span><span class="p">,</span>  <span class="c1"># the File namespace</span>
-</span><span data-line="124">        <span class="s2">"prop"</span><span class="p">:</span> <span class="s2">"imageinfo"</span><span class="p">,</span>
-</span><span data-line="125">        <span class="s2">"iiprop"</span><span class="p">:</span> <span class="s2">"url|extmetadata|size|mime|user"</span><span class="p">,</span>
-</span><span data-line="126">        <span class="s2">"iiurlwidth"</span><span class="p">:</span> <span class="n">_THUMB_WIDTH</span><span class="p">,</span>  <span class="c1"># produces a thumbnail URL</span>
-</span><span data-line="127">    <span class="p">}</span>
-</span><span data-line="128">    <span class="c1"># param_map left empty: Commons exposes no canonical search-time filters here.</span>
-</span><span data-line="129">    <span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span>
-</span><span data-line="130">        <span class="n">name</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">,</span>
-</span><span data-line="131">        <span class="n">description</span><span class="o">=</span><span class="s2">"140M+ free media files with deep per-file metadata; no key."</span><span class="p">,</span>
-</span><span data-line="132">        <span class="n">requires_key</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span data-line="133">        <span class="n">homepage</span><span class="o">=</span><span class="s2">"https://commons.wikimedia.org"</span><span class="p">,</span>
-</span><span data-line="134">        <span class="n">default_cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="135">        <span class="n">license_note</span><span class="o">=</span><span class="s2">"Per-file license varies (CC/PD; some share-alike) — gate for commercial use."</span><span class="p">,</span>
-</span><span data-line="136">        <span class="n">rate_limit</span><span class="o">=</span><span class="s2">"etiquette-bound (descriptive User-Agent required)"</span><span class="p">,</span>
-</span><span data-line="137">        <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">"open"</span><span class="p">,</span> <span class="s2">"historical"</span><span class="p">,</span> <span class="s2">"editorial"</span><span class="p">,</span> <span class="s2">"breadth"</span><span class="p">,</span> <span class="s2">"no-key"</span><span class="p">),</span>
-</span><span data-line="138">    <span class="p">)</span>
-</span><span data-line="139">
-</span><span data-line="140">    <span class="k">def</span><span class="w"> </span><span class="nf">_page_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span data-line="141">        <span class="c1"># offset-based pagination, not page-number based</span>
-</span><span data-line="142">        <span class="k">return</span> <span class="p">{</span><span class="s2">"gsrlimit"</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span> <span class="s2">"gsroffset"</span><span class="p">:</span> <span class="p">(</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">per_page</span><span class="p">}</span>
-</span><span data-line="143">
-</span><span data-line="144">    <span class="k">def</span><span class="w"> </span><span class="nf">_query_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span data-line="145"><span class="w">        </span><span class="sd">"""Route a ``Category:…`` query to the category-members generator.</span>
-</span><span data-line="146">
-</span><span data-line="147"><span class="sd">        A Commons **category** is a curated list — maintained by people who</span>
-</span><span data-line="148"><span class="sd">        looked at the pictures — where free-text search is a guess at the</span>
-</span><span data-line="149"><span class="sd">        filename and description. The difference is not marginal: searching</span>
-</span><span data-line="150"><span class="sd">        "Hamilton Grange" returns a branch library of that name, while</span>
-</span><span data-line="151"><span class="sd">        ``Category:Hamilton Grange National Memorial`` returns the house. For a</span>
-</span><span data-line="152"><span class="sd">        subject with a category, this is the better door.</span>
-</span><span data-line="153">
-</span><span data-line="154"><span class="sd">        Detected from the query's own namespace prefix rather than a new</span>
-</span><span data-line="155"><span class="sd">        parameter, because that is MediaWiki's own spelling for it and it</span>
-</span><span data-line="156"><span class="sd">        therefore survives the façade, the cache key and the CLI unchanged.</span>
-</span><span data-line="157"><span class="sd">        """</span>
-</span><span data-line="158">        <span class="k">if</span> <span class="n">_is_file_title</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
-</span><span data-line="159">            <span class="c1"># Exact titles, not a search. Relevance ranking cannot reliably</span>
-</span><span data-line="160">            <span class="c1"># surface a *generic* filename — "File:Alexander Hamilton.jpg" is not</span>
-</span><span data-line="161">            <span class="c1"># in the top hits for "Alexander Hamilton", because thousands of</span>
-</span><span data-line="162">            <span class="c1"># files match that phrase better than one plainly-named one does.</span>
-</span><span data-line="163">            <span class="c1"># A caller who already knows the file should not have to hope.</span>
-</span><span data-line="164">            <span class="c1"># Multiple titles may be pipe-separated, as the MediaWiki API takes them.</span>
-</span><span data-line="165">            <span class="k">return</span> <span class="p">{</span>
-</span><span data-line="166">                <span class="s2">"generator"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># dropped by _get; this is a direct lookup</span>
-</span><span data-line="167">                <span class="s2">"titles"</span><span class="p">:</span> <span class="s2">"|"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-</span><span data-line="168">                    <span class="n">_file_title</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"|"</span><span class="p">)</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="169">                <span class="p">),</span>
-</span><span data-line="170">            <span class="p">}</span>
-</span><span data-line="171">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_category</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
-</span><span data-line="172">            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_query_params</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">)</span>
-</span><span data-line="173">        <span class="k">return</span> <span class="p">{</span>
-</span><span data-line="174">            <span class="s2">"generator"</span><span class="p">:</span> <span class="s2">"categorymembers"</span><span class="p">,</span>
-</span><span data-line="175">            <span class="s2">"gcmtitle"</span><span class="p">:</span> <span class="n">_category_title</span><span class="p">(</span><span class="n">query</span><span class="p">),</span>
-</span><span data-line="176">            <span class="s2">"gcmtype"</span><span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
-</span><span data-line="177">            <span class="c1"># Category members have no relevance order to page through, and the</span>
-</span><span data-line="178">            <span class="c1"># 50-scaled-image cap already bounds a page; ask once and stop.</span>
-</span><span data-line="179">            <span class="s2">"gcmlimit"</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
-</span><span data-line="180">        <span class="p">}</span>
-</span><span data-line="181">
-</span><span data-line="182">    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-</span><span data-line="183">        <span class="n">pages</span> <span class="o">=</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"query"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pages"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-</span><span data-line="184">        <span class="c1"># `pages` is a dict keyed by pageid; sort by search index for relevance</span>
-</span><span data-line="185">        <span class="c1"># order. Category members carry no `index`, so they keep API order.</span>
-</span><span data-line="186">        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pages</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"index"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</span><span data-line="122">        <span class="c1"># formatversion 2 returns `query.pages` as a LIST in API order. Under</span>
+</span><span data-line="123">        <span class="c1"># version 1 it is a dict keyed by pageid, and a JavaScript consumer</span>
+</span><span data-line="124">        <span class="c1"># loses that order at parse time (integer-like keys are re-sorted), so</span>
+</span><span data-line="125">        <span class="c1"># category members — which carry no `index` — would come back in a</span>
+</span><span data-line="126">        <span class="c1"># different order in the TS twin than here. A list has no such trap.</span>
+</span><span data-line="127">        <span class="s2">"formatversion"</span><span class="p">:</span> <span class="s2">"2"</span><span class="p">,</span>
+</span><span data-line="128">        <span class="s2">"generator"</span><span class="p">:</span> <span class="s2">"search"</span><span class="p">,</span>
+</span><span data-line="129">        <span class="s2">"gsrnamespace"</span><span class="p">:</span> <span class="s2">"6"</span><span class="p">,</span>  <span class="c1"># the File namespace</span>
+</span><span data-line="130">        <span class="s2">"prop"</span><span class="p">:</span> <span class="s2">"imageinfo"</span><span class="p">,</span>
+</span><span data-line="131">        <span class="s2">"iiprop"</span><span class="p">:</span> <span class="s2">"url|extmetadata|size|mime|user"</span><span class="p">,</span>
+</span><span data-line="132">        <span class="s2">"iiurlwidth"</span><span class="p">:</span> <span class="n">_THUMB_WIDTH</span><span class="p">,</span>  <span class="c1"># produces a thumbnail URL</span>
+</span><span data-line="133">    <span class="p">}</span>
+</span><span data-line="134">    <span class="c1"># param_map left empty: Commons exposes no canonical search-time filters here.</span>
+</span><span data-line="135">    <span class="n">info</span> <span class="o">=</span> <span class="n">SourceInfo</span><span class="p">(</span>
+</span><span data-line="136">        <span class="n">name</span><span class="o">=</span><span class="s2">"wikimedia"</span><span class="p">,</span>
+</span><span data-line="137">        <span class="n">description</span><span class="o">=</span><span class="s2">"140M+ free media files with deep per-file metadata; no key."</span><span class="p">,</span>
+</span><span data-line="138">        <span class="n">requires_key</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span data-line="139">        <span class="n">homepage</span><span class="o">=</span><span class="s2">"https://commons.wikimedia.org"</span><span class="p">,</span>
+</span><span data-line="140">        <span class="n">default_cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="141">        <span class="n">license_note</span><span class="o">=</span><span class="s2">"Per-file license varies (CC/PD; some share-alike) — gate for commercial use."</span><span class="p">,</span>
+</span><span data-line="142">        <span class="n">rate_limit</span><span class="o">=</span><span class="s2">"etiquette-bound (descriptive User-Agent required)"</span><span class="p">,</span>
+</span><span data-line="143">        <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">"open"</span><span class="p">,</span> <span class="s2">"historical"</span><span class="p">,</span> <span class="s2">"editorial"</span><span class="p">,</span> <span class="s2">"breadth"</span><span class="p">,</span> <span class="s2">"no-key"</span><span class="p">),</span>
+</span><span data-line="144">    <span class="p">)</span>
+</span><span data-line="145">
+</span><span data-line="146">    <span class="k">def</span><span class="w"> </span><span class="nf">_page_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="147">        <span class="c1"># offset-based pagination, not page-number based</span>
+</span><span data-line="148">        <span class="k">return</span> <span class="p">{</span><span class="s2">"gsrlimit"</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span> <span class="s2">"gsroffset"</span><span class="p">:</span> <span class="p">(</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">per_page</span><span class="p">}</span>
+</span><span data-line="149">
+</span><span data-line="150">    <span class="k">def</span><span class="w"> </span><span class="nf">_query_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="151"><span class="w">        </span><span class="sd">"""Route a ``Category:…`` query to the category-members generator.</span>
+</span><span data-line="152">
+</span><span data-line="153"><span class="sd">        A Commons **category** is a curated list — maintained by people who</span>
+</span><span data-line="154"><span class="sd">        looked at the pictures — where free-text search is a guess at the</span>
+</span><span data-line="155"><span class="sd">        filename and description. The difference is not marginal: searching</span>
+</span><span data-line="156"><span class="sd">        "Hamilton Grange" returns a branch library of that name, while</span>
+</span><span data-line="157"><span class="sd">        ``Category:Hamilton Grange National Memorial`` returns the house. For a</span>
+</span><span data-line="158"><span class="sd">        subject with a category, this is the better door.</span>
+</span><span data-line="159">
+</span><span data-line="160"><span class="sd">        Detected from the query's own namespace prefix rather than a new</span>
+</span><span data-line="161"><span class="sd">        parameter, because that is MediaWiki's own spelling for it and it</span>
+</span><span data-line="162"><span class="sd">        therefore survives the façade, the cache key and the CLI unchanged.</span>
+</span><span data-line="163"><span class="sd">        """</span>
+</span><span data-line="164">        <span class="k">if</span> <span class="n">_is_file_title</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+</span><span data-line="165">            <span class="c1"># Exact titles, not a search. Relevance ranking cannot reliably</span>
+</span><span data-line="166">            <span class="c1"># surface a *generic* filename — "File:Alexander Hamilton.jpg" is not</span>
+</span><span data-line="167">            <span class="c1"># in the top hits for "Alexander Hamilton", because thousands of</span>
+</span><span data-line="168">            <span class="c1"># files match that phrase better than one plainly-named one does.</span>
+</span><span data-line="169">            <span class="c1"># A caller who already knows the file should not have to hope.</span>
+</span><span data-line="170">            <span class="c1"># Multiple titles may be pipe-separated, as the MediaWiki API takes them.</span>
+</span><span data-line="171">            <span class="k">return</span> <span class="p">{</span>
+</span><span data-line="172">                <span class="s2">"generator"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># dropped by _get; this is a direct lookup</span>
+</span><span data-line="173">                <span class="s2">"titles"</span><span class="p">:</span> <span class="s2">"|"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+</span><span data-line="174">                    <span class="n">_file_title</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"|"</span><span class="p">)</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="175">                <span class="p">),</span>
+</span><span data-line="176">            <span class="p">}</span>
+</span><span data-line="177">        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_category</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+</span><span data-line="178">            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_query_params</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="n">per_page</span><span class="p">)</span>
+</span><span data-line="179">        <span class="k">return</span> <span class="p">{</span>
+</span><span data-line="180">            <span class="s2">"generator"</span><span class="p">:</span> <span class="s2">"categorymembers"</span><span class="p">,</span>
+</span><span data-line="181">            <span class="s2">"gcmtitle"</span><span class="p">:</span> <span class="n">_category_title</span><span class="p">(</span><span class="n">query</span><span class="p">),</span>
+</span><span data-line="182">            <span class="s2">"gcmtype"</span><span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span>
+</span><span data-line="183">            <span class="c1"># Category members have no relevance order to page through, and the</span>
+</span><span data-line="184">            <span class="c1"># 50-scaled-image cap already bounds a page; ask once and stop.</span>
+</span><span data-line="185">            <span class="s2">"gcmlimit"</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+</span><span data-line="186">        <span class="p">}</span>
 </span><span data-line="187">
-</span><span data-line="188">    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
-</span><span data-line="189">        <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"imageinfo"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span>
-</span><span data-line="190">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"mime"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"image/"</span><span class="p">):</span>
-</span><span data-line="191">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"not an image file"</span><span class="p">)</span>  <span class="c1"># dropped by _safe_normalize</span>
-</span><span data-line="192">        <span class="n">em</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"extmetadata"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-</span><span data-line="193">
-</span><span data-line="194">        <span class="k">def</span><span class="w"> </span><span class="nf">_em</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
-</span><span data-line="195">            <span class="n">v</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span data-line="196">            <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"value"</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
-</span><span data-line="197">
-</span><span data-line="198">        <span class="n">artist_html</span> <span class="o">=</span> <span class="n">_em</span><span class="p">(</span><span class="s2">"Artist"</span><span class="p">)</span>
-</span><span data-line="199">        <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span>
-</span><span data-line="200">        <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"File:"</span><span class="p">):</span>
-</span><span data-line="201">            <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">"File:"</span><span class="p">)</span> <span class="p">:]</span>
-</span><span data-line="202">        <span class="n">license_short</span> <span class="o">=</span> <span class="n">_em</span><span class="p">(</span><span class="s2">"LicenseShortName"</span><span class="p">)</span>
-</span><span data-line="203">        <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
-</span><span data-line="204">            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-</span><span data-line="205">            <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pageid"</span><span class="p">)),</span>
-</span><span data-line="206">            <span class="n">url</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"url"</span><span class="p">),</span>
-</span><span data-line="207">            <span class="n">thumbnail_url</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"thumburl"</span><span class="p">),</span>
-</span><span data-line="208">            <span class="n">width</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"width"</span><span class="p">),</span>
-</span><span data-line="209">            <span class="n">height</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"height"</span><span class="p">),</span>
-</span><span data-line="210">            <span class="n">title</span><span class="o">=</span><span class="n">title</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="211">            <span class="n">description</span><span class="o">=</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">_em</span><span class="p">(</span><span class="s2">"ImageDescription"</span><span class="p">)),</span>
-</span><span data-line="212">            <span class="n">tags</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># Commons categories are noisy/HTML; omitted at this layer</span>
-</span><span data-line="213">            <span class="n">license</span><span class="o">=</span><span class="n">_em</span><span class="p">(</span><span class="s2">"License"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">license_short</span><span class="p">,</span>
-</span><span data-line="214">            <span class="n">license_url</span><span class="o">=</span><span class="n">_em</span><span class="p">(</span><span class="s2">"LicenseUrl"</span><span class="p">),</span>
-</span><span data-line="215">            <span class="n">attribution</span><span class="o">=</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">_em</span><span class="p">(</span><span class="s2">"Attribution"</span><span class="p">))</span>
-</span><span data-line="216">            <span class="ow">or</span> <span class="n">_build_attribution</span><span class="p">(</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">artist_html</span><span class="p">),</span> <span class="n">license_short</span><span class="p">),</span>
-</span><span data-line="217">            <span class="n">source_page_url</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"descriptionurl"</span><span class="p">),</span>
-</span><span data-line="218">            <span class="n">author</span><span class="o">=</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">artist_html</span><span class="p">),</span>
-</span><span data-line="219">            <span class="n">author_url</span><span class="o">=</span><span class="n">_first_href</span><span class="p">(</span><span class="n">artist_html</span><span class="p">),</span>
-</span><span data-line="220">            <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># free content; preserve attribution (gate per-file license)</span>
-</span><span data-line="221">            <span class="n">avg_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span data-line="222">            <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
-</span><span data-line="223">            <span class="n">raw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
-</span><span data-line="224">        <span class="p">)</span></div>
+</span><span data-line="188">    <span class="k">def</span><span class="w"> </span><span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+</span><span data-line="189">        <span class="n">pages</span> <span class="o">=</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"query"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pages"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+</span><span data-line="190">        <span class="c1"># A list under formatversion 2; a dict keyed by pageid under version 1</span>
+</span><span data-line="191">        <span class="c1"># (still accepted, for stored responses). Sort by search `index` for</span>
+</span><span data-line="192">        <span class="c1"># relevance order; category members carry no `index`, so the stable</span>
+</span><span data-line="193">        <span class="c1"># sort keeps their API order.</span>
+</span><span data-line="194">        <span class="n">items</span> <span class="o">=</span> <span class="n">pages</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pages</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span> <span class="k">else</span> <span class="n">pages</span>
+</span><span data-line="195">        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"index"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</span><span data-line="196">
+</span><span data-line="197">    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageResult</span><span class="p">:</span>
+</span><span data-line="198">        <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"imageinfo"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="199">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"mime"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"image/"</span><span class="p">):</span>
+</span><span data-line="200">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"not an image file"</span><span class="p">)</span>  <span class="c1"># dropped by _safe_normalize</span>
+</span><span data-line="201">        <span class="n">em</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"extmetadata"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+</span><span data-line="202">
+</span><span data-line="203">        <span class="k">def</span><span class="w"> </span><span class="nf">_em</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
+</span><span data-line="204">            <span class="n">v</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span data-line="205">            <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"value"</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+</span><span data-line="206">
+</span><span data-line="207">        <span class="n">artist_html</span> <span class="o">=</span> <span class="n">_em</span><span class="p">(</span><span class="s2">"Artist"</span><span class="p">)</span>
+</span><span data-line="208">        <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span>
+</span><span data-line="209">        <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"File:"</span><span class="p">):</span>
+</span><span data-line="210">            <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">"File:"</span><span class="p">)</span> <span class="p">:]</span>
+</span><span data-line="211">        <span class="n">license_short</span> <span class="o">=</span> <span class="n">_em</span><span class="p">(</span><span class="s2">"LicenseShortName"</span><span class="p">)</span>
+</span><span data-line="212">        <span class="k">return</span> <span class="n">ImageResult</span><span class="p">(</span>
+</span><span data-line="213">            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="214">            <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">"pageid"</span><span class="p">]),</span>  <span class="c1"># KeyError -&gt; the item is skipped, not id "None"</span>
+</span><span data-line="215">            <span class="n">url</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"url"</span><span class="p">),</span>
+</span><span data-line="216">            <span class="n">thumbnail_url</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"thumburl"</span><span class="p">),</span>
+</span><span data-line="217">            <span class="n">width</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"width"</span><span class="p">),</span>
+</span><span data-line="218">            <span class="n">height</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"height"</span><span class="p">),</span>
+</span><span data-line="219">            <span class="n">title</span><span class="o">=</span><span class="n">title</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="220">            <span class="n">description</span><span class="o">=</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">_em</span><span class="p">(</span><span class="s2">"ImageDescription"</span><span class="p">)),</span>
+</span><span data-line="221">            <span class="n">tags</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># Commons categories are noisy/HTML; omitted at this layer</span>
+</span><span data-line="222">            <span class="n">license</span><span class="o">=</span><span class="n">_em</span><span class="p">(</span><span class="s2">"License"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">license_short</span><span class="p">,</span>
+</span><span data-line="223">            <span class="n">license_url</span><span class="o">=</span><span class="n">_em</span><span class="p">(</span><span class="s2">"LicenseUrl"</span><span class="p">),</span>
+</span><span data-line="224">            <span class="n">attribution</span><span class="o">=</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">_em</span><span class="p">(</span><span class="s2">"Attribution"</span><span class="p">))</span>
+</span><span data-line="225">            <span class="ow">or</span> <span class="n">_build_attribution</span><span class="p">(</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">artist_html</span><span class="p">),</span> <span class="n">license_short</span><span class="p">),</span>
+</span><span data-line="226">            <span class="n">source_page_url</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"descriptionurl"</span><span class="p">),</span>
+</span><span data-line="227">            <span class="n">author</span><span class="o">=</span><span class="n">_strip_html</span><span class="p">(</span><span class="n">artist_html</span><span class="p">),</span>
+</span><span data-line="228">            <span class="n">author_url</span><span class="o">=</span><span class="n">_first_href</span><span class="p">(</span><span class="n">artist_html</span><span class="p">),</span>
+</span><span data-line="229">            <span class="n">cacheable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># free content; preserve attribution (gate per-file license)</span>
+</span><span data-line="230">            <span class="n">avg_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="231">            <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+</span><span data-line="232">            <span class="n">raw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
+</span><span data-line="233">        <span class="p">)</span></div>
 
-</span><span data-line="225">
-</span><span data-line="226">
-</span><span data-line="227"><span class="k">def</span><span class="w"> </span><span class="nf">_build_attribution</span><span class="p">(</span>
-</span><span data-line="228">    <span class="n">author</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">,</span> <span class="n">license_short</span><span class="p">:</span> <span class="s2">"str | None"</span>
-</span><span data-line="229"><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
-</span><span data-line="230">    <span class="k">if</span> <span class="n">author</span> <span class="ow">and</span> <span class="n">license_short</span><span class="p">:</span>
-</span><span data-line="231">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">license_short</span><span class="si">}</span><span class="s2">, via Wikimedia Commons"</span>
-</span><span data-line="232">    <span class="k">if</span> <span class="n">author</span><span class="p">:</span>
-</span><span data-line="233">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s2">, via Wikimedia Commons"</span>
-</span><span data-line="234">    <span class="k">if</span> <span class="n">license_short</span><span class="p">:</span>
-</span><span data-line="235">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">license_short</span><span class="si">}</span><span class="s2">, via Wikimedia Commons"</span>
-</span><span data-line="236">    <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="234">
+</span><span data-line="235">
+</span><span data-line="236"><span class="k">def</span><span class="w"> </span><span class="nf">_build_attribution</span><span class="p">(</span>
+</span><span data-line="237">    <span class="n">author</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">,</span> <span class="n">license_short</span><span class="p">:</span> <span class="s2">"str | None"</span>
+</span><span data-line="238"><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"str | None"</span><span class="p">:</span>
+</span><span data-line="239">    <span class="k">if</span> <span class="n">author</span> <span class="ow">and</span> <span class="n">license_short</span><span class="p">:</span>
+</span><span data-line="240">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">license_short</span><span class="si">}</span><span class="s2">, via Wikimedia Commons"</span>
+</span><span data-line="241">    <span class="k">if</span> <span class="n">author</span><span class="p">:</span>
+</span><span data-line="242">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s2">, via Wikimedia Commons"</span>
+</span><span data-line="243">    <span class="k">if</span> <span class="n">license_short</span><span class="p">:</span>
+</span><span data-line="244">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">license_short</span><span class="si">}</span><span class="s2">, via Wikimedia Commons"</span>
+</span><span data-line="245">    <span class="k">return</span> <span class="kc">None</span>
 </span></pre></div>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -404,7 +414,7 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </footer>
-      <script src="../../../_static/documentation_options.js?v=f0357c94"></script>
+      <script src="../../../_static/documentation_options.js?v=c7cdf6fe"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>

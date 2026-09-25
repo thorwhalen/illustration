@@ -85,6 +85,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.registry.html">illustration.registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.reranking.html">illustration.reranking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.schema_export.html">illustration.schema_export</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.sequence.html">illustration.sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.translation.html">illustration.translation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_autosummary/illustration.video.html">illustration.video</a></li>
@@ -216,7 +217,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="74">    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
 </span><span data-line="75">        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Alt text / longer description."</span>
 </span><span data-line="76">    <span class="p">)</span>
-</span><span data-line="77">    <span class="n">tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="77">    <span class="n">tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span><span class="s2">"default"</span><span class="p">:</span> <span class="p">[]})</span>
 </span><span data-line="78">    <span class="n">license</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
 </span><span data-line="79">        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"License code or name (e.g. 'by-sa')."</span>
 </span><span data-line="80">    <span class="p">)</span>
@@ -241,158 +242,162 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="99">        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Reserved for Layer-2 rerank; None at Layer 1."</span>
 </span><span data-line="100">    <span class="p">)</span>
 </span><span data-line="101">    <span class="n">raw</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-</span><span data-line="102">        <span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Untranslated provider payload."</span>
-</span><span data-line="103">    <span class="p">)</span>
-</span><span data-line="104">
+</span><span data-line="102">        <span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span>
+</span><span data-line="103">        <span class="n">description</span><span class="o">=</span><span class="s2">"Untranslated provider payload."</span><span class="p">,</span>
+</span><span data-line="104">        <span class="c1"># A default_factory emits no JSON-Schema default; the TS twin needs one</span>
+</span><span data-line="105">        <span class="c1"># so a parsed result carries `{}` (and `[]` for tags) like this side does.</span>
+</span><span data-line="106">        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span><span class="s2">"default"</span><span class="p">:</span> <span class="p">{}},</span>
+</span><span data-line="107">    <span class="p">)</span>
+</span><span data-line="108">
 <div class="viewcode-block" id="ImageResult.to_search_hit">
 <a class="viewcode-back" href="../../_autosummary/illustration.schema.html#illustration.ImageResult.to_search_hit">[docs]</a>
-</span><span data-line="105">    <span class="k">def</span><span class="w"> </span><span class="nf">to_search_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span data-line="106"><span class="w">        </span><span class="sd">"""Adapt to an ``ir.SearchHit`` for Layer-2 cross-provider fusion.</span>
-</span><span data-line="107">
-</span><span data-line="108"><span class="sd">        Imported lazily so ``import illustration`` never requires ``ir``.</span>
-</span><span data-line="109"><span class="sd">        """</span>
-</span><span data-line="110">        <span class="k">return</span> <span class="n">to_search_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</span><span data-line="109">    <span class="k">def</span><span class="w"> </span><span class="nf">to_search_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="110"><span class="w">        </span><span class="sd">"""Adapt to an ``ir.SearchHit`` for Layer-2 cross-provider fusion.</span>
+</span><span data-line="111">
+</span><span data-line="112"><span class="sd">        Imported lazily so ``import illustration`` never requires ``ir``.</span>
+</span><span data-line="113"><span class="sd">        """</span>
+</span><span data-line="114">        <span class="k">return</span> <span class="n">to_search_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 </div>
 
-</span><span data-line="111">
-</span><span data-line="112">
+</span><span data-line="115">
+</span><span data-line="116">
 <div class="viewcode-block" id="to_search_hit">
 <a class="viewcode-back" href="../../_autosummary/illustration.schema.html#illustration.to_search_hit">[docs]</a>
-</span><span data-line="113"><span class="k">def</span><span class="w"> </span><span class="nf">to_search_hit</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="s2">"ImageResult"</span><span class="p">):</span>
-</span><span data-line="114"><span class="w">    </span><span class="sd">"""Map an :class:`ImageResult` to an ``ir.SearchHit`` for Layer-2 fusion.</span>
-</span><span data-line="115">
-</span><span data-line="116"><span class="sd">    The bridge into the ``ir`` retrieval substrate so the agentic layer can</span>
-</span><span data-line="117"><span class="sd">    ``ir.fuse_hits`` across providers. ``ir`` is imported here, not at module</span>
-</span><span data-line="118"><span class="sd">    top, to keep the base façade dependency-light. Identity follows ir's</span>
-</span><span data-line="119"><span class="sd">    ``(source, artifact_id)`` keying: ``source`` is the provider and</span>
-</span><span data-line="120"><span class="sd">    ``artifact_id`` is the provider-native id. The image URL is placed under the</span>
-</span><span data-line="121"><span class="sd">    ``path`` metadata key so ``SearchHit.pointer`` (which scans</span>
-</span><span data-line="122"><span class="sd">    ``ir.base.POINTER_KEYS``) resolves to it; the full normalized result rides</span>
-</span><span data-line="123"><span class="sd">    along in ``metadata`` too.</span>
-</span><span data-line="124">
-</span><span data-line="125"><span class="sd">    ``score`` is ``0.0`` for any hit not yet reranked (Layer 1 leaves</span>
-</span><span data-line="126"><span class="sd">    ``ImageResult.score`` as ``None``) — rely on *rank*, not magnitude, until a</span>
-</span><span data-line="127"><span class="sd">    Layer-2 reranker populates it; ``ir.fuse_hits`` (RRF) is rank-based, so this</span>
-</span><span data-line="128"><span class="sd">    is correct for fusion.</span>
-</span><span data-line="129"><span class="sd">    """</span>
-</span><span data-line="130">    <span class="kn">from</span><span class="w"> </span><span class="nn">ir</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchHit</span>  <span class="c1"># lazy: Layer-2 dependency only</span>
-</span><span data-line="131">
-</span><span data-line="132">    <span class="k">return</span> <span class="n">SearchHit</span><span class="p">(</span>
-</span><span data-line="133">        <span class="n">artifact_id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span data-line="134">        <span class="n">surface_kind</span><span class="o">=</span><span class="s2">"image"</span><span class="p">,</span>
-</span><span data-line="135">        <span class="n">score</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">score</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">,</span>
-</span><span data-line="136">        <span class="n">text</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">description</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
-</span><span data-line="137">        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">result</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span> <span class="s2">"path"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">},</span>
-</span><span data-line="138">        <span class="n">source</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span>
-</span><span data-line="139">    <span class="p">)</span></div>
+</span><span data-line="117"><span class="k">def</span><span class="w"> </span><span class="nf">to_search_hit</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="s2">"ImageResult"</span><span class="p">):</span>
+</span><span data-line="118"><span class="w">    </span><span class="sd">"""Map an :class:`ImageResult` to an ``ir.SearchHit`` for Layer-2 fusion.</span>
+</span><span data-line="119">
+</span><span data-line="120"><span class="sd">    The bridge into the ``ir`` retrieval substrate so the agentic layer can</span>
+</span><span data-line="121"><span class="sd">    ``ir.fuse_hits`` across providers. ``ir`` is imported here, not at module</span>
+</span><span data-line="122"><span class="sd">    top, to keep the base façade dependency-light. Identity follows ir's</span>
+</span><span data-line="123"><span class="sd">    ``(source, artifact_id)`` keying: ``source`` is the provider and</span>
+</span><span data-line="124"><span class="sd">    ``artifact_id`` is the provider-native id. The image URL is placed under the</span>
+</span><span data-line="125"><span class="sd">    ``path`` metadata key so ``SearchHit.pointer`` (which scans</span>
+</span><span data-line="126"><span class="sd">    ``ir.base.POINTER_KEYS``) resolves to it; the full normalized result rides</span>
+</span><span data-line="127"><span class="sd">    along in ``metadata`` too.</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="sd">    ``score`` is ``0.0`` for any hit not yet reranked (Layer 1 leaves</span>
+</span><span data-line="130"><span class="sd">    ``ImageResult.score`` as ``None``) — rely on *rank*, not magnitude, until a</span>
+</span><span data-line="131"><span class="sd">    Layer-2 reranker populates it; ``ir.fuse_hits`` (RRF) is rank-based, so this</span>
+</span><span data-line="132"><span class="sd">    is correct for fusion.</span>
+</span><span data-line="133"><span class="sd">    """</span>
+</span><span data-line="134">    <span class="kn">from</span><span class="w"> </span><span class="nn">ir</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchHit</span>  <span class="c1"># lazy: Layer-2 dependency only</span>
+</span><span data-line="135">
+</span><span data-line="136">    <span class="k">return</span> <span class="n">SearchHit</span><span class="p">(</span>
+</span><span data-line="137">        <span class="n">artifact_id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span data-line="138">        <span class="n">surface_kind</span><span class="o">=</span><span class="s2">"image"</span><span class="p">,</span>
+</span><span data-line="139">        <span class="n">score</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">score</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">score</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">,</span>
+</span><span data-line="140">        <span class="n">text</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">description</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+</span><span data-line="141">        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">result</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span> <span class="s2">"path"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">},</span>
+</span><span data-line="142">        <span class="n">source</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span>
+</span><span data-line="143">    <span class="p">)</span></div>
 
-</span><span data-line="140">
-</span><span data-line="141">
+</span><span data-line="144">
+</span><span data-line="145">
 <div class="viewcode-block" id="license_allowlist">
 <a class="viewcode-back" href="../../_autosummary/illustration.schema.html#illustration.license_allowlist">[docs]</a>
-</span><span data-line="142"><span class="k">def</span><span class="w"> </span><span class="nf">license_allowlist</span><span class="p">(</span>
-</span><span data-line="143">    <span class="n">results</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">],</span>
-</span><span data-line="144">    <span class="o">*</span><span class="p">,</span>
-</span><span data-line="145">    <span class="n">allow</span><span class="p">:</span> <span class="s2">"Iterable[str] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="146"><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">]:</span>
-</span><span data-line="147"><span class="w">    </span><span class="sd">"""Keep only results whose license is on the allowlist (R3's license gate).</span>
-</span><span data-line="148">
-</span><span data-line="149"><span class="sd">    The mandatory per-file license-verification gate for commercial-adjacent</span>
-</span><span data-line="150"><span class="sd">    use: aggregators disclaim license accuracy, so callers should gate on a</span>
-</span><span data-line="151"><span class="sd">    known-good set. Both sides are run through</span>
-</span><span data-line="152"><span class="sd">    :func:`illustration.licensing.normalize_license` first, so a provider's own</span>
-</span><span data-line="153"><span class="sd">    spelling (``cc-by-sa-4.0`` from Commons, ``Pixabay License``) matches the</span>
-</span><span data-line="154"><span class="sd">    canonical code without the allowlist having to enumerate every dialect —</span>
-</span><span data-line="155"><span class="sd">    and without ever dropping an ``nc``/``nd`` restriction. Results with no</span>
-</span><span data-line="156"><span class="sd">    ``license`` are dropped (unknown == not allowed).</span>
-</span><span data-line="157">
-</span><span data-line="158"><span class="sd">    &gt;&gt;&gt; a = ImageResult(provider="p", id="1", url="u", license="cc0")</span>
-</span><span data-line="159"><span class="sd">    &gt;&gt;&gt; b = ImageResult(provider="p", id="2", url="u", license="by-nc")</span>
-</span><span data-line="160"><span class="sd">    &gt;&gt;&gt; c = ImageResult(provider="p", id="3", url="u", license=None)</span>
-</span><span data-line="161"><span class="sd">    &gt;&gt;&gt; [r.id for r in license_allowlist([a, b, c])]</span>
-</span><span data-line="162"><span class="sd">    ['1']</span>
-</span><span data-line="163"><span class="sd">    &gt;&gt;&gt; [r.id for r in license_allowlist([a, b, c], allow={"by-nc"})]</span>
-</span><span data-line="164"><span class="sd">    ['2']</span>
-</span><span data-line="165">
-</span><span data-line="166"><span class="sd">    Provider dialects pass the same gate:</span>
-</span><span data-line="167">
-</span><span data-line="168"><span class="sd">    &gt;&gt;&gt; w = ImageResult(provider="wikimedia", id="4", url="u", license="cc-by-sa-4.0")</span>
-</span><span data-line="169"><span class="sd">    &gt;&gt;&gt; p = ImageResult(provider="pixabay", id="5", url="u", license="Pixabay License")</span>
-</span><span data-line="170"><span class="sd">    &gt;&gt;&gt; nd = ImageResult(provider="wikimedia", id="6", url="u", license="cc-by-nd-4.0")</span>
-</span><span data-line="171"><span class="sd">    &gt;&gt;&gt; [r.id for r in license_allowlist([w, p, nd])]</span>
-</span><span data-line="172"><span class="sd">    ['4', '5']</span>
-</span><span data-line="173"><span class="sd">    """</span>
-</span><span data-line="174">    <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span>
-</span><span data-line="175">        <span class="n">normalize_license</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-</span><span data-line="176">        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="n">allow</span> <span class="k">if</span> <span class="n">allow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">DFLT_LICENSE_ALLOWLIST</span><span class="p">)</span>
-</span><span data-line="177">    <span class="p">}</span>
-</span><span data-line="178">    <span class="n">allowed</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-</span><span data-line="179">    <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">normalize_license</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">license</span><span class="p">)</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">]</span></div>
+</span><span data-line="146"><span class="k">def</span><span class="w"> </span><span class="nf">license_allowlist</span><span class="p">(</span>
+</span><span data-line="147">    <span class="n">results</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">],</span>
+</span><span data-line="148">    <span class="o">*</span><span class="p">,</span>
+</span><span data-line="149">    <span class="n">allow</span><span class="p">:</span> <span class="s2">"Iterable[str] | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="150"><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">]:</span>
+</span><span data-line="151"><span class="w">    </span><span class="sd">"""Keep only results whose license is on the allowlist (R3's license gate).</span>
+</span><span data-line="152">
+</span><span data-line="153"><span class="sd">    The mandatory per-file license-verification gate for commercial-adjacent</span>
+</span><span data-line="154"><span class="sd">    use: aggregators disclaim license accuracy, so callers should gate on a</span>
+</span><span data-line="155"><span class="sd">    known-good set. Both sides are run through</span>
+</span><span data-line="156"><span class="sd">    :func:`illustration.licensing.normalize_license` first, so a provider's own</span>
+</span><span data-line="157"><span class="sd">    spelling (``cc-by-sa-4.0`` from Commons, ``Pixabay License``) matches the</span>
+</span><span data-line="158"><span class="sd">    canonical code without the allowlist having to enumerate every dialect —</span>
+</span><span data-line="159"><span class="sd">    and without ever dropping an ``nc``/``nd`` restriction. Results with no</span>
+</span><span data-line="160"><span class="sd">    ``license`` are dropped (unknown == not allowed).</span>
+</span><span data-line="161">
+</span><span data-line="162"><span class="sd">    &gt;&gt;&gt; a = ImageResult(provider="p", id="1", url="u", license="cc0")</span>
+</span><span data-line="163"><span class="sd">    &gt;&gt;&gt; b = ImageResult(provider="p", id="2", url="u", license="by-nc")</span>
+</span><span data-line="164"><span class="sd">    &gt;&gt;&gt; c = ImageResult(provider="p", id="3", url="u", license=None)</span>
+</span><span data-line="165"><span class="sd">    &gt;&gt;&gt; [r.id for r in license_allowlist([a, b, c])]</span>
+</span><span data-line="166"><span class="sd">    ['1']</span>
+</span><span data-line="167"><span class="sd">    &gt;&gt;&gt; [r.id for r in license_allowlist([a, b, c], allow={"by-nc"})]</span>
+</span><span data-line="168"><span class="sd">    ['2']</span>
+</span><span data-line="169">
+</span><span data-line="170"><span class="sd">    Provider dialects pass the same gate:</span>
+</span><span data-line="171">
+</span><span data-line="172"><span class="sd">    &gt;&gt;&gt; w = ImageResult(provider="wikimedia", id="4", url="u", license="cc-by-sa-4.0")</span>
+</span><span data-line="173"><span class="sd">    &gt;&gt;&gt; p = ImageResult(provider="pixabay", id="5", url="u", license="Pixabay License")</span>
+</span><span data-line="174"><span class="sd">    &gt;&gt;&gt; nd = ImageResult(provider="wikimedia", id="6", url="u", license="cc-by-nd-4.0")</span>
+</span><span data-line="175"><span class="sd">    &gt;&gt;&gt; [r.id for r in license_allowlist([w, p, nd])]</span>
+</span><span data-line="176"><span class="sd">    ['4', '5']</span>
+</span><span data-line="177"><span class="sd">    """</span>
+</span><span data-line="178">    <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="179">        <span class="n">normalize_license</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="180">        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="n">allow</span> <span class="k">if</span> <span class="n">allow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">DFLT_LICENSE_ALLOWLIST</span><span class="p">)</span>
+</span><span data-line="181">    <span class="p">}</span>
+</span><span data-line="182">    <span class="n">allowed</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</span><span data-line="183">    <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">normalize_license</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">license</span><span class="p">)</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">]</span></div>
 
-</span><span data-line="180">
-</span><span data-line="181">
+</span><span data-line="184">
+</span><span data-line="185">
 <div class="viewcode-block" id="check_attributions">
 <a class="viewcode-back" href="../../_autosummary/illustration.schema.html#illustration.check_attributions">[docs]</a>
-</span><span data-line="182"><span class="k">def</span><span class="w"> </span><span class="nf">check_attributions</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">]:</span>
-</span><span data-line="183"><span class="w">    </span><span class="sd">"""Return the results whose ``attribution`` does not visibly name a licence.</span>
-</span><span data-line="184">
-</span><span data-line="185"><span class="sd">    ``license_allowlist`` gates on the *machine-readable* ``license`` field;</span>
-</span><span data-line="186"><span class="sd">    this is the companion audit for the *human-readable* ``attribution``</span>
-</span><span data-line="187"><span class="sd">    string a credit roll actually renders. CC BY / CC BY-SA require the</span>
-</span><span data-line="188"><span class="sd">    licence to be identified in the credit — a licensed result with a</span>
-</span><span data-line="189"><span class="sd">    populated, correct ``license`` can still carry an ``attribution`` that is</span>
-</span><span data-line="190"><span class="sd">    just an author's name (illustration#22, seen on ~4% of one Wikimedia</span>
-</span><span data-line="191"><span class="sd">    session's hits), which silently breaches that condition if a consumer</span>
-</span><span data-line="192"><span class="sd">    renders ``attribution`` verbatim, as the package's own guide tells them</span>
-</span><span data-line="193"><span class="sd">    to. This never rewrites or drops a result — it is read-only, for a</span>
-</span><span data-line="194"><span class="sd">    pipeline to review, log, or compose a fallback credit from ``author`` /</span>
-</span><span data-line="195"><span class="sd">    ``license`` / ``license_url`` for exactly the results it returns.</span>
-</span><span data-line="196">
-</span><span data-line="197"><span class="sd">    What counts as "naming the licence" depends on the licence. For the</span>
-</span><span data-line="198"><span class="sd">    CC BY family (``by``, ``by-sa``, ``by-nc``, ...) the attribution must name</span>
-</span><span data-line="199"><span class="sd">    *that* licence (see :func:`illustration.licensing.licenses_named`), or</span>
-</span><span data-line="200"><span class="sd">    contain the result's ``license_url``: "© Jane Doe", "Public domain", or a</span>
-</span><span data-line="201"><span class="sd">    different CC code (e.g. "CC BY" for a ``by-nc`` image, which drops the NC</span>
-</span><span data-line="202"><span class="sd">    restriction) are all flagged. For any other licence, the looser</span>
-</span><span data-line="203"><span class="sd">    :func:`illustration.licensing.mentions_license` signal is used.</span>
-</span><span data-line="204">
-</span><span data-line="205"><span class="sd">    A result with no ``license`` at all is not flagged: there is nothing to</span>
-</span><span data-line="206"><span class="sd">    name, and it should already have been dropped by ``license_allowlist`` if</span>
-</span><span data-line="207"><span class="sd">    that matters to the caller.</span>
+</span><span data-line="186"><span class="k">def</span><span class="w"> </span><span class="nf">check_attributions</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">"ImageResult"</span><span class="p">]:</span>
+</span><span data-line="187"><span class="w">    </span><span class="sd">"""Return the results whose ``attribution`` does not visibly name a licence.</span>
+</span><span data-line="188">
+</span><span data-line="189"><span class="sd">    ``license_allowlist`` gates on the *machine-readable* ``license`` field;</span>
+</span><span data-line="190"><span class="sd">    this is the companion audit for the *human-readable* ``attribution``</span>
+</span><span data-line="191"><span class="sd">    string a credit roll actually renders. CC BY / CC BY-SA require the</span>
+</span><span data-line="192"><span class="sd">    licence to be identified in the credit — a licensed result with a</span>
+</span><span data-line="193"><span class="sd">    populated, correct ``license`` can still carry an ``attribution`` that is</span>
+</span><span data-line="194"><span class="sd">    just an author's name (illustration#22, seen on ~4% of one Wikimedia</span>
+</span><span data-line="195"><span class="sd">    session's hits), which silently breaches that condition if a consumer</span>
+</span><span data-line="196"><span class="sd">    renders ``attribution`` verbatim, as the package's own guide tells them</span>
+</span><span data-line="197"><span class="sd">    to. This never rewrites or drops a result — it is read-only, for a</span>
+</span><span data-line="198"><span class="sd">    pipeline to review, log, or compose a fallback credit from ``author`` /</span>
+</span><span data-line="199"><span class="sd">    ``license`` / ``license_url`` for exactly the results it returns.</span>
+</span><span data-line="200">
+</span><span data-line="201"><span class="sd">    What counts as "naming the licence" depends on the licence. For the</span>
+</span><span data-line="202"><span class="sd">    CC BY family (``by``, ``by-sa``, ``by-nc``, ...) the attribution must name</span>
+</span><span data-line="203"><span class="sd">    *that* licence (see :func:`illustration.licensing.licenses_named`), or</span>
+</span><span data-line="204"><span class="sd">    contain the result's ``license_url``: "© Jane Doe", "Public domain", or a</span>
+</span><span data-line="205"><span class="sd">    different CC code (e.g. "CC BY" for a ``by-nc`` image, which drops the NC</span>
+</span><span data-line="206"><span class="sd">    restriction) are all flagged. For any other licence, the looser</span>
+</span><span data-line="207"><span class="sd">    :func:`illustration.licensing.mentions_license` signal is used.</span>
 </span><span data-line="208">
-</span><span data-line="209"><span class="sd">    &gt;&gt;&gt; a = ImageResult(provider="p", id="1", url="u", license="by-sa", attribution="Jane Doe")</span>
-</span><span data-line="210"><span class="sd">    &gt;&gt;&gt; b = ImageResult(provider="p", id="2", url="u", license="by-sa",</span>
-</span><span data-line="211"><span class="sd">    ...                  attribution="Jane Doe / CC BY-SA 4.0, via Wikimedia Commons")</span>
-</span><span data-line="212"><span class="sd">    &gt;&gt;&gt; c = ImageResult(provider="p", id="3", url="u", license=None, attribution=None)</span>
-</span><span data-line="213"><span class="sd">    &gt;&gt;&gt; [r.id for r in check_attributions([a, b, c])]</span>
-</span><span data-line="214"><span class="sd">    ['1']</span>
-</span><span data-line="215"><span class="sd">    """</span>
-</span><span data-line="216">
-</span><span data-line="217">    <span class="k">def</span><span class="w"> </span><span class="nf">by_family</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span data-line="218">        <span class="c1"># "by-sa-3.0-de" (a jurisdiction port) -&gt; "by-sa": the permission</span>
-</span><span data-line="219">        <span class="c1"># elements only, which is what a credit line has to identify.</span>
-</span><span data-line="220">        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span data-line="221">        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="p">(</span><span class="n">code</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">):</span>
-</span><span data-line="222">            <span class="k">if</span> <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"by"</span><span class="p">,</span> <span class="s2">"nc"</span><span class="p">,</span> <span class="s2">"nd"</span><span class="p">,</span> <span class="s2">"sa"</span><span class="p">):</span>
-</span><span data-line="223">                <span class="k">break</span>
-</span><span data-line="224">            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-</span><span data-line="225">        <span class="k">return</span> <span class="s2">"-"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="k">if</span> <span class="n">elements</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"by"</span><span class="p">]</span> <span class="k">else</span> <span class="s2">""</span>
-</span><span data-line="226">
-</span><span data-line="227">    <span class="k">def</span><span class="w"> </span><span class="nf">names_its_license</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="s2">"ImageResult"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span data-line="228">        <span class="n">family</span> <span class="o">=</span> <span class="n">by_family</span><span class="p">(</span><span class="n">normalize_license</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">license</span><span class="p">))</span>
-</span><span data-line="229">        <span class="k">if</span> <span class="n">family</span><span class="p">:</span>
-</span><span data-line="230">            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">license_url</span> <span class="ow">and</span> <span class="n">r</span><span class="o">.</span><span class="n">attribution</span> <span class="ow">and</span> <span class="n">r</span><span class="o">.</span><span class="n">license_url</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">attribution</span><span class="p">:</span>
-</span><span data-line="231">                <span class="k">return</span> <span class="kc">True</span>
-</span><span data-line="232">            <span class="k">return</span> <span class="n">family</span> <span class="ow">in</span> <span class="p">{</span><span class="n">by_family</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">licenses_named</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">attribution</span><span class="p">)}</span>
-</span><span data-line="233">        <span class="k">return</span> <span class="n">mentions_license</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">attribution</span><span class="p">)</span>
-</span><span data-line="234">
-</span><span data-line="235">    <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">license</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">names_its_license</span><span class="p">(</span><span class="n">r</span><span class="p">)]</span></div>
+</span><span data-line="209"><span class="sd">    A result with no ``license`` at all is not flagged: there is nothing to</span>
+</span><span data-line="210"><span class="sd">    name, and it should already have been dropped by ``license_allowlist`` if</span>
+</span><span data-line="211"><span class="sd">    that matters to the caller.</span>
+</span><span data-line="212">
+</span><span data-line="213"><span class="sd">    &gt;&gt;&gt; a = ImageResult(provider="p", id="1", url="u", license="by-sa", attribution="Jane Doe")</span>
+</span><span data-line="214"><span class="sd">    &gt;&gt;&gt; b = ImageResult(provider="p", id="2", url="u", license="by-sa",</span>
+</span><span data-line="215"><span class="sd">    ...                  attribution="Jane Doe / CC BY-SA 4.0, via Wikimedia Commons")</span>
+</span><span data-line="216"><span class="sd">    &gt;&gt;&gt; c = ImageResult(provider="p", id="3", url="u", license=None, attribution=None)</span>
+</span><span data-line="217"><span class="sd">    &gt;&gt;&gt; [r.id for r in check_attributions([a, b, c])]</span>
+</span><span data-line="218"><span class="sd">    ['1']</span>
+</span><span data-line="219"><span class="sd">    """</span>
+</span><span data-line="220">
+</span><span data-line="221">    <span class="k">def</span><span class="w"> </span><span class="nf">by_family</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="s2">"str | None"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="222">        <span class="c1"># "by-sa-3.0-de" (a jurisdiction port) -&gt; "by-sa": the permission</span>
+</span><span data-line="223">        <span class="c1"># elements only, which is what a credit line has to identify.</span>
+</span><span data-line="224">        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="225">        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="p">(</span><span class="n">code</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">):</span>
+</span><span data-line="226">            <span class="k">if</span> <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"by"</span><span class="p">,</span> <span class="s2">"nc"</span><span class="p">,</span> <span class="s2">"nd"</span><span class="p">,</span> <span class="s2">"sa"</span><span class="p">):</span>
+</span><span data-line="227">                <span class="k">break</span>
+</span><span data-line="228">            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+</span><span data-line="229">        <span class="k">return</span> <span class="s2">"-"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="k">if</span> <span class="n">elements</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"by"</span><span class="p">]</span> <span class="k">else</span> <span class="s2">""</span>
+</span><span data-line="230">
+</span><span data-line="231">    <span class="k">def</span><span class="w"> </span><span class="nf">names_its_license</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="s2">"ImageResult"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="232">        <span class="n">family</span> <span class="o">=</span> <span class="n">by_family</span><span class="p">(</span><span class="n">normalize_license</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">license</span><span class="p">))</span>
+</span><span data-line="233">        <span class="k">if</span> <span class="n">family</span><span class="p">:</span>
+</span><span data-line="234">            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">license_url</span> <span class="ow">and</span> <span class="n">r</span><span class="o">.</span><span class="n">attribution</span> <span class="ow">and</span> <span class="n">r</span><span class="o">.</span><span class="n">license_url</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">attribution</span><span class="p">:</span>
+</span><span data-line="235">                <span class="k">return</span> <span class="kc">True</span>
+</span><span data-line="236">            <span class="k">return</span> <span class="n">family</span> <span class="ow">in</span> <span class="p">{</span><span class="n">by_family</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">licenses_named</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">attribution</span><span class="p">)}</span>
+</span><span data-line="237">        <span class="k">return</span> <span class="n">mentions_license</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">attribution</span><span class="p">)</span>
+</span><span data-line="238">
+</span><span data-line="239">    <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">license</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">names_its_license</span><span class="p">(</span><span class="n">r</span><span class="p">)]</span></div>
 
-</span><span data-line="236">
-</span><span data-line="237">
-</span><span data-line="238"><span class="k">def</span><span class="w"> </span><span class="nf">_coerce_results</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
-</span><span data-line="239"><span class="w">    </span><span class="sd">"""Validate a sequence of dicts back into :class:`ImageResult` (cache reads)."""</span>
-</span><span data-line="240">    <span class="k">return</span> <span class="p">[</span><span class="n">ImageResult</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+</span><span data-line="240">
+</span><span data-line="241">
+</span><span data-line="242"><span class="k">def</span><span class="w"> </span><span class="nf">_coerce_results</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageResult</span><span class="p">]:</span>
+</span><span data-line="243"><span class="w">    </span><span class="sd">"""Validate a sequence of dicts back into :class:`ImageResult` (cache reads)."""</span>
+</span><span data-line="244">    <span class="k">return</span> <span class="p">[</span><span class="n">ImageResult</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
 </span></pre></div>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -420,7 +425,7 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </footer>
-      <script src="../../_static/documentation_options.js?v=f0357c94"></script>
+      <script src="../../_static/documentation_options.js?v=c7cdf6fe"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>

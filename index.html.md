@@ -63,6 +63,21 @@ pip install illustration
 Local-ecosystem dependencies (`dol`, `config2py`) are developed alongside this
 package; in the dev environment they resolve to local source.
 
+### From the browser
+
+The same `search()` ships to npm as **`illustration-search`** (the `ts/`
+directory): the result schema, rights fields, licence tables and provider
+registry are generated from this package, and the provider code is pinned to
+it by fixtures. All four providers answer browser requests directly; Pexels and
+Pixabay take the caller’s own key as an argument.
+
+```ts
+import { search } from 'illustration-search';
+const hits = await search('stormy harbour at dusk', { n: 5 });  // Openverse, no key
+```
+
+See [`ts/README.md`]().
+
 ## The result schema
 
 `search()` returns a list of `ImageResult` (Pydantic v2 — the single source of
@@ -396,6 +411,12 @@ class MySource(RetrievalSource):
 
 register_source(MySource())
 ```
+
+A provider ships on both sides: after registering it, run
+`illustration export-schema` (its declared vocabulary and a
+`schema/fixtures/<name>.payload.json` canned page become the contract the
+TypeScript twin is generated from and tested against), then port its hooks
+under `ts/src/providers/`.
 
 ## Licensing
 

@@ -1,4 +1,4 @@
-> built 2026-09-25 00:33 UTC from d658df9 (main) · illustration 0.0.15. Details: build_info.json
+> built 2026-09-25 09:37 UTC from 7c9ea1e (main) · illustration 0.0.16. Details: build_info.json
 
 # index.html.md
 
@@ -66,6 +66,21 @@ pip install illustration
 
 Local-ecosystem dependencies (`dol`, `config2py`) are developed alongside this
 package; in the dev environment they resolve to local source.
+
+### From the browser
+
+The same `search()` ships to npm as **`illustration-search`** (the `ts/`
+directory): the result schema, rights fields, licence tables and provider
+registry are generated from this package, and the provider code is pinned to
+it by fixtures. All four providers answer browser requests directly; Pexels and
+Pixabay take the caller’s own key as an argument.
+
+```ts
+import { search } from 'illustration-search';
+const hits = await search('stormy harbour at dusk', { n: 5 });  // Openverse, no key
+```
+
+See [`ts/README.md`]().
 
 ## The result schema
 
@@ -401,6 +416,12 @@ class MySource(RetrievalSource):
 register_source(MySource())
 ```
 
+A provider ships on both sides: after registering it, run
+`illustration export-schema` (its declared vocabulary and a
+`schema/fixtures/<name>.payload.json` canned page become the contract the
+TypeScript twin is generated from and tested against), then port its hooks
+under `ts/src/providers/`.
+
 ## Licensing
 
 Licensing is first-class for commercial-adjacent video. Each result carries its
@@ -660,11 +681,6 @@ illustration sources
 illustration info openverse
 ```
 
-### Module Attributes
-
-| [`COMMANDS`](_autosummary/illustration.cli.html.md#illustration.cli.COMMANDS)   | Commands exposed by the CLI (consumed by `illustration/__main__.py`).   |
-|-------------------------------------------------------------|-------------------------------------------------------------------------|
-
 ### Functions
 
 | [`search`](_autosummary/illustration.cli.html.md#illustration.cli.search)(query, \*[, n, source, orientation, ...])   | Search for images and print the results (one per line, or `--json`).     |
@@ -673,10 +689,7 @@ illustration info openverse
 | [`curate_sequence`](_autosummary/illustration.cli.html.md#illustration.cli.curate_sequence)(\*beats[, source, n, json])        | Choose the best image per narration BEAT across a sequence (cross-shot). |
 | [`sources`](_autosummary/illustration.cli.html.md#illustration.cli.sources)()                                          | List the registered image sources.                                       |
 | [`info`](_autosummary/illustration.cli.html.md#illustration.cli.info)(name)                                         | Show metadata for one source.                                            |
-
-### illustration.cli.COMMANDS *= [<function search>, <function curate>, <function curate_sequence>, <function sources>, <function info>]*
-
-Commands exposed by the CLI (consumed by `illustration/__main__.py`).
+| [`export_schema`](_autosummary/illustration.cli.html.md#illustration.cli.export_schema)(\*[, out_dir])                       | Write the JSON contract the TypeScript twin (`ts/`) is generated from.   |
 
 ### illustration.cli.curate(beat, , source=None, n=12, max_iter=3, model=None, json=False)
 
@@ -694,6 +707,15 @@ Pass one quoted beat per argument. Optimizes relevance + cross-shot coherence
 − redundancy with near-duplicate suppression (the M4 selection layer); needs
 the [curate]/[rerank] extras for the full signal. Prints the chosen image per
 beat, or the full result with –json.
+
+### illustration.cli.export_schema(, out_dir=None)
+
+Write the JSON contract the TypeScript twin (`ts/`) is generated from.
+
+Re-run after changing [`ImageResult`](_autosummary/illustration.schema.html.md#illustration.schema.ImageResult), a provider’s
+declared vocabulary, the licence tables or a canned payload; commit the
+result. `tests/test_schema_export.py` fails until you do. `out_dir`
+defaults to this checkout’s `schema/`; outside a checkout it refuses.
 
 ### illustration.cli.info(name)
 
@@ -3189,27 +3211,28 @@ through). Bindings nest: an inner block overlays the outer.
 
 ### Modules
 
-| [`base`](_autosummary/illustration.base.html.md#module-illustration.base)               | The provider plugin contract: [`RetrievalSource`](_autosummary/illustration.html.md#illustration.RetrievalSource).                   |
-|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-| [`caching`](_autosummary/illustration.caching.html.md#module-illustration.caching)         | SHA-256 content-addressed caching of search results (the `falaw` recipe).                                         |
-| [`cli`](_autosummary/illustration.cli.html.md#module-illustration.cli)                 | Command-line surface (thin `cw` wrappers over the library functions).                                             |
-| [`config`](_autosummary/illustration.config.html.md#module-illustration.config)           | Configuration: XDG directories and package-wide defaults (the SSOT).                                              |
-| [`credentials`](_autosummary/illustration.credentials.html.md#module-illustration.credentials) | API-key resolution (the `aix` credentials idiom + `falaw` BYO-key seam).                                          |
-| [`curation`](_autosummary/illustration.curation.html.md#module-illustration.curation)       | The bounded corrective-retrieval (CRAG) loop — Layer 2's heart (R2 §1).                                           |
-| [`duplicates`](_autosummary/illustration.duplicates.html.md#module-illustration.duplicates)   | Group images that are the same **subject**, and keep the best one of each group.                                  |
-| [`errors`](_autosummary/illustration.errors.html.md#module-illustration.errors)           | The package exception hierarchy.                                                                                  |
-| [`expansion`](_autosummary/illustration.expansion.html.md#module-illustration.expansion)     | Query expansion & refinement — the first node of the curation loop (R2 §1).                                       |
-| [`facade`](_autosummary/illustration.facade.html.md#module-illustration.facade)           | The façade: [`search()`](_autosummary/illustration.html.md#illustration.search) — one call over any registered provider(s). |
-| [`inspection`](_autosummary/illustration.inspection.html.md#module-illustration.inspection)   | Candidate inspection — classical-CV pre-filters + VLM caption/judge (R2 §2-3).                                    |
-| [`licensing`](_autosummary/illustration.licensing.html.md#module-illustration.licensing)     | Licence-code normalisation — one vocabulary for four provider vocabularies.                                       |
-| [`persistence`](_autosummary/illustration.persistence.html.md#module-illustration.persistence) | Persist curation/selection decisions as `lacing` standoff annotations (R2 §6).                                    |
-| [`providers`](_autosummary/illustration.providers.html.md#module-illustration.providers)     | Built-in provider sources, registered on import.                                                                  |
-| [`registry`](_autosummary/illustration.registry.html.md#module-illustration.registry)       | The open-closed source registry and the `sources` view.                                                           |
-| [`reranking`](_autosummary/illustration.reranking.html.md#module-illustration.reranking)     | Local cross-modal rerank — the precision stage (research report R1 §3).                                           |
-| [`schema`](_autosummary/illustration.schema.html.md#module-illustration.schema)           | The normalized result schema — the single source of truth (Pydantic v2).                                          |
-| [`sequence`](_autosummary/illustration.sequence.html.md#module-illustration.sequence)       | Sequence-level selection — the M4 domain core (research report R2 §5).                                            |
-| [`translation`](_autosummary/illustration.translation.html.md#module-illustration.translation) | Canonical → native parameter translation (the `denote` `param_map` idiom).                                        |
-| [`video`](_autosummary/illustration.video.html.md#module-illustration.video)             | Narration → Ken-Burns video hook — the M4 integration seam.                                                       |
+| [`base`](_autosummary/illustration.base.html.md#module-illustration.base)                   | The provider plugin contract: [`RetrievalSource`](_autosummary/illustration.html.md#illustration.RetrievalSource).                   |
+|--------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| [`caching`](_autosummary/illustration.caching.html.md#module-illustration.caching)             | SHA-256 content-addressed caching of search results (the `falaw` recipe).                                         |
+| [`cli`](_autosummary/illustration.cli.html.md#module-illustration.cli)                     | Command-line surface (thin `cw` wrappers over the library functions).                                             |
+| [`config`](_autosummary/illustration.config.html.md#module-illustration.config)               | Configuration: XDG directories and package-wide defaults (the SSOT).                                              |
+| [`credentials`](_autosummary/illustration.credentials.html.md#module-illustration.credentials)     | API-key resolution (the `aix` credentials idiom + `falaw` BYO-key seam).                                          |
+| [`curation`](_autosummary/illustration.curation.html.md#module-illustration.curation)           | The bounded corrective-retrieval (CRAG) loop — Layer 2's heart (R2 §1).                                           |
+| [`duplicates`](_autosummary/illustration.duplicates.html.md#module-illustration.duplicates)       | Group images that are the same **subject**, and keep the best one of each group.                                  |
+| [`errors`](_autosummary/illustration.errors.html.md#module-illustration.errors)               | The package exception hierarchy.                                                                                  |
+| [`expansion`](_autosummary/illustration.expansion.html.md#module-illustration.expansion)         | Query expansion & refinement — the first node of the curation loop (R2 §1).                                       |
+| [`facade`](_autosummary/illustration.facade.html.md#module-illustration.facade)               | The façade: [`search()`](_autosummary/illustration.html.md#illustration.search) — one call over any registered provider(s). |
+| [`inspection`](_autosummary/illustration.inspection.html.md#module-illustration.inspection)       | Candidate inspection — classical-CV pre-filters + VLM caption/judge (R2 §2-3).                                    |
+| [`licensing`](_autosummary/illustration.licensing.html.md#module-illustration.licensing)         | Licence-code normalisation — one vocabulary for four provider vocabularies.                                       |
+| [`persistence`](_autosummary/illustration.persistence.html.md#module-illustration.persistence)     | Persist curation/selection decisions as `lacing` standoff annotations (R2 §6).                                    |
+| [`providers`](_autosummary/illustration.providers.html.md#module-illustration.providers)         | Built-in provider sources, registered on import.                                                                  |
+| [`registry`](_autosummary/illustration.registry.html.md#module-illustration.registry)           | The open-closed source registry and the `sources` view.                                                           |
+| [`reranking`](_autosummary/illustration.reranking.html.md#module-illustration.reranking)         | Local cross-modal rerank — the precision stage (research report R1 §3).                                           |
+| [`schema`](_autosummary/illustration.schema.html.md#module-illustration.schema)               | The normalized result schema — the single source of truth (Pydantic v2).                                          |
+| [`schema_export`](_autosummary/illustration.schema_export.html.md#module-illustration.schema_export) | Export the Python SSOT as committed JSON for the TypeScript twin (`ts/`).                                         |
+| [`sequence`](_autosummary/illustration.sequence.html.md#module-illustration.sequence)           | Sequence-level selection — the M4 domain core (research report R2 §5).                                            |
+| [`translation`](_autosummary/illustration.translation.html.md#module-illustration.translation)     | Canonical → native parameter translation (the `denote` `param_map` idiom).                                        |
+| [`video`](_autosummary/illustration.video.html.md#module-illustration.video)                 | Narration → Ken-Burns video hook — the M4 integration seam.                                                       |
 
 
 # _autosummary/illustration.inspection.html.md
@@ -3969,7 +3992,7 @@ Pure-search adapter for Wikimedia Commons (MediaWiki Action API).
 
 Search endpoint URL. Required.
 
-#### fixed_params *: [Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [Any](https://docs.python.org/3/library/typing.html#typing.Any)]* *= {'action': 'query', 'format': 'json', 'generator': 'search', 'gsrnamespace': '6', 'iiprop': 'url|extmetadata|size|mime|user', 'iiurlwidth': '320', 'prop': 'imageinfo'}*
+#### fixed_params *: [Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [Any](https://docs.python.org/3/library/typing.html#typing.Any)]* *= {'action': 'query', 'format': 'json', 'formatversion': '2', 'generator': 'search', 'gsrnamespace': '6', 'iiprop': 'url|extmetadata|size|mime|user', 'iiurlwidth': '320', 'prop': 'imageinfo'}*
 
 Constant native params sent on every request (e.g. an API mode/format).
 
@@ -4236,7 +4259,7 @@ Pure-search adapter for Wikimedia Commons (MediaWiki Action API).
 
 Search endpoint URL. Required.
 
-#### fixed_params *: [Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [Any](https://docs.python.org/3/library/typing.html#typing.Any)]* *= {'action': 'query', 'format': 'json', 'generator': 'search', 'gsrnamespace': '6', 'iiprop': 'url|extmetadata|size|mime|user', 'iiurlwidth': '320', 'prop': 'imageinfo'}*
+#### fixed_params *: [Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [Any](https://docs.python.org/3/library/typing.html#typing.Any)]* *= {'action': 'query', 'format': 'json', 'formatversion': '2', 'generator': 'search', 'gsrnamespace': '6', 'iiprop': 'url|extmetadata|size|mime|user', 'iiurlwidth': '320', 'prop': 'imageinfo'}*
 
 Constant native params sent on every request (e.g. an API mode/format).
 
@@ -4663,6 +4686,99 @@ Layer-2 reranker populates it; `ir.fuse_hits` (RRF) is rank-based, so this
 is correct for fusion.
 
 
+# _autosummary/illustration.schema_export.html.md
+
+# illustration.schema_export
+
+Export the Python SSOT as committed JSON for the TypeScript twin (`ts/`).
+
+`illustration` ships twice: as this Python package and as the npm package
+`illustration-search` (`ts/`), which runs the same `search()` in a browser.
+The two must agree on the result schema, the rights record, the licence
+vocabulary, every provider’s request vocabulary, and what each provider’s
+payload normalises into. None of that is re-authored on the TypeScript side:
+this module writes it out as JSON, the TS build generates its types from the
+schema and reads the registries as data, and its parity tests replay the
+fixtures below and assert the same output byte for byte.
+
+What lands in `<out_dir>`:
+
+- `image-result.schema.json` — [`ImageResult`](_autosummary/illustration.schema.html.md#illustration.schema.ImageResult) as
+  JSON Schema (the codegen input for the Zod type).
+- `sources.json` — one record per registered source: endpoint, parameter
+  names, paging caps, fixed params, auth style, canonical→native parameter
+  names, and its [`SourceInfo`](_autosummary/illustration.base.html.md#illustration.base.SourceInfo).
+- `constants.json` — `RIGHTS_FIELDS`, the licence alias table, the default
+  allowlist, façade defaults, credential lookups, and licence-normalisation
+  cases (input → canonical code) the TS port must reproduce.
+- `fixtures/<source>.expected.json` — derived from the hand-authored
+  `fixtures/<source>.payload.json` (shared with `conftest.py`): the
+  normalised results, canonical→native translations for a fixed set of filter
+  combinations, query/paging params, and the per-page clamp.
+
+`tests/test_schema_export.py` pins the committed directory to a fresh export,
+so a schema or provider change that forgets to run `illustration export-schema`
+fails CI here, before the TS side can drift.
+
+```pycon
+>>> from illustration.schema_export import CANONICAL_REQUEST_CASES
+>>> all(isinstance(case, dict) for case in CANONICAL_REQUEST_CASES)
+True
+```
+
+### Module Attributes
+
+| [`FIXTURE_QUERY`](_autosummary/illustration.schema_export.html.md#illustration.schema_export.FIXTURE_QUERY)           | The query every fixture is normalised under (it lands in `ImageResult.query`).   |
+|--------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| [`CANONICAL_REQUEST_CASES`](_autosummary/illustration.schema_export.html.md#illustration.schema_export.CANONICAL_REQUEST_CASES) | Filter combinations every source translates in its fixture.                      |
+| [`QUERY_CASES`](_autosummary/illustration.schema_export.html.md#illustration.schema_export.QUERY_CASES)             | `(query, page, per_page)` triples every source builds query params for.          |
+| [`LICENSE_CASES`](_autosummary/illustration.schema_export.html.md#illustration.schema_export.LICENSE_CASES)           | Licence spellings the TS `normalizeLicense` must fold identically.               |
+
+### Functions
+
+| [`export_schema`](_autosummary/illustration.schema_export.html.md#illustration.schema_export.export_schema)([out_dir, sources])   | Write the JSON contract under `out_dir`; return the paths written.   |
+|--------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+
+### illustration.schema_export.CANONICAL_REQUEST_CASES *: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [Any](https://docs.python.org/3/library/typing.html#typing.Any)], ...]* *= ({}, {'color': 'blue', 'content_type': 'photo', 'license_type': 'commercial', 'orientation': 'landscape', 'safe': True, 'size': 'large'}, {'content_type': 'illustration', 'orientation': 'portrait', 'size': 'medium'}, {'content_type': 'vector', 'orientation': 'square', 'size': 'small'}, {'safe': False}, {'content_type': 'hologram', 'orientation': 'diagonal', 'size': 'huge'}, {'color': '#ff0000', 'license_type': 'all-cc'})*
+
+Filter combinations every source translates in its fixture. Chosen to hit
+every canonical parameter, every `choices` guard (a valid and an invalid
+value), a boolean coercion in both states, and the empty case.
+
+### illustration.schema_export.FIXTURE_QUERY *= 'stormy harbour'*
+
+The query every fixture is normalised under (it lands in `ImageResult.query`).
+
+### illustration.schema_export.LICENSE_CASES *: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str) | [None](https://docs.python.org/3/builtins/constants.html#None), ...]* *= (None, '', '   ', 'by-sa', 'BY', '  BY  ', 'cc0', 'CC0 1.0', 'cc-0', 'cc-zero', 'cc-by-sa-4.0', 'CC BY-SA 4.0', 'cc-by-nc-nd-2.0', 'cc_by_3.0', 'Pexels License', 'Pixabay License', 'public domain', 'Public Domain Mark', 'pdm', 'cc-pdm', 'sampling+', 'by-nc', 'CC-BY-SA-v2.5')*
+
+Licence spellings the TS `normalizeLicense` must fold identically.
+
+### illustration.schema_export.QUERY_CASES *: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [int](https://docs.python.org/3/builtins/functions.html#int), [int](https://docs.python.org/3/builtins/functions.html#int)], ...]* *= (('stormy harbour', 1, 10), ('stormy harbour', 3, 5), ('Category:Ships at dusk', 1, 20), ('File:Stormy Harbour.jpg|File:Dusk Pier.jpg', 1, 10))*
+
+`(query, page, per_page)` triples every source builds query params for.
+The `Category:` and `File:` forms exercise Wikimedia’s routing; the
+others are plain paging.
+
+### illustration.schema_export.export_schema(out_dir=None, , sources=None)
+
+Write the JSON contract under `out_dir`; return the paths written.
+
+`out_dir` defaults to the `schema/` directory of *this checkout* (the
+one holding the hand-authored `fixtures/*.payload.json`). This is
+repository tooling: with no checkout — an installed wheel, or a directory
+with no payload fixtures — it refuses rather than scattering a partial
+`schema/` tree wherever the shell happens to be.
+
+`sources` defaults to every registered source. A source with no
+`fixtures/<name>.payload.json` gets no expected-fixture file (its
+registry record is still written), so a provider can be registered before
+its canned payload exists, but the TS parity suite will then have nothing
+to replay for it.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)[[`Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path)]
+
+
 # _autosummary/illustration.sequence.html.md
 
 # illustration.sequence
@@ -5009,7 +5125,7 @@ Beats with no chosen image are skipped. Needs the `[video]` extra.
 
 # About this build
 
-This documentation was built on **2026-09-25 00:33 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/d658df91a3ac934aed6f9b34fcf6f0bffb49056f"><code>d658df9</code></a> on branch <code>main</code>, for **illustration 0.0.15** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-09-25 09:37 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/7c9ea1e289242b9e15f1027357184fbb967d7bc9"><code>7c9ea1e</code></a> on branch <code>main</code>, for **illustration 0.0.16** (from <code>pyproject.toml</code>).
 
 #### NOTE
 Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
@@ -5018,7 +5134,7 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 |                     |                                                                                                                                                                |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/d658df91a3ac934aed6f9b34fcf6f0bffb49056f"><code>d658df91a3ac934aed6f9b34fcf6f0bffb49056f</code></a> |
+| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/7c9ea1e289242b9e15f1027357184fbb967d7bc9"><code>7c9ea1e289242b9e15f1027357184fbb967d7bc9</code></a> |
 | Branch              | <code>main</code>                                                                                                                                              |
 | Tags at this commit | none                                                                                                                                                           |
 | Working tree        | clean                                                                                                                                                          |
@@ -5029,9 +5145,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                               |
 |--------------|-----------------------------------------------------------------------------------------------|
 | Repository   | <code>thorwhalen/illustration</code>                                                          |
-| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/36077953761">36077953761</a> |
+| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/36119357159">36119357159</a> |
 | Ref          | <code>refs/heads/main</code>                                                                  |
-| Event commit | <code>d658df91a3ac934aed6f9b34fcf6f0bffb49056f</code> (in the history of the built commit)    |
+| Event commit | <code>7c9ea1e289242b9e15f1027357184fbb967d7bc9</code> (in the history of the built commit)    |
 
 ## Tools
 
@@ -5056,13 +5172,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/illustration/0.0.15/">0.0.15</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/illustration/0.0.16/">0.0.16</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/thorwhalen/illustration && cd illustration
-git checkout d658df91a3ac934aed6f9b34fcf6f0bffb49056f
+git checkout 7c9ea1e289242b9e15f1027357184fbb967d7bc9
 pip install "epythet==0.2.12"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

@@ -88,6 +88,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="illustration.registry.html">illustration.registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.reranking.html">illustration.reranking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.schema_export.html">illustration.schema_export</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.sequence.html">illustration.sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.translation.html">illustration.translation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.video.html">illustration.video</a></li>
@@ -108,9 +109,9 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#illustration.cli.COMMANDS"><code class="docutils literal notranslate"><span class="pre">COMMANDS</span></code></a></li>
 <li><a class="reference internal" href="#illustration.cli.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.cli.curate_sequence"><code class="docutils literal notranslate"><span class="pre">curate_sequence()</span></code></a></li>
+<li><a class="reference internal" href="#illustration.cli.export_schema"><code class="docutils literal notranslate"><span class="pre">export_schema()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.cli.info"><code class="docutils literal notranslate"><span class="pre">info()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.cli.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
 <li><a class="reference internal" href="#illustration.cli.sources"><code class="docutils literal notranslate"><span class="pre">sources()</span></code></a></li>
@@ -163,16 +164,6 @@ and format output — the dispatch-to-interface pattern. Examples:</p>
 </span><span data-line="4"><span class="n">illustration</span> <span class="n">info</span> <span class="n">openverse</span>
 </span></pre></div>
 </div>
-<p class="rubric">Module Attributes</p>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.cli.COMMANDS" title="illustration.cli.COMMANDS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">COMMANDS</span></code></a></p></td>
-<td><p>Commands exposed by the CLI (consumed by <code class="docutils literal notranslate"><span class="pre">illustration/__main__.py</span></code>).</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 <p class="rubric">Functions</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
@@ -192,15 +183,12 @@ and format output — the dispatch-to-interface pattern. Examples:</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#illustration.cli.info" title="illustration.cli.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a>(name)</p></td>
 <td><p>Show metadata for one source.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.cli.export_schema" title="illustration.cli.export_schema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_schema</span></code></a>(*[, out_dir])</p></td>
+<td><p>Write the JSON contract the TypeScript twin (<code class="docutils literal notranslate"><span class="pre">ts/</span></code>) is generated from.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
-<dl class="py data">
-<dt class="sig sig-object py" id="illustration.cli.COMMANDS">
-<span class="sig-prename descclassname"><span class="pre">illustration.cli.</span></span><span class="sig-name descname"><span class="pre">COMMANDS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">search&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">curate&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">curate_sequence&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">sources&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">info&gt;]</span></span><a class="headerlink" href="#illustration.cli.COMMANDS" title="Link to this definition">#</a></dt>
-<dd><p>Commands exposed by the CLI (consumed by <code class="docutils literal notranslate"><span class="pre">illustration/__main__.py</span></code>).</p>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="illustration.cli.curate">
 <span class="sig-prename descclassname"><span class="pre">illustration.cli.</span></span><span class="sig-name descname"><span class="pre">curate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beat</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/cli.html#curate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.cli.curate" title="Link to this definition">#</a></dt>
@@ -220,6 +208,18 @@ best-so-far) and a one-line spend summary, or the full result with <code class="
 − redundancy with near-duplicate suppression (the M4 selection layer); needs
 the [curate]/[rerank] extras for the full signal. Prints the chosen image per
 beat, or the full result with –json.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.cli.export_schema">
+<span class="sig-prename descclassname"><span class="pre">illustration.cli.</span></span><span class="sig-name descname"><span class="pre">export_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/cli.html#export_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.cli.export_schema" title="Link to this definition">#</a></dt>
+<dd><p>Write the JSON contract the TypeScript twin (<code class="docutils literal notranslate"><span class="pre">ts/</span></code>) is generated from.</p>
+<p>Re-run after changing <a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a>, a provider’s
+declared vocabulary, the licence tables or a canned payload; commit the
+result. <code class="docutils literal notranslate"><span class="pre">tests/test_schema_export.py</span></code> fails until you do. <code class="docutils literal notranslate"><span class="pre">out_dir</span></code>
+defaults to this checkout’s <code class="docutils literal notranslate"><span class="pre">schema/</span></code>; outside a checkout it refuses.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -288,7 +288,7 @@ beat, or the full result with –json.</p>
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=f0357c94"></script>
+      <script src="../_static/documentation_options.js?v=c7cdf6fe"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

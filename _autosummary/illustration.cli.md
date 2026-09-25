@@ -12,11 +12,6 @@ illustration sources
 illustration info openverse
 ```
 
-### Module Attributes
-
-| [`COMMANDS`](#illustration.cli.COMMANDS)   | Commands exposed by the CLI (consumed by `illustration/__main__.py`).   |
-|-------------------------------------------------------------|-------------------------------------------------------------------------|
-
 ### Functions
 
 | [`search`](#illustration.cli.search)(query, \*[, n, source, orientation, ...])   | Search for images and print the results (one per line, or `--json`).     |
@@ -25,10 +20,7 @@ illustration info openverse
 | [`curate_sequence`](#illustration.cli.curate_sequence)(\*beats[, source, n, json])        | Choose the best image per narration BEAT across a sequence (cross-shot). |
 | [`sources`](#illustration.cli.sources)()                                          | List the registered image sources.                                       |
 | [`info`](#illustration.cli.info)(name)                                         | Show metadata for one source.                                            |
-
-### illustration.cli.COMMANDS *= [<function search>, <function curate>, <function curate_sequence>, <function sources>, <function info>]*
-
-Commands exposed by the CLI (consumed by `illustration/__main__.py`).
+| [`export_schema`](#illustration.cli.export_schema)(\*[, out_dir])                       | Write the JSON contract the TypeScript twin (`ts/`) is generated from.   |
 
 ### illustration.cli.curate(beat, , source=None, n=12, max_iter=3, model=None, json=False)
 
@@ -46,6 +38,15 @@ Pass one quoted beat per argument. Optimizes relevance + cross-shot coherence
 − redundancy with near-duplicate suppression (the M4 selection layer); needs
 the [curate]/[rerank] extras for the full signal. Prints the chosen image per
 beat, or the full result with –json.
+
+### illustration.cli.export_schema(, out_dir=None)
+
+Write the JSON contract the TypeScript twin (`ts/`) is generated from.
+
+Re-run after changing [`ImageResult`](illustration.schema.md#illustration.schema.ImageResult), a provider’s
+declared vocabulary, the licence tables or a canned payload; commit the
+result. `tests/test_schema_export.py` fails until you do. `out_dir`
+defaults to this checkout’s `schema/`; outside a checkout it refuses.
 
 ### illustration.cli.info(name)
 

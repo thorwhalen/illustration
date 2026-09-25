@@ -29,11 +29,12 @@
 - [illustration.registry](_autosummary/illustration.registry.html.md): The open-closed source registry and the &#96;sources&#96; view.
 - [illustration.reranking](_autosummary/illustration.reranking.html.md): Local cross-modal rerank — the precision stage (research report R1 §3).
 - [illustration.schema](_autosummary/illustration.schema.html.md): The normalized result schema — the single source of truth (Pydantic v2).
+- [illustration.schema_export](_autosummary/illustration.schema_export.html.md): Export the Python SSOT as committed JSON for the TypeScript twin (&#96;ts/&#96;).
 - [illustration.sequence](_autosummary/illustration.sequence.html.md): Sequence-level selection — the M4 domain core (research report R2 §5).
 - [illustration.translation](_autosummary/illustration.translation.html.md): Canonical → native parameter translation (the &#96;denote&#96; &#96;param_map&#96; idiom).
 - [illustration.video](_autosummary/illustration.video.html.md): Narration → Ken-Burns video hook — the M4 integration seam.
 - [For AI agents](ai-agents.html.md): &#96;illustration&#96; ships artifacts for coding agents alongside its code. This page lists
-- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-09-25 00:33 UTC&#42;&#42; from commit &lt;a href="https://github.com/tho...
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-09-25 09:37 UTC&#42;&#42; from commit &lt;a href="https://github.com/tho...
 
 ## Optional
 

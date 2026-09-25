@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="cyan" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>illustration.schema_export - illustration</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="illustration.sequence" href="illustration.sequence.html" /><link rel="prev" title="illustration.schema" href="illustration.schema.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="illustration.schema_export"/>
+    <meta name="twitter:card" content="summary"/>
+  
+<link rel="alternate" type="text/markdown" href="illustration.schema_export.html.md">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+</head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>illustration</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="illustration.html">illustration</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="illustration.base.html">illustration.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.caching.html">illustration.caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.cli.html">illustration.cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.config.html">illustration.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.credentials.html">illustration.credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.curation.html">illustration.curation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.duplicates.html">illustration.duplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.errors.html">illustration.errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.expansion.html">illustration.expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.facade.html">illustration.facade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.inspection.html">illustration.inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.licensing.html">illustration.licensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.persistence.html">illustration.persistence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.providers.html">illustration.providers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.openverse.html">illustration.providers.openverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pexels.html">illustration.providers.pexels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.pixabay.html">illustration.providers.pixabay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illustration.providers.wikimedia.html">illustration.providers.wikimedia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.registry.html">illustration.registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.reranking.html">illustration.reranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">illustration.schema_export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.sequence.html">illustration.sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.translation.html">illustration.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.video.html">illustration.video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ai-agents.html">For AI agents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#illustration.schema_export.CANONICAL_REQUEST_CASES"><code class="docutils literal notranslate"><span class="pre">CANONICAL_REQUEST_CASES</span></code></a></li>
+<li><a class="reference internal" href="#illustration.schema_export.FIXTURE_QUERY"><code class="docutils literal notranslate"><span class="pre">FIXTURE_QUERY</span></code></a></li>
+<li><a class="reference internal" href="#illustration.schema_export.LICENSE_CASES"><code class="docutils literal notranslate"><span class="pre">LICENSE_CASES</span></code></a></li>
+<li><a class="reference internal" href="#illustration.schema_export.QUERY_CASES"><code class="docutils literal notranslate"><span class="pre">QUERY_CASES</span></code></a></li>
+<li><a class="reference internal" href="#illustration.schema_export.export_schema"><code class="docutils literal notranslate"><span class="pre">export_schema()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../api.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="illustration.html"><span itemprop="name">illustration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">illustration.schema_export</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <section id="module-illustration.schema_export">
+<span id="illustration-schema-export"></span><h1>illustration.schema_export<a class="headerlink" href="#module-illustration.schema_export" title="Link to this heading">#</a></h1>
+<p>Export the Python SSOT as committed JSON for the TypeScript twin (<code class="docutils literal notranslate"><span class="pre">ts/</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">illustration</span></code> ships twice: as this Python package and as the npm package
+<code class="docutils literal notranslate"><span class="pre">illustration-search</span></code> (<code class="docutils literal notranslate"><span class="pre">ts/</span></code>), which runs the same <code class="docutils literal notranslate"><span class="pre">search()</span></code> in a browser.
+The two must agree on the result schema, the rights record, the licence
+vocabulary, every provider’s request vocabulary, and what each provider’s
+payload normalises into. None of that is re-authored on the TypeScript side:
+this module writes it out as JSON, the TS build generates its types from the
+schema and reads the registries as data, and its parity tests replay the
+fixtures below and assert the same output byte for byte.</p>
+<p>What lands in <code class="docutils literal notranslate"><span class="pre">&lt;out_dir&gt;</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image-result.schema.json</span></code> — <a class="reference internal" href="illustration.schema.html#illustration.schema.ImageResult" title="illustration.schema.ImageResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageResult</span></code></a> as
+JSON Schema (the codegen input for the Zod type).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sources.json</span></code> — one record per registered source: endpoint, parameter
+names, paging caps, fixed params, auth style, canonical→native parameter
+names, and its <a class="reference internal" href="illustration.base.html#illustration.base.SourceInfo" title="illustration.base.SourceInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">SourceInfo</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constants.json</span></code> — <code class="docutils literal notranslate"><span class="pre">RIGHTS_FIELDS</span></code>, the licence alias table, the default
+allowlist, façade defaults, credential lookups, and licence-normalisation
+cases (input → canonical code) the TS port must reproduce.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fixtures/&lt;source&gt;.expected.json</span></code> — derived from the hand-authored
+<code class="docutils literal notranslate"><span class="pre">fixtures/&lt;source&gt;.payload.json</span></code> (shared with <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code>): the
+normalised results, canonical→native translations for a fixed set of filter
+combinations, query/paging params, and the per-page clamp.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">tests/test_schema_export.py</span></code> pins the committed directory to a fresh export,
+so a schema or provider change that forgets to run <code class="docutils literal notranslate"><span class="pre">illustration</span> <span class="pre">export-schema</span></code>
+fails CI here, before the TS side can drift.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">illustration.schema_export</span><span class="w"> </span><span class="kn">import</span> <span class="n">CANONICAL_REQUEST_CASES</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">CANONICAL_REQUEST_CASES</span><span class="p">)</span>
+</span><span data-line="3"><span class="go">True</span>
+</span></pre></div>
+</div>
+<p class="rubric">Module Attributes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.schema_export.FIXTURE_QUERY" title="illustration.schema_export.FIXTURE_QUERY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FIXTURE_QUERY</span></code></a></p></td>
+<td><p>The query every fixture is normalised under (it lands in <code class="docutils literal notranslate"><span class="pre">ImageResult.query</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.schema_export.CANONICAL_REQUEST_CASES" title="illustration.schema_export.CANONICAL_REQUEST_CASES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CANONICAL_REQUEST_CASES</span></code></a></p></td>
+<td><p>Filter combinations every source translates in its fixture.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.schema_export.QUERY_CASES" title="illustration.schema_export.QUERY_CASES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QUERY_CASES</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(query,</span> <span class="pre">page,</span> <span class="pre">per_page)</span></code> triples every source builds query params for.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#illustration.schema_export.LICENSE_CASES" title="illustration.schema_export.LICENSE_CASES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LICENSE_CASES</span></code></a></p></td>
+<td><p>Licence spellings the TS <code class="docutils literal notranslate"><span class="pre">normalizeLicense</span></code> must fold identically.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Functions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#illustration.schema_export.export_schema" title="illustration.schema_export.export_schema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_schema</span></code></a>([out_dir, sources])</p></td>
+<td><p>Write the JSON contract under <code class="docutils literal notranslate"><span class="pre">out_dir</span></code>; return the paths written.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.schema_export.CANONICAL_REQUEST_CASES">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema_export.</span></span><span class="sig-name descname"><span class="pre">CANONICAL_REQUEST_CASES</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">({},</span> <span class="pre">{'color':</span> <span class="pre">'blue',</span> <span class="pre">'content_type':</span> <span class="pre">'photo',</span> <span class="pre">'license_type':</span> <span class="pre">'commercial',</span> <span class="pre">'orientation':</span> <span class="pre">'landscape',</span> <span class="pre">'safe':</span> <span class="pre">True,</span> <span class="pre">'size':</span> <span class="pre">'large'},</span> <span class="pre">{'content_type':</span> <span class="pre">'illustration',</span> <span class="pre">'orientation':</span> <span class="pre">'portrait',</span> <span class="pre">'size':</span> <span class="pre">'medium'},</span> <span class="pre">{'content_type':</span> <span class="pre">'vector',</span> <span class="pre">'orientation':</span> <span class="pre">'square',</span> <span class="pre">'size':</span> <span class="pre">'small'},</span> <span class="pre">{'safe':</span> <span class="pre">False},</span> <span class="pre">{'content_type':</span> <span class="pre">'hologram',</span> <span class="pre">'orientation':</span> <span class="pre">'diagonal',</span> <span class="pre">'size':</span> <span class="pre">'huge'},</span> <span class="pre">{'color':</span> <span class="pre">'#ff0000',</span> <span class="pre">'license_type':</span> <span class="pre">'all-cc'})</span></span><a class="headerlink" href="#illustration.schema_export.CANONICAL_REQUEST_CASES" title="Link to this definition">#</a></dt>
+<dd><p>Filter combinations every source translates in its fixture. Chosen to hit
+every canonical parameter, every <code class="docutils literal notranslate"><span class="pre">choices</span></code> guard (a valid and an invalid
+value), a boolean coercion in both states, and the empty case.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.schema_export.FIXTURE_QUERY">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema_export.</span></span><span class="sig-name descname"><span class="pre">FIXTURE_QUERY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stormy</span> <span class="pre">harbour'</span></span><a class="headerlink" href="#illustration.schema_export.FIXTURE_QUERY" title="Link to this definition">#</a></dt>
+<dd><p>The query every fixture is normalised under (it lands in <code class="docutils literal notranslate"><span class="pre">ImageResult.query</span></code>).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.schema_export.LICENSE_CASES">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema_export.</span></span><span class="sig-name descname"><span class="pre">LICENSE_CASES</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(None,</span> <span class="pre">'',</span> <span class="pre">'</span>&#160;&#160; <span class="pre">',</span> <span class="pre">'by-sa',</span> <span class="pre">'BY',</span> <span class="pre">'</span>&#160; <span class="pre">BY</span>&#160; <span class="pre">',</span> <span class="pre">'cc0',</span> <span class="pre">'CC0</span> <span class="pre">1.0',</span> <span class="pre">'cc-0',</span> <span class="pre">'cc-zero',</span> <span class="pre">'cc-by-sa-4.0',</span> <span class="pre">'CC</span> <span class="pre">BY-SA</span> <span class="pre">4.0',</span> <span class="pre">'cc-by-nc-nd-2.0',</span> <span class="pre">'cc_by_3.0',</span> <span class="pre">'Pexels</span> <span class="pre">License',</span> <span class="pre">'Pixabay</span> <span class="pre">License',</span> <span class="pre">'public</span> <span class="pre">domain',</span> <span class="pre">'Public</span> <span class="pre">Domain</span> <span class="pre">Mark',</span> <span class="pre">'pdm',</span> <span class="pre">'cc-pdm',</span> <span class="pre">'sampling+',</span> <span class="pre">'by-nc',</span> <span class="pre">'CC-BY-SA-v2.5')</span></span><a class="headerlink" href="#illustration.schema_export.LICENSE_CASES" title="Link to this definition">#</a></dt>
+<dd><p>Licence spellings the TS <code class="docutils literal notranslate"><span class="pre">normalizeLicense</span></code> must fold identically.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="illustration.schema_export.QUERY_CASES">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema_export.</span></span><span class="sig-name descname"><span class="pre">QUERY_CASES</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(('stormy</span> <span class="pre">harbour',</span> <span class="pre">1,</span> <span class="pre">10),</span> <span class="pre">('stormy</span> <span class="pre">harbour',</span> <span class="pre">3,</span> <span class="pre">5),</span> <span class="pre">('Category:Ships</span> <span class="pre">at</span> <span class="pre">dusk',</span> <span class="pre">1,</span> <span class="pre">20),</span> <span class="pre">('File:Stormy</span> <span class="pre">Harbour.jpg|File:Dusk</span> <span class="pre">Pier.jpg',</span> <span class="pre">1,</span> <span class="pre">10))</span></span><a class="headerlink" href="#illustration.schema_export.QUERY_CASES" title="Link to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">(query,</span> <span class="pre">page,</span> <span class="pre">per_page)</span></code> triples every source builds query params for.
+The <code class="docutils literal notranslate"><span class="pre">Category:</span></code> and <code class="docutils literal notranslate"><span class="pre">File:</span></code> forms exercise Wikimedia’s routing; the
+others are plain paging.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="illustration.schema_export.export_schema">
+<span class="sig-prename descclassname"><span class="pre">illustration.schema_export.</span></span><span class="sig-name descname"><span class="pre">export_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/illustration/schema_export.html#export_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#illustration.schema_export.export_schema" title="Link to this definition">#</a></dt>
+<dd><p>Write the JSON contract under <code class="docutils literal notranslate"><span class="pre">out_dir</span></code>; return the paths written.</p>
+<p><code class="docutils literal notranslate"><span class="pre">out_dir</span></code> defaults to the <code class="docutils literal notranslate"><span class="pre">schema/</span></code> directory of <em>this checkout</em> (the
+one holding the hand-authored <code class="docutils literal notranslate"><span class="pre">fixtures/*.payload.json</span></code>). This is
+repository tooling: with no checkout — an installed wheel, or a directory
+with no payload fixtures — it refuses rather than scattering a partial
+<code class="docutils literal notranslate"><span class="pre">schema/</span></code> tree wherever the shell happens to be.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sources</span></code> defaults to every registered source. A source with no
+<code class="docutils literal notranslate"><span class="pre">fixtures/&lt;name&gt;.payload.json</span></code> gets no expected-fixture file (its
+registry record is still written), so a provider can be registered before
+its canned payload exists, but the TS parity suite will then have nothing
+to replay for it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="illustration.schema.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">illustration.schema</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="illustration.sequence.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">illustration.sequence</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/thorwhalen/illustration" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=c7cdf6fe"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=fd10adb8"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script></body>
+</html>

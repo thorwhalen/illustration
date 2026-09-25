@@ -88,6 +88,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.registry.html">illustration.registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.reranking.html">illustration.reranking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.schema_export.html">illustration.schema_export</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.sequence.html">illustration.sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.translation.html">illustration.translation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/illustration.video.html">illustration.video</a></li>
@@ -109,7 +110,10 @@ data-aria-dark="Switch to auto color mode">
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
 <li><a class="reference internal" href="#what-it-is">What it is</a></li>
-<li><a class="reference internal" href="#install">Install</a></li>
+<li><a class="reference internal" href="#install">Install</a><ul>
+<li><a class="reference internal" href="#from-the-browser">From the browser</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#the-result-schema">The result schema</a></li>
 <li><a class="reference internal" href="#same-subject-duplicates">Same-subject duplicates</a><ul>
 <li><a class="reference internal" href="#files-on-disk">Files on disk</a></li>
@@ -211,6 +215,19 @@ is the condensed usage guide (including the licence/attribution obligations);
 </div>
 <p>Local-ecosystem dependencies (<code class="docutils literal notranslate"><span class="pre">dol</span></code>, <code class="docutils literal notranslate"><span class="pre">config2py</span></code>) are developed alongside this
 package; in the dev environment they resolve to local source.</p>
+<section id="from-the-browser">
+<h3>From the browser<a class="headerlink" href="#from-the-browser" title="Link to this heading">#</a></h3>
+<p>The same <code class="docutils literal notranslate"><span class="pre">search()</span></code> ships to npm as <strong><code class="docutils literal notranslate"><span class="pre">illustration-search</span></code></strong> (the <code class="docutils literal notranslate"><span class="pre">ts/</span></code>
+directory): the result schema, rights fields, licence tables and provider
+registry are generated from this package, and the provider code is pinned to
+it by fixtures. All four providers answer browser requests directly; Pexels and
+Pixabay take the caller’s own key as an argument.</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">search</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'illustration-search'</span><span class="p">;</span>
+</span><span data-line="2"><span class="kd">const</span><span class="w"> </span><span class="nx">hits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">search</span><span class="p">(</span><span class="s1">'stormy harbour at dusk'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">n</span><span class="o">:</span><span class="w"> </span><span class="kt">5</span><span class="w"> </span><span class="p">});</span><span class="w">  </span><span class="c1">// Openverse, no key</span>
+</span></pre></div>
+</div>
+<p>See <a class="reference internal" href="#ts/README.md"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ts/README.md</span></code></span></a>.</p>
+</section>
 </section>
 <section id="the-result-schema">
 <h2>The result schema<a class="headerlink" href="#the-result-schema" title="Link to this heading">#</a></h2>
@@ -559,6 +576,11 @@ untouched:</p>
 </span><span data-line="21"><span class="n">register_source</span><span class="p">(</span><span class="n">MySource</span><span class="p">())</span>
 </span></pre></div>
 </div>
+<p>A provider ships on both sides: after registering it, run
+<code class="docutils literal notranslate"><span class="pre">illustration</span> <span class="pre">export-schema</span></code> (its declared vocabulary and a
+<code class="docutils literal notranslate"><span class="pre">schema/fixtures/&lt;name&gt;.payload.json</span></code> canned page become the contract the
+TypeScript twin is generated from and tested against), then port its hooks
+under <code class="docutils literal notranslate"><span class="pre">ts/src/providers/</span></code>.</p>
 </section>
 <section id="licensing">
 <h2>Licensing<a class="headerlink" href="#licensing" title="Link to this heading">#</a></h2>
@@ -602,7 +624,7 @@ anything else you want explicitly in <code class="docutils literal notranslate">
 </section>
 </section>
 
-<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-09-25 00:33 UTC from <a href="https://github.com/thorwhalen/illustration/commit/d658df91a3ac934aed6f9b34fcf6f0bffb49056f">d658df9</a> (main) · illustration 0.0.15 · <a href="about-this-build.html">about this build</a></p>
+<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-09-25 09:37 UTC from <a href="https://github.com/thorwhalen/illustration/commit/7c9ea1e289242b9e15f1027357184fbb967d7bc9">7c9ea1e</a> (main) · illustration 0.0.16 · <a href="about-this-build.html">about this build</a></p>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
@@ -637,7 +659,7 @@ anything else you want explicitly in <code class="docutils literal notranslate">
     </div>
   </div>
 </footer>
-      <script src="_static/documentation_options.js?v=f0357c94"></script>
+      <script src="_static/documentation_options.js?v=c7cdf6fe"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>

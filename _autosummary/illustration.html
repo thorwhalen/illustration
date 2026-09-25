@@ -88,6 +88,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="illustration.registry.html">illustration.registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.reranking.html">illustration.reranking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.schema.html">illustration.schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="illustration.schema_export.html">illustration.schema_export</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.sequence.html">illustration.sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.translation.html">illustration.translation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="illustration.video.html">illustration.video</a></li>
@@ -2185,13 +2186,16 @@ through). Bindings nest: an inner block overlays the outer.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="illustration.schema.html#module-illustration.schema" title="illustration.schema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">schema</span></code></a></p></td>
 <td><p>The normalized result schema — the single source of truth (Pydantic v2).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="illustration.sequence.html#module-illustration.sequence" title="illustration.sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sequence</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="illustration.schema_export.html#module-illustration.schema_export" title="illustration.schema_export"><code class="xref py py-obj docutils literal notranslate"><span class="pre">schema_export</span></code></a></p></td>
+<td><p>Export the Python SSOT as committed JSON for the TypeScript twin (<code class="docutils literal notranslate"><span class="pre">ts/</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="illustration.sequence.html#module-illustration.sequence" title="illustration.sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sequence</span></code></a></p></td>
 <td><p>Sequence-level selection — the M4 domain core (research report R2 §5).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="illustration.translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translation</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="illustration.translation.html#module-illustration.translation" title="illustration.translation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translation</span></code></a></p></td>
 <td><p>Canonical → native parameter translation (the <code class="docutils literal notranslate"><span class="pre">denote</span></code> <code class="docutils literal notranslate"><span class="pre">param_map</span></code> idiom).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="illustration.video.html#module-illustration.video" title="illustration.video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">video</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="illustration.video.html#module-illustration.video" title="illustration.video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">video</span></code></a></p></td>
 <td><p>Narration → Ken-Burns video hook — the M4 integration seam.</p></td>
 </tr>
 </tbody>
@@ -2239,7 +2243,7 @@ through). Bindings nest: an inner block overlays the outer.</p>
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=f0357c94"></script>
+      <script src="../_static/documentation_options.js?v=c7cdf6fe"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

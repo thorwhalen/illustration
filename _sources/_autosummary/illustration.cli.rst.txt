@@ -4,12 +4,6 @@ illustration.cli
 .. automodule:: illustration.cli
 
    
-   .. rubric:: Module Attributes
-
-   .. autosummary::
-   
-      COMMANDS
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -19,4 +13,5 @@ illustration.cli
       curate_sequence
       sources
       info
+      export_schema
    

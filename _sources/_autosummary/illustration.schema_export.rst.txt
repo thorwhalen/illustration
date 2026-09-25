@@ -1,0 +1,21 @@
+illustration.schema\_export
+===========================
+
+.. automodule:: illustration.schema_export
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      FIXTURE_QUERY
+      CANONICAL_REQUEST_CASES
+      QUERY_CASES
+      LICENSE_CASES
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      export_schema
+   
