@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-22T14:46:49Z",
+  "built_at": "2026-09-25T00:33:21Z",
   "package": {
     "name": "illustration",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "display_name": "illustration",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "25d46d041be90ffc391f5e8d31babe304d99204b",
-    "short_commit": "25d46d0",
+    "commit": "d658df91a3ac934aed6f9b34fcf6f0bffb49056f",
+    "short_commit": "d658df9",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/thorwhalen/illustration",
-    "commit_url": "https://github.com/thorwhalen/illustration/commit/25d46d041be90ffc391f5e8d31babe304d99204b",
+    "commit_url": "https://github.com/thorwhalen/illustration/commit/d658df91a3ac934aed6f9b34fcf6f0bffb49056f",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "thorwhalen/illustration",
-    "sha": "25d46d041be90ffc391f5e8d31babe304d99204b",
+    "sha": "d658df91a3ac934aed6f9b34fcf6f0bffb49056f",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "35742492690",
-    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/35742492690",
+    "run_id": "36077953761",
+    "run_url": "https://github.com/thorwhalen/illustration/actions/runs/36077953761",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -61,15 +61,13 @@
   "pypi": {
     "checked": true,
     "latest": "0.0.15",
-    "relation": "behind",
+    "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout 25d46d041be90ffc391f5e8d31babe304d99204b\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/thorwhalen/illustration && cd illustration\ngit checkout d658df91a3ac934aed6f9b34fcf6f0bffb49056f\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
-    "aligned": false,
-    "notes": [
-      "The documented version (0.0.14) is behind the latest release on PyPI (0.0.15): `pip install illustration` gives newer code than these docs describe."
-    ]
+    "aligned": true,
+    "notes": []
   }
 }
