@@ -215,6 +215,7 @@ export const SOURCE_RECORDS: readonly SourceRecord[] = [
     "fixed_params": {
       "action": "query",
       "format": "json",
+      "formatversion": "2",
       "generator": "search",
       "gsrnamespace": "6",
       "iiprop": "url|extmetadata|size|mime|user",

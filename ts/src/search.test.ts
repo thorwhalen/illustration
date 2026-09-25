@@ -109,3 +109,59 @@ describe('licenseAllowlist', () => {
     expect(licenseAllowlist(rows).map((r) => r.license)).toEqual(['CC BY-SA 4.0', 'Pixabay License']);
   });
 });
+
+describe('review-driven parity edges', () => {
+  it('falls through an EMPTY string url like Python `or`, and skips an item with no id', async () => {
+    const body = {
+      photos: [
+        { id: 1, src: { original: '', large2x: 'https://x/l2x.jpg', tiny: '' , medium: 'https://x/m.jpg' }, photographer: 'A' },
+        { src: { original: 'https://x/o.jpg' } }, // no id → skipped, never id "undefined"
+      ],
+    };
+    const hits = await search('x', { source: 'pexels', credentials: { pexels: 'k' }, fetch: fakeFetch(body).fetch });
+    expect(hits.map((h) => [h.id, h.url, h.thumbnail_url])).toEqual([['1', 'https://x/l2x.jpg', 'https://x/m.jpg']]);
+  });
+
+  it('an empty allowlist is no gate (Python truthiness)', async () => {
+    const { fetch } = fakeFetch(payload('openverse'));
+    expect(await search('x', { fetch, licenseAllow: [] })).toHaveLength(2);
+    expect(await search('x', { fetch, licenseAllow: new Set() })).toHaveLength(2);
+  });
+
+  it("auth: 'transport' skips the key check and attaches nothing, so a relay can add it", async () => {
+    const { fetch, calls } = fakeFetch(payload('pexels'));
+    const hits = await search('x', { source: 'pexels', auth: 'transport', fetch });
+    expect(hits).toHaveLength(1);
+    expect(calls[0]!.headers.has('authorization')).toBe(false);
+  });
+
+  it('translates a non-JSON or non-object body into a ProviderError', async () => {
+    const text = (async () => new Response('not json', { status: 200 })) as typeof globalThis.fetch;
+    await expect(search('x', { fetch: text })).rejects.toThrow(/not valid JSON/);
+    const array = (async () => new Response('[]', { status: 200 })) as typeof globalThis.fetch;
+    await expect(search('x', { fetch: array })).rejects.toThrow(/unexpected response type/);
+  });
+
+  it('decodes the HTML entities MediaWiki puts in Artist, like html.unescape', async () => {
+    const body = JSON.parse(JSON.stringify(payload('wikimedia'))) as { query: { pages: Record<string, unknown>[] } };
+    const page = body.query.pages[0] as { imageinfo: { extmetadata: Record<string, { value: string }> }[] };
+    page.imageinfo[0]!.extmetadata.Artist = { value: 'Andr&eacute; Kert&eacute;sz &ndash; &copy; &amp; co &#150; x &amp' };
+    const [hit] = await search('x', { source: 'wikimedia', fetch: fakeFetch(body).fetch });
+    expect(hit!.author).toBe('André Kertész – © & co – x &');
+  });
+
+  it('keeps Wikimedia category members in API order (formatversion 2 list)', async () => {
+    const mk = (pageid: number) => ({
+      pageid,
+      title: `File:${pageid}.jpg`,
+      imageinfo: [{ mime: 'image/jpeg', url: `https://u/${pageid}.jpg`, extmetadata: {} }],
+    });
+    const body = { query: { pages: [mk(200), mk(100), mk(150)] } };
+    const hits = await search('Category:X', { source: 'wikimedia', fetch: fakeFetch(body).fetch });
+    expect(hits.map((h) => h.id)).toEqual(['200', '100', '150']);
+  });
+
+  it('never reaches the network by default (the vitest guard)', async () => {
+    await expect(search('x')).rejects.toThrow(/offline test/);
+  });
+});

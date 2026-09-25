@@ -2,14 +2,16 @@
  * Wikimedia Commons (no key): 140M+ free media files with deep per-file metadata.
  * Twin of `illustration/providers/wikimedia.py`; pinned by `schema/fixtures/wikimedia.expected.json`.
  *
- * Quirks carried over: `query.pages` is a dict keyed by pageid (sorted by search `index`);
+ * Quirks carried over: `query.pages` (a list under formatversion 2) is sorted by search `index`;
  * pagination is offset-based (`gsroffset`); a `Category:…` query routes to the category-members
  * generator and a `File:…` query to an exact-title lookup (which *drops* `generator`, expressed
  * as a `null` value the request builder removes); the `Artist` field is HTML; non-images in the
  * File namespace are dropped by MIME during normalisation.
  */
 
-import { type Json, defineSource, makeResult } from '../source';
+import { decodeHTML } from 'entities';
+
+import { type Json, defineSource, makeResult, required } from '../source';
 
 const TAG_RE = /<[^>]+>/g;
 const HREF_RE = /href=["']([^"']+)["']/i;
@@ -32,29 +34,9 @@ function fileTitle(query: string): string {
   return `File:${query.trim().slice(FILE_PREFIX.length).trim()}`;
 }
 
-const NAMED_ENTITIES: Readonly<Record<string, string>> = {
-  amp: '&',
-  lt: '<',
-  gt: '>',
-  quot: '"',
-  apos: "'",
-  nbsp: ' ',
-};
-
-/** The subset of `html.unescape` a MediaWiki extmetadata value needs. */
-function unescapeHtml(text: string): string {
-  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (whole, entity: string) => {
-    if (entity[0] === '#') {
-      const code = entity[1]?.toLowerCase() === 'x' ? parseInt(entity.slice(2), 16) : parseInt(entity.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : whole;
-    }
-    return NAMED_ENTITIES[entity.toLowerCase()] ?? whole;
-  });
-}
-
 function stripHtml(value: string | null | undefined): string | null {
   if (!value) return null;
-  const text = unescapeHtml(value.replace(TAG_RE, '')).trim();
+  const text = decodeHTML(value.replace(TAG_RE, '')).trim();
   return text || null;
 }
 
@@ -100,9 +82,11 @@ export const wikimedia = defineSource('wikimedia', {
     };
   },
   items(response) {
-    const pages = ((response.query as Json | undefined)?.pages as Record<string, Json> | undefined) ?? {};
-    // dict keyed by pageid; sort by search index for relevance order (stable for ties)
-    return Object.values(pages).sort(
+    const pages = ((response.query as Json | undefined)?.pages as Json[] | Record<string, Json> | undefined) ?? [];
+    // A list under formatversion 2 (API order, which a pageid-keyed dict would lose at
+    // JSON.parse); sort by search `index` for relevance, stable for category members.
+    const items = Array.isArray(pages) ? pages : Object.values(pages);
+    return items.sort(
       (a, b) => ((a.index as number | undefined) ?? 0) - ((b.index as number | undefined) ?? 0),
     );
   },
@@ -120,8 +104,8 @@ export const wikimedia = defineSource('wikimedia', {
     const licenseShort = emValue('LicenseShortName');
     return makeResult({
       provider: 'wikimedia',
-      id: String(item.pageid),
-      url: String(info.url),
+      id: String(required(item, 'pageid')),
+      url: String(required(info, 'url')),
       thumbnail_url: (info.thumburl as string | null | undefined) ?? null,
       width: (info.width as number | null | undefined) ?? null,
       height: (info.height as number | null | undefined) ?? null,

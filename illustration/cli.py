@@ -156,12 +156,13 @@ def info(name: str):
 
 
 #: Commands exposed by the CLI (consumed by ``illustration/__main__.py``).
-def export_schema(*, out_dir: str = "schema"):
+def export_schema(*, out_dir: "str | None" = None):
     """Write the JSON contract the TypeScript twin (``ts/``) is generated from.
 
     Re-run after changing :class:`~illustration.schema.ImageResult`, a provider's
     declared vocabulary, the licence tables or a canned payload; commit the
-    result. ``tests/test_schema_export.py`` fails until you do.
+    result. ``tests/test_schema_export.py`` fails until you do. ``out_dir``
+    defaults to this checkout's ``schema/``; outside a checkout it refuses.
     """
     from illustration.schema_export import export_schema as _export
 

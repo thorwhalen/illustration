@@ -1,8 +1,8 @@
 {
-  "batchcomplete": "",
+  "batchcomplete": true,
   "query": {
-    "pages": {
-      "12345": {
+    "pages": [
+      {
         "pageid": 12345,
         "ns": 6,
         "title": "File:Stormy Harbour.jpg",
@@ -40,7 +40,7 @@
           }
         ]
       },
-      "67890": {
+      {
         "pageid": 67890,
         "ns": 6,
         "title": "File:Foghorn.ogg",
@@ -55,6 +55,6 @@
           }
         ]
       }
-    }
+    ]
   }
 }

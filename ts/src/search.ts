@@ -42,6 +42,9 @@ export interface SearchOptions {
   readonly providerParams?: Readonly<Record<string, Readonly<Record<string, unknown>>>>;
   /** The caller's keys by provider name. The facade never reads storage. */
   readonly credentials?: Readonly<Record<string, string | null | undefined>>;
+  /** `'caller'` (default): keyed providers need `credentials`. `'transport'`: the
+   *  `fetch` you pass is a relay that adds keys itself — none required, none sent. */
+  readonly auth?: 'caller' | 'transport';
   /** `"image"` (default). `"video"` is reserved for illustration#33. */
   readonly media?: MediaType;
   /** The transport seam (default `globalThis.fetch`). */
@@ -78,6 +81,7 @@ export async function search(query: string, opts: SearchOptions = {}): Promise<I
         n,
         canonical,
         apiKey: opts.credentials?.[name] ?? null,
+        auth: opts.auth,
         nativeParams: opts.providerParams?.[name] ?? null,
         fetch: opts.fetch,
         signal: opts.signal,
@@ -86,10 +90,10 @@ export async function search(query: string, opts: SearchOptions = {}): Promise<I
     ),
   );
   let results = perSource.flat();
-  if (opts.licenseAllow) {
-    results = licenseAllowlist(results, {
-      allow: opts.licenseAllow === true ? null : opts.licenseAllow,
-    });
+  // Python truthiness: `false`, and an EMPTY allowlist, mean no gate at all.
+  const allow = opts.licenseAllow === true ? null : opts.licenseAllow ? [...opts.licenseAllow] : undefined;
+  if (opts.licenseAllow === true || (allow && allow.length > 0)) {
+    results = licenseAllowlist(results, { allow });
   }
   return results;
 }

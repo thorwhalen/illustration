@@ -119,6 +119,12 @@ class WikimediaSource(RetrievalSource):
     fixed_params = {
         "action": "query",
         "format": "json",
+        # formatversion 2 returns `query.pages` as a LIST in API order. Under
+        # version 1 it is a dict keyed by pageid, and a JavaScript consumer
+        # loses that order at parse time (integer-like keys are re-sorted), so
+        # category members — which carry no `index` — would come back in a
+        # different order in the TS twin than here. A list has no such trap.
+        "formatversion": "2",
         "generator": "search",
         "gsrnamespace": "6",  # the File namespace
         "prop": "imageinfo",
@@ -180,10 +186,13 @@ class WikimediaSource(RetrievalSource):
         }
 
     def _items(self, response: Mapping[str, Any]) -> Iterable[Mapping[str, Any]]:
-        pages = (response.get("query") or {}).get("pages") or {}
-        # `pages` is a dict keyed by pageid; sort by search index for relevance
-        # order. Category members carry no `index`, so they keep API order.
-        return sorted(pages.values(), key=lambda p: p.get("index", 0))
+        pages = (response.get("query") or {}).get("pages") or []
+        # A list under formatversion 2; a dict keyed by pageid under version 1
+        # (still accepted, for stored responses). Sort by search `index` for
+        # relevance order; category members carry no `index`, so the stable
+        # sort keeps their API order.
+        items = pages.values() if isinstance(pages, Mapping) else pages
+        return sorted(items, key=lambda p: p.get("index", 0))
 
     def _normalize(self, item: Mapping[str, Any], *, query: str) -> ImageResult:
         info = (item.get("imageinfo") or [{}])[0]
@@ -202,7 +211,7 @@ class WikimediaSource(RetrievalSource):
         license_short = _em("LicenseShortName")
         return ImageResult(
             provider=self.name,
-            id=str(item.get("pageid")),
+            id=str(item["pageid"]),  # KeyError -> the item is skipped, not id "None"
             url=info.get("url"),
             thumbnail_url=info.get("thumburl"),
             width=info.get("width"),

@@ -138,7 +138,10 @@ def _run(*argv):
 class TestCliGrammar:
     """Characterization of the published command line, recorded from ``argh``."""
 
-    def test_the_commands_list_is_what_reaches_the_parser(self):
+    def test_the_commands_list_is_what_reaches_the_parser(self, monkeypatch):
+        # argparse wraps usage at the terminal width; pin it so the assertion
+        # below does not depend on who runs the suite.
+        monkeypatch.setenv("COLUMNS", "80")
         assert tuple(_subparsers(_parser())) == COMMAND_NAMES
         assert _parser().format_usage() == (
             "usage: illustration [-h]\n"

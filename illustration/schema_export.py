@@ -39,7 +39,7 @@ import json
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
-from illustration.base import RetrievalSource
+from illustration.base import RetrievalSource, per_page_for
 from illustration.config import (
     DFLT_LICENSE_ALLOWLIST,
     DFLT_N,
@@ -130,11 +130,17 @@ LICENSE_CASES: tuple[str | None, ...] = (
 
 
 def export_schema(
-    out_dir: "str | Path" = "schema",
+    out_dir: "str | Path | None" = None,
     *,
     sources: "Iterable[str] | None" = None,
 ) -> list[Path]:
     """Write the JSON contract under ``out_dir``; return the paths written.
+
+    ``out_dir`` defaults to the ``schema/`` directory of *this checkout* (the
+    one holding the hand-authored ``fixtures/*.payload.json``). This is
+    repository tooling: with no checkout — an installed wheel, or a directory
+    with no payload fixtures — it refuses rather than scattering a partial
+    ``schema/`` tree wherever the shell happens to be.
 
     ``sources`` defaults to every registered source. A source with no
     ``fixtures/<name>.payload.json`` gets no expected-fixture file (its
@@ -142,7 +148,7 @@ def export_schema(
     its canned payload exists, but the TS parity suite will then have nothing
     to replay for it.
     """
-    out = Path(out_dir)
+    out = _resolve_out_dir(out_dir)
     fixtures_dir = out / "fixtures"
     fixtures_dir.mkdir(parents=True, exist_ok=True)
     names = list(sources) if sources is not None else list_sources()
@@ -164,6 +170,19 @@ def export_schema(
             )
         )
     return written
+
+
+def _resolve_out_dir(out_dir: "str | Path | None") -> Path:
+    if out_dir is not None:
+        return Path(out_dir)
+    checkout = Path(__file__).resolve().parent.parent / "schema"
+    if not any(checkout.glob("fixtures/*.payload.json")):
+        raise FileNotFoundError(
+            "export-schema is repository tooling: no schema/fixtures/*.payload.json "
+            f"next to this package ({checkout}). Run it from a checkout of "
+            "thorwhalen/illustration, or pass out_dir explicitly."
+        )
+    return checkout
 
 
 # --- records ------------------------------------------------------------------
@@ -277,8 +296,7 @@ def _fixture_record(src: RetrievalSource, payload: Mapping[str, Any]) -> dict:
             for query, page, per_page in QUERY_CASES
         ],
         "per_page": [
-            {"n": n, "per_page": max(src.min_per_page, min(n, src.max_per_page))}
-            for n in PER_PAGE_CASES
+            {"n": n, "per_page": per_page_for(src, n)} for n in PER_PAGE_CASES
         ],
     }
 

@@ -3,7 +3,7 @@
  * Twin of `illustration/providers/pexels.py`; pinned by `schema/fixtures/pexels.expected.json`.
  */
 
-import { type Json, defineSource, makeResult } from '../source';
+import { type Json, defineSource, makeResult, required } from '../source';
 
 const PEXELS_LICENSE = 'Pexels License';
 const PEXELS_LICENSE_URL = 'https://www.pexels.com/license/';
@@ -24,13 +24,14 @@ export const pexels = defineSource('pexels', {
   normalize(item, query) {
     const src = (item.src as Json | undefined) ?? {};
     const photographer = (item.photographer as string | null | undefined) ?? null;
-    const url = (src.original ?? src.large2x ?? src.large) as string | undefined;
+    // `||`, not `??`: Python's `a or b` falls through an EMPTY string too.
+    const url = ((src.original || src.large2x || src.large) as string | undefined) || null;
     if (!url) throw new Error('item has no image url');
     return makeResult({
       provider: 'pexels',
-      id: String(item.id),
+      id: String(required(item, 'id')),
       url,
-      thumbnail_url: ((src.tiny ?? src.medium) as string | undefined) ?? null,
+      thumbnail_url: ((src.tiny || src.medium) as string | undefined) || null,
       width: (item.width as number | null | undefined) ?? null,
       height: (item.height as number | null | undefined) ?? null,
       title: null,

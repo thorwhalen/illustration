@@ -81,6 +81,14 @@ export function defineSource(name: string, hooks: SourceHooks): RetrievalSource 
   };
 }
 
+/** Python's `item["key"]`: the value, or throw so `safeNormalize` skips the item.
+ *  `String(undefined)` would otherwise mint an id or url of `"undefined"`. */
+export function required(item: Json, key: string): unknown {
+  const value = item[key];
+  if (value === undefined || value === null) throw new Error(`item has no ${key}`);
+  return value;
+}
+
 /** Fill schema defaults and validate: what the Python side's `ImageResult(...)`
  *  constructor does. Undefined fields take their defaults (`null`, `[]`, `{}`). */
 export function makeResult(fields: Partial<ImageResult> & Pick<ImageResult, 'provider' | 'id' | 'url'>): ImageResult {
@@ -94,6 +102,10 @@ export interface SearchSourceOptions {
   readonly n?: number;
   /** The caller's key for a keyed provider. */
   readonly apiKey?: string | null;
+  /** Who supplies the credential. `'caller'` (default): a keyed provider needs `apiKey`
+   *  here, and it is attached to the request. `'transport'`: the `fetch` you pass (a
+   *  server relay) adds the key itself — no pre-flight check, nothing attached. */
+  readonly auth?: 'caller' | 'transport';
   /** Provider-native params merged last, overriding translated ones (the escape hatch). */
   readonly nativeParams?: Readonly<Record<string, unknown>> | null;
   /** Canonical filters (`orientation`, `size`, `safe`, …), translated per source. */
@@ -119,8 +131,8 @@ export async function searchSource(
   if (!query) throw new Error('query must be a non-empty string');
   const n = opts.n ?? CONSTANTS.defaults.n;
   const { record } = source;
-  const apiKey = opts.apiKey ?? null;
-  if (record.info.requires_key && !apiKey) {
+  const apiKey = opts.auth === 'transport' ? null : (opts.apiKey ?? null);
+  if (record.info.requires_key && !apiKey && opts.auth !== 'transport') {
     throw new MissingCredentialError(source.name, {
       envVar: record.env_var,
       consoleUrl: record.console_url,
@@ -215,7 +227,16 @@ async function get(
     throw new ProviderError(source.name, 'authentication failed (check API key)', status);
   }
   if (status >= 400) throw new ProviderError(source.name, await shortBody(response), status);
-  return (await response.json()) as Json;
+  let decoded: unknown;
+  try {
+    decoded = await response.json();
+  } catch {
+    throw new ProviderError(source.name, 'response was not valid JSON', status);
+  }
+  if (typeof decoded !== 'object' || decoded === null || Array.isArray(decoded)) {
+    throw new ProviderError(source.name, `unexpected response type: ${Array.isArray(decoded) ? 'array' : typeof decoded}`, status);
+  }
+  return decoded as Json;
 }
 
 async function shortBody(response: Response): Promise<string> {

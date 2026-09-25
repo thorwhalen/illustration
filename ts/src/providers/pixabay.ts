@@ -4,7 +4,7 @@
  * `schema/fixtures/pixabay.expected.json`.
  */
 
-import { type Json, defineSource, makeResult } from '../source';
+import { type Json, defineSource, makeResult, required } from '../source';
 
 const PIXABAY_LICENSE = 'Pixabay License';
 const PIXABAY_LICENSE_URL = 'https://pixabay.com/service/license-summary/';
@@ -43,11 +43,12 @@ export const pixabay = defineSource('pixabay', {
       .split(',')
       .map((t) => t.trim())
       .filter((t) => t.length > 0);
-    const url = (item.largeImageURL ?? item.webformatURL ?? item.imageURL) as string | undefined;
+    // `||`, not `??`: Python's `a or b` falls through an EMPTY string too.
+    const url = ((item.largeImageURL || item.webformatURL || item.imageURL) as string | undefined) || null;
     if (!url) throw new Error('item has no image url');
     return makeResult({
       provider: 'pixabay',
-      id: String(item.id),
+      id: String(required(item, 'id')),
       url,
       thumbnail_url: (item.previewURL as string | null | undefined) ?? null,
       width: (item.imageWidth as number | null | undefined) ?? null,

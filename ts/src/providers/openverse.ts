@@ -3,7 +3,7 @@
  * Twin of `illustration/providers/openverse.py`; pinned by `schema/fixtures/openverse.expected.json`.
  */
 
-import { type Json, defineSource, makeResult } from '../source';
+import { type Json, defineSource, makeResult, required } from '../source';
 
 const ORIENTATION_TO_ASPECT: Readonly<Record<string, string>> = {
   landscape: 'wide',
@@ -40,12 +40,11 @@ export const openverse = defineSource('openverse', {
     const tags = ((item.tags as unknown[] | undefined) ?? [])
       .filter((t): t is Json => typeof t === 'object' && t !== null && !!(t as Json).name)
       .map((t) => String(t.name));
-    if (item.url === undefined || item.url === null) throw new Error('item has no url');
     const title = (item.title as string | null | undefined) ?? null;
     return makeResult({
       provider: 'openverse',
-      id: String(item.id),
-      url: String(item.url),
+      id: String(required(item, 'id')),
+      url: String(required(item, 'url')),
       thumbnail_url: (item.thumbnail as string | null | undefined) ?? null,
       width: (item.width as number | null | undefined) ?? null,
       height: (item.height as number | null | undefined) ?? null,

@@ -10,14 +10,20 @@
 # publisher for this repo + workflow filename on npmjs.com). NPM_TOKEN is only
 # needed as a fallback (e.g. the very first publish of a new package name).
 name: NPM CI (ts)
+# `schema/**` is included on both triggers on purpose: the codegen drift guard
+# (ts/src/codegen.test.ts) is what catches "changed the Python model, ran
+# export-schema, forgot npm run codegen" — a change that touches no `ts/` file.
 on:
   push:
     paths:
       - "ts/**"
+      - "schema/**"
       - ".github/workflows/npm-ci-ts.yml"
   pull_request:
     paths:
       - "ts/**"
+      - "schema/**"
+      - ".github/workflows/npm-ci-ts.yml"
 jobs:
   npm-ci:
     uses: i2mint/wads/.github/workflows/npm-ci.yml@master

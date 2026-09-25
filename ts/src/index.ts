@@ -44,4 +44,5 @@ export { pixabay } from './providers/pixabay';
 import { CONSTANTS } from './generated/constants';
 
 /** The seven fields that answer "may we ship this, and whom must we credit?". */
-export const RIGHTS_FIELDS: readonly string[] = CONSTANTS.rights_fields;
+export const RIGHTS_FIELDS = CONSTANTS.rights_fields;
+export type RightsField = (typeof RIGHTS_FIELDS)[number];
