@@ -2,16 +2,18 @@
 
 # About this build
 
-This documentation was built on **2026-09-25 09:37 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/7c9ea1e289242b9e15f1027357184fbb967d7bc9"><code>7c9ea1e</code></a> on branch <code>main</code>, for **illustration 0.0.16** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-03 14:26 UTC** from commit <a href="https://github.com/thorwhalen/illustration/commit/8facbfd175eb43549e8a91c0a659c34d3f3fe9d8"><code>8facbfd</code></a> on branch <code>main</code>, for **illustration 0.0.7** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.0.7) is behind the latest release on PyPI (0.0.18): `pip install illustration` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                                |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/7c9ea1e289242b9e15f1027357184fbb967d7bc9"><code>7c9ea1e289242b9e15f1027357184fbb967d7bc9</code></a> |
+| Commit              | <a href="https://github.com/thorwhalen/illustration/commit/8facbfd175eb43549e8a91c0a659c34d3f3fe9d8"><code>8facbfd175eb43549e8a91c0a659c34d3f3fe9d8</code></a> |
 | Branch              | <code>main</code>                                                                                                                                              |
 | Tags at this commit | none                                                                                                                                                           |
 | Working tree        | clean                                                                                                                                                          |
@@ -22,9 +24,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                               |
 |--------------|-----------------------------------------------------------------------------------------------|
 | Repository   | <code>thorwhalen/illustration</code>                                                          |
-| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/36119357159">36119357159</a> |
+| Run          | <a href="https://github.com/thorwhalen/illustration/actions/runs/37129523959">37129523959</a> |
 | Ref          | <code>refs/heads/main</code>                                                                  |
-| Event commit | <code>7c9ea1e289242b9e15f1027357184fbb967d7bc9</code> (in the history of the built commit)    |
+| Event commit | <code>8facbfd175eb43549e8a91c0a659c34d3f3fe9d8</code> (in the history of the built commit)    |
 
 ## Tools
 
@@ -49,13 +51,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/illustration/0.0.16/">0.0.16</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/illustration/0.0.18/">0.0.18</a>, newer than the documented version (0.0.7).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/thorwhalen/illustration && cd illustration
-git checkout 7c9ea1e289242b9e15f1027357184fbb967d7bc9
+git checkout 8facbfd175eb43549e8a91c0a659c34d3f3fe9d8
 pip install "epythet==0.2.12"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
